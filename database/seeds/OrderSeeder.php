@@ -1,0 +1,53 @@
+<?php
+
+use App\Accessory;
+use App\Citycode;
+use Illuminate\Database\Seeder;
+use App\Order;
+use App\Item;
+use App\City;
+class OrderSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Order::truncate();
+        $order = new Order();
+     
+        $order->pickup_date = '2020-09-06';
+        $order->src_appointment_time = '02:30:45';
+        $order->des_appointment_time = '07:20:45';
+        $order->cost = 1300;
+        $order->estimated_value = 3000;
+        $order->min_temperature = 28;
+        $order->max_temperature = 68;
+        $order->shipper_id = 1;
+
+        $order->save();
+
+        $src_city = City::find(1);
+        $order->cities()->attach($src_city, ['type'=> 'src']);
+
+        $des_city = City::find(2);
+        $order->cities()->attach($des_city,['type'=>'des']);
+
+        $src_code = Citycode::find(1);
+        $order->citycodes()->attach($src_code,['type'=> 'src']);
+
+        $des_code = Citycode::find(2);
+        $order->citycodes()->attach($des_code,['type'=>'des']);
+
+        $src_accessories = Accessory::where('code','bs')->orWhere('code','in')->orWhere('code','tm')->get();
+        $order->accessories()->attach($src_accessories, ['type'=>'src']);
+
+        $des_accessories = Accessory::where('code','rs')->orWhere('code','in')->orWhere('code','ap')->get();
+        $order->accessories()->attach($des_accessories,['type'=>'des']);
+
+
+
+    }
+}

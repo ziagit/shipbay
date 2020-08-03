@@ -1,0 +1,152 @@
+<template>
+  <div>
+    <md-dialog-confirm
+      :md-active.sync="active"
+      md-title="Are you sure?"
+      md-content="Make sure it's not an Accident"
+      md-confirm-text="Agree"
+      md-cancel-text="Disagree"
+      @md-cancel="onCancel"
+      @md-confirm="onConfirm"
+    />
+
+    <md-card class="md-primary" md-theme="orange-card">
+      <md-card-header>
+        <div class="md-title">Accessories</div>
+        <md-button
+          to="add-accessory"
+          class="md-icon-button add-btn"
+          v-show="accessories.length != 0"
+        >
+          <md-icon>add</md-icon>
+          <md-tooltip>Add new accessory</md-tooltip>
+        </md-button>
+      </md-card-header>
+
+      <md-card-content>
+        <table class="table" v-if="accessories.length != 0">
+          <thead>
+            <tr>
+              <th rowspan="2">NAME</th>
+              <th colspan="2">PRICES</th>
+              <th colspan="2" rowspan="2">Actions</th>
+            </tr>
+            <tr>
+              <th scope="col">Origin</th>
+              <th scope="col">Destination</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="accessory in accessories" :key="accessory.id">
+              <td>{{accessory.name}}</td>
+              <td>
+                <span v-show="accessory.pivot.src_value != 0">${{accessory.pivot.src_value}}</span>
+              </td>
+              <td>${{accessory.pivot.des_value}}</td>
+              <td>
+                <md-button
+                  :to="{path: 'edit-accessory/'+ accessory.id}"
+                  class="md-primay md-icon-button"
+                >
+                  <md-icon>edit</md-icon>
+                  <md-tooltip>Edit Accessory</md-tooltip>
+                </md-button>
+              </td>
+              <td>
+                <md-button class="md-icon-button md-accent" @click="deleteAccessory(accessory.id)">
+                  <md-icon>delete</md-icon>
+                  <md-tooltip>Delete accessory</md-tooltip>
+                </md-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <md-empty-state
+          v-else
+          class="md-primary"
+          md-icon="sentiment_satisfied_alt"
+          md-label="Not available"
+          md-description="Click + icon to add"
+        >
+          <md-button to="add-accessory" class="md-icon-button md-raised">
+            <md-icon>add</md-icon>
+            <md-tooltip>Add new accessory</md-tooltip>
+          </md-button>
+        </md-empty-state>
+      </md-card-content>
+    </md-card>
+  </div>
+</template>
+<script>
+import axios from "axios";
+export default {
+  name: "Accessory",
+  data: () => ({
+    active: false,
+    acsIdToDelete: null,
+    accessories: [],
+    dataLoaded: false,
+    carrierId: null,
+  }),
+  methods: {
+    getAccessories() {
+      axios
+        .get("get-accessory/" + this.carrierId)
+        .then((res) => {
+          console.log("response: ",res.data)
+          this.accessories = res.data[0]["accessories"];
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteAccessory(id) {
+      this.active = true;
+      this.acsIdToDelete = id;
+    },
+    onConfirm() {
+      axios
+        .delete("delete-accessory/" + this.acsIdToDelete + "/" + this.carrierId)
+        .then((res) => {
+          this.$emit("show-snackbar");
+          this.getAccessories();
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
+    },
+    onCancel() {
+      this.value = "Disagreed";
+    },
+  },
+  created() {
+    this.carrierId = this.$store.state.shared.carrierData.carrierId;
+    this.getAccessories();
+  },
+};
+</script>
+<style lang="scss" scoped>
+.md-card {
+  box-shadow: none;
+  border: 1px solid #ddd;
+  text-align: center;
+  .md-card-content {
+    overflow-x: auto;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      border: 1px solid #ddd;
+    }
+  }
+  .add-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+</style>
