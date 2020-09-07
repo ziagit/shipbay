@@ -1,11 +1,14 @@
 <?php
 
 use App\Accessory;
+use App\Address;
 use App\Citycode;
 use Illuminate\Database\Seeder;
 use App\Order;
 use App\Item;
 use App\City;
+use App\Shipmentaddress;
+
 class OrderSeeder extends Seeder
 {
     /**
@@ -26,20 +29,15 @@ class OrderSeeder extends Seeder
         $order->min_temperature = 28;
         $order->max_temperature = 68;
         $order->shipper_id = 1;
+        $order->charge_id = 'ch_ksjduq03883';
 
         $order->save();
 
-        $src_city = City::find(1);
-        $order->cities()->attach($src_city, ['type'=> 'src']);
+        $src_add = Shipmentaddress::find(1);
+        $order->addresses()->attach($src_add, ['type'=>'src']);
 
-        $des_city = City::find(2);
-        $order->cities()->attach($des_city,['type'=>'des']);
-
-        $src_code = Citycode::find(1);
-        $order->citycodes()->attach($src_code,['type'=> 'src']);
-
-        $des_code = Citycode::find(2);
-        $order->citycodes()->attach($des_code,['type'=>'des']);
+        $des_add = Shipmentaddress::find(2);
+        $order->addresses()->attach($des_add, ['type'=>'des']);
 
         $src_accessories = Accessory::where('code','bs')->orWhere('code','in')->orWhere('code','tm')->get();
         $order->accessories()->attach($src_accessories, ['type'=>'src']);

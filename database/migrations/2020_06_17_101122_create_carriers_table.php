@@ -17,18 +17,12 @@ class CreateCarriersTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->text('address');
             $table->string('company')->nullable();
             $table->string('website')->nullable();
-            $table->string('phone');
+            $table->string('phone')->unique();
             $table->text('detail')->nullable();
             $table->string('logo')->nullable();
-
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('country_id');
-            $table->unsignedInteger('state_id');
-            $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('citycode_id');
 
             $table->timestamps();
         });

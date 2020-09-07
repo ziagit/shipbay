@@ -2,13 +2,17 @@ window.Vue = require('vue');
 
 import VueRouter from 'vue-router';
 import Home from './components/frontend/Home';
+
+import Help from './components/frontend/Help';
 import Order from './components/frontend/order/Order';
 import HomeContent from './components/frontend/HomeContent';
 import Login from './components/frontend/auth/Login';
+import Card from './components/frontend/card/Card';
 import Register from './components/frontend/auth/Register';
 import CarrierProfile from './components/frontend/carrier/CarrierProfile';
 
-import Welcome from './components/frontend/carrier/Welcome';
+
+import Welcome from './components/frontend/auth/Welcome';
 import GeneralInfo from './components/frontend/carrier/general-info/GeneralInfo';
 import InfoContainer from './components/frontend/carrier/general-info/InfoContainer';
 import EditGeneralInfo from './components/frontend/carrier/general-info/EditGeneralInfo';
@@ -24,6 +28,10 @@ import EditRate from './components/frontend/carrier/rate/EditRate';
 import History from './components/frontend/carrier/history/History';
 import Jobs from './components/frontend/carrier/history/Jobs';
 import JobDetails from './components/frontend/carrier/history/JobDetails';
+import CarrierAccountContainer from './components/frontend/carrier/account-details/CarrierAccountContainer';
+import CarrierAccount from './components/frontend/carrier/account-details/CarrierAccount';
+import EditCarrierAccount from './components/frontend/carrier/account-details/EditCarrierAccount';
+import CarrierCard from './components/frontend/carrier/card-details/CarrierCard';
 
 import Origin from './components/frontend/order/Origin'
 import PickService from './components/frontend/order/PickService'
@@ -34,28 +42,61 @@ import Item from './components/frontend/order/Item'
 import Result from './components/frontend/order/Result'
 import SelectCarrier from './components/frontend/order/SelectCarrier'
 
-import Shipper from './components/frontend/shipper/Shipper'
-import AdditionalDetails from './components/frontend/shipper/AdditionalDetails'
-import PickupDetails from './components/frontend/shipper/PickupDetails'
-import PaymentDetails from './components/frontend/shipper/PaymentDetails'
-import DeliveryDetails from './components/frontend/shipper/DeliveryDetails'
-import Confirmation from './components/frontend/shipper/Confirmation'
-import Completion from './components/frontend/shipper/Completion'
+import Shipment from './components/frontend/shipment/Shipment'
+import AdditionalDetails from './components/frontend/shipment/AdditionalDetails'
+import PickupDetails from './components/frontend/shipment/PickupDetails'
+import PaymentDetails from './components/frontend/shipment/PaymentDetails'
+import DeliveryDetails from './components/frontend/shipment/DeliveryDetails'
+import Confirmation from './components/frontend/shipment/Confirmation'
+import Completion from './components/frontend/shipment/Completion'
+import ShipmentDetails from './components/frontend/shipment/ShipmentDetails'
+
+import ShipperProfile from './components/frontend/shipper/ShipperProfile'
+import ShipperDetailsContainer from './components/frontend/shipper/general-details/ShipperDetailsContainer'
+import ShipperDetails from './components/frontend/shipper/general-details/ShipperDetails'
+import AddShipperDetails from './components/frontend/shipper/general-details/AddShipperDetails'
+import EditShipperDetails from './components/frontend/shipper/general-details/EditShipperDetails'
+import ShipperAccountContainer from './components/frontend/shipper/account-details/ShipperAccountContainer'
+import ShipperAccount from './components/frontend/shipper/account-details/ShipperAccount'
+import EditShipperAccount from './components/frontend/shipper/account-details/EditShipperAccount'
+import ShipperOrderContainer from './components/frontend/shipper/orders/ShipperOrderContainer'
+import ShipperOrders from './components/frontend/shipper/orders/ShipperOrders'
+import ShipperOrderDetails from './components/frontend/shipper/orders/ShipperOrderDetails'
+import ShipperCard from './components/frontend/shipper/card-details/ShipperCard'
 
 import Admin from './components/backend/Admin'
 import Dashboard from './components/backend/Dashboard'
+import Comapany from './components/backend/company/Company'
+
 import Country from './components/backend/country/Country'
 import State from './components/backend/state/State'
 import City from './components/backend/city/City'
+import Zips from './components/backend/zip/Zips'
 import CarrierList from './components/backend/carrier/CarrierList'
+import Rates from './components/backend/carrier/Rates'
+import Accessories from './components/backend/carrier/accessories/Accessories'
+import Orders from './components/backend/shippers/Orders'
+import Shippers from './components/backend/shippers/Shippers'
+import Users from './components/backend/users/Users'
+
+import About from './components/backend/company/about/About'
+import Contact from './components/backend/company/contact/Contact'
+import Services from './components/backend/company/services/Services'
 
 import store from './store'
 
-function myGuard(to, from, next) {
+function webGuard(to, from, next) {
     if (!store.getters['auth/authenticated']) {
         next('/login')
     } else {
         next()
+    }
+}
+function adminGuard(to, from, next) {
+    if (!store.getters['auth/authenticated']) {
+        next('/login')
+    } else {
+        next('/admin')
     }
 }
 
@@ -87,9 +128,9 @@ export default new VueRouter({
                     ]
                 },
                 {
-                    name: 'shipper',
-                    path: 'shipper',
-                    component: Shipper,
+                    name: 'shipment',
+                    path: 'shipment',
+                    component: Shipment,
                     children: [
                         { path: '', redirect: 'additional-details' },
                         { name: 'additional-details', path: 'additional-details', component: AdditionalDetails },
@@ -97,7 +138,8 @@ export default new VueRouter({
                         { name: 'delivery-details', path: 'delivery-details', component: DeliveryDetails },
                         { name: 'payment-details', path: 'payment-details', component: PaymentDetails },
                         { name: 'confirmation', path: 'confirmation', component: Confirmation },
-                        { name: 'completion', path: 'completion', component: Completion }
+                        { name: 'completion', path: 'completion', component: Completion },
+                        { name: 'shipment-details', path: 'shipment-details/:id', component: ShipmentDetails },
                     ]
                 },
                 {
@@ -107,16 +149,16 @@ export default new VueRouter({
                     children: [
                         { path: '', redirect: 'general-info' },
                         {
-                            name: 'general-info',path: 'general-info', component: InfoContainer,
+                            name: 'general-info', path: 'general-info', component: InfoContainer,
                             children: [
                                 { path: '', redirect: 'carrier-details' },
                                 { name: 'carrier-details', path: 'carrier-details', component: GeneralInfo },
                                 { name: 'add-carrier', path: 'add-carrier', component: AddGeneralInfo },
-                                { name: 'edit-carrier', path: 'edit-carrier/:id', component: EditGeneralInfo }
+                                { name: 'edit-carrier', path: 'edit-carrier', component: EditGeneralInfo }
                             ]
                         },
                         {
-                            name: 'rates',path: 'rates',component: RateContainer,
+                            name: 'rates', path: 'rates', component: RateContainer,
                             children: [
                                 { path: '', redirect: 'rate-list' },
                                 { name: 'rate-list', path: 'rate-list', component: Rate },
@@ -125,7 +167,7 @@ export default new VueRouter({
                             ]
                         },
                         {
-                            name: 'accessories',path: 'accessories',component: AccessoryContainer,
+                            name: 'accessories', path: 'accessories', component: AccessoryContainer,
                             children: [
                                 { path: '', redirect: 'accessory-list' },
                                 { name: 'accessory-list', path: 'accessory-list', component: Accessory },
@@ -134,61 +176,97 @@ export default new VueRouter({
                             ]
                         },
                         {
-                            name: 'history',path: 'history',component: History,
+                            name: 'history', path: 'history', component: History,
                             children: [
                                 { path: '', redirect: 'jobs' },
                                 { name: 'jobs', path: 'jobs', component: Jobs },
                                 { name: 'job-details', path: 'job-details/:id', component: JobDetails }
                             ]
-                        }
+                        },
+                        {
+                            name: 'account', path: 'account', component: CarrierAccountContainer,
+                            children: [
+                                { path: '', redirect: 'details' },
+                                { name: 'account-details', path: 'details', component: CarrierAccount },
+                                { name: 'edit-account', path: 'edit', component: EditCarrierAccount },
+                            ]
+                        },
+                        { name: 'card', path: 'card', component: CarrierCard },
                     ],
-                    beforeEnter: myGuard
+                    beforeEnter: webGuard
                 },
                 {
-                    name: 'signin',
-                    path: '/login',
-                    component: Login
+                    name: 'shipper',
+                    path: 'shipper',
+                    component: ShipperProfile,
+                    children: [
+                        { path: '', redirect: 'profile' },
+                        {
+                            name: 'profile', path: 'profile', component: ShipperDetailsContainer,
+                            children: [
+                                { path: '', redirect: 'details' },
+                                { name: 'details', path: 'details', component: ShipperDetails },
+                                { name: 'add-details', path: 'add-details', component: AddShipperDetails },
+                                { name: 'edit-details', path: 'edit-details', component: EditShipperDetails }
+                            ]
+                        },
+                        {
+                            name: 'account', path: 'account', component: ShipperAccountContainer,
+                            children: [
+                                { path: '', redirect: 'details' },
+                                { name: 'account-details', path: 'details', component: ShipperAccount },
+                                { name: 'edit-account', path: 'edit-account/:id', component: EditShipperAccount },
+                            ]
+                        },
+                        {
+                            name: 'orders', path: 'orders', component: ShipperOrderContainer,
+                            children: [
+                                { path: '', redirect: 'list' },
+                                { name: 'order-list', path: 'list', component: ShipperOrders },
+                                { name: 'order-details', path: 'details/:id', component: ShipperOrderDetails },
+                            ]
+                        },
+                        { name: 'card', path: 'card', component: ShipperCard },
+
+                    ],
+                    beforeEnter: webGuard
                 },
+                { name: 'about', path: 'about', component: About },
+                { name: 'services', path: 'services', component: Services },
+                { name: 'help', path: 'help', component: Help },
+                { name: 'signin', path: '/login', component: Login },
+                { name: 'signup', path: '/register', component: Register },
+                { name: 'welcome', path: '/welcome', component: Welcome },
+                { name: 'checkout', path: '/checkout', component: Card },
+                { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },
+
                 {
-                    path: '/register',
-                    component: Register
-                },
-                {
-                    path: '/welcome',
-                    component: Welcome
-                },
-            ],
-        },
-        {
-            path: '/admin',
-            component: Admin,
-            children: [
-                {
-                    path: '',
-                    redirect: '/dashboard'
-                },
-                {
-                    path: '/dashboard',
-                    component: Dashboard
-                },
-                {
-                    path: '/countries',
-                    component: Country,
-                },
-                {
-                    path: '/states',
-                    component: State
-                },
-                {
-                    path: '/cities',
-                    component: City
-                },
-                {
-                    path: '/carriers',
-                    component: CarrierList
+                    name: 'admin',
+                    path: 'admin',
+                    component: Admin,
+                    children: [
+                        { path: '', redirect: 'dashboard' },
+                        { name: 'dashboard', path: 'dashboard', component: Dashboard },
+                        { name: 'company', path: 'company', component: Comapany },
+                        { name: 'countries', path: 'countries', component: Country, },
+                        { name: 'states', path: 'states', component: State },
+                        { name: 'cities', path: 'cities', component: City },
+                        { name: 'zips', path: 'zips', component: Zips },
+                        { name: 'carriers', path: 'carriers', component: CarrierList },
+                        { name: 'rates', path: 'rates', component: Rates },
+                        { name: 'accessories', path: 'accessories', component: Accessories },
+                        { name: 'shippers', path: 'shippers', component: Shippers },
+                        { name: 'orders', path: 'orders', component: Orders },
+                        { name: 'users', path: 'users', component: Users },
+
+                        { name: 'about', path: 'about', component: About },
+                        { name: 'contact', path: 'contact', component: Contact },
+                        { name: 'services', path: 'services', component: Services },
+                    ],
+                    beforeEnter: webGuard
                 }
             ],
-            beforeEnter: myGuard
-        }
+        },
+        { path: '*', redirect: '/' }
     ],
 })

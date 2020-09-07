@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shipper extends Model
 {
-    public function addresses(){
-        return $this->belongsToMany(Address::class)->withPivot('type');
+    public function user(){
+        return $this->belongsTo(User::class);
     }
-    public function srcDes(){
-        return $this->addresses()->with('city', 'citycode');
+    public function address(){
+        return $this->hasOne(Address::class);
+    }
+    public function fullAddress(){
+        return $this->address()->with('country','state','city');
     }
     public function orders(){
         return $this->hasMany(Order::class);

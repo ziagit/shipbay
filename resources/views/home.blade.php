@@ -15,7 +15,7 @@
                         </div>
                         @endif
 
-                        <app></app>
+                
                     </div>
                 </div>
             </div>

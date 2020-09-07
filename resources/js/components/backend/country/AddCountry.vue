@@ -12,10 +12,14 @@
               <label>Code</label>
               <md-input v-model="code" name="code"></md-input>
             </md-field>
+         <!--    <md-field>
+              <label>Flag</label>
+              <md-file v-model="flag" v-on:change="onFileChange" />
+            </md-field> -->
           </md-content>
         </md-card-content>
         <md-card-actions>
-          <md-button v-on:click="postData()">Submit</md-button>
+          <md-button v-on:click="save()">Submit</md-button>
         </md-card-actions>
       </md-card>
     </form>
@@ -24,35 +28,34 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Axios from "axios";
+import axios from "axios";
 export default Vue.extend({
   data: () => {
     return {
       name: null,
-      code: null
+      code: null,
+      flag: null,
     };
   },
   methods: {
-    logoOnChange(e) {
-      this.logo = e.target.files[0];
+    onFileChange(e) {
+      this.flag = e.target.files[0]
     },
-    slideOnChange(e) {
-      this.slide = e.target.files[0];
-    },
-    postData() {
-      Axios.post("admin/country/store", {
+ 
+    save() {
+      axios.post("admin/countries", {
         name: this.name,
-        code: this.code
+        code: this.code,
       })
-        .then(res => {
+        .then((res) => {
           console.log("saved successfully! ", res.data);
           this.$emit("close-dialog");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
-    }
-  }
+    },
+  },
 });
 </script>
 

@@ -15,27 +15,23 @@ class Order extends Model
     {
         return $this->belongsToMany(Accessory::class)->withPivot('type')->withTimestamps();
     }
-    public function cities()
-    {
-        return $this->belongsToMany(City::class)->withPivot('type')->withTimestamps();
-    }
-    public function citycodes()
-    {
-        return $this->belongsToMany(Citycode::class)->withPivot('type')->withTimestamps();
-    }
-    public function cityZip(){
-        return $this->citycodes()->with('cities');
-    }
 
     public function shipper()
     {
         return $this->belongsTo(Shipper::class);
     }
-    public function addresses(){
-        return $this->shipper()->with('srcDes');
+
+    public function shipmentaddresses(){
+        return $this->belongsToMany(Shipmentaddress::class)->withPivot('type');
+    }
+    public function fullAddress(){
+        return $this->shipmentaddresses()->with('country','state','city', 'citycode');
     }
     public function job()
     {
         return $this->hasOne(Job::class);
+    }
+    public function jobWithStatus(){
+        return $this->job()->with('jobstatus');
     }
 }

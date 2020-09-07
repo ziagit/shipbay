@@ -6,8 +6,8 @@
       md-content="Make sure it's not an Accident"
       md-confirm-text="Agree"
       md-cancel-text="Disagree"
-      @md-cancel="onCancel"
-      @md-confirm="onConfirm"
+      @md-cancel="cancel"
+      @md-confirm="confirm"
     />
 
     <md-card class="md-primary" md-theme="orange-card">
@@ -29,7 +29,7 @@
             <tr>
               <th rowspan="2">NAME</th>
               <th colspan="2">PRICES</th>
-              <th colspan="2" rowspan="2">Actions</th>
+              <th colspan="2" rowspan="2">ACTIONS</th>
             </tr>
             <tr>
               <th scope="col">Origin</th>
@@ -53,7 +53,7 @@
                 </md-button>
               </td>
               <td>
-                <md-button class="md-icon-button md-accent" @click="deleteAccessory(accessory.id)">
+                <md-button class="md-icon-button md-accent" @click="remove(accessory.id)">
                   <md-icon>delete</md-icon>
                   <md-tooltip>Delete accessory</md-tooltip>
                 </md-button>
@@ -86,42 +86,39 @@ export default {
     acsIdToDelete: null,
     accessories: [],
     dataLoaded: false,
-    carrierId: null,
   }),
   methods: {
-    getAccessories() {
+    get() {
       axios
-        .get("get-accessory/" + this.carrierId)
+        .get("carrier/accessories")
         .then((res) => {
-          console.log("response: ",res.data)
-          this.accessories = res.data[0]["accessories"];
+          this.accessories = res.data.accessories;
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    deleteAccessory(id) {
+    remove(id) {
       this.active = true;
       this.acsIdToDelete = id;
     },
-    onConfirm() {
+    confirm() {
       axios
-        .delete("delete-accessory/" + this.acsIdToDelete + "/" + this.carrierId)
+        .delete("carrier/accessories/" + this.acsIdToDelete)
         .then((res) => {
           this.$emit("show-snackbar");
-          this.getAccessories();
+          this.get();
         })
         .catch((err) => {
           console.log("Error: ", err);
         });
     },
-    onCancel() {
+    cancel() {
       this.value = "Disagreed";
     },
   },
   created() {
-    this.carrierId = this.$store.state.shared.carrierData.carrierId;
-    this.getAccessories();
+    this.get();
   },
 };
 </script>
@@ -137,7 +134,10 @@ export default {
   .table {
     width: 100%;
     border-collapse: collapse;
-
+    th{
+      font-size: 11px;
+      color: #666;
+    }
     th,
     td {
       border: 1px solid #ddd;

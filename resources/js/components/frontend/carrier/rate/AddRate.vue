@@ -47,6 +47,7 @@
                       name="src_state"
                       id="src_state"
                       md-dense
+                      required
                     >
                       <md-option
                         v-for="state in states"
@@ -54,6 +55,7 @@
                         :value="state.id"
                       >{{state.name}}</md-option>
                     </md-select>
+                    <input class="hidden" v-model="form.src_state" required />
                   </md-field>
                 </td>
                 <td>
@@ -64,6 +66,7 @@
                       name="src_city"
                       id="src_city"
                       md-dense
+                      required
                       @input="getSrcZips($event)"
                     >
                       <md-option
@@ -72,18 +75,20 @@
                         :value="src_city.id"
                       >{{src_city.name}}</md-option>
                     </md-select>
+                    <input class="hidden" v-model="form.src_city" required />
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label for="src_zip">Zip</label>
-                    <md-select v-model="form.src_zip" name="src_zip" id="src_zip" md-dense>
+                    <md-select v-model="form.src_zip" name="src_zip" id="src_zip" md-dense required>
                       <md-option
                         v-for="zip in srcZips"
                         :key="zip.id"
                         :value="zip.id"
                       >{{zip.postal_code}}</md-option>
                     </md-select>
+                    <input class="hidden" v-model="form.src_zip" required />
                   </md-field>
                 </td>
                 <td>
@@ -95,6 +100,7 @@
                       name="des_state"
                       id="des_state"
                       md-dense
+                      required
                     >
                       <md-option
                         v-for="des_state in states"
@@ -102,6 +108,7 @@
                         :value="des_state.id"
                       >{{des_state.name}}</md-option>
                     </md-select>
+                    <input class="hidden" v-model="form.des_state" required />
                   </md-field>
                 </td>
                 <td>
@@ -112,6 +119,7 @@
                       name="des_city"
                       id="des_city"
                       md-dense
+                      required
                       @input="getDesZips($event)"
                     >
                       <md-option
@@ -120,78 +128,80 @@
                         :value="src_city.id"
                       >{{src_city.name}}</md-option>
                     </md-select>
+                    <input class="hidden" v-model="form.des_city" required />
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label for="des_zip">Zip</label>
-                    <md-select v-model="form.des_zip" name="des_zip" id="des_zip" md-dense>
+                    <md-select v-model="form.des_zip" name="des_zip" id="des_zip" md-dens required>
                       <md-option
                         v-for="zip in desZips"
                         :key="zip.id"
                         :value="zip.id"
                       >{{zip.postal_code}}</md-option>
                     </md-select>
+                    <input class="hidden" v-model="form.des_zip" required />
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.min_rate"></md-input>
+                    <md-input v-model="form.min_rate" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.k0_k1"></md-input>
+                    <md-input v-model="form.k0_k1" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.k1_k2"></md-input>
+                    <md-input v-model="form.k1_k2" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.k2_k3"></md-input>
+                    <md-input v-model="form.k2_k3" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.k3_k4"></md-input>
+                    <md-input v-model="form.k3_k4" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.k4_k5"></md-input>
+                    <md-input v-model="form.k4_k5" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.k5_k10"></md-input>
+                    <md-input v-model="form.k5_k10" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.above_10k"></md-input>
+                    <md-input v-model="form.above_10k" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>(%)</label>
-                    <md-input v-model="form.fsc"></md-input>
+                    <md-input v-model="form.fsc" required></md-input>
                   </md-field>
                 </td>
                 <td>
                   <md-field>
                     <label>(day)s</label>
-                    <md-input v-model="form.transit_day"></md-input>
+                    <md-input v-model="form.transit_day" required></md-input>
                   </md-field>
                 </td>
               </tr>
@@ -207,7 +217,8 @@
 </template>
 
 <script>
-import Axios from "axios";
+import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   name: "AddRate",
   data: () => ({
@@ -228,6 +239,7 @@ export default {
       above_10k: null,
       fsc: null,
       transit_day: null,
+      carrierId: null,
     },
     countries: [],
     states: [],
@@ -238,19 +250,27 @@ export default {
     carrierId: null,
     countryId: null,
   }),
+  computed: {
+    ...mapGetters({
+      temp: "shared/temp",
+    }),
+  },
   methods: {
     submit() {
-      Axios.post("add-rate/" + this.carrierId, this.form)
+      axios
+        .post("carrier/rates", this.form)
         .then((res) => {
           this.$emit("show-snackbar");
           this.$router.back();
+          console.log("res ", res.data);
         })
         .catch((err) => {
           console.log("Error: ", err);
         });
     },
     getCountries() {
-      Axios.get("countries")
+      axios
+        .get("countries-with-states")
         .then((res) => {
           this.countries = res.data;
           this.states = res.data[0].state_list;
@@ -298,12 +318,12 @@ export default {
     },
     created() {
       this.getAccessory();
-    }
+    },
   },
 
   created() {
-    this.carrierId = this.$store.state.shared.carrierData.carrierId;
-    this.countryId = this.$store.state.shared.carrierData.countryId;
+    this.form.carrierId = this.temp.me;
+    this.countryId = this.temp.country;
     this.getCountries();
   },
   components: {},
@@ -321,6 +341,10 @@ export default {
   .table {
     width: 100%;
     border-collapse: collapse;
+    th {
+      font-size: 11px;
+      color: #666;
+    }
     th,
     td {
       border: 1px solid #ddd;
@@ -343,5 +367,10 @@ export default {
     top: 0;
     right: 0;
   }
+}
+.hidden {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
 }
 </style>

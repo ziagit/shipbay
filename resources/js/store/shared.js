@@ -1,31 +1,53 @@
-
-
 export default {
-
+    namespaced: true,
     state: {
-        carrierData: {
-            carrierId: null,
-            countryId: null
-        },
-        notificationId: null
+        temp: null,
+        notificationId: null,
+        cardStatus: null,
     },
     getters: {
-        getCarrierData(state) {
-            return state.carrierData;
+        temp(state) {
+            return state.temp;
+        },
+        card(state) {
+            return state.cardStatus;
         }
     },
 
     mutations: {
-        setCarrierData(state, data) {
-            state.carrierData.carrierId = data.carrierId
-            state.carrierData.countryId = data.countryId
+        SET_TEMP(state, data) {
+            state.temp = data
         },
-        setNotificationId(state, id){
+        SET_CARD(state, status) {
+            state.cardStatus = status
+        },
+        setNotificationId(state, id) {
             state.notificationId = id
-        }
+        },
+
     },
     actions: {
-
-
+        tempData({ dispatch }, data) {
+            return dispatch('attempt', data)
+        },
+        async attempt({ commit, state }, data) {
+            if (data) {
+                commit('SET_TEMP', data)
+            }
+            if (!state.temp) {
+                return
+            }
+        },
+        async chargeResponse({ dispatch }, message) {
+            return dispatch('attemptCard', message)
+        },
+        async attemptCard({ commit, state }, message) {
+            if (message) {
+                commit('SET_CARD', cardStatus)
+            }
+            if (!state.cardStatus) {
+                return
+            }
+        },
     }
 };

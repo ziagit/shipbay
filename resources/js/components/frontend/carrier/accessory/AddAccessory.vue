@@ -32,6 +32,7 @@
                       name="name"
                       id="name"
                       md-dense
+                      required
                       @input="onInput($event)"
                     >
                       <md-option
@@ -51,7 +52,7 @@
                 <td>
                   <md-field>
                     <label>($)</label>
-                    <md-input v-model="form.desValue"></md-input>
+                    <md-input v-model="form.desValue" required></md-input>
                   </md-field>
                 </td>
               </tr>
@@ -63,11 +64,22 @@
         </md-card-actions>
       </md-card>
     </form>
+    <md-snackbar
+      class="required-feild-error"
+      :md-position="snackbar.position"
+      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
+      :md-active.sync="snackbar.show"
+      md-persistent
+    >
+      <span>{{snackbar.message}}</span>
+      <span style="color:red">Status: {{snackbar.errorStatus}}</span>
+    </md-snackbar>
   </div>
 </template>
 
 <script>
-import Axios from "axios";
+import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   name: "AddAccessory",
   data: () => ({
@@ -75,32 +87,49 @@ export default {
       name: null,
       srcValue: null,
       desValue: null,
+      carrierId: null,
+    },
+    snackbar: {
+      show: false,
+      position: "center",
+      duration: 5000,
+      isInfinity: false,
+      message: null,
+      errorStatus: null,
     },
     accessories: null,
     acType: true,
-    carrierId: null,
   }),
+  computed: {
+    ...mapGetters({
+      temp: "shared/temp",
+    }),
+  },
   methods: {
     submit() {
-      if (this.form.name == 6 || this.form.name == 7 || this.form.name == 8) {
+      if (this.form.name == 7 || this.form.name == 8 || this.form.name == 9) {
         if (this.form.srcValue == null) {
           this.form.srcValue = 0;
         }
       }
-      Axios.post("add-accessory/" + this.carrierId, this.form)
+      axios
+        .post("carrier/accessories", this.form)
         .then((res) => {
           this.$router.back();
           this.$emit("show-snackbar");
-          console.log("xxx ", res.data)
         })
-        .catch((err) => {
-          console.log("Error: ", err);
+        .catch((error) => {
+          this.snackbar.show = true;
+          this.snackbar.message = error.response.data.message;
+          this.snackbar.errorStatus = error.response.status;
         });
     },
 
     get() {
-      Axios.get("get-accessories")
+      axios
+        .get("carrier/accessories-lookup")
         .then((res) => {
+          console.log("list of acc", res.data);
           this.accessories = res.data;
         })
         .catch((err) => {
@@ -108,14 +137,14 @@ export default {
         });
     },
     onInput(e) {
-      if (e == 6 || e == 7 || e == 8) {
+      if (e == 7 || e == 8 || e == 9) {
         this.acType = false;
       }
       console.log("your event: ", e);
     },
   },
   created() {
-    this.carrierId = this.$store.state.shared.carrierData.carrierId;
+    this.form.carrierId = this.temp.me;
     this.get();
   },
 };
@@ -139,6 +168,10 @@ export default {
   .table {
     width: 100%;
     border-collapse: collapse;
+    th {
+      font-size: 11px;
+      color: #666;
+    }
     th,
     td {
       border: 1px solid #ddd;

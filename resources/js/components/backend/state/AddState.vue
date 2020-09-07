@@ -6,16 +6,12 @@
           <md-content class="md-layout">
             <md-field class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100">
               <label>Name</label>
-              <md-input v-model="name" name="name"></md-input>
-            </md-field>
-            <md-field class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100">
-              <label>Postal code</label>
-              <md-input v-model="postal_code" name="postal_code"></md-input>
+              <md-input v-model="form.name" placeholder="Name"></md-input>
             </md-field>
             <md-field>
-              <md-select v-model="country" name="country" id="country" placeholder="Country">
+              <md-select v-model="form.country" placeholder="Country">
                 <md-option
-                  v-for="cntry in countryData"
+                  v-for="cntry in countries"
                   :key="cntry.id"
                   :value="cntry.id"
                 >{{cntry.name}}</md-option>
@@ -24,7 +20,7 @@
           </md-content>
         </md-card-content>
         <md-card-actions>
-          <md-button v-on:click="postData()">Submit</md-button>
+          <md-button v-on:click="save()">Submit</md-button>
         </md-card-actions>
       </md-card>
     </form>
@@ -32,40 +28,42 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Axios from "axios";
-export default Vue.extend({
-  props: ["countryData"],
+import axios from "axios";
+export default {
   data: () => {
     return {
-      name: null,
-      postal_code: null,
-      country: null,
+      form:{
+        name: null,
+        country:null,
+      },
+      countries: null,
     };
   },
   methods: {
-    logoOnChange(e) {
-      this.logo = e.target.files[0];
-    },
-    slideOnChange(e) {
-      this.slide = e.target.files[0];
-    },
-    postData() {
-      Axios.post("admin/state/store", {
-        name: this.name,
-        postal_code: this.postal_code,
-        country_id: this.country
-      })
-        .then(res => {
+    save() {
+      axios.post("admin/state/store", this.form)
+        .then((res) => {
           console.log("saved successfully! ", res.data);
           this.$emit("close-dialog");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
-    }
+    },
+    get() {
+      axios.get("countries")
+        .then((res) => {
+          this.countries = res.data
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
+    },
+  },
+  created(){
+    this.get()
   }
-});
+};
 </script>
 
 <style scoped>

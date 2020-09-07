@@ -34,6 +34,10 @@ class JobstatusSeedder extends Seeder
             [
                 'title' => 'Delivered',
                 'key' => 'delivered'
+            ],
+            [
+                'title' => 'Received',
+                'key' => 'received'
             ]
         ];
 

@@ -19,20 +19,16 @@
         <div class="carrier-details">
           <div class="row">
             <md-field>
-              <label>First name</label>
               <md-input type="text" v-model="form.first_name" placeholder="First name" required></md-input>
             </md-field>
             <md-field>
-              <label>Last name</label>
               <md-input type="text" v-model="form.last_name" placeholder="Last name" required></md-input>
             </md-field>
             <md-field>
-              <label>Address</label>
-              <md-input type="text" v-model="form.address" placeholder="Address" required></md-input>
+              <md-input type="tel" v-model="form.phone" placeholder="Phone" required></md-input>
             </md-field>
             <md-field>
-              <label>Phone</label>
-              <md-input type="tel" v-model="form.phone" placeholder="Phone" required></md-input>
+              <md-input type="text" v-model="form.address" placeholder="Address" required></md-input>
             </md-field>
           </div>
           <div class="row">
@@ -43,7 +39,7 @@
                 id="country"
                 placeholder="Country"
                 required
-                @input="getStates($event)"
+                @input="states($event)"
               >
                 <md-option
                   v-for="country in countryList"
@@ -60,7 +56,7 @@
                 id="state"
                 placeholder="State"
                 required
-                @input="getCities($event)"
+                @input="cities($event)"
               >
                 <md-option
                   v-for="state in stateList"
@@ -77,26 +73,13 @@
                 id="city"
                 placeholder="City"
                 required
-                @input="getCityZip($event)"
+                @input="zips($event)"
               >
                 <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
               </md-select>
             </md-field>
-
-            <md-field v-if="citycodeList != null">
-              <md-select
-                v-model="form.citycode"
-                name="citycode"
-                id="citycode"
-                placeholder="Postal code"
-                required
-              >
-                <md-option
-                  v-for="code in citycodeList"
-                  :key="code.id"
-                  :value="code.id"
-                >{{code.postal_code}}</md-option>
-              </md-select>
+             <md-field>
+              <md-input type="number" v-model="form.citycode" placeholder="Postalcode" required></md-input>
             </md-field>
           </div>
           <md-switch v-model="hasCompany" class="md-primary">Do you have a company?</md-switch>
@@ -126,8 +109,7 @@
 </template>
 
 <script>
-import Axios from "axios";
-import CONFIG from "../../../../config";
+import axios from "axios";
 export default {
   name: "AddGeneralInfo",
   data: () => ({
@@ -150,7 +132,6 @@ export default {
     cityList: null,
     citycodeList: null,
     hasCompany: false,
-    config: CONFIG,
   }),
   methods: {
     imageOnChange(e) {
@@ -158,25 +139,12 @@ export default {
     },
     submit() {
       let token = localStorage.getItem("token");
-      let fd = new FormData();
-      fd.append("logo", this.form.logo);
-      fd.append("first_name", this.form.first_name);
-      fd.append("last_name", this.form.last_name);
-      fd.append("address", this.form.address);
-      fd.append("country", this.form.country);
-      fd.append("state", this.form.state);
-      fd.append("city", this.form.city);
-      fd.append("citycode", this.form.citycode);
-      fd.append("phone", this.form.phone);
-      fd.append("website", this.form.website);
-      fd.append("company", this.form.company);
-      fd.append("detail", this.form.detail);
-
-      Axios.post("add-carrier", fd, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      axios
+        .post("carrier/details", this.form, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
           this.$router.push("/carrier");
         })
@@ -184,8 +152,9 @@ export default {
           console.log("Error: ", err);
         });
     },
-    getCountries() {
-      Axios.get(this.config.baseUrl + "countries")
+    countries() {
+      axios
+        .get("countries-with-states")
         .then((res) => {
           this.countryList = res.data;
           console.log("countries : ", this.countryList);
@@ -194,7 +163,7 @@ export default {
           console.log("Error: ", err);
         });
     },
-    getStates(countryId) {
+    states(countryId) {
       this.stateList = null;
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
@@ -202,27 +171,26 @@ export default {
         }
       });
     },
-    getCities(stateId) {
+    cities(stateId) {
       this.cityList = null;
-      this.stateList.forEach(element => {
-        if(element.id == stateId){
-          this.cityList = element.city_list
+      this.stateList.forEach((element) => {
+        if (element.id == stateId) {
+          this.cityList = element.city_list;
         }
       });
     },
-    getCityZip(id) {
+    zips(id) {
       this.citycodeList = null;
-      this.cityList.forEach(element => {
-        if(element.id == id){
-          this.citycodeList = element.citycodes
+      this.cityList.forEach((element) => {
+        if (element.id == id) {
+          this.citycodeList = element.citycodes;
         }
       });
     },
   },
   created() {
-    this.getCountries();
+    this.countries();
   },
-  components: {},
 };
 </script>
 

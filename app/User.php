@@ -62,4 +62,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Carrier::class);
     }
+    public function shipper()
+    {
+        return $this->hasOne(Shipper::class);
+    }
+    public function shipperOrders(){
+        $this->shipper()->with('orders');
+    }
 }

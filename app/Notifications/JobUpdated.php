@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Jobstatus;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,7 +11,7 @@ use Illuminate\Notifications\Notification;
 class JobUpdated extends Notification
 {
     use Queueable;
-    public $freight;
+    public $job;
     /**
      * Create a new notification instance.
      *
@@ -18,7 +19,7 @@ class JobUpdated extends Notification
      */
     public function __construct($data)
     {
-        $this->freight = $data;
+        $this->job = $data;
     }
 
     /**
@@ -40,10 +41,13 @@ class JobUpdated extends Notification
      */
     public function toMail($notifiable)
     {
+        $jobstatus = Jobstatus::find($this->job->jobstatus_id);
+        $url = url('/#/shipment-details/'.$this->job->id);
         return (new MailMessage)
+        ->subject('Shipment Status')
         ->greeting('Dear Customer')
-        ->line('Your frieght just'.$this->freight)
-        ->action('View shipment details', url('/#/shipper/confirmation'));
+        ->line('Your frieght '.$jobstatus->title)
+        ->action('View more details', $url);
     }
 
     /**

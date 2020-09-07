@@ -16,8 +16,7 @@ class AdminCountryController extends Controller
      */
     public function index()
     {
-        return Country::all();
-        
+        return Country::paginate(5);
     }
 
     /**
@@ -49,7 +48,7 @@ class AdminCountryController extends Controller
         $country->code = $request->code;
 
         $country->save();
-        return response()->json(["message"=>"Saved Successfully."]);
+        return response()->json(["message" => "Saved Successfully."], 200);
     }
 
     /**
@@ -81,20 +80,18 @@ class AdminCountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
             'code' => 'required'
         ]);
-        if($country = Country::find($request->id)){
-            $country->name = $request->name;
-            $country->code = $request->code;
+        $country = Country::find($id);
+        $country->name = $request->name;
+        $country->code = $request->code;
 
-            $country->save();
-            return response()->json(["message"=>"Updated Successfully."]);
-        }
-        return response()->json(["message"=>"Data Not Found!"]);
+        $country->save();
+        return response()->json(["message" => "Updated Successfully."], 200);
     }
 
     /**
@@ -105,11 +102,17 @@ class AdminCountryController extends Controller
      */
     public function destroy($id)
     {
-        if($country = Country::find($id)){
+        if ($country = Country::find($id)) {
             $country->delete();
-            return response()->json(["message"=>"Deleted Successfully."]);
+            return response()->json(["message" => "Deleted Successfully."], 200);
         }
-        return response()->json(["message"=>"Data Not Found!"]);
-
+        return response()->json(["message" => "Data Not Found!"], 404);
+    }
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords;
+        $country = Country::where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return $country;
     }
 }

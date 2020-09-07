@@ -1,7 +1,11 @@
 <template>
-  <md-card>
+  <md-card mode="ios">
     <md-card-content>
       <div class="buttons">
+        <md-button
+          to="/carrier/account"
+          v-bind:class="{active: $route.name == 'carrier-account' || $route.name == 'edit-account'}"
+        >Account</md-button>
         <md-button
           to="/carrier/general-info"
           v-bind:class="{active: $route.name == 'carrier-details' || $route.name == 'edit-carrier'}"
@@ -14,7 +18,14 @@
           to="/carrier/rates"
           v-bind:class="{active: $route.name == 'rate-list' || $route.name == 'add-rate' || $route.name == 'edit-rate'}"
         >Rate</md-button>
-        <md-button to="/carrier/history" v-bind:class="{active: $route.name == 'jobs' || $route.name == 'job-details'}">Job history</md-button>
+        <md-button
+          to="/carrier/history"
+          v-bind:class="{active: $route.name == 'jobs' || $route.name == 'job-details'}"
+        >Job history</md-button>
+         <md-button
+          to="/carrier/card"
+          v-bind:class="{active: $route.name == 'carrier-card' }"
+        >Card</md-button>
       </div>
       <router-view></router-view>
     </md-card-content>
@@ -33,11 +44,8 @@ export default {
 
 <style lang="scss" scoped>
 .md-card {
-  width: 90%;
-  margin: 3em auto;
+  margin: auto;
   background: #fff;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   md-card-content {
     text-align: center;
   }
@@ -51,18 +59,10 @@ export default {
   color: #448aff;
 }
 
-/* 
-@media only screen and (max-width: 600px) {
-  .carrier-profile {
-    height: 100vh;
-    padding-top: 10px;
-    .main-card {
-      width: 95%;
-    }
+@media only screen and (min-width: 600px) {
+  .md-card {
+    margin: 3em auto;
+    width: 90%;
   }
-  .section2 {
-    text-align: center;
-    padding-top: 10px;
-  }
-} */
+}
 </style>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\City;
-use App\State;
+
 class AdmincityController extends Controller
 {
     //
@@ -16,10 +16,8 @@ class AdmincityController extends Controller
      */
     public function index()
     {
-        $states = State::all();
-        $cities = City::with(['state','citycodes'])->get();
-        return response()->json(array('cities'=>$cities, 'states'=>$states));
-        
+        $cities = City::with('state')->paginate(5);
+        return response()->json($cities);
     }
 
     /**
@@ -42,20 +40,15 @@ class AdmincityController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'postal_code' => 'required',
-            'state_id' => 'required'
+            'state' => 'required'
         ]);
-
         $city = new City();
 
         $city->name = $request->name;
-        $city->state_id = $request->state_id;
+        $city->state_id = $request->state;
 
         $city->save();
-
-        $city->citycodes()->attach($request->postal_code);
-
-        return response()->json(["message"=>"Saved Successfully."]);
+        return response()->json(["message" => "Saved Successfully."], 200);
     }
 
     /**
@@ -87,22 +80,19 @@ class AdmincityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
-            'postal_code' => 'required',
-            'state_id' => 'required'
+            'state' => 'required'
         ]);
-        if($city = City::find($request->id)){
-            $city->name = $request->name;
-            $city->postal_code = $request->postal_code;
-            $city->state_id = $request->state_id;
+        $city = City::find($id);
 
-            $city->save();
-            return response()->json(["message"=>"Updated Successfully."]);
-        }
-        return response()->json(["message"=>"Data Not Found!"]);
+        $city->name = $request->name;
+        $city->state_id = $request->state;
+
+        $city->save();
+        return response()->json(["message" => "Saved Successfully."], 200);
     }
 
     /**
@@ -113,12 +103,22 @@ class AdmincityController extends Controller
      */
     public function destroy($id)
     {
-        if($city = City::find($id)){
+        if ($city = City::find($id)) {
             $city->delete();
-            return response()->json(["message"=>"Deleted Successfully."]);
+            return response()->json(["message" => "Deleted Successfully."]);
         }
-        return response()->json(["message"=>"Data Not Found!"]);
+        return response()->json(["message" => "Data Not Found!"]);
+    }
 
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords;
+        $city = City::where('name', 'like', '%' . $keywords . '%')
+            ->orWhereHas('state', function ($q) use ($keywords) {
+                return $q->where('name', 'like', '%' . $keywords . '%');
+            })
+            ->with('state')
+            ->paginate(5);
+        return $city;
     }
 }
-

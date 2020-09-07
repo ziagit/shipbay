@@ -36,7 +36,7 @@ class AccessorySeeder extends Seeder
                 'code' => 'tl'
             ],
             [
-                'name' => 'Is it an appointment',
+                'name' => 'Appointment',
                 'code' => 'ap'
             ],
             [
@@ -62,5 +62,18 @@ class AccessorySeeder extends Seeder
 
         $accessory = Accessory::find(3);
         $carrier->accessories()->attach($accessory, ['src_value' => 18, 'des_value' => 20]);
+        $accessory = Accessory::find(4);
+        $carrier->accessories()->attach($accessory, ['src_value' => 1, 'des_value' => 2]);
+        $accessory = Accessory::find(5);
+        $carrier->accessories()->attach($accessory, ['src_value' => 8, 'des_value' => 2]);
+        $accessory = Accessory::find(6);
+        $carrier->accessories()->attach($accessory, ['src_value' => 8, 'des_value' => 9]);
+
+        $accessory = Accessory::find(7);
+        $carrier->accessories()->attach($accessory, ['src_value' => 0, 'des_value' => 2]);
+        $accessory = Accessory::find(8);
+        $carrier->accessories()->attach($accessory, ['src_value' => 0, 'des_value' => 2]);
+        $accessory = Accessory::find(9);
+        $carrier->accessories()->attach($accessory, ['src_value' => 0, 'des_value' => 9]);
     }
 }

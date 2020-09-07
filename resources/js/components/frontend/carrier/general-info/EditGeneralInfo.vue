@@ -71,14 +71,13 @@
             </md-field>
 
             <md-field>
-              <label for="citycode">Postal code</label>
-              <md-select v-model="form.citycode" name="citycode" id="citycode">
-                <md-option
-                  v-for="code in citycodeList"
-                  :key="code.id"
-                  :value="code.id"
-                >{{code.postal_code}}</md-option>
-              </md-select>
+              <md-input
+                type="number"
+                v-model="form.citycode"
+                min="1"
+                placeholder="Postalcode"
+                required
+              ></md-input>
             </md-field>
           </div>
           <div class="row">
@@ -103,23 +102,24 @@
             </md-field>
           </div>
         </div>
-        <md-button type="submit" class="md-primary md-small-fab">Save</md-button>
+        <md-button type="submit" class="md-primary md-small-fab">Done</md-button>
       </md-card>
     </form>
   </div>
 </template>
 
 <script>
-import Axios from "axios";
+import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   name: "EditGeneralInfo",
-  props: ["isInfoUpdated"],
   data: () => ({
     form: {
       logo: null,
       first_name: null,
       last_name: null,
       address: null,
+      addressId: null,
       country: null,
       state: null,
       city: null,
@@ -132,34 +132,21 @@ export default {
     countryList: null,
     stateList: null,
     cityList: null,
-    citycodeList: null,
   }),
+  computed: {
+    ...mapGetters({
+      temp: "shared/temp",
+    }),
+  },
   methods: {
     imageOnChange(e) {
       this.logo = e.target.files[0];
     },
     update() {
       let token = localStorage.getItem("token");
-      let fd = new FormData();
-      fd.append("logo", this.form.logo);
-      fd.append("first_name", this.form.first_name);
-      fd.append("last_name", this.form.last_name);
-      fd.append("address", this.form.address);
-      fd.append("country", this.form.country);
-      fd.append("state", this.form.state);
-      fd.append("city", this.form.city);
-      fd.append("citycode", this.form.citycode);
-      fd.append("phone", this.form.phone);
-      fd.append("website", this.form.website);
-      fd.append("company", this.form.company);
-      fd.append("detail", this.form.detail);
-      Axios.post("update-carrier/" + this.$route.params.id, fd, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      axios
+        .put("carrier/details/" + this.temp.me, this.form)
         .then((res) => {
-          this.$emit("show-snackbar");
           this.$router.back();
         })
         .catch((err) => {
@@ -168,7 +155,8 @@ export default {
     },
 
     getCountries() {
-      Axios.get("countries")
+      axios
+        .get("countries-with-states")
         .then((res) => {
           this.countryList = res.data;
           this.edit();
@@ -178,7 +166,6 @@ export default {
         });
     },
     getStates(countryId) {
-      console.log("country changed")
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
           this.stateList = element.state_list;
@@ -200,21 +187,22 @@ export default {
       });
     },
     edit() {
-      Axios.get("edit-carrier/" + this.$route.params.id).then(
+      axios.get("carrier/details/" + this.temp.me).then(
         (res) => {
-          this.form.first_name = res.data[0].first_name;
-          this.form.last_name = res.data[0].last_name;
-          this.form.address = res.data[0].address;
-          this.form.phone = res.data[0].phone;
-          this.form.website = res.data[0].website;
-          this.form.company = res.data[0].company;
-          this.form.detail = res.data[0].detail;
-          this.form.country = res.data[0].country.id;
-          this.form.state = res.data[0].state.id;
-          this.form.city = res.data[0].city.id;
-          this.form.citycode = res.data[0].citycode.id;
+          this.form.first_name = res.data.first_name;
+          this.form.last_name = res.data.last_name;
+          this.form.address = res.data.full_address.address;
+          this.form.addressId = res.data.full_address.id;
+          this.form.phone = res.data.phone;
+          this.form.website = res.data.website;
+          this.form.company = res.data.company;
+          this.form.detail = res.data.detail;
+          this.form.country = res.data.full_address.country.id;
+          this.form.state = res.data.full_address.state.id;
+          this.form.city = res.data.full_address.city.id;
+          this.form.citycode = res.data.full_address.citycode;
         },
-        (err) => {}
+        (err) => {console.log(err)}
       );
     },
   },

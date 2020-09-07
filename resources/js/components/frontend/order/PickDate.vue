@@ -4,10 +4,10 @@
       <img src="http://localhost:8000/images/date.svg" width="100" />
     </div>
     <span class="md-display-1">When to pick-up? *</span>
-    <form>
+    <form @submit.prevent="nextStep()">
       <div>
         <md-field>
-          <md-input type="date" v-model="selectedDate" required></md-input>
+          <input type="date" v-model="selectedDate" required :min="validDate" />
         </md-field>
       </div>
       <div class="options">
@@ -20,16 +20,14 @@
         >{{accessory.name}}?</md-checkbox>
 
         <md-field v-if="appointment">
-          <label>Appointment time</label>
-          <md-input type="time" v-model="appointmentTime"></md-input>
+          <input type="time" v-model="appointmentTime" :required="appointment" />
         </md-field>
       </div>
-
       <div class="action">
-        <md-button @click="prevStep(-14)" class="md-icon-button md-raised">
+        <md-button to="pickup-services" class="md-icon-button md-raised">
           <md-icon>keyboard_arrow_left</md-icon>
         </md-button>
-        <md-button @click="nextStep(14)" class="md-icon-button md-raised md-primary" type="submit">
+        <md-button class="md-icon-button md-raised md-primary" type="submit">
           <md-icon>keyboard_arrow_right</md-icon>
         </md-button>
       </div>
@@ -37,24 +35,28 @@
   </div>
 </template>
 <script>
+import functions from "../services/functions";
 export default {
   name: "PickupDate",
   data: () => ({
-    selectedDate: null,
+    prgValue: 28,
     accessories: null,
     appointment: null,
-    appointmentTime: null
+    appointmentTime: null,
+    boxChecked: false,
+    validDate: functions.validDate(),
   }),
+
   methods: {
-    nextStep(prgValue) {
+    nextStep() {
       if (this.selectedDate != null) {
         let storage = JSON.parse(localStorage.getItem("order"));
         storage.pickDate = this.selectedDate;
         if (this.appointment != null) {
           if (!storage.src.accessories.includes("ap")) {
             storage.src.accessories.push(this.appointment);
-            storage.src.appointmentTime = this.appointmentTime;
           }
+          storage.src.appointmentTime = this.appointmentTime;
         } else {
           if (storage.src.accessories.includes("ap")) {
             for (let i = 0; i < storage.src.accessories.length; i++) {
@@ -67,13 +69,9 @@ export default {
         }
         localStorage.setItem("order", JSON.stringify(storage));
         this.$router.push("destination");
-        this.$emit("progress", prgValue);
       }
     },
-    prevStep(prgValue) {
-      this.$router.back("pickup-services");
-      this.$emit("progress", prgValue);
-    },
+
     watchLocalstorage() {
       if (localStorage.getItem("order")) {
         let storage = JSON.parse(localStorage.getItem("order"));
@@ -87,35 +85,50 @@ export default {
     getAccessories() {
       axios
         .get("pick-date")
-        .then(res => {
+        .then((res) => {
           this.accessories = res.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
-    }
+    },
   },
   created() {
+    this.$emit("progress", this.prgValue);
     console.log("in pick date: ", JSON.parse(localStorage.getItem("order")));
     this.watchLocalstorage();
     this.getAccessories();
-  }
+    localStorage.setItem("cRoute", this.$router.currentRoute.path);
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .pickup-date {
   text-align: center;
-  .md-input {
-    color: #737373;
+  input {
+    width: 100%;
+    background: #f0f2f5;
+    border: none;
   }
+  input:focus {
+    outline: none;
+  }
+
   .icon,
   .options,
   .action {
     margin: 20px auto;
   }
   .md-display-1 {
-    font-size: 30px;
+    font-size: 24px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .pickup-date {
+    .md-display-1 {
+      font-size: 30px;
+    }
   }
 }
 </style>

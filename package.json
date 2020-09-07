@@ -26,9 +26,10 @@
     },
     "dependencies": {
         "@ionic/vue": "0.0.4",
-        "basic-vue-chat": "^0.3.5",
         "laravel-echo": "^1.8.0",
+        "laravel-vue-pagination": "^2.3.1",
         "pusher-js": "^6.0.3",
+        "vue-date-fns": "^2.0.1",
         "vue-material": "^1.0.0-beta-14",
         "vue-router": "^3.3.4",
         "vuex": "^3.5.1",

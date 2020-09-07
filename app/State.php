@@ -20,10 +20,6 @@ class State extends Model
         return $this->hasMany(City::class);
     }
 
-    public function statecodes()
-    {
-        return $this->hasMany(Statecode::class);
-    }
     public function carriers()
     {
         return $this->hasMany(Carrier::class);

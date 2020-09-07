@@ -4,19 +4,21 @@
       <img src="http://localhost:8000/images/a-b.svg" width="100" />
     </div>
     <span class="md-display-1">Where are you shipping to?</span>
-    <form>
+    <form @submit.prevent="nextStep()">
       <div class="search-container">
         <md-field>
           <label>City/Zip code</label>
           <md-input v-model="keywords" required></md-input>
         </md-field>
-
+        <ul>
+          <li v-if="notFound !== null" class="not-found">{{this.notFound}}</li>
+        </ul>
         <ul v-if="results.length > 0">
           <li
             v-for="result in results"
             :key="result.id"
             @click="select(result)"
-          >{{result.cities[0].name}} - {{result.postal_code}}</li>
+          >{{result.citycode_city[0].state.name}}, {{result.citycode_city[0].name}} - {{result.postal_code}}</li>
         </ul>
       </div>
 
@@ -31,10 +33,10 @@
       </div>
 
       <div class="action">
-        <md-button @click="prevStep(-14)" class="md-icon-button md-raised">
+        <md-button to="pickup-date" class="md-icon-button md-raised">
           <md-icon>keyboard_arrow_left</md-icon>
         </md-button>
-        <md-button class="md-icon-button md-raised md-primary" @click="nextStep(14)" type="submit">
+        <md-button class="md-icon-button md-raised md-primary" type="submit">
           <md-icon>keyboard_arrow_right</md-icon>
         </md-button>
       </div>
@@ -45,43 +47,74 @@
 export default {
   name: "Destination",
   data: () => ({
+    prgValue: 42,
     keywords: null,
     results: [],
+    isSelected: false,
+    notFound: null,
     accessoryList: null,
     des: {
+      country: null,
+      countryName: null,
+      state: null,
+      stateName: null,
       city: null,
       cityName: null,
       postalCode: null,
       postalCodeName: null,
-      accessories: ["bs"]
-    }
+      accessories: ["bs"],
+    },
   }),
   watch: {
     keywords(after, before) {
-      this.fetch();
-    }
+      this.search();
+    },
+    results(data) {
+      if (data.length === 0) {
+        if (this.isSelected === true) {
+          this.notFound = null;
+        } else {
+          this.notFound = "Not found";
+        }
+      } else {
+        this.notFound = null;
+      }
+    },
   },
   methods: {
-    fetch() {
+    search() {
       axios
         .get("search-city", { params: { keywords: this.keywords } })
-        .then(res => {
+        .then((res) => {
           this.results = res.data.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
+    removingChar(e) {
+      if (e.key === "Backspace" || e.key === "Delete") {
+        this.isSelected = false;
+      }
+    },
     select(selected) {
-      this.keywords = selected.cities[0].name + " - " + selected.postal_code;
-      this.des.city = selected.cities[0].id;
-      this.des.cityName = selected.cities[0].name;
+      this.keywords =
+        selected.citycode_city[0].state.name +
+        ", " +
+        selected.citycode_city[0].name +
+        " - " +
+        selected.postal_code;
+      this.des.state = selected.citycode_city[0].state.id;
+      this.des.stateName = selected.citycode_city[0].state.name;
+      this.des.city = selected.citycode_city[0].id;
+      this.des.cityName = selected.citycode_city[0].name;
       this.des.postalCode = selected.id;
       this.des.postalCodeName = selected.postal_code;
+      this.isSelected = true;
     },
 
     nextStep(prgValue) {
-      if (this.validator()) {
+      if (this.keywords) {
         let storage = JSON.parse(localStorage.getItem("order"));
         if (storage.des) {
           for (let i = 0; i < storage.des.accessories.length; i++) {
@@ -97,47 +130,55 @@ export default {
         storage.des = this.des;
         localStorage.setItem("order", JSON.stringify(storage));
         this.$router.push("delivery-services");
-        this.$emit("progress", prgValue);
       }
     },
-    validator() {
-      if (this.keywords === null) {
-        console.log("required feild is empty");
-      } else {
-        return true;
-      }
-    },
-    prevStep(prgValue) {
-      this.$router.back("pickup-services");
-      this.$emit("progress", prgValue);
-    },
+
     watchLocalstorage() {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.des) {
         this.keywords =
-          storage.des.cityName + " - " + storage.des.postalCodeName;
+          storage.des.stateName +
+          ", " +
+          storage.des.cityName +
+          " - " +
+          storage.des.postalCodeName;
+        this.des.country = storage.des.country;
+        this.des.countryName = storage.des.countryName;
+        this.des.state = storage.des.state;
+        this.des.stateName = storage.des.stateName;
         this.des.city = storage.des.city;
         this.des.cityName = storage.des.cityName;
+        this.des.postalCode = storage.des.postalCode;
+        this.des.postalCodeName = storage.des.postalCodeName;
         this.des.accessories = storage.des.accessories;
       }
     },
     getAccessories() {
       axios
         .get("location-type")
-        .then(res => {
+        .then((res) => {
           this.cityList = res.data.cities;
           this.accessoryList = res.data.services;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
-    }
+    },
+    getCountries() {
+      axios.get("countries").then((res) => {
+        this.des.country = res.data[0].id;
+        this.des.countryName = res.data[0].name;
+      });
+    },
   },
   created() {
+    this.$emit("progress", this.prgValue);
     console.log("in destination: ", JSON.parse(localStorage.getItem("order")));
     this.watchLocalstorage();
     this.getAccessories();
-  }
+    this.getCountries();
+    localStorage.setItem("cRoute", this.$router.currentRoute.path);
+  },
 };
 </script>
 
@@ -165,6 +206,9 @@ export default {
       li:hover {
         background: #ddd;
       }
+      .not-found {
+        color: red;
+      }
     }
   }
   .icon,
@@ -173,7 +217,14 @@ export default {
     margin: 20px auto;
   }
   .md-display-1 {
-    font-size: 30px;
+    font-size: 24px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .destination {
+    .md-display-1 {
+      font-size: 30px;
+    }
   }
 }
 </style>

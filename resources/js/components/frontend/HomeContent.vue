@@ -1,19 +1,21 @@
 <template>
   <div class="home-content">
-    <div class="text">
-      <div class="heading">
-        <span class="md-headline">Smart Shipping!</span>
-      </div>
-      <div class="sub-heading">
-        <span
-          class="md-subheading"
-        >We get you shipped in 3 easy steps. Thousands happening everyday!</span>
-      </div>
-      <div class="help">
-        <router-link to="/help">How it works?</router-link>
+    <div class="section1">
+      <div class="text">
+        <div class="heading">
+          <span class="md-headline">Smart Shipping!</span>
+        </div>
+        <div class="sub-heading">
+          <span
+            class="md-subheading"
+          >We get you shipped in 3 easy steps. Thousands happening everyday!</span>
+        </div>
+        <div class="help">
+          <router-link to="/help" color="primary">How it works ?</router-link>
+        </div>
       </div>
       <div class="action">
-        <ion-button color="primary" @click="getQuote()">get a free quote</ion-button>
+        <md-button @click="getQuote()" class="md-primary md-raised">Get a free quote</md-button>
       </div>
     </div>
     <div class="image"></div>
@@ -26,57 +28,56 @@ export default {
   methods: {
     getQuote() {
       this.$router.push("order");
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
 <style lang="scss" scoped>
 .home-content {
+  text-align: center;
+  padding-top: 60px;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-around;
-  padding: 100px 50px;
-  .heading{
-    .md-headline{
-      font-size: 3em;
+  .text {
+    margin-left: 7px;
+    .heading {
+      .md-headline {
+        font-size: 2.5em;
+      }
+    }
+    .sub-heading {
+      .md-subheading {
+        font-size: 1em;
+        line-height: 1em;
+      }
+    }
+    .help {
+      margin-bottom: 3em;
+      margin-top: 0.7em;
+      a {
+        font-size: 1em;
+      }
     }
   }
-  .sub-heading{
-    .md-subheading{
-      font-size: 1.2em;
-      line-height: 2em;
-    }
-  }
-  .help{
-    margin-bottom: 3em;
-    a{
-      font-size: 1em;
+  .action {
+    .md-button {
+      border-radius: 5px;
+      padding: 0 10px;
     }
   }
 }
-
-/* @media only screen and (max-width: 600px) {
-  .section1 {
-    text-align: center;
-    height: 100%;
-    padding: 40px 20px 120px 20px;
-    display: block;
-    .md-display-3 {
-      color: #ffffff;
-      font-size: 36px;
-    }
-    .md-title {
-      color: #ffffff;
-      font-size: 14px;
-    }
-    img {
-      width: 60%;
+@media only screen and (min-width: 600px) {
+  .home-content {
+    padding: 100px 50px;
+    text-align: left;
+    .action {
+      ion-button {
+        font-size: 14px;
+      }
     }
   }
-  .section2 {
-    text-align: center;
-  }
-} */
+}
 </style>

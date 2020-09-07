@@ -4,46 +4,48 @@
       <img src="http://localhost:8000/images/service.svg" width="100" />
     </div>
     <span class="md-display-1">Do you need additional services at the pick-up?</span>
+    <form @submit.prevent="nextStep()">
+      <div class="options">
+        <md-checkbox
+          v-for="service in accessories"
+          :key="service.id"
+          v-model="services"
+          :value="service.code"
+          class="md-primary"
+        >{{service.name}}</md-checkbox>
+      </div>
 
-    <div class="options">
-      <md-checkbox
-        v-for="service in accessories"
-        :key="service.id"
-        v-model="services"
-        :value="service.code"
-        class="md-primary"
-      >{{service.name}}</md-checkbox>
-    </div>
-
-    <div class="action">
-      <md-button @click="prevStep(-14)" class="md-icon-button md-raised">
-        <md-icon>keyboard_arrow_left</md-icon>
-      </md-button>
-      <md-button @click="nextStep(14)" class="md-icon-button md-raised md-primary">
-        <md-icon>keyboard_arrow_right</md-icon>
-      </md-button>
-    </div>
+      <div class="action">
+        <md-button to="/order" class="md-icon-button md-raised">
+          <md-icon>keyboard_arrow_left</md-icon>
+        </md-button>
+        <md-button type="submit" class="md-icon-button md-raised md-primary">
+          <md-icon>keyboard_arrow_right</md-icon>
+        </md-button>
+      </div>
+    </form>
   </div>
 </template>
 <script>
 export default {
   name: "PickupService",
   data: () => ({
+    prgValue: 14,
     accessories: null,
-    services: []
+    services: [],
   }),
   methods: {
     getAccessories() {
       axios
         .get("pick-services")
-        .then(res => {
+        .then((res) => {
           this.accessories = res.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
     },
-    nextStep(prgValue) {
+    nextStep() {
       let storage = JSON.parse(localStorage.getItem("order"));
       let oldElement = storage.src.accessories[0];
       if (!this.services.includes(oldElement)) {
@@ -51,27 +53,24 @@ export default {
       }
       storage.src.accessories = this.services;
       localStorage.setItem("order", JSON.stringify(storage));
-      this.$emit("progress", prgValue);
-
       this.$router.push("pickup-date");
     },
-    prevStep(prgValue) {
-      this.$router.back("order");
-      this.$emit("progress", prgValue);
-    },
+
     watchLocalstorage() {
       if (localStorage.getItem("order")) {
         let storage = JSON.parse(localStorage.getItem("order"));
         this.services = storage.src.accessories;
       }
-    }
+    },
   },
 
   created() {
+    this.$emit("progress", this.prgValue);
     console.log("in pik serc: ", JSON.parse(localStorage.getItem("order")));
     this.watchLocalstorage();
     this.getAccessories();
-  }
+    localStorage.setItem("cRoute", this.$router.currentRoute.path);
+  },
 };
 </script>
 
@@ -84,7 +83,14 @@ export default {
     margin: 20px auto;
   }
   .md-display-1 {
-    font-size: 30px;
+    font-size: 24px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .pickup-services {
+    .md-display-1 {
+      font-size: 30px;
+    }
   }
 }
 </style>

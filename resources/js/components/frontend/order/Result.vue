@@ -1,23 +1,25 @@
 <template>
   <div class="result">
     <div v-show="dataLoding" class="loading">
-      <span class="md-display-1">Calculating item dimentional weight...</span>
+      <md-progress-spinner
+        class="md-primary"
+        :md-diameter="50"
+        :md-stroke="3"
+        md-mode="indeterminate"
+      ></md-progress-spinner>
       <br />
       <span class="md-title">Please wait</span>
-      <br />
-      <!-- <md-progress-spinner md-mode="indeterminate"></md-progress-spinner> -->
-      <ion-spinner mode="ios" name="lines" color="primary" class="primary"></ion-spinner>
     </div>
 
     <div v-show="!dataLoding">
       <div class="icon">
         <img src="http://localhost:8000/images/result.svg" width="100" />
       </div>
-      <span class="md-display-1">We calculated your dimensional weight</span>
+      <span class="md-display-1">Item dimensional weight</span>
       <div>We calculated your item(s) based on the weight and dimensions you provided.</div>
 
-      <ion-card mode="ios" class="items">
-        <ion-card-content>
+      <md-card mode="ios" class="items">
+        <md-card-content>
           <md-button class="md-icon-button edit-item" @click="prevStep(-16)">
             <md-icon>edit</md-icon>
             <md-tooltip>Edit item</md-tooltip>
@@ -30,14 +32,14 @@
             <md-divider></md-divider>
             <span>Total: {{Math.round(calculateTotalDW())}} Pounds</span>
           </ul>
-        </ion-card-content>
-      </ion-card>
+        </md-card-content>
+      </md-card>
 
       <div class="action">
-        <md-button @click="prevStep(-16)" class="md-icon-button md-raised">
+        <md-button @click="prevStep()" class="md-icon-button md-raised">
           <md-icon>keyboard_arrow_left</md-icon>
         </md-button>
-        <md-button @click="nextStep(16)" class="md-icon-button md-raised md-primary">
+        <md-button @click="nextStep()" class="md-icon-button md-raised md-primary">
           <md-icon>keyboard_arrow_right</md-icon>
         </md-button>
       </div>
@@ -49,34 +51,35 @@ import axios from "axios";
 export default {
   name: "Result",
   data: () => ({
+    prgValue: 84,
     dataLoding: true,
     dataAvailable: false,
-    order: null
+    order: null,
   }),
   methods: {
-    nextStep(prgValue) {
+    nextStep() {
       this.$router.push("select-carrier");
-      this.$emit("progress", prgValue);
     },
-    prevStep(prgValue) {
-      this.$router.back("items");
-      this.$emit("progress", prgValue);
+    prevStep() {
+      this.$router.push("items");
     },
     calculateTotalDW() {
       let total = 0;
-      this.order.myItem.items.forEach(element => {
+      this.order.myItem.items.forEach((element) => {
         total = total + element.dw;
       });
       return total;
-    }
+    },
   },
   created() {
+    this.$emit("progress", this.prgValue);
     this.order = JSON.parse(localStorage.getItem("order"));
     console.log("in result: ", this.order);
     setTimeout(() => {
       this.dataLoding = false;
     }, 2000);
-  }
+    localStorage.setItem('cRoute',this.$router.currentRoute.path);
+  },
 };
 </script>
 
@@ -99,15 +102,22 @@ export default {
     }
   }
   .md-display-1 {
-    font-size: 30px;
+    font-size: 24px;
   }
-  ion-card {
+  .md-card {
     background: #fff;
     text-align: left;
     .edit-item {
       position: absolute;
       top: 0;
       right: 0;
+    }
+  }
+}
+@media only screen and (min-width: 600px) {
+  .result {
+    .md-display-1 {
+      font-size: 30px;
     }
   }
 }

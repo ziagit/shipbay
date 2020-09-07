@@ -5,27 +5,21 @@
         <md-card-content>
           <md-content class="md-layout">
             <md-field class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100">
-              <label>Name</label>
-              <md-input v-model="name" name="name"></md-input>
-            </md-field>
-            <md-field class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100">
-              <label>Postal code</label>
-              <md-input v-model="postal_code" name="postal_code"></md-input>
+              <md-input v-model="form.name" placeholder="Name"></md-input>
             </md-field>
             <md-field>
-              <label for="state">State</label>
-              <md-select v-model="state" name="state" id="state">
+              <md-select v-model="form.state" placeholder="State" id="state">
                 <md-option
-                  v-for="cntry in stateData"
-                  :key="cntry.id"
-                  :value="cntry.id"
-                >{{cntry.name}}</md-option>
+                  v-for="state in states"
+                  :key="state.id"
+                  :value="state.id"
+                >{{state.name}}</md-option>
               </md-select>
             </md-field>
           </md-content>
         </md-card-content>
         <md-card-actions>
-          <md-button v-on:click="postData()">Submit</md-button>
+          <md-button v-on:click="update()">Done</md-button>
         </md-card-actions>
       </md-card>
     </form>
@@ -33,42 +27,47 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Axios from "axios";
-export default Vue.extend({
-  props: ["cityData", "stateData"],
+import axios from "axios";
+export default {
+  props: ["city"],
   data: () => {
     return {
-      id: null,
-      name: null,
-      postal_code: null,
-      state: null,
+      form: {
+        name: null,
+        state: null,
+      },
+      states: null,
     };
   },
   methods: {
-    postData() {
-      Axios.post("admin/city/update", {
-        id: this.id,
-        name: this.name,
-        postal_code: this.postal_code,
-        state_id: this.state
-      })
-        .then(res => {
-          console.log("updated successfully! ", res.data);
+    update() {
+      axios
+        .put("admin/cities/" + this.city.id, this.form)
+        .then((res) => {
+          console.log("Updated successfully! ", res.data);
           this.$emit("close-dialog");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
-    }
+    },
+    get() {
+      axios
+        .get("states")
+        .then((res) => {
+          this.states = res.data;
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
+    },
   },
-  mounted() {
-    this.id = this.cityData.id;
-    this.name = this.cityData.name;
-    this.postal_code = this.cityData.postal_code;
-    this.state = this.cityData.state.id;
-  }
-});
+  created() {
+    this.get();
+    this.form.name = this.city.name;
+    this.form.state = this.city.state.id;
+  },
+};
 </script>
 
 <style scoped>

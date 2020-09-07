@@ -1,7 +1,5 @@
 <?php
 
-use App\Deliveryclass;
-use App\Statecode;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,10 +23,12 @@ class DatabaseSeeder extends Seeder
         $this->call(LocationtypeSeeder::class);
         $this->call(JobstatusSeedder::class);
         $this->call(DeliveryclassSeeder::class);
+        $this->call(ShipmentaddressSeeder::class);
+        $this->call(ShipperSeeder::class);
         $this->call(CarrierSeeder::class);
+        $this->call(AddressSeeder::class);
         $this->call(AccessorySeeder::class);
         $this->call(RateSeeder::class);
-        $this->call(OrderSeeder::class);
         $this->call(ItemSeeder::class);
     }
 }

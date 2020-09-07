@@ -1,11 +1,22 @@
 <template>
   <div>
-    <md-card>
+    <md-card class="no-shadow-bordered">
       <md-card-header>
-        <div class="md-title">Shipment details</div>
+        <md-button @click="$router.back()" class="md-icon-button close-btn">
+          <md-icon>close</md-icon>
+          <md-tooltip>Cancel</md-tooltip>
+        </md-button>
+        <div>
+          <div class="md-title">Shipment details</div>
+          <div v-if="dataLoaded" class="job-id">
+            <span>{{job.shipment.uniqid}}</span> |
+            <span>{{formatedDate}}</span>
+          </div>
+        </div>
+      </md-card-header>
+      <md-card-content v-if="dataLoaded">
         <div class="status">
           <span>Status:</span>
-
           <md-menu md-size="auto" :mdCloseOnSelect="true" v-if="dataLoaded">
             <md-button
               md-menu-trigger
@@ -20,62 +31,59 @@
               >{{state.title}}</md-menu-item>
             </md-menu-content>
           </md-menu>
+          <div v-show="dataLoading" class="loading">
+            <Spinner />
+          </div>
         </div>
-      </md-card-header>
-      <md-card-content v-if="dataLoaded">
         <div class="src-des">
-          <md-card class="src" md-with-hover>
+          <md-card class="src">
             <md-card-content>
               <h3 class="md-subheading">Pickup details</h3>
-              <div class="body-1">Contact name: {{job.shipper.addresses.src_des[0].name}}</div>
-              <div class="body-1">Address: {{job.shipper.addresses.src_des[0].address}}</div>
-              <div class="body-1">City: {{job.shipper.addresses.src_des[0].city.name}}</div>
-              <div
-                class="body-1"
-              >Zip code: {{job.shipper.addresses.src_des[0].citycode.postal_code}}</div>
-              <div class="body-1">Phone: {{job.shipper.addresses.src_des[0].phone}}</div>
-              <div class="body-1">Email: {{job.shipper.addresses.src_des[0].email}}</div>
-              <div class="body-1">Appointment: {{job.shipper.src_appointment_time}}</div>
+              <div class="body-1">Contact name: {{job.shipment.full_address[0].name}}</div>
+              <div class="body-1">Address: {{job.shipment.full_address[0].address}}</div>
+              <div class="body-1">City: {{job.shipment.full_address[0].city.name}}</div>
+              <div class="body-1">Zip code: {{job.shipment.full_address[0].citycode.postal_code}}</div>
+              <div class="body-1">Phone: {{job.shipment.full_address[0].phone}}</div>
+              <div class="body-1">Email: {{job.shipment.full_address[0].email}}</div>
+              <div class="body-1">Appointment: {{job.shipment.src_appointment_time}}</div>
             </md-card-content>
           </md-card>
-          <md-card class="des" md-with-hover>
+          <md-card class="des">
             <md-card-content>
               <h3 class="md-subheading">Delivery details</h3>
-              <div class="body-1">Contact name: {{job.shipper.addresses.src_des[1].name}}</div>
-              <div class="body-1">Address: {{job.shipper.addresses.src_des[1].address}}</div>
-              <div class="body-1">City: {{job.shipper.addresses.src_des[1].city.name}}</div>
-              <div
-                class="body-1"
-              >Zip code: {{job.shipper.addresses.src_des[1].citycode.postal_code}}</div>
-              <div class="body-1">Phone: {{job.shipper.addresses.src_des[1].phone}}</div>
-              <div class="body-1">Email: {{job.shipper.addresses.src_des[1].email}}</div>
-              <div class="body-1">Appointment: {{job.shipper.des_appointment_time}}</div>
+              <div class="body-1">Contact name: {{job.shipment.full_address[1].name}}</div>
+              <div class="body-1">Address: {{job.shipment.full_address[1].address}}</div>
+              <div class="body-1">City: {{job.shipment.full_address[1].city.name}}</div>
+              <div class="body-1">Zip code: {{job.shipment.full_address[1].citycode.postal_code}}</div>
+              <div class="body-1">Phone: {{job.shipment.full_address[1].phone}}</div>
+              <div class="body-1">Email: {{job.shipment.full_address[1].email}}</div>
+              <div class="body-1">Appointment: {{job.shipment.des_appointment_time}}</div>
             </md-card-content>
           </md-card>
         </div>
 
-        <md-card class="items" md-with-hover>
+        <md-card class="items">
           <md-card-content>
             <h3 class="md-subheading">Items</h3>
-            <div v-for="item in job.shipper.items" :key="item.id">
+            <div v-for="item in job.shipment.items" :key="item.id">
               <div class="body-1">{{item.description}}, {{item.dimentional_weight}} Pounds</div>
             </div>
             <div>
               <h3 class="md-subheading">Item conditions</h3>
-              <div class="body-1">Min temperature(FH) {{job.shipper.min_temperature}}</div>
-              <div class="body-1">Max temperature(FH) {{job.shipper.max_temperature}}</div>
+              <div class="body-1">Min temperature(FH) {{job.shipment.min_temperature}}</div>
+              <div class="body-1">Max temperature(FH) {{job.shipment.max_temperature}}</div>
+              <div class="body-1">Is dangerouse good? {{job.shipment.max_temperature}}</div>
             </div>
           </md-card-content>
         </md-card>
-
-        <md-card class="shipper" md-with-hover>
+        <md-card class="shipment">
           <md-card-content>
             <h3 class="md-subheading">Shippment general info</h3>
-            <div class="body-1">Pickup date: {{job.shipper.pickup_date}}</div>
-            <div class="body-1">Start loadtime: {{job.shipper.start_loadtime}}</div>
-            <div class="body-1">End loadtime: {{job.shipper.end_loadtime}}</div>
-            <div class="body-1">Estimated item value: ${{job.shipper.estimated_value}}</div>
-            <div class="body-1">Cost: ${{Math.round(job.shipper.cost)}}</div>
+            <div class="body-1">Pickup date: {{job.shipment.pickup_date}}</div>
+            <div class="body-1">Start loadtime: {{job.shipment.start_loadtime}}</div>
+            <div class="body-1">End loadtime: {{job.shipment.end_loadtime}}</div>
+            <div class="body-1">Estimated item value: ${{job.shipment.estimated_value}}</div>
+            <div class="body-1">Cost: ${{Math.round(job.shipment.cost)}}</div>
           </md-card-content>
         </md-card>
       </md-card-content>
@@ -90,6 +98,8 @@
 </template>
 <script>
 import axios from "axios";
+import Spinner from "../../shared/Spinner";
+import functions from '../../services/functions'
 export default {
   name: "JobDetails",
   data: () => ({
@@ -101,17 +111,25 @@ export default {
     dataLoaded: false,
     status: [],
     selectedStatus: null,
+    dataLoading: false,
+    formatedDate: null,
+    emails: {
+      src: null,
+      des: null,
+    },
   }),
   methods: {
     jobDetails() {
       axios
-        .get("job-details/" + this.$route.params.id)
+        .get("carrier/jobs/" + this.$route.params.id)
         .then((res) => {
-          this.job = res.data;
-          if (this.job != null) {
+          console.log("job details ", res.data);
+          if (res.data) {
             this.dataLoaded = true;
+            this.job = res.data;
+            this.formatedDate = functions.myDateFormat(this.job.created_at);
+            return;
           }
-          console.log("job ", res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -128,15 +146,21 @@ export default {
           console.log(err);
         });
     },
-    
+
     updateJob(statusId) {
+      this.dataLoading = true;
       axios
-        .post("update-job/" + this.$route.params.id, {
+        .put("carrier/jobs/" + this.$route.params.id, {
           status: statusId,
+          emails: [
+            this.job.shipment.full_address[0].email,
+            this.job.shipment.full_address[1].email,
+          ],
         })
         .then((res) => {
           this.job = res.data;
-          console.log("updated job: ", res.data)
+          this.dataLoading = false;
+          console.log("updated job: ", res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -144,8 +168,9 @@ export default {
     },
     getJobStatus() {
       axios
-        .get("job-status")
+        .get("carrier/job-status")
         .then((res) => {
+          console.log("job statues: ", res.data);
           this.status = res.data;
         })
         .catch((err) => {
@@ -164,29 +189,36 @@ export default {
       this.jobDetails();
     },
   },
+  components: {
+    Spinner,
+  },
 };
 </script>
 <style lang="scss" scoped>
 .md-card {
-  text-align: left;
-  .md-card-header {
+  text-align: center;
+
+  .status {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    text-align: right;
-    .status {
-      display: flex;
-      align-items: center;
-      .delivered {
-        color: green !important;
-      }
+    .delivered {
+      color: green !important;
     }
-  }
-  .md-subheading {
-    font-weight: 410;
   }
   .md-card {
     margin: 5px;
+  }
+  .src,
+  .des,
+  .items,
+  .shipment {
+    box-shadow: none;
+    border: 1px solid rgb(241, 241, 241);
+    text-align: left;
+  }
+  .shipment {
+    margin-top: 11px;
   }
   .src-des {
     display: flex;
@@ -197,6 +229,18 @@ export default {
     }
     .des {
       flex: 1;
+    }
+  }
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .job-id {
+    span {
+      font-size: 11px;
+      margin: 0;
+      padding: 0;
     }
   }
 }

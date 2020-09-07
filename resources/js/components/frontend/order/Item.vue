@@ -4,8 +4,8 @@
       <img src="http://localhost:8000/images/item.svg" width="100" />
     </div>
     <span class="md-display-1">What items are you shipping?</span>
-    <ion-card mode="ios" color="light" v-show="items.length > 0">
-      <ion-card-content>
+    <md-card mode="ios" color="light" v-if="items.length > 0">
+      <md-card-content>
         <div
           v-show="itemExistError"
           style="color:red"
@@ -13,14 +13,19 @@
         <ul>
           <li v-for="(item, index) in items" :key="index">
             <div>{{item.description}}, {{Math.round(item.dw)}} Pounds</div>
-            <md-button class="md-icon-button" @click="removeItem(index)">
-              <md-icon>close</md-icon>
-            </md-button>
+            <div>
+              <md-button class="md-icon-button" @click="editItem(item)">
+                <md-icon>edit</md-icon>
+              </md-button>
+              <md-button class="md-icon-button" @click="removeItem(index)">
+                <md-icon>close</md-icon>
+              </md-button>
+            </div>
           </li>
         </ul>
-      </ion-card-content>
-    </ion-card>
-    <form>
+      </md-card-content>
+    </md-card>
+    <form @submit.prevent="nextStep()">
       <div class="items">
         <md-field>
           <label>Item description</label>
@@ -36,7 +41,7 @@
             >{{type.title}}</md-option>
           </md-select>
         </md-field>
-        <div v-if="item.type">
+        <div v-if="item.type" class="change-font">
           <div class="row dimentions">
             <md-field>
               <label>Length (inches)</label>
@@ -76,22 +81,22 @@
           class="md-primary"
           @change="checkboxTogal(condition)"
         >{{condition.name}}</md-checkbox>
-        <div class="row" v-show="temp">
+        <div class="row change-font temperature" v-if="tempTogal">
           <md-field>
             <label>Min temperature (FH)</label>
-            <md-input v-model="myItem.minTemp"></md-input>
+            <md-input v-model="myItem.minTemp" :required="tempTogal"></md-input>
           </md-field>
           <md-field>
             <label>Max temperature (FH)</label>
-            <md-input v-model="myItem.maxTemp"></md-input>
+            <md-input v-model="myItem.maxTemp" :required="tempTogal"></md-input>
           </md-field>
         </div>
       </div>
       <div class="action">
-        <md-button @click="prevStep(-14)" class="md-icon-button md-raised">
+        <md-button to="delivery-services" class="md-icon-button md-raised">
           <md-icon>keyboard_arrow_left</md-icon>
         </md-button>
-        <md-button @click="nextStep(14)" class="md-icon-button md-raised md-primary" type="submit">
+        <md-button class="md-icon-button md-raised md-primary" type="submit">
           <md-icon>keyboard_arrow_right</md-icon>
           <md-tooltip>Go to carrier list step</md-tooltip>
         </md-button>
@@ -101,7 +106,7 @@
       class="required-feild-error"
       :md-position="snackbar.position"
       :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.showSnackbar"
+      :md-active.sync="snackbar.show"
       md-persistent
     >
       <span>All feilds with * sign are required!</span>
@@ -111,13 +116,15 @@
 </template>
 <script>
 import axios from "axios";
+import functions from '../services/functions'
 export default {
   name: "Item",
   data: () => ({
+    prgValue: 70,
     myItem: {
       conditions: [],
       minTemp: null,
-      maxTemp: null
+      maxTemp: null,
     },
     item: {
       description: null,
@@ -127,7 +134,7 @@ export default {
       weight: null,
       number: 1,
       type: null,
-      dw: null
+      dw: null,
     },
     items: [],
     pushed: false,
@@ -135,35 +142,32 @@ export default {
     typeName: null,
     accessories: null,
     checker: false,
-    temp: false,
+    tempTogal: false,
     itemExistError: false,
     snackbar: {
-      showSnackbar: false,
+      show: false,
       position: "center",
       duration: 5000,
-      isInfinity: false
-    }
+      isInfinity: false,
+    },
   }),
 
   methods: {
-    nextStep(prgValue) {
+    nextStep() {
       if (this.validator()) {
         if (!this.itemExist()) {
           let storage = JSON.parse(localStorage.getItem("order"));
-          this.item.dw = this.calcDw();
+          this.item.dw = functions.calcDw(this.item);
           this.items.push(this.item);
           this.myItem["items"] = this.items;
           storage.myItem = this.myItem;
           localStorage.setItem("order", JSON.stringify(storage));
-          this.$emit("progress", prgValue);
           this.$router.push("result");
         } else {
           this.itemExistError = !this.itemExistError;
-          console.log("Item already exist.");
         }
       } else {
-        this.snackbar.showSnackbar = true;
-        console.log("All feilds with * sign are required!");
+        this.snackbar.show = true;
       }
     },
     validator() {
@@ -174,49 +178,12 @@ export default {
         this.item.width == null ||
         this.item.height == null ||
         this.item.weight == null ||
-        this.item.number == null ||
-        this.item.length < 1 ||
-        this.item.width < 1 ||
-        this.item.height < 1 ||
-        this.item.weight < 1 ||
-        this.item.number < 1
+        this.item.number == null
       ) {
-        console.log("all feilds with * sign are required.");
+        return false;
       } else {
         return true;
       }
-    },
-    prevStep(prgValue) {
-      this.$router.back("delivery-services");
-      this.$emit("progress", prgValue);
-    },
-    getAccessories() {
-      axios
-        .get("item-condition")
-        .then(res => {
-          this.accessories = res.data;
-        })
-        .catch(err => {
-          console.log("Error: ", err);
-        });
-    },
-    getItemType() {
-      axios
-        .get("item-type")
-        .then(res => {
-          this.itemTypes = res.data;
-        })
-        .catch(err => {
-          console.log("Error: ", err);
-        });
-    },
-    calcDw() {
-      let x =
-        ((this.item.length * this.item.width * this.item.height) / 166) *
-        this.item.number;
-      let y = this.item.weight * this.item.number;
-      let dw = x >= y ? x : y;
-      return dw;
     },
     addMore() {
       if (this.validator()) {
@@ -240,7 +207,7 @@ export default {
           console.log("Item already exist.");
         }
       } else {
-        this.snackbar.showSnackbar = true;
+        this.snackbar.show = true;
         console.log("All feilds with * sign are required!");
       }
     },
@@ -248,7 +215,7 @@ export default {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.myItem != undefined) {
         let found = storage.myItem.items.filter(
-          obj => obj.description === this.item.description
+          (obj) => obj.description === this.item.description
         );
         if (found.length > 0) {
           return true;
@@ -257,11 +224,43 @@ export default {
         }
       }
     },
+
+    getAccessories() {
+      axios
+        .get("item-condition")
+        .then((res) => {
+          this.accessories = res.data;
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
+    },
+    getItemType() {
+      axios
+        .get("item-type")
+        .then((res) => {
+          this.itemTypes = res.data;
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
+    },
+
     removeItem(index) {
       this.items.splice(index, 1);
       let storage = JSON.parse(localStorage.getItem("order"));
       storage.myItem.items.splice(index, 1);
       localStorage.setItem("order", JSON.stringify(storage));
+    },
+    editItem(item) {
+      let storage = JSON.parse(localStorage.getItem("order"));
+      this.item.description = item.description;
+      this.item.type = item.type;
+      this.item.length = item.length;
+      this.item.width = item.width;
+      this.item.height = item.height;
+      this.item.weight = item.weight;
+      this.item.number = item.number;
     },
     watchLocalstorage() {
       let storage = JSON.parse(localStorage.getItem("order"));
@@ -278,20 +277,31 @@ export default {
           this.item.weight = lastElement.weight;
           this.item.number = lastElement.number;
         }
+        if(storage.myItem.conditions.length !== 0){
+          console.log("list: ", storage.myItem)
+          this.myItem.conditions = storage.myItem.conditions;
+          if(storage.myItem.conditions.includes('tm')){
+            this.myItem.maxTemp = storage.myItem.maxTemp
+            this.myItem.minTemp = storage.myItem.minTemp
+            this.tempTogal = true
+          }
+        }
       }
     },
     checkboxTogal(condition) {
       if (condition.code === "tm") {
-        this.temp = !this.temp;
+        this.tempTogal = !this.tempTogal
       }
-    }
+    },
   },
   created() {
+    this.$emit("progress", this.prgValue);
     console.log("in item", JSON.parse(localStorage.getItem("order")));
     this.watchLocalstorage();
     this.getItemType();
     this.getAccessories();
-  }
+    localStorage.setItem("cRoute", this.$router.currentRoute.path);
+  },
 };
 </script>
 
@@ -307,7 +317,8 @@ export default {
       width: 32%;
     }
   }
-  .weight {
+  .weight,
+  .temperature {
     .md-field {
       width: 48%;
     }
@@ -317,6 +328,7 @@ export default {
   .action {
     margin: 20px 0;
   }
+
   .btn-close {
     position: relative;
     float: right;
@@ -329,10 +341,14 @@ export default {
     text-align: left;
   }
   .md-display-1 {
-    font-size: 30px;
+    font-size: 24px;
   }
-  ion-card {
-    background: #fff;
+  .change-font {
+    label {
+      font-size: 10px;
+    }
+  }
+  .md-card {
     ul {
       padding: 0;
       li {
@@ -344,6 +360,19 @@ export default {
   }
   .required-feild-error {
     background: crimson;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .item {
+    .md-display-1 {
+      font-size: 30px;
+    }
+    .change-font {
+      label {
+        font-size: 14px;
+      }
+    }
   }
 }
 </style>

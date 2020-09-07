@@ -11,44 +11,49 @@
 
         <div class="md-toolbar-section-end">
           <div v-if="authenticated">
-            <md-badge :md-content="notifications.length">
+            <md-badge class="md-primary" :md-content="notifications.length" md-dense>
               <md-menu>
                 <md-button md-menu-trigger class="md-icon-button">
-                  <md-icon>notification_important</md-icon>
+                  <md-icon>notifications</md-icon>
                 </md-button>
-                <md-menu-content>
+                <md-menu-content v-if="user.role[0].name === 'carrier'">
                   <md-menu-item
                     v-for="notification in notifications"
                     :key="notification.id"
                     @click="notificationDetails(notification)"
-                  >{{notification.type}}</md-menu-item>
+                  >Notification: {{notification.data.job.id}}</md-menu-item>
+                </md-menu-content>
+                <md-menu-content v-if="user.role[0].name === 'shipper'">
+                  <md-menu-item
+                    v-for="notification in notifications"
+                    :key="notification.id"
+                    @click="markAsRead(notification.id)"
+                  >Your order({{notification.data.job.order_id}}) is: {{notification.data.job.jobstatus.title}}</md-menu-item>
+                  <md-tooltip>Click to mark as read.</md-tooltip>
                 </md-menu-content>
               </md-menu>
             </md-badge>
 
-            <md-menu md-size="big" md-direction="top-start" :mdCloseOnSelect="true">
+            <md-menu md-size="big" md-direction="top-start" :md-active.sync="toggleCard">
               <md-button class="md-icon-button" md-menu-trigger>
                 <md-icon>account_circle</md-icon>
               </md-button>
               <md-menu-content>
                 <div class="author-card">
                   <md-avatar class="md-large">
-                    <img src="https://placeimg.com/40/40/people/1" alt="Marcos Moura" />
+                    <img src="http://localhost:8000/images/carrier-logo.jpg" alt="Marcos Moura" />
                   </md-avatar>
-
-                  <div class="author-card-info">
+                  <div>
                     <div>{{user.name}}</div>
                     <div>{{user.email}}</div>
-                    <div class="author-card-links">
-                      <div class="link" @click="profile">
-                        <md-icon>mood</md-icon>Profile
-                      </div>
-                      <div class="link" @click="signOut">
-                        <md-icon>moped</md-icon>Signout
-                      </div>
-                      <div class="link" @click="profile">
-                        <md-icon>enhanced_encryption</md-icon>Change password
-                      </div>
+                  </div>
+
+                  <div class="author-card-links">
+                    <div class="link" @click="profile">
+                      <md-icon>face</md-icon>Profile
+                    </div>
+                    <div class="link" @click="signOut">
+                      <md-icon>moped</md-icon>Signout
                     </div>
                   </div>
                 </div>
@@ -72,62 +77,25 @@
           </div>
         </md-toolbar>
 
-        <md-list :md-expand-single="expandSingle">
-          <md-list-item md-expand :md-expanded.sync="expandNews">
-            <md-icon>whatshot</md-icon>
-            <span class="md-list-item-text">News</span>
-
-            <md-list slot="md-expand">
-              <md-list-item class="md-inset">World</md-list-item>
-              <md-list-item class="md-inset">Europe</md-list-item>
-              <md-list-item class="md-inset">South America</md-list-item>
-            </md-list>
-          </md-list-item>
-
-          <md-list-item to="/about" @click="menuVisible = !menuVisible">
-            <md-icon>business</md-icon>
-            <span class="md-list-item-text">About</span>
-          </md-list-item>
-
-          <md-list-item to="/services" @click="menuVisible = !menuVisible">
-            <md-icon>stars</md-icon>
-            <span class="md-list-item-text">Services</span>
-          </md-list-item>
-
-          <md-list-item to="/help" @click="menuVisible = !menuVisible">
-            <md-icon>help</md-icon>
-            <span class="md-list-item-text">Help</span>
-          </md-list-item>
-          <md-divider></md-divider>
-
-          <md-list-item to="/facebook" @click="menuVisible = !menuVisible">
-            <md-icon>info</md-icon>
-            <span class="md-list-item-text">Facebook</span>
-          </md-list-item>
-
-          <md-list-item to="/twitter" @click="menuVisible = !menuVisible">
-            <md-icon>info</md-icon>
-            <span class="md-list-item-text">Twitter</span>
-          </md-list-item>
-
-          <md-list-item to="/google" @click="menuVisible = !menuVisible">
-            <md-icon>info</md-icon>
-            <span class="md-list-item-text">Google</span>
-          </md-list-item>
-        </md-list>
+        <div class="side-menu">
+          <AdminSideMenu v-if="authenticated && user.role[0].name === 'admin'" />
+          <WebSideMenu v-else />
+        </div>
       </md-app-drawer>
 
       <md-app-content>
         <router-view></router-view>
       </md-app-content>
     </md-app>
-    <div class="live-chat">
+    <div v-if="authenticated && user.role[0].name !=='admin'" class="live-chat">
       <LiveChat></LiveChat>
     </div>
   </div>
 </template>
 
 <script>
+import AdminSideMenu from "../sub-components/AdminSideMenu";
+import WebSideMenu from "../sub-components/WebSideMenu";
 import LiveChat from "./LiveChat";
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
@@ -136,9 +104,7 @@ export default {
   data: () => ({
     menuVisible: false,
     toggleCard: false,
-    expandNews: false,
-    expandSingle: false,
-    activeRoute: 'carrier-details',
+    activeRoute: "carrier-details",
     notifications: [],
   }),
 
@@ -162,39 +128,75 @@ export default {
     },
     notificationDetails(notification) {
       this.$store.commit("setNotificationId", notification.id);
-      this.$router.push(
-        "/carrier/history/job-details/" + notification.data.job.id
-      );
+      if (this.user.role[0].name === "carrier") {
+        this.$router.push(
+          "/carrier/history/job-details/" + notification.data.job.id
+        );
+      } else if (this.user.role[0].name === "shipper") {
+        this.$router.push(
+          "/shipper/orders/details/" + notification.data.job.order_id
+        );
+      }
+    },
+    markAsRead(id) {
+      axios
+        .get("auth/read-notification/" + id)
+        .then((res) => {
+          this.getNotifications();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     profile() {
-      this.$router.push("/carrier");
-      this.$refs["aRef"].close();
+      if (this.user.role[0].name == "carrier") {
+        this.$router.push("/carrier");
+        this.toggleCard = !this.toggleCard;
+      } else if (this.user.role[0].name == "shipper") {
+        this.toggleCard = !this.toggleCard;
+        this.$router.push("/shipper");
+      }
+    },
+    getNotifications() {
+      if (this.authenticated) {
+        this.notifications = this.user.notifications;
+        Echo.private("App.User." + this.user.id).notification((res) => {
+          this.notifications.push(res.notification);
+        });
+      }
     },
   },
   created() {
-    this.notifications = this.user.notifications;
-    Echo.private("App.User." + this.user.id).notification((res) => {
-      this.notifications.push(res.notification);
-    });
+    this.getNotifications();
   },
   components: {
     LiveChat,
+    AdminSideMenu,
+    WebSideMenu,
   },
   watch: {
     $route() {
-      if(this.$route.name == 'accessory-list'){
-        this.activeRoute = 'accessory-list'
-      }else if(this.$route.name == 'rate-list'){
-        this.activeRoute = 'rate-liste'
+      if (this.$route.name == "accessory-list") {
+        this.activeRoute = "accessory-list";
+      } else if (this.$route.name == "rate-list") {
+        this.activeRoute = "rate-liste";
       }
-        console.log("route: ", this.$route.name)
+      console.log("route: ", this.$route.name);
     },
   },
 };
 </script>
 
-
 <style lang="scss" scoped>
+.md-menu-content {
+  border-radius: 7px;
+  .md-menu-content-container {
+    border-radius: 7px !important;
+    .md-list {
+      border-radius: 7px !important;
+    }
+  }
+}
 .home {
   height: 100%;
   .md-default {
@@ -237,7 +239,7 @@ export default {
       padding: 3px 10px;
     }
     div:hover {
-      background: #ddd;
+      background: #f0f2f5;
       cursor: pointer;
     }
   }

@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="register">
-      <ion-card mode="ios">
-        <ion-card-header>
-          <span class="md-display-1">Register</span>
-        </ion-card-header>
-        <ion-card-content>
-          <md-progress-spinner v-if="dataLoaded" md-mode="indeterminate"></md-progress-spinner>
+      <md-card mode="ios">
+        <md-card-header>
+          <div class="md-title">Register</div>
+        </md-card-header>
+        <md-card-content>
+          <Spinner v-if="loading" />
           <form @submit.prevent="submit" enctype="multipart/form-data">
             <md-field>
               <label>Name</label>
@@ -30,18 +30,18 @@
             </div>
             <md-button type="submit" class="md-primary">Register</md-button>
           </form>
-        </ion-card-content>
-      </ion-card>
+        </md-card-content>
+      </md-card>
     </div>
     <md-snackbar
       class="required-feild-error"
       :md-position="snackbar.position"
       :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.showSnackbar"
+      :md-active.sync="snackbar.show"
       md-persistent
     >
-      <span>Passwords not match</span>
-      <span style="color:red">Error in your inputs</span>
+      <span>{{snackbar.message}}</span>
+      <span style="color:red">Status: {{snackbar.statusCode}}</span>
     </md-snackbar>
   </div>
 </template>
@@ -49,6 +49,7 @@
 <script>
 import axios from "axios";
 import { mapActions } from "vuex";
+import Spinner from "../shared/Spinner";
 export default {
   name: "SignUp",
   data: () => ({
@@ -57,34 +58,48 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
-      type: "shipper"
+      type: "shipper",
     },
-    dataLoaded: false,
+    loading: false,
     snackbar: {
-      showSnackbar: false,
+      show: false,
       position: "center",
       duration: 5000,
-      isInfinity: false
-    }
+      isInfinity: false,
+      message: null,
+      statusCode: null,
+    },
   }),
   methods: {
     ...mapActions({
-      signUp: "auth/signUp"
+      signUp: "auth/signUp",
     }),
     submit() {
-      if (this.form.password != this.form.password_confirmation) {
-        this.snackbar.showSnackbar = true;
-        console.log("Passwords not matching");
+      if (this.form.password !== this.form.password_confirmation) {
+        this.snackbar.show = true;
+        this.snackbar.statusCode = 400;
+        this.snackbar.message = "Passwords not matching!";
       } else {
-        this.signUp(this.form).then(() => {
-          this.$router.push("welcome");
-        }).catch(err=>{
-          console.log("error ", err)
-        })
+        this.loading = true;
+        this.signUp(this.form)
+          .then((res) => {
+            this.loading = false;
+            this.$router.push("welcome");
+          })
+          .catch((error) => {
+            if (error.response.status === 409) {
+              this.snackbar.statusCode = error.response.status;
+              this.snackbar.message = error.response.data.error;
+            } else {
+              this.snackbar.statusCode = error.response.status;
+              this.snackbar.message = error.response.data.error;
+            }
+            this.snackbar.show = true;
+          });
       }
-    }
+    },
   },
-  components: {}
+  components: { Spinner },
 };
 </script>
 
@@ -92,16 +107,26 @@ export default {
 .register {
   width: 100%;
   height: calc(100vh - 200px);
-  padding-top: 91px;
-  .social-media {
-    margin-top: 20px;
-  }
-  ion-card {
-    max-width: 500px;
+  .md-card {
     margin: auto;
     text-align: center;
     background: #fff;
-    padding: 20px;
+    .md-card-content {
+      padding: 20px;
+    }
+  }
+}
+@media only screen and (min-width: 600px) {
+  .register {
+    .md-card {
+      max-width: 500px;
+      margin: 3em auto;
+      .other-way {
+        .md-button {
+          font-size: 11px;
+        }
+      }
+    }
   }
 }
 </style>

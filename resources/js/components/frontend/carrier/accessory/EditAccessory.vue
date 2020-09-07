@@ -63,6 +63,16 @@
         </md-card-actions>
       </md-card>
     </form>
+    <md-snackbar
+      class="required-feild-error"
+      :md-position="snackbar.position"
+      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
+      :md-active.sync="snackbar.show"
+      md-persistent
+    >
+      <span>{{snackbar.message}}</span>
+      <span style="color:red">{{snackbar.error}}</span>
+    </md-snackbar>
   </div>
 </template>
 
@@ -74,11 +84,19 @@ export default {
     form: {
       name: null,
       srcValue: null,
-      desValue: null
+      desValue: null,
+      carrierId: null,
+    },
+    snackbar: {
+      show: false,
+      position: "center",
+      duration: 5000,
+      isInfinity: false,
+      message: null,
+      error: null,
     },
     accessories: null,
     acType: true,
-    carrierId:null,
   }),
   methods: {
     submit() {
@@ -87,55 +105,53 @@ export default {
           this.form.srcValue = 0;
         }
       }
-      axios.post(
-        "update-accessory/" + this.$route.params.id + "/" + this.carrierId,
-        this.form
-      )
-        .then(res => {
-          this.$emit("accessory-refresher");
+      axios
+        .put("carrier/accessories/" + this.$route.params.id, this.form)
+        .then((res) => {
           this.$router.back();
-          this.$emit('show-snackbar');
         })
-        .catch(err => {
-          console.log("Error: ", err);
+        .catch((error) => {
+          this.snackbar.show = true;
+
+          console.log("Error: ", error);
         });
     },
 
     edit() {
-      axios.get(
-        "edit-accessory/" + this.$route.params.id + "/" + this.carrierId
-      )
-        .then(res => {
+      axios
+        .get("carrier/accessories/" + this.$route.params.id)
+        .then((res) => {
           this.form.name = res.data.id;
           this.form.srcValue = res.data.pivot.src_value;
           this.form.desValue = res.data.pivot.des_value;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
     get() {
-      axios.get("get-accessories")
-        .then(res => {
+      axios
+        .get("carrier/accessories-lookup")
+        .then((res) => {
           this.accessories = res.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("error: ", err);
         });
     },
     onInput(e) {
       if (e == 6 || e == 7 || e == 8) {
         this.acType = false;
-      }else{
+      } else {
         this.acType = true;
       }
-    }
+    },
   },
   created() {
-    this.carrierId = this.$store.state.shared.carrierData.carrierId;
+    this.form.carrierId = this.$store.state.shared.carrierData.carrierId;
     this.get();
     this.edit();
-  }
+  },
 };
 </script>
 
@@ -157,6 +173,10 @@ export default {
   .table {
     width: 100%;
     border-collapse: collapse;
+    th {
+      font-size: 11px;
+      color: #666;
+    }
     th,
     td {
       border: 1px solid #ddd;

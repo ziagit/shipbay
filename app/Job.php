@@ -14,13 +14,13 @@ class Job extends Model
     {
         return $this->belongsTo(Order::class);
     }
-    public function shipper()
+    public function shipment()
     {
-        return $this->order()->with('addresses', 'items');
+        return $this->order()->with('fullAddress','items');
     }
     public function cityZip()
     {
-        return $this->order()->with('cityZip');
+        return $this->order()->with('fullAddress');
     }
     public function carrier()
     {

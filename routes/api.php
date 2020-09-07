@@ -1,11 +1,10 @@
 <?php
 
-use App\Carrier;
-use App\City;
-use App\Citycode;
+use App\Role;
 use App\User;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,76 +17,100 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-    Route::post('signin', 'SignInController');
-    Route::post('signout', 'SignOutController');
-    Route::post('signup', 'SignUpController');
-
-    Route::get('me', 'MeController');
-    Route::get('read-notification/{id}', function ($id) {
-        $notification = auth()->user()->unreadNotifications->find($id);
-          $notification->markAsRead();
-        return $notification;
-    });
+  Route::post('signin', 'SignInController');
+  Route::post('signup', 'SignUpController');
 });
-/* Route::group(['middleware' => 'auth:api'], function () { */
-Route::get('get-carrier', 'CarrierController@show');
-Route::post('add-carrier', 'CarrierController@store');
-Route::get('edit-carrier/{id}', 'CarrierController@edit');
-Route::post('update-carrier/{id}', 'CarrierController@update');
+Route::group(['middleware' => 'auth:api'], function () {
+  Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function () {
+    Route::get('me', 'MeController');
+    Route::post('signout', 'SignOutController');
+    Route::get('read-notification/{id}', 'NotificationController@show');
+  });
+  Route::group(['namespace' => 'Carrier', 'prefix' => 'carrier'], function () {
+    Route::resource('details', 'CarrierDetailsController');
+    Route::resource('accessories', 'AccessoryController');
+    Route::get('accessories-lookup', 'AccessoryController@accessories');
+    Route::resource('rates', 'RateController');
+    Route::get('search-rate', 'RateController@search');
+    Route::resource('account', 'CarrierAccountController');
+    Route::get('card', 'CarrierCardController@index');
 
-Route::get('get-accessories', 'AccessoryController@index');
-Route::get('get-accessory/{carrierId}', 'AccessoryController@show');
-Route::get('edit-accessory/{accessoryId}/{carrierId}', 'AccessoryController@edit');
-Route::post('add-accessory/{id}', 'AccessoryController@store');
-Route::post('update-accessory/{accessoryId}/{carrierId}', 'AccessoryController@update');
-Route::delete('delete-accessory/{accessoryId}/{carrierId}', 'AccessoryController@destroy');
+    Route::resource('jobs', 'JobController');
+    Route::get('job-status', 'JobController@jobStatus');
+  });
+  Route::group(['namespace' => 'Shipper', 'prefix' => 'shipper'], function () {
+    Route::resource('account', 'ShipperAccountController');
+    Route::resource('details', 'ShipperDetailsController');
 
-Route::post('add-rate/{id}', 'RateController@store');
-Route::get('get-rate/{id}', 'RateController@show');
-Route::get('edit-rate/{id}', 'RateController@edit');
-Route::post('update-rate/{id}', 'RateController@update');
-Route::delete('delete-rate/{rateId}', 'RateController@destroy');
+    Route::resource('orders', 'ShipperOrderController');
 
-//admin
-Route::get('admin/country', 'admin\AdminCountryController@index');
-Route::post('admin/country/store', 'admin\AdminCountryController@store');
-Route::post('admin/country/update', 'admin\AdminCountryController@update');
-Route::delete('admin/country/delete/{id}', 'admin\AdminCountryController@destroy');
+    Route::get('order-status', 'ShipperOrderController@status');
+    Route::get("card-details", 'CardController@getCustomer');
+  });
+  Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::resource('countries', 'AdminCountryController');
+    Route::get('search-country', 'AdminCountryController@search');
+    Route::resource('states', 'AdminStateController');
+    Route::get('search-state', 'AdminStateController@search');
+    Route::resource('cities', 'AdminCityController');
+    Route::get('search-city', 'AdminCityController@search');
+    Route::resource('zips', 'AdminZipController');
+    Route::get('search-zip', 'AdminZipController@search');
+    Route::resource('users', 'AdminUserController');
+    Route::get('search-user', 'AdminUserController@search');
+    Route::resource('carriers', 'AdminCarrierController');
+    Route::get('search-carrier', 'AdminCarrierController@search');
+    Route::resource('accessories', 'AdminAccessoryController');
+    Route::get('search-accessory', 'AdminAccessoryController@search');
+    Route::resource('rates', 'AdminRateController');
+    Route::get('search-rates', 'AdminRateController@search');
+    Route::resource('shippers', 'AdminShipperController');
+    Route::get('search-shipper', 'AdminShipperController@search');
+    Route::resource('orders', 'AdminOrderController');
+    Route::get('search-order', 'AdminOrderController@search');
+    Route::resource('about', 'Company\AdminAboutController');
+    Route::resource('contact', 'Company\AdminContactController');
+    Route::resource('services', 'Company\AdminServiceController');
+    Route::get('search-service', 'AdminServiceController@search');
+  });
+  Route::group(['namespace' => 'Order'], function () {
+    Route::post('charge-customer', 'CheckoutController@chargeCustomer');
+  });
+});
+Route::group(['namespace' => 'Location'], function () {
+  Route::get('countries-with-states', 'CountryController@index');
+  Route::get('countries', 'CountryController@all');
+  Route::get('states', 'StateController@all');
+  Route::get('cities', 'CityController@all');
+  Route::get('zips', 'ZipController@all');
+  Route::get('states/{id}', 'StateController@show');
+  Route::get('cities/{id}', 'CityController@show');
+  Route::get('citycodes/{id}', 'ZipController@show');
+  Route::get('citycodes', 'ZipController@index');
+});
+Route::group(['namespace' => 'Order'], function () {
+  Route::post('charge', 'CheckoutController@store');
+  Route::get('payment-status/{orderId}', 'CheckoutController@checkPayment');
+  Route::get("check-payment/{id}", 'CheckoutController@checkPayment');
 
-Route::get('admin/state', 'admin\AdminStateController@index');
-Route::post('admin/state/store', 'admin\AdminStateController@store');
-Route::post('admin/state/update', 'admin\AdminStateController@update');
-Route::delete('admin/state/delete/{id}', 'admin\AdminStateController@destroy');
+  Route::get('search-city', 'OrderController@search');
+  Route::get('location-type', 'OrderController@locationType');
+  Route::get('pick-services', 'OrderController@pickServices');
+  Route::get('delivery-services', 'OrderController@deliveryServices');
+  Route::get('pick-date', 'OrderController@pickDate');
+  Route::get('item-type', 'OrderController@itemType');
+  Route::get('item-condition', 'OrderController@itemCondition');
 
-Route::get('admin/city', 'admin\AdminCityController@index');
-Route::post('admin/city/store', 'admin\AdminCityController@store');
-Route::post('admin/city/update', 'admin\AdminCityController@update');
-Route::delete('admin/city/delete/{id}', 'admin\AdminCityController@destroy');
-/* }); */
-Route::get('search-city', 'OrderController@search');
+  Route::post('calculate-item-dw', 'ItemController@calculator');
+  Route::post('calculate-rate', 'CalculatorController@calculator');
 
-Route::get('countries', 'CountryController@index');
-Route::get('states/{id}', 'StateController@show');
-Route::get('cities/{id}', 'CityController@show');
-Route::get('citycodes/{id}', 'CitycodeController@show');
+  Route::post('confirm', 'ShipmentController@store');
+  Route::get('shipment-details/{id}', 'ShipmentController@show');
+  Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
+});
 
-Route::get('citycodes', 'CitycodeController@index');
-
-Route::get('location-type', 'OrderController@locationType');
-Route::get('pick-services', 'OrderController@pickServices');
-Route::get('delivery-services', 'OrderController@deliveryServices');
-Route::get('pick-date', 'OrderController@pickDate');
-Route::get('item-type', 'OrderController@itemType');
-Route::get('item-condition', 'OrderController@itemCondition');
-
-Route::post('calculate-item-dw', 'ItemController@calculator');
-Route::post('calculate-rate', 'CalculatorController@calculator');
-
-Route::post('add-shipment', 'ShipperController@store');
-
-Route::get('test', 'CalculatorController@test');
-
-Route::get('job-status', 'jobController@jobStatus');
-Route::get('jobs/{carrierId}', 'jobController@index');
-Route::get('job-details/{jobId}', 'jobController@show');
-Route::post('update-job/{jobId}', 'jobController@update');
+Route::get('test', function () {
+  $role = new Role();
+  $admin = $role->users()->where('name','Admin')->get();
+  return $admin;
+});

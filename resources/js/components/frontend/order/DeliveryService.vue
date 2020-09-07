@@ -4,87 +4,90 @@
       <img src="http://localhost:8000/images/service.svg" width="100" />
     </div>
     <span class="md-display-1">Do you need additional services at the delivery?</span>
+    <form @submit.prevent="nextStep()">
+      <div class="options">
+        <md-checkbox
+          v-for="service in accessories"
+          :key="service.id"
+          v-model="services"
+          :value="service.code"
+          class="md-primary"
+          @change="checkboxToggle(service)"
+        >{{service.name}}</md-checkbox>
+        <md-field v-if="appointment">
+          <label>Appointment time</label>
+          <md-input type="time" v-model="appointmentTime" :required="appointment"></md-input>
+        </md-field>
+      </div>
 
-    <div class="options">
-      <md-checkbox
-        v-for="service in accessories"
-        :key="service.id"
-        v-model="services"
-        :value="service.code"
-        class="md-primary"
-        @change="checkboxToggle(service)"
-      >{{service.name}}</md-checkbox>
-      <md-field v-show="apointment">
-        <label>Appointment time</label>
-        <md-input type="time" v-model="appointmentTime"></md-input>
-      </md-field>
-    </div>
-
-    <div class="action">
-      <md-button @click="prevStep(-14)" class="md-icon-button md-raised">
-        <md-icon>keyboard_arrow_left</md-icon>
-      </md-button>
-      <md-button @click="nextStep(14)" class="md-icon-button md-raised md-primary">
-        <md-icon>keyboard_arrow_right</md-icon>
-      </md-button>
-    </div>
+      <div class="action">
+        <md-button to="destination" class="md-icon-button md-raised">
+          <md-icon>keyboard_arrow_left</md-icon>
+        </md-button>
+        <md-button class="md-icon-button md-raised md-primary" type="submit">
+          <md-icon>keyboard_arrow_right</md-icon>
+        </md-button>
+      </div>
+    </form>
   </div>
 </template>
 <script>
 export default {
   name: "CarrierList",
   data: () => ({
+    prgValue: 56,
     accessories: null,
     appointmentTime: null,
     services: [],
-    apointment: false
+    appointment: false,
   }),
   methods: {
-    nextStep(prgValue) {
+    nextStep() {
       let storage = JSON.parse(localStorage.getItem("order"));
       let oldElement = storage.des.accessories[0];
       if (!this.services.includes(oldElement)) {
         this.services.push(oldElement);
       }
       storage.des.accessories = this.services;
-      storage.des.appointmentTime = this.appointmentTime
+      storage.des.appointmentTime = this.appointmentTime;
       localStorage.setItem("order", JSON.stringify(storage));
       this.$router.push("items");
-      this.$emit("progress", prgValue);
     },
-    prevStep(prgValue) {
-      this.$router.back("destination");
-      this.$emit("progress", prgValue);
-    },
+
     watchLocalstorage() {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.des) {
         this.services = storage.des.accessories;
+        if (storage.des.accessories.includes("ap")) {
+          this.appointmentTime = storage.des.appointmentTime;
+          this.appointment = true;
+        }
       }
     },
     getAccessories() {
       axios
         .get("delivery-services")
-        .then(res => {
+        .then((res) => {
           this.accessories = res.data;
           this.ap = res.data[2].code;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
     },
     checkboxToggle(service) {
       if (service.code == "ap") {
-        this.apointment = !this.apointment;
+        this.appointment = !this.appointment;
       }
-    }
+    },
   },
 
   created() {
-    console.log("in delivery serv ", JSON.parse(localStorage.getItem("order")));
+    this.$emit("progress", this.prgValue);
     this.watchLocalstorage();
     this.getAccessories();
-  }
+    localStorage.setItem("cRoute", this.$router.currentRoute.path);
+  },
 };
 </script>
 
@@ -97,7 +100,14 @@ export default {
     margin: 20px auto;
   }
   .md-display-1 {
-    font-size: 30px;
+    font-size: 24px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .delivery-services {
+    .md-display-1 {
+      font-size: 30px;
+    }
   }
 }
 </style>

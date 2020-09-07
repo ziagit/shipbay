@@ -2,16 +2,20 @@
   <div>
     <md-dialog-confirm
       :md-active.sync="active"
-      md-title="Are you sure?"
-      md-content="Make sure it's not an Accident"
+      md-title="Caution!"
+      md-content="Make sure it's not an accident!"
       md-confirm-text="Agree"
       md-cancel-text="Disagree"
-      @md-cancel="onCancel"
-      @md-confirm="onConfirm"
+      @md-cancel="cancel"
+      @md-confirm="confirm"
     />
 
     <md-card class="md-primary" md-theme="orange-card">
       <md-card-header>
+      <!--   <md-field md-clearable class="search-feild">
+          <label for="search">Search by city/zip... </label>
+          <md-input v-model="keywords" id="search"/>
+        </md-field> -->
         <div class="md-title">Rates</div>
         <md-button to="add-rate" class="md-icon-button add-rate" v-if="rates != null">
           <md-icon>add</md-icon>
@@ -99,7 +103,7 @@
   </div>
 </template>
 <script>
-import Axios from "axios";
+import axios from "axios";
 export default {
   data: () => ({
     rates: [],
@@ -109,10 +113,28 @@ export default {
     desCityDelete: null,
     rateExist: true,
     carrierId: null,
+    keywords: null,
   }),
+  watch: {
+    keywords(after, before) {
+      this.search();
+    },
+  },
   methods: {
-    getRates() {
-      Axios.get("get-rate/" + this.carrierId)
+    search() {
+      axios
+        .get("carrier/search-rate", { params: { keywords: this.keywords } })
+        .then((res) => {
+          this.rates = res.data.data;
+          console.log("searched ", res.data.carrier_rates)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    get() {
+      axios
+        .get("carrier/rates")
         .then((res) => {
           this.rates = res.data.carrier_rates;
         })
@@ -123,23 +145,23 @@ export default {
     deleteRate(rateId) {
       this.active = true;
     },
-    onConfirm() {
-      Axios.delete("delete-rate/" + this.idToDelete)
+    confirm() {
+      axios
+        .delete("carrier/rates/" + this.idToDelete)
         .then((res) => {
           this.$emit("show-snackbar");
-          this.getRates();
+          this.get();
         })
-        .catch((err) => {
-          console.log("Error: ", err);
+        .catch((error) => {
+          console.log("Error: ", error);
         });
     },
-    onCancel() {
+    cancel() {
       this.value = "Disagreed";
     },
   },
   created() {
-    this.carrierId = this.$store.state.shared.carrierData.carrierId;
-    this.getRates();
+    this.get();
   },
 };
 </script>>
@@ -154,6 +176,10 @@ export default {
   .table {
     width: 100%;
     border-collapse: collapse;
+    th{
+      font-size: 11px;
+      color: #666;
+    }
     th,
     td {
       border: 1px solid #ddd;
@@ -163,6 +189,11 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
+  }
+  .search-feild{
+    border-bottom: #ddd 1px solid;
+    width: 30%;
+    margin: 0;
   }
 }
 </style>

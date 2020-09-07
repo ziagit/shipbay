@@ -24,6 +24,8 @@ class CreateOrdersTable extends Migration
             $table->double('estimated_value');
             $table->string('start_loadtime')->nullable();
             $table->string('end_loadtime')->nullable();
+            $table->string('charge_id');
+            $table->string('uniqid')->unique();
             $table->unsignedBigInteger('shipper_id');
          
             $table->timestamps();

@@ -14,29 +14,14 @@ import axios from "axios";
 export default {
   name: "StepperLinear",
   data: () => ({
-    amount: 0
+    amount: 0,
   }),
 
   methods: {
     progress(prgValue) {
-      if(localStorage.getItem('prg-value')){
-        let storage = JSON.parse(localStorage.getItem('prg-value'))
-        this.amount = storage + prgValue;
-        localStorage.setItem('prg-value', JSON.stringify(this.amount))
-        console.log("prg in order: ", this.amount)
-      }else{
-        this.amount = this.amount + prgValue;
-      localStorage.setItem('prg-value', JSON.stringify(this.amount))
-      console.log("prg in order: ", JSON.parse(localStorage.getItem('prg-value')))
-      }
+      this.amount = prgValue;
     },
   },
-  created(){
-    if(localStorage.getItem('prg-value')){
-        this.amount = JSON.parse(localStorage.getItem('prg-value'))
-        localStorage.setItem('prg-value', JSON.stringify(this.amount))
-      }
-  }
 };
 </script>
 
@@ -44,7 +29,7 @@ export default {
 .order {
   width: 100%;
   margin: auto;
-  padding: 30px;
+  padding-top: 30px;
   text-align: center;
   .progress-container {
     max-width: 800px;
@@ -67,37 +52,17 @@ export default {
   }
 }
 
-/* @media only screen and (max-width: 600px) {
-  .section1 {
-    height: 100vh;
-    padding-top: 10px;
-    .main-card {
-      width: 95%;
-      label,
-      .md-primary {
-        font-size: 11px;
-      }
-      .row-inputs {
-        padding: 0;
-        display: block;
-      }
-      .service-label {
-        margin-left: 0;
-      }
-      ul {
-        padding: 0;
-        li {
-          display: block;
-          list-style-type: none;
-
-          .remove-item {
-            position: relative;
-            bottom: 0;
-            right: 0;
-          }
-        }
-      }
+@media only screen and (min-width: 600px) {
+  .order {
+    padding: 30px;
+    .progress-container {
+      max-width: 800px;
+    }
+    .input-container {
+      padding: 10px;
+      max-width: 600px;
+      margin: auto;
     }
   }
-} */
+}
 </style>

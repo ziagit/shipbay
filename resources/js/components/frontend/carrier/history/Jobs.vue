@@ -17,8 +17,8 @@
           </thead>
           <tbody>
             <tr v-for="job in jobs" :key="job.id">
-              <td>{{job.city_zip.city_zip[0].cities[0].name}}</td>
-              <td>{{job.city_zip.city_zip[1].cities[0].name}}</td>
+              <td>{{job.shipment.full_address[0].city.name}}</td>
+              <td>{{job.shipment.full_address[1].city.name}}</td>
               <td>{{job.created_at}}</td>
               <td v-bind:class="{delivered: job.jobstatus.id == 5}">{{job.jobstatus.title}}</td>
 
@@ -47,13 +47,12 @@ import axios from "axios";
 export default {
   name: "Jobs",
   data: () => ({
-    carrierId: null,
     jobs: [],
   }),
   methods: {
     getJobs() {
       axios
-        .get("jobs/" + this.carrierId)
+        .get("carrier/jobs")
         .then((res) => {
           this.jobs = res.data;
           console.log("job list ", this.jobs);
@@ -64,12 +63,11 @@ export default {
     },
   },
   created() {
-    this.carrierId = this.$store.state.shared.carrierData.carrierId;
     this.getJobs();
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .md-card {
   box-shadow: none;
   border: 1px solid #ddd;

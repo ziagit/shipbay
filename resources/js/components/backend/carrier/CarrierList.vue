@@ -2,166 +2,134 @@
   <div class="main-container">
     <!-- delete dialog-->
     <md-dialog-confirm
-      :md-active.sync="deleteDialog"
+      :md-active.sync="deleteTogal"
       md-title="I assure what you doing"
       md-content
       md-confirm-text="OK"
       md-cancel-text="Cancel"
-      @md-confirm="onConfirm()"
-      @md-cancel="onCancel"
+      @md-confirm="confirm()"
+      @md-cancel="cancel"
     />
-    <!-- edit dialog -->
-    <md-dialog :md-active.sync="editDialog">
-      <md-dialog-title>Update carrier data</md-dialog-title>
-      <md-dialog-content>
-        <EditCarrierList v-on:close-dialog="refresh" :cityData="cityData" :stateData="stateData" />
-      </md-dialog-content>
-    </md-dialog>
 
-    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+
+    <md-table md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Carrier</h1>
+          <h1 class="md-title">Carriers</h1>
         </div>
 
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="Search by name..." v-model="keywords" />
         </md-field>
       </md-table-toolbar>
 
       <md-table-empty-state
         md-label="No state found"
-        :md-description="`No state found for this '${search}' query. Try a different search term or create a new state.`"
+        :md-description="`No state found for this query. Try a different search term or create a new state.`"
       >
-        <md-button class="md-primary md-raised" @click="addData()">Create new city</md-button>
+        <md-button class="md-primary md-raised" @click="add()">Create new carrier</md-button>
       </md-table-empty-state>
+      <md-table-row>
+        <md-table-head md-numeric>ID</md-table-head>
+        <md-table-head>First name</md-table-head>
+        <md-table-head>Last name</md-table-head>
+        <md-table-head>Country</md-table-head>
+        <md-table-head>Phone</md-table-head>
+        <md-table-head>Email</md-table-head>
+        <md-table-head>Actions</md-table-head>
+      </md-table-row>
+      <md-table-row v-for="carrier in carriers.data" :key="carrier.id">
+        <md-table-cell md-numeric>{{ carrier.id }}</md-table-cell>
+        <md-table-cell>{{ carrier.first_name }}</md-table-cell>
+        <md-table-cell>{{ carrier.last_name }}</md-table-cell>
+        <md-table-cell>{{ carrier.country.name }}</md-table-cell>
+        <md-table-cell>{{ carrier.phone }}</md-table-cell>
+        <md-table-cell>{{ carrier.user.email }}</md-table-cell>
 
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-        <md-table-cell md-label="Postal code" md-sort-by="postal_Code">
-          <span v-for="code in item.citycodes" :key="code.id">{{code.postal_code}},</span>
-        </md-table-cell>
-        <md-table-cell md-label="State" md-sort-by="country_id">{{ item.state.name }}</md-table-cell>
         <md-table-cell md-label="Actions">
-          <md-button class="md-icon-button md-primary" @click="editData(item)">
-            <md-icon>edit</md-icon>
-          </md-button>
-          <md-button class="md-icon-button md-accent" @click="deleteData(item.id)">
+          <md-button class="md-icon-button md-accent" @click="remove(carrier.id)">
             <md-icon>delete</md-icon>
           </md-button>
         </md-table-cell>
       </md-table-row>
+      
     </md-table>
+    <pagination :limit="4" :data="carriers" @pagination-change-page="get"></pagination>
   </div>
 </template>
 
 <script>
-import CONFIG from "../../../config";
-import EditCarrierList from "./EditCarrierList";
-import Axios from "axios";
+import axios from "axios";
 
-const toLower = text => {
-  return text.toString().toLowerCase();
-};
-
-const searchByName = (items, term) => {
-  if (term) {
-    return items.filter(item => toLower(item.name).includes(toLower(term)));
-  }
-  return items;
-};
 export default {
-  name: "CarrierList",
+  name: "carrier",
   data: () => ({
-    search: null,
-    searched: [],
-    users: [
-      {
-        id: 1,
-        name: "Afghanistan",
-        code: "AF"
-      },
-      {
-        id: 2,
-        name: "India",
-        code: "IN"
-      },
-      {
-        id: 3,
-        name: "Iran",
-        code: "IR"
-      },
-      {
-        id: 4,
-        name: "Tajikistan",
-        code: "TK"
-      }
-    ],
-    states: [],
-    states: [],
-    editDialog: false,
-    deleteDialog: false,
-    selectedId: 0,
-    cityData: {},
-    stateData: [],
-    config: CONFIG
+    keywords: null,
+    carriers: null,
+    carrier: null,
+    deleteTogal: false,
   }),
+  watch: {
+    keywords(after, before) {
+      this.search();
+    },
+  },
   methods: {
-    newUser() {
-      window.alert("Noop");
-    },
-    searchOnTable() {
-      this.searched = searchByName(this.users, this.search);
-    },
-
-    getData() {
-      Axios.get("admin/carrier")
-        .then(res => {
-          this.searched = res.data.cities;
-          this.states = res.data.states;
-          console.log("eee: ", res.data);
+    search() {
+      axios
+        .get("admin/search-carrier", { params: { keywords: this.keywords } })
+        .then((res) => {
+          this.carriers = res.data;
         })
-        .catch(err => {
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    get(page=1) {
+      axios
+        .get("admin/carriers?page="+page)
+        .then((res) => {
+          this.carriers = res.data;
+        })
+        .catch((err) => {
           console.log("Error: ", err);
         });
     },
 
-    refresh() {
-      this.addDialog = false;
-      this.editDialog = false;
-      this.getData();
-    },
-    editData(data) {
-      this.editDialog = true;
-      this.cityData = data;
+    add() {
+      this.addTogal = true;
       this.stateData = this.states;
     },
-    deleteData(id) {
-      this.deleteDialog = true;
+    refresh() {
+      this.addTogal = false;
+      this.editTogal = false;
+      this.get();
+    },
+    edit(data) {
+      this.editTogal = true;
+      this.carrier = data;
+    },
+    remove(id) {
+      this.deleteTogal = true;
       this.selectedId = id;
     },
 
-    onConfirm() {
-      Axios.delete("admin/carrier/delete/" + this.selectedId)
-        .then(res => {
+    confirm() {
+      axios
+        .delete("admin/carriers/" + this.selectedId)
+        .then((res) => {
           console.log("deleted", res.data);
-          this.getData();
+          this.get();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Error: ", err);
         });
     },
-    onCancel() {}
+    cancel() {},
   },
   created() {
-    this.getData();
-    /* this.searched = this.users; */
+    this.get();
   },
-
-  components: {
-    EditCarrierList
-  }
 };
 </script>
 <style scoped lang="scss">
@@ -173,7 +141,5 @@ export default {
     right: 20px;
   }
 }
-.md-table-content {
-  width: 100% !important;
-}
+
 </style>

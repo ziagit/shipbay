@@ -15,8 +15,15 @@ class CreateShippersTable extends Migration
     {
         Schema::create('shippers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('user_id')->nullable();
+            $table->string('first_name');
+            $table->string('last_name')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('phone')->unique()->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('country_id')->nullable();
+            $table->unsignedInteger('state_id')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('citycode_id')->nullable();
             $table->timestamps();
         });
     }

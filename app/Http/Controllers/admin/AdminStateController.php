@@ -17,9 +17,8 @@ class AdminStateController extends Controller
      */
     public function index()
     {
-        $countries = Country::all();
-        $states = State::with(['country','statecodes'])->get(); 
-        return response()->json(array('countries'=>$countries, 'states'=>$states));
+        $states = State::with('country')->paginate(5);
+        return response()->json($states);
     }
 
     /**
@@ -42,17 +41,15 @@ class AdminStateController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'postal_code' => 'required',
-            'country_id' => 'required'
+            'country' => 'required'
         ]);
         $state = new State();
 
         $state->name = $request->name;
-        $state->postal_code = $request->postal_code;
-        $state->country_id = $request->country_id;
+        $state->country_id = $request->country;
 
         $state->save();
-        return response()->json(["message"=>"Saved Successfully."]);
+        return response()->json(["message" => "Saved Successfully."], 200);
     }
 
     /**
@@ -84,22 +81,19 @@ class AdminStateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
-            'postal_code' => 'required',
-            'country_id' => 'required'
+            'country' => 'required'
         ]);
-        if($state = State::find($request->id)){
-            $state->name = $request->name;
-            $state->postal_code = $request->postal_code;
-            $state->country_id = $request->country_id;
+        $state = State::find($id);
 
-            $state->save();
-            return response()->json(["message"=>"Updated Successfully."]);
-        }
-        return response()->json(["message"=>"Data Not Found!"]);
+        $state->name = $request->name;
+        $state->country_id = $request->country;
+
+        $state->save();
+        return response()->json(["message" => "Saved Successfully."], 200);
     }
 
     /**
@@ -110,12 +104,21 @@ class AdminStateController extends Controller
      */
     public function destroy($id)
     {
-        if($state = State::find($id)){
+        if ($state = State::find($id)) {
             $state->delete();
-            return response()->json(["message"=>"Deleted Successfully."]);
+            return response()->json(["message" => "Deleted Successfully."], 200);
         }
-        return response()->json(["message"=>"Data Not Found!"]);
-
+        return response()->json(["message" => "Data Not Found!"], 404);
+    }
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords;
+        $state = State::where('name', 'like', '%' . $keywords . '%')
+            ->orWhereHas('country', function ($q) use ($keywords) {
+                return $q->where('name', 'like', '%' . $keywords . '%');
+            })
+            ->with('country')
+            ->paginate(5);
+        return $state;
     }
 }
-

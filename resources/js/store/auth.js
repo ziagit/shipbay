@@ -11,7 +11,7 @@ export default {
         },
         user(state) {
             return state.user
-        }
+        },
     },
 
     mutations: {
@@ -20,7 +20,7 @@ export default {
         },
         SET_USER(state, data) {
             state.user = data
-        }
+        },
     },
     actions: {
         async signIn({ dispatch }, credentials) {
@@ -56,7 +56,8 @@ export default {
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
                 localStorage.removeItem('token');
-
+                localStorage.removeItem('in');
+                localStorage.removeItem('temp');
             })
         }
     },
