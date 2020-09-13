@@ -5,6 +5,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Route;
+use App\Services\Functions;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,8 +115,6 @@ Route::get("unauthorized", function(){
   return response()->json(['message'=> 'You are unauthorized!'], 401);
 })->name('unauthorized');
 
-Route::get('test', function () {
-  return "You are authorized!";
-})->middleware('role');
+Route::post('test', 'Order\CalculatorController@calculator');
 
 

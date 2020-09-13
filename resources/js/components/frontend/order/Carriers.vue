@@ -97,7 +97,7 @@ export default {
     getCarriers() {
       Axios.post("calculate-rate", JSON.parse(localStorage.getItem("order")))
         .then((res) => {
-          console.log(">> ", res.data);
+          console.log("carriers: ", res.data);
           if (res.data.length === 0) {
             this.carriersExist = false;
             return
@@ -135,8 +135,6 @@ export default {
     this.$emit("progress", 100);
     this.getCarriers();
     this.order = JSON.parse(localStorage.getItem("order"));
-    
-    console.log("order in carrier: ", this.order);
     setTimeout(() => {
       this.dataLoading = false;
     }, 5000);
