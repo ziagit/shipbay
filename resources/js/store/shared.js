@@ -21,7 +21,7 @@ export default {
         SET_CARD(state, status) {
             state.cardStatus = status
         },
-        setNotificationId(state, id) {
+        SET_NOTIFICATION(state, id) {
             state.notificationId = id
         },
 
@@ -43,11 +43,22 @@ export default {
         },
         async attemptCard({ commit, state }, message) {
             if (message) {
-                commit('SET_CARD', cardStatus)
+                commit('SET_CARD', message)
             }
             if (!state.cardStatus) {
                 return
             }
         },
+        setNotification({dispatch}, id){
+            return dispatch('attempNotification', id)
+        },
+        async attempNotification({commit, state}, id){
+            if(id){
+                commit('SET_NOTIFICATION', id)
+            }
+            if(!state.notificationId){
+                return
+            }
+        }
     }
 };

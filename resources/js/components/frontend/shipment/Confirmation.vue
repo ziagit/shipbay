@@ -42,7 +42,7 @@
             </div>
             <div
               class="md-body-1"
-            >Totoal dimentional weight: {{Math.round(calculateTotalDW())}} Pounds</div>
+            >Totoal dimentional weight: {{Math.round(totalDw())}} Pounds</div>
           </div>
         </div>
         <md-divider class="md-inset"></md-divider>
@@ -85,8 +85,12 @@
               otherwise stated.
             </li>
             <li>
-              Here is our
-              <a href="#">Terms & Conditions</a> for further details
+              <md-menu md-direction="top-start" :md-active.sync="toggle">
+                Here is our <span class="term-link" md-menu-trigger>Terms & Conditions</span> for further details
+                <md-menu-content>
+                  <TermsAndConditions />
+                </md-menu-content>
+              </md-menu>
             </li>
           </ul>
           <div class="confirm">
@@ -99,39 +103,30 @@
         </div>
       </md-card-content>
     </md-card>
-    <md-snackbar
-      class="required-feild-error"
-      :md-position="snackbar.position"
-      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.show"
-      md-persistent
-    >
-      <span>Please provide all the required information before submition!</span>
-      <span style="color:red">{{snackbar.message}}</span>
-    </md-snackbar>
+    <Snackbar :data="snackbar" />
   </div>
 </template>
 <script>
 import axios from "axios";
+import functions from '../services/functions'
 import Spinner from "../shared/Spinner";
+import Snackbar from "../shared/Snackbar";
+import TermsAndConditions from '../shared/TermsAndConditions'
 export default {
   name: "Confirmation",
   data: () => ({
     shipment: null,
     dataLoading: false,
-    spinnerValue: 10,
+    toggle: false,
     snackbar: {
       show: false,
-      position: "center",
-      duration: 9000000,
-      isInfinity: false,
       message: null,
+      statusCode:null,
     },
   }),
   methods: {
     confirm() {
       this.dataLoading = true;
-      this.progressIt();
       axios
         .post("confirm", JSON.parse(localStorage.getItem("order")))
         .then((res) => {
@@ -146,23 +141,15 @@ export default {
           this.dataLoading = false;
         })
         .catch((err) => {
-          this.snackbar.message = err.message;
           this.snackbar.show = true;
+          this.snackbar.message = err.message;
+          this.snackbar.statusCode = err.status
           console.log(err);
         });
     },
-    calculateTotalDW() {
-      let total = 0;
-      this.shipment.myItem.items.forEach((element) => {
-        total = total + element.dw;
-      });
-      return total;
-    },
-
-    progressIt() {
-      setInterval(function () {
-        this.spinnerValue = this.spinnerValue + 10;
-      }, 1000);
+    totalDw() {
+      let order = JSON.parse(localStorage.getItem("order"));
+      return functions.totalDw(order.myItem.items)
     },
   },
   created() {
@@ -171,6 +158,8 @@ export default {
   },
   components: {
     Spinner,
+    Snackbar,
+    TermsAndConditions
   },
 };
 </script>
@@ -201,6 +190,12 @@ export default {
     div {
       text-align: right;
     }
+  }
+  .term-link{
+    color: #448aff;
+  }
+  .term-link:hover{
+    cursor: pointer;
   }
 }
 @media only screen and (min-width: 600px) {

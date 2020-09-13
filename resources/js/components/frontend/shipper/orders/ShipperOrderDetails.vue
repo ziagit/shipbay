@@ -4,7 +4,10 @@
       <md-card-header>
         <div>
           <div class="md-title">Order details</div>
-          <p class="order-id" v-if="dataLoaded">{{order.uniqid}}</p>
+          <div v-if="dataLoaded" class="job-id">
+            <span>{{order.uniqid}}</span> |
+            <span>{{formatedDate}}</span>
+          </div>
         </div>
 
         <md-button @click="$router.back()" class="md-icon-button close-btn">
@@ -91,7 +94,8 @@
 </template>
 <script>
 import axios from "axios";
-import Spinner from '../../shared/Spinner'
+import Spinner from "../../shared/Spinner";
+import functions from "../../services/functions";
 export default {
   name: "orderDetails",
   data: () => ({
@@ -100,6 +104,7 @@ export default {
     hasHistory: false,
     notification: null,
     notificationId: null,
+    formatedDate: null,
     dataLoaded: false,
     status: [],
     selectedStatus: null,
@@ -116,6 +121,7 @@ export default {
         .then((res) => {
           console.log("order details ", res.data);
           this.order = res.data;
+          this.formatedDate = functions.myDateFormat(this.order.created_at);
           if (this.order != null) {
             this.dataLoaded = true;
           }
@@ -173,9 +179,9 @@ export default {
       this.orderDetails();
     },
   },
-  components:{
-    Spinner
-  }
+  components: {
+    Spinner,
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -219,10 +225,12 @@ export default {
     top: 0;
     right: 0;
   }
-  .order-id{
-    font-size: 11px;
-    margin: 0;
-    padding: 0;
+  .job-id {
+    span {
+      font-size: 11px;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 </style>

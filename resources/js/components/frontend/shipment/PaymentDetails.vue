@@ -16,8 +16,8 @@
           </div>
           <div v-else>
             <p>You don't have payment history.</p>
-            <router-link v-if="authenticated" to="/shipper/card">Add your card informations</router-link>
-            <router-link v-else to="/checkout" target="_blank">Add your card informations</router-link>
+            <!-- <router-link v-if="authenticated" to="/shipper/card">Add your card informations</router-link> -->
+            <router-link to="/checkout" target="_blank">Add your card informations</router-link>
           </div>
           <p>
             Credit cards can be securely saved for future orders. Payment information that is deleted or not saved to your account will be stored for 90 days in the case of any order refunds or adjustments. For more details, please read the
@@ -56,31 +56,20 @@
       </md-button>
       <Spinner v-if="checkingPayment" />
     </div>
-    <md-snackbar
-      class="required-feild-error"
-      :md-position="snackbar.position"
-      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.show"
-      md-persistent
-    >
-      <span>{{snackbar.message}}</span>
-      <span style="color:red">Status: {{snackbar.statusCode}}</span>
-    </md-snackbar>
+    <Snackbar :data="snackbar" />
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
 import Card from "../services/card";
-import Spinner from '../shared/Spinner'
+import Spinner from "../shared/Spinner";
+import Snackbar from "../shared/Snackbar";
 export default {
   name: "PaymentDetails",
   data: () => ({
     snackbar: {
       show: false,
-      position: "center",
-      duration: 5000,
-      isInfinity: false,
       message: null,
       statusCode: null,
     },
@@ -91,7 +80,7 @@ export default {
     paymentStatus: false,
     dataLoading: true,
     checkingPayment: false,
-    test:null,
+    test: null,
   }),
   computed: {
     ...mapGetters({
@@ -139,11 +128,12 @@ export default {
   created() {
     this.checkPayment();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
-    console.log("xx", this.card)
+    console.log("in payment", JSON.parse(localStorage.getItem("order")));
   },
-  components:{
-    Spinner
-  }
+  components: {
+    Spinner,
+    Snackbar
+  },
 };
 </script>
 

@@ -2,6 +2,7 @@
 
 use App\Role;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-  Route::post('signin', 'SignInController');
+  Route::post('signin', 'SignInController')->name('signin');
   Route::post('signup', 'SignUpController');
 });
 Route::group(['middleware' => 'auth:api'], function () {
@@ -47,7 +48,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('order-status', 'ShipperOrderController@status');
     Route::get("card-details", 'CardController@getCustomer');
   });
-  Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+  Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware'=>'role'], function () {
     Route::resource('countries', 'AdminCountryController');
     Route::get('search-country', 'AdminCountryController@search');
     Route::resource('states', 'AdminStateController');
@@ -109,8 +110,12 @@ Route::group(['namespace' => 'Order'], function () {
   Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
 });
 
+Route::get("unauthorized", function(){
+  return response()->json(['message'=> 'You are unauthorized!'], 401);
+})->name('unauthorized');
+
 Route::get('test', function () {
-  $role = new Role();
-  $admin = $role->users()->where('name','Admin')->get();
-  return $admin;
-});
+  return "You are authorized!";
+})->middleware('role');
+
+

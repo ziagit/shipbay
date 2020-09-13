@@ -21,7 +21,7 @@ import Accessory from './components/frontend/carrier/accessory/Accessory'
 import AccessoryContainer from './components/frontend/carrier/accessory/AccessoryContainer'
 import EditAccessory from './components/frontend/carrier/accessory/EditAccessory';
 import AddAccessory from './components/frontend/carrier/accessory/AddAccessory';
-import Rate from './components/frontend/carrier/rate/Rate';
+import CarrierRates from './components/frontend/carrier/rate/CarrierRates';
 import RateContainer from './components/frontend/carrier/rate/RateContainer';
 import AddRate from './components/frontend/carrier/rate/AddRate';
 import EditRate from './components/frontend/carrier/rate/EditRate';
@@ -33,14 +33,14 @@ import CarrierAccount from './components/frontend/carrier/account-details/Carrie
 import EditCarrierAccount from './components/frontend/carrier/account-details/EditCarrierAccount';
 import CarrierCard from './components/frontend/carrier/card-details/CarrierCard';
 
-import Origin from './components/frontend/order/Origin'
-import PickService from './components/frontend/order/PickService'
-import PickDate from './components/frontend/order/PickDate'
-import Destination from './components/frontend/order/Destination'
-import DeliveryService from './components/frontend/order/DeliveryService'
-import Item from './components/frontend/order/Item'
-import Result from './components/frontend/order/Result'
-import SelectCarrier from './components/frontend/order/SelectCarrier'
+import Pickup from './components/frontend/order/Pickup'
+import PickupServices from './components/frontend/order/PickupServices'
+import PickupDate from './components/frontend/order/PickupDate'
+import Delivery from './components/frontend/order/Delivery'
+import DeliveryServices from './components/frontend/order/DeliveryServices'
+import Items from './components/frontend/order/Items'
+import ItemDetails from './components/frontend/order/ItemDetails'
+import Carriers from './components/frontend/order/Carriers'
 
 import Shipment from './components/frontend/shipment/Shipment'
 import AdditionalDetails from './components/frontend/shipment/AdditionalDetails'
@@ -76,6 +76,7 @@ import CarrierList from './components/backend/carrier/CarrierList'
 import Rates from './components/backend/carrier/Rates'
 import Accessories from './components/backend/carrier/accessories/Accessories'
 import Orders from './components/backend/shippers/Orders'
+import OrderDetails from './components/backend/shippers/OrderDetails'
 import Shippers from './components/backend/shippers/Shippers'
 import Users from './components/backend/users/Users'
 
@@ -116,15 +117,15 @@ export default new VueRouter({
                     path: 'order',
                     component: Order,
                     children: [
-                        { path: '', redirect: 'origin' },
-                        { name: 'origin', path: 'origin', component: Origin },
-                        { name: 'pickup-services', path: 'pickup-services', component: PickService },
-                        { name: 'pickup-date', path: 'pickup-date', component: PickDate },
-                        { name: 'destination', path: 'destination', component: Destination },
-                        { name: 'delivery-service', path: 'delivery-services', component: DeliveryService },
-                        { name: 'items', path: 'items', component: Item },
-                        { name: 'result', path: 'result', component: Result },
-                        { name: 'select-carrier', path: 'select-carrier', component: SelectCarrier }
+                        { path: '', redirect: 'pickup' },
+                        { name: 'pickup', path: 'pickup', component: Pickup },
+                        { name: 'pickup-services', path: 'pickup-services', component: PickupServices },
+                        { name: 'pickup-date', path: 'pickup-date', component: PickupDate },
+                        { name: 'delivery', path: 'delivery', component: Delivery },
+                        { name: 'delivery-service', path: 'delivery-services', component: DeliveryServices },
+                        { name: 'items', path: 'items', component: Items },
+                        { name: 'item-details', path:  'item-details', component: ItemDetails },
+                        { name: 'carriers', path: 'carriers', component: Carriers }
                     ]
                 },
                 {
@@ -161,7 +162,7 @@ export default new VueRouter({
                             name: 'rates', path: 'rates', component: RateContainer,
                             children: [
                                 { path: '', redirect: 'rate-list' },
-                                { name: 'rate-list', path: 'rate-list', component: Rate },
+                                { name: 'rate-list', path: 'rate-list', component: CarrierRates },
                                 { name: 'add-rate', path: 'add-rate', component: AddRate },
                                 { name: 'edit-rate', path: 'edit-rate/:id', component: EditRate }
                             ]
@@ -257,6 +258,7 @@ export default new VueRouter({
                         { name: 'accessories', path: 'accessories', component: Accessories },
                         { name: 'shippers', path: 'shippers', component: Shippers },
                         { name: 'orders', path: 'orders', component: Orders },
+                        { name: 'order', path: 'order/:id', component: OrderDetails },
                         { name: 'users', path: 'users', component: Users },
 
                         { name: 'about', path: 'about', component: About },

@@ -36,24 +36,36 @@ export default {
     border-radius: 8px !important;
   }
 }
-.info, .question:hover{
- cursor: pointer;
+.info,
+.question:hover {
+  cursor: pointer;
 }
 
-.md-table-content{
+.md-table-content {
   border-radius: 8px;
 }
 
-.pagination{
+.pagination {
   display: flex;
-  li{
+  li {
     list-style-type: none !important;
     margin: 5px 10px;
   }
 }
 
-.md-table-content{
+.md-table-content {
   max-width: calc(100vw - 80px);
   overflow-x: auto !important;
+}
+.md-display-1 {
+  font-size: 24px;
+}
+@media only screen and (min-width: 600px) {
+  .md-display-1 {
+    font-size: 30px;
+  }
+  label {
+    font-size: 14px;
+  }
 }
 </style>

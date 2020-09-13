@@ -8,14 +8,15 @@
         </md-button>
         <div class="carrier-logo">
           <md-avatar class="md-large">
-            <md-field>
-              <md-tooltip>Select logo</md-tooltip>
+            <img :src="imgUrl()" alt="Logo" />
+            <md-field class="select-logo">
+              <md-tooltip>Select new logo</md-tooltip>
               <md-file
                 v-model="form.logo"
                 name="logo"
                 accept="image/*"
                 ref="logo"
-                v-on:change="imageOnChange($event)"
+                @change="onChange"
               />
             </md-field>
           </md-avatar>
@@ -115,7 +116,6 @@ export default {
   name: "EditGeneralInfo",
   data: () => ({
     form: {
-      logo: null,
       first_name: null,
       last_name: null,
       address: null,
@@ -129,6 +129,8 @@ export default {
       company: null,
       detail: null,
     },
+    logo: null,
+    oldLogo: null,
     countryList: null,
     stateList: null,
     cityList: null,
@@ -139,18 +141,36 @@ export default {
     }),
   },
   methods: {
-    imageOnChange(e) {
+    onChange(e) {
       this.logo = e.target.files[0];
     },
     update() {
-      let token = localStorage.getItem("token");
+      let fd = new FormData();
+      fd.append("logo", this.logo);
+      fd.append("first_name", this.form.first_name);
+      fd.append("last_name", this.form.last_name);
+      fd.append("address", this.form.address);
+      fd.append("country", this.form.country);
+      fd.append("state", this.form.state);
+      fd.append("city", this.form.city);
+      fd.append("citycode", this.form.citycode);
+      fd.append("phone", this.form.phone);
+      fd.append("website", this.form.website);
+      fd.append("company", this.form.company);
+      fd.append("detail", this.form.detail);
+      fd.append("addressId", this.form.addressId);
+      fd.append("_method", "put");
       axios
-        .put("carrier/details/" + this.temp.me, this.form)
+        .post("carrier/details/" + this.temp.me, fd)
         .then((res) => {
-          this.$router.back();
+          console.log(">> ", res.data);
+          this.$router.push("/carrier");
         })
-        .catch((err) => {
-          console.log("Error: ", err);
+        .catch((error) => {
+          console.log("eerrr: ", error.response);
+          this.snackbar.message = error.response.data.errors;
+          this.snackbar.statusCode = error.response.status;
+          this.snackbar.show = true;
         });
     },
 
@@ -189,6 +209,7 @@ export default {
     edit() {
       axios.get("carrier/details/" + this.temp.me).then(
         (res) => {
+          console.log("........ ", res.data)
           this.form.first_name = res.data.first_name;
           this.form.last_name = res.data.last_name;
           this.form.address = res.data.full_address.address;
@@ -201,9 +222,15 @@ export default {
           this.form.state = res.data.full_address.state.id;
           this.form.city = res.data.full_address.city.id;
           this.form.citycode = res.data.full_address.citycode;
+          this.oldLogo = res.data.logo;
         },
-        (err) => {console.log(err)}
+        (err) => {
+          console.log(err);
+        }
       );
+    },
+    imgUrl() {
+      return "http://localhost:8000/images/uploads/" + this.oldLogo;
     },
   },
   created() {
@@ -224,6 +251,9 @@ export default {
     margin-top: -50px;
     .md-large {
       background: #ddd;
+    }
+    .select-logo{
+      position: absolute;
     }
   }
   .carrier-details {

@@ -33,16 +33,7 @@
         </md-card-content>
       </md-card>
     </div>
-    <md-snackbar
-      class="required-feild-error"
-      :md-position="snackbar.position"
-      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.show"
-      md-persistent
-    >
-      <span>{{snackbar.message}}</span>
-      <span style="color:red">Status: {{snackbar.statusCode}}</span>
-    </md-snackbar>
+    <Snackbar :data="snackbar" />
   </div>
 </template>
 
@@ -50,6 +41,7 @@
 import axios from "axios";
 import { mapActions } from "vuex";
 import Spinner from "../shared/Spinner";
+import Snackbar from "../shared/Snackbar";
 export default {
   name: "SignUp",
   data: () => ({
@@ -63,9 +55,6 @@ export default {
     loading: false,
     snackbar: {
       show: false,
-      position: "center",
-      duration: 5000,
-      isInfinity: false,
       message: null,
       statusCode: null,
     },
@@ -99,7 +88,7 @@ export default {
       }
     },
   },
-  components: { Spinner },
+  components: { Spinner, Snackbar },
 };
 </script>
 

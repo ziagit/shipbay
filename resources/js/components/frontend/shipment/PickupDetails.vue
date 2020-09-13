@@ -7,7 +7,7 @@
       <div class="inputs">
         <md-field>
           <label>Company/individual name</label>
-          <md-input type="text" v-model="pickDetails.company" required></md-input>
+          <md-input type="text" v-model="pickDetails.company" required ref="focusable"></md-input>
         </md-field>
         <md-field>
           <label>Address</label>
@@ -119,6 +119,9 @@ export default {
         this.pickDetails.email = storage.shipper.pickDetails.email;
       }
     },
+  },
+  mounted() {
+    this.$refs.focusable.$el.focus();
   },
   created() {
     this.watchLocalstorage();

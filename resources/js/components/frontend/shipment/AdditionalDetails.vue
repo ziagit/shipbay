@@ -7,7 +7,7 @@
       <div class="search-container">
         <md-field>
           <label>Estimated shipment value ($)</label>
-          <md-input type="number" v-model="shipper.estimatedValue" min="1" required></md-input>
+          <md-input type="number" v-model="shipper.estimatedValue" min="1" required ref="focusable"></md-input>
         </md-field>
         <md-field>
           <label>Pickup date</label>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="action">
-        <md-button @click="prevStep()" class="md-icon-button md-raised">
+        <md-button to="/order/carriers" class="md-icon-button md-raised">
           <md-icon>keyboard_arrow_left</md-icon>
         </md-button>
         <md-button class="md-icon-button md-raised md-primary" @click="nextStep()" type="submit">
@@ -62,9 +62,7 @@ export default {
         console.log("Feilds with * sign are required!");
       }
     },
-    prevStep(prgValue) {
-      this.$router.push("signin");
-    },
+
     watchLocalstorage() {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.shipper) {
@@ -75,8 +73,10 @@ export default {
       }
     },
   },
+  mounted() {
+    this.$refs.focusable.$el.focus();
+  },
   created() {
-    console.log("current route: ", this.$router.afterEach());
     this.watchLocalstorage();
     this.shipper.pickupDate = JSON.parse(
       localStorage.getItem("order")

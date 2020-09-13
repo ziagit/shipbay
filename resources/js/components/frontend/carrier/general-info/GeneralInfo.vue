@@ -4,7 +4,7 @@
       <md-card-content v-if="carrier">
         <div class="carrier-logo">
           <md-avatar class="md-large">
-            <img src="http://localhost:8000/images/carrier-logo.jpg" alt="Avatar" />
+            <img :src="imgUrl()" alt="Logo" />
           </md-avatar>
         </div>
         <div class="details">
@@ -85,6 +85,9 @@ export default {
           console.log("Error: ", err);
         });
     },
+    imgUrl(){
+      return "http://localhost:8000/images/uploads/"+this.carrier.logo;
+    }
   },
 
   created() {

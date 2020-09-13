@@ -16,13 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanySeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(StateSeeder::class);
-        $this->call(StatecodeSeeder::class);
         $this->call(CitySeeder::class);
         $this->call(CitycodeSeeder::class);
         $this->call(ItemtypeSeeder::class);
         $this->call(LocationtypeSeeder::class);
         $this->call(JobstatusSeedder::class);
-        $this->call(DeliveryclassSeeder::class);
         $this->call(ShipmentaddressSeeder::class);
         $this->call(ShipperSeeder::class);
         $this->call(CarrierSeeder::class);

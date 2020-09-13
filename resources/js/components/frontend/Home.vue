@@ -21,7 +21,7 @@
                     v-for="notification in notifications"
                     :key="notification.id"
                     @click="notificationDetails(notification)"
-                  >Notification: {{notification.data.job.id}}</md-menu-item>
+                  >Job: {{notification.data.job.id}}</md-menu-item>
                 </md-menu-content>
                 <md-menu-content v-if="user.role[0].name === 'shipper'">
                   <md-menu-item
@@ -30,6 +30,13 @@
                     @click="markAsRead(notification.id)"
                   >Your order({{notification.data.job.order_id}}) is: {{notification.data.job.jobstatus.title}}</md-menu-item>
                   <md-tooltip>Click to mark as read.</md-tooltip>
+                </md-menu-content>
+                <md-menu-content v-if="user.role[0].name === 'admin'">
+                  <md-menu-item
+                    v-for="notification in notifications"
+                    :key="notification.id"
+                    @click="notificationDetails(notification)"
+                  >Job ({{notification.data.job.order_id}})</md-menu-item>
                 </md-menu-content>
               </md-menu>
             </md-badge>
@@ -117,6 +124,7 @@ export default {
   methods: {
     ...mapActions({
       signOutAction: "auth/signOut",
+      setNotification: "shared/setNotification",
     }),
     signOut() {
       this.signOutAction().then(() => {
@@ -127,15 +135,23 @@ export default {
       this.menuVisible = !this.menuVisible;
     },
     notificationDetails(notification) {
-      this.$store.commit("setNotificationId", notification.id);
-      if (this.user.role[0].name === "carrier") {
-        this.$router.push(
-          "/carrier/history/job-details/" + notification.data.job.id
-        );
-      } else if (this.user.role[0].name === "shipper") {
-        this.$router.push(
-          "/shipper/orders/details/" + notification.data.job.order_id
-        );
+      this.setNotification(notification.id).then((res) => {});
+      switch (this.user.role[0].name) {
+        case "shipper":
+          this.$router.push(
+            "/shipper/orders/details/" + notification.data.job.order_id
+          );
+          break;
+        case "carrier":
+          this.$router.push(
+            "/carrier/history/job-details/" + notification.data.job.id
+          );
+          break;
+        case "admin":
+          this.$router.push("/admin/order/" + notification.data.job.order_id);
+          break;
+        default:
+          this.$router.push("/");
       }
     },
     markAsRead(id) {
@@ -163,6 +179,7 @@ export default {
         Echo.private("App.User." + this.user.id).notification((res) => {
           this.notifications.push(res.notification);
         });
+        console.log("notifications: ", this.notifications);
       }
     },
   },

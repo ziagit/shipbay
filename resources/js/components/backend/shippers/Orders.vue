@@ -48,6 +48,9 @@
           <md-button class="md-icon-button md-accent" @click="remove(order.id)">
             <md-icon>delete</md-icon>
           </md-button>
+          <md-button class="md-icon-button md-primary" :to="{path: 'order/'+order.id}">
+            <md-icon>more_horiz</md-icon>
+          </md-button>
         </md-table-cell>
       </md-table-row>
       

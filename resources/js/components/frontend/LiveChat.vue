@@ -1,10 +1,8 @@
 <template>
   <div class="chat">
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" mode="ios" color="ligth">
-      <ion-fab-button>
+    <md-button class="md-fab">
         <md-icon style="color:#fff">sms</md-icon>
-      </ion-fab-button>
-    </ion-fab>
+    </md-button>
   </div>
 </template>
 <script>

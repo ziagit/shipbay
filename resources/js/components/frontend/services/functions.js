@@ -1,5 +1,3 @@
-import { min } from "lodash";
-
 export default {
     validDate() {
         let today = new Date();
@@ -18,7 +16,7 @@ export default {
         let dw = x >= y ? x : y;
         return dw;
     },
-    totalDW(items) {
+    totalDw(items) {
         let total = 0;
         items.forEach((element) => {
             total = total + element.dw;

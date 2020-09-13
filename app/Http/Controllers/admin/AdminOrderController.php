@@ -49,7 +49,7 @@ class AdminOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        return Order::with('fullAddress','items','jobWithStatus')->find($id);
     }
 
     /**

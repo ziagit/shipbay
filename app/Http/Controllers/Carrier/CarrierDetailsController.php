@@ -1,15 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Carrier;
+
 use App\Http\Controllers\Controller;
 use App\carrier;
 use Illuminate\Http\Request;
-use App\Country;
-use App\State;
-use App\City;
-use App\Citycode;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Accessory;
 use App\Address;
 
 class CarrierDetailsController extends Controller
@@ -46,13 +42,29 @@ class CarrierDetailsController extends Controller
     {
         $this->validate($request, [
             'first_name' => 'required',
-            'last_name' =>'required',
-            'phone' =>'required',
-            'country' =>'required',
-            'state' =>'required',
-            'city' =>'required',
-            'citycode' =>'required',
+            'last_name' => 'required',
+            'phone' => 'required|unique:carriers',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'citycode' => 'required',
         ]);
+
+
+        if ($request->hasFile('logo')) {
+            //        for production only   
+            /*             $path = base_path();
+                        $path = str_replace("coffee54", "public_html", $path);
+                        $destinationPath = $path . '/images/coffeequery'; */
+
+            $file = $request->file('logo');
+            $logo_name = time() . '.' . $file->getClientOriginalName();
+
+            /* $image->move($destinationPath, $image_name); */
+            $file->move(public_path('images/uploads'), $logo_name);
+        } else {
+            $logo_name = "logo not available";
+        }
 
         $carrier = new Carrier();
         $carrier->first_name = $request->first_name;
@@ -61,15 +73,16 @@ class CarrierDetailsController extends Controller
         $carrier->website = $request->website;
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
-        $carrier->logo = $request->logo;
+        $carrier->logo = $logo_name;
         $carrier->user_id = JWTAuth::user()->id;
 
         $carrier->save();
-        $this->storeAddress($request,$carrier->id);
-      
-        return response()->json(["message"=>"Saved successfully!",200]);
+        $this->storeAddress($request, $carrier->id);
+
+        return response()->json(["message" => "Saved successfully!", 200]);
     }
-    public function storeAddress($request, $carrierId){
+    public function storeAddress($request, $carrierId)
+    {
 
         $address = new Address();
         $address->address = $request->address;
@@ -102,7 +115,6 @@ class CarrierDetailsController extends Controller
      */
     public function edit($id)
     {
-      
     }
 
     /**
@@ -116,29 +128,49 @@ class CarrierDetailsController extends Controller
     {
         $this->validate($request, [
             'first_name' => 'required',
-            'last_name' =>'required',
-            'phone' =>'required',
-            'country' =>'required',
-            'state' =>'required',
-            'city' =>'required',
-            'citycode' =>'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'citycode' => 'required',
         ]);
-
         $carrier = Carrier::find($id);
+
+        if ($request->hasFile('logo')) {
+            /*          for production only   
+                        $path = base_path();
+                        $path = str_replace("coffee54", "public_html", $path);
+                        $destinationPath = $path . '/images/coffeequery'; 
+                        $old_image_path = $destinationPath.'/'.$project->name;
+                        */
+            $old_image_path = public_path('images/uploads/' . $carrier->logo);
+            if (file_exists($old_image_path)) {
+                @unlink($old_image_path);
+            }
+            $file = $request->file('logo');
+            $logo_name = time() . '.' . $file->getClientOriginalName();
+            /* $image->move($destinationPath, $image_name); */
+            $file->move(public_path('images/uploads'), $logo_name);
+        } else {
+            $logo_name = $carrier->logo;
+        }
+
         $carrier->first_name = $request->first_name;
         $carrier->last_name = $request->last_name;
         $carrier->phone = $request->phone;
         $carrier->website = $request->website;
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
-        $carrier->logo = $request->logo;
+        $carrier->logo = $logo_name;
         $carrier->user_id = JWTAuth::user()->id;
         $carrier->update();
-        $this->updateAddress($request,$carrier->id);
-      
-        return response()->json(["message"=>"Updated successfully!",200]);
+        $this->updateAddress($request, $carrier->id);
+
+        return response()->json(["message" => "Updated successfully!", 200]);
     }
-    public function updateAddress($request, $carrierId){
+    public function updateAddress($request, $carrierId)
+    {
         $address = Address::find($request->addressId);
         $address->address = $request->address;
         $address->country_id = $request->country;
@@ -160,5 +192,4 @@ class CarrierDetailsController extends Controller
     {
         // 
     }
-
 }

@@ -22,10 +22,10 @@
           to="/carrier/history"
           v-bind:class="{active: $route.name == 'jobs' || $route.name == 'job-details'}"
         >Job history</md-button>
-         <md-button
+     <!--     <md-button
           to="/carrier/card"
           v-bind:class="{active: $route.name == 'carrier-card' }"
-        >Card</md-button>
+        >Card</md-button> -->
       </div>
       <router-view></router-view>
     </md-card-content>

@@ -3,6 +3,10 @@
     <md-card class="no-shadow-bordered">
       <md-card-header v-if="dataLoaded">
         <div class="md-title">Order list</div>
+        <md-button to="/order" class="md-icon-button close-btn">
+          <md-icon>add</md-icon>
+          <md-tooltip>Create a new order</md-tooltip>
+        </md-button>
       </md-card-header>
       <md-card-content>
         <div v-if="tempOrder" class="temp-order">
@@ -77,7 +81,7 @@ export default {
       axios
         .get("shipper/orders")
         .then((res) => {
-          console.log("shipper order ", res.data)
+          console.log("shipper order ", res.data);
           this.orders = res.data;
           if (res.data.length > 0) {
             this.dataLoaded = true;
@@ -86,7 +90,7 @@ export default {
         .catch((err) => console.log(err));
     },
     processOrder() {
-      this.$router.push(localStorage.getItem('cRoute'));
+      this.$router.push(localStorage.getItem("cRoute"));
     },
     removeOrder() {
       localStorage.removeItem("order");
@@ -122,10 +126,15 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      div{
+      div {
         display: flex;
         align-items: center;
       }
+    }
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
   }
 }

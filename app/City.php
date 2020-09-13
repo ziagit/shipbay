@@ -10,9 +10,6 @@ class City extends Model
     public function state(){
         return $this->belongsTo(State::class);
     }
-    public function orders(){
-        return $this->belongsToMany(Order::class)->withPivot('type')->withTimestamps();
-    }
 
     public function citycodes(){
         return $this->belongsToMany(Citycode::class);

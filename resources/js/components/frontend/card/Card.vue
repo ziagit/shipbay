@@ -13,7 +13,7 @@
           </div>
           <div class="alert-error" v-if="errorMessage">{{successMessage}}</div>
           <div v-if="parymentTogal" class="billing-details">
-            <div class="checkbox">
+            <div class="checkbox" v-if="order">
               <md-checkbox
                 class="md-primary"
                 v-model="pickAddress"
@@ -102,7 +102,8 @@ export default {
     dataLoading: false,
     successMessage: null,
     errorMessage: null,
-    parymentTogal:true
+    parymentTogal:true,
+    order:null,
   }),
 
   mounted: function () {
@@ -115,12 +116,11 @@ export default {
   watch: {
     pickAddress: function (value) {
       if (value) {
-        let storage = JSON.parse(localStorage.getItem("order"));
-        this.form.email = storage.shipper.pickDetails.email;
-        this.form.address = storage.shipper.pickDetails.address;
-        this.form.state = storage.shipper.pickDetails.stateName;
-        this.form.city = storage.shipper.pickDetails.cityName;
-        this.form.postalcode = storage.shipper.pickDetails.postalCodeName;
+        this.form.email = this.order.shipper.pickDetails.email;
+        this.form.address = this.order.shipper.pickDetails.address;
+        this.form.state = this.order.shipper.pickDetails.stateName;
+        this.form.city = this.order.shipper.pickDetails.cityName;
+        this.form.postalcode = this.order.shipper.pickDetails.postalCodeName;
       } else {
         this.form.email = this.form.address = this.form.state = this.form.city = this.form.postalcode = null;
       }
@@ -144,20 +144,19 @@ export default {
       });
     },
     handleStripeToken: function (token) {
-      let order = JSON.parse(localStorage.getItem("order"));
-      this.form.price = order.carrier.price;
-      if (order.id !== undefined) {
-        this.form.orderId = order.id;
+      this.form.price = this.order.carrier.price;
+      if (this.order.id !== undefined) {
+        this.form.orderId = this.order.id;
       }
       this.form.stripeToken = token.id;
       axios
         .post("charge", this.form)
         .then((res) => {
           this.successMessage = res.data["message"];
-          order.id = res.data["id"];
-          order.billing.status = res.data["status"];
-          order.billing.email = res.data["email"];
-          localStorage.setItem("order", JSON.stringify(order));
+          this.order.id = res.data["id"];
+          this.order.billing.status = res.data["status"];
+          this.order.billing.email = res.data["email"];
+          localStorage.setItem("order", JSON.stringify(this.order));
           this.form.email = this.form.address = this.form.city = this.form.postalcode = this.form.state = this.form.name = null;
           this.dataLoading = false;
           this.parymentTogal=false
@@ -167,6 +166,9 @@ export default {
           console.log(err);
         });
     },
+  },
+  created(){
+    this.order = JSON.parse(localStorage.getItem("order"));
   },
   components:{
     Spinner

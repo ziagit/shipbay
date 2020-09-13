@@ -9,8 +9,6 @@ import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
 
 /* import 'vue-material-design-icons/styles.css'; */
-import Ionic from '@ionic/vue';
-import '@ionic/core/css/ionic.bundle.css';
 
 
 require('./bootstrap');
@@ -19,8 +17,6 @@ require('./store/subscriber')
 window.Vue = require('vue');
 Vue.use(VueRouter);
 Vue.use(VueMaterial)
-
-Vue.use(Ionic);
 
 /**
  * The following block of code may be used to automatically register your

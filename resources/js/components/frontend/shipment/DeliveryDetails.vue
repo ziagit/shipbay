@@ -7,7 +7,7 @@
       <div class="inputs">
         <md-field>
           <label>Company/individual name</label>
-          <md-input v-model="deliveryDetails.company" required name="company"></md-input>
+          <md-input v-model="deliveryDetails.company" required ref="focusable"></md-input>
         </md-field>
         <md-field>
           <label>Address</label>
@@ -120,6 +120,9 @@ export default {
         this.deliveryDetails.email = storage.shipper.deliveryDetails.email;
       }
     },
+  },
+  mounted() {
+    this.$refs.focusable.$el.focus();
   },
   created() {
     this.watchLocalstorage();

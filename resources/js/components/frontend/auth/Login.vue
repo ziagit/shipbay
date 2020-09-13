@@ -5,7 +5,7 @@
         <div class="md-title">Login</div>
       </md-card-header>
       <md-card-content>
-        <Spinner v-if="dataLoading"/>
+        <Spinner v-if="dataLoading" />
         <form @submit.prevent="submit">
           <md-field>
             <label>Username</label>
@@ -20,42 +20,23 @@
         <md-button to="/register" class="md-primary">Register</md-button>
       </md-card-content>
       <div class="login-througth">
-<!--         <ion-chip color="default">
-          <ion-label>Login using</ion-label>
-          <ion-avatar>
-            <img src="http://localhost:8000/images/gmail.svg" />
-          </ion-avatar>
-        </ion-chip> -->
-        <ion-chip color="default" v-if="orderExist" @click="asGuest()">
-          <ion-label>Continue as guest</ion-label>
-        </ion-chip>
+        <md-button to="/shipment" class="primary" v-if="orderExist">Continue as guest</md-button>
       </div>
     </md-card>
-    <md-snackbar
-      class="required-feild-error"
-      :md-position="snackbar.position"
-      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.show"
-      md-persistent
-    >
-      <span>{{snackbar.message}}</span>
-      <span style="color:red">Status: {{snackbar.statusCode}}</span>
-    </md-snackbar>
+    <Snackbar :data="snackbar" />
   </div>
 </template>
 
 <script>
 import axio from "axios";
 import { mapActions, mapGetters } from "vuex";
-import Spinner from '../shared/Spinner'
+import Spinner from "../shared/Spinner";
+import Snackbar from "../shared/Snackbar";
 export default {
   name: "Login",
   data: () => ({
     snackbar: {
       show: false,
-      position: "center",
-      duration: 5000,
-      isInfinity: false,
       message: null,
       statusCode: null,
     },
@@ -75,12 +56,28 @@ export default {
         this.dataLoading = true;
         this.signIn(this.form)
           .then((res) => {
-            if (this.user.role[0].name === "carrier") {
-              this.$router.push("/carrier");
-            } else if (this.user.role[0].name === "shipper") {
-              this.$router.push(this.$route.query.redirect || "/shipper");
-            } else if (this.user.role[0].name === "admin") {
-              this.$router.push("/admin");
+            switch (this.user.role[0].name) {
+              case "shipper":
+                axios.get("shipper/details").then((res) => {
+                  res.data.first_name !== undefined
+                    ? this.$router.push(
+                        this.$route.query.redirect || "/shipper"
+                      )
+                    : this.$router.push("shipper/profile/add-details");
+                });
+                break;
+              case "carrier":
+                axios.get("carrier/details").then((res) => {
+                  res.data.first_name !== undefined
+                    ? this.$router.push("/carrier")
+                    : this.$router.push("/carrier/general-info/add-carrier");
+                });
+                break;
+              case "admin":
+                this.$router.push("/admin");
+                break;
+              default:
+                this.$router.push("/");
             }
           })
           .catch((error) => {
@@ -94,14 +91,12 @@ export default {
         this.snackbar.message = "You are already logedin.";
       }
     },
-    watchLocalstorage() {
+
+    init() {
       let order = JSON.parse(localStorage.getItem("order"));
       if (order) {
         this.orderExist = true;
       }
-    },
-    asGuest() {
-      this.$router.push("/shipment");
     },
   },
   computed: {
@@ -111,11 +106,12 @@ export default {
     }),
   },
   created() {
-    this.watchLocalstorage();
+    this.init();
   },
-  components:{
-    Spinner
-  }
+  components: {
+    Spinner,
+    Snackbar,
+  },
 };
 </script>
 

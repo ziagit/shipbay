@@ -26,7 +26,7 @@ export default {
       if (this.user.role[0].name == "shipper") {
         this.$router.push("/shipper/profile/add-details");
       } else if (this.user.role[0].name == "carrier") {
-        this.$router.push("/carrier");
+        this.$router.push("/carrier/general-info/add-carrier");
       }
     },
   },

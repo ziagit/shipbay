@@ -71,31 +71,24 @@ class CalculatorController extends Controller
                 if (($order_src == $rate_src) && ($order_des == $rate_des)) {
                     switch ($dimentional_weight) {
                         case ($dimentional_weight > 0 && $dimentional_weight <= 1000):
-                            /* echo 'between 0k - 1k '; */
                             $cost = $this->costCalc($dimentional_weight, $rate->_0k_1k, $rate);
                             break;
                         case ($dimentional_weight > 1000 && $dimentional_weight <= 2000):
-                            /* echo 'between 1k - 2k '; */
                             $cost = $this->costCalc($dimentional_weight, $rate->_1k_2k, $rate);
                             break;
                         case ($dimentional_weight > 2000 && $dimentional_weight <= 3000):
-                            /* echo 'between 2k - 3k '; */
                             $cost = $this->costCalc($dimentional_weight, $rate->_2k_3k, $rate);
                             break;
                         case ($dimentional_weight > 3000 && $dimentional_weight <= 4000):
-                            /* echo 'between 3k - 4k '; */
                             $cost = $this->costCalc($dimentional_weight, $rate->_3k_4k, $rate);
                             break;
                         case ($dimentional_weight > 4000 && $dimentional_weight <= 5000):
-                            /* echo 'between 3k - 4k '; */
                             $cost = $this->costCalc($dimentional_weight, $rate->_4k_5k, $rate);
                             break;
                         case ($dimentional_weight > 5000 && $dimentional_weight <= 10000):
-                            /* echo 'between 5k - 10k '; */
                             $cost = $this->costCalc($dimentional_weight, $rate->_5k_10k, $rate);
                             break;
                         case ($dimentional_weight > 10000):
-                            /* echo 'above 10k '; */
                             $cost = $this->costCalc($dimentional_weight, $rate->above_10k, $rate);
                             break;
                         default:
