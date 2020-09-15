@@ -11,7 +11,7 @@
 
         <div class="md-toolbar-section-end">
           <div v-if="authenticated">
-            <md-badge v-if="notifications.length !== undefined" class="md-primary" :md-content="notifications.length" md-dense>
+            <md-badge class="md-primary" :md-content="notificationsLength" md-dense>
               <md-menu>
                 <md-button md-menu-trigger class="md-icon-button">
                   <md-icon>notifications</md-icon>
@@ -113,6 +113,7 @@ export default {
     toggleCard: false,
     activeRoute: "carrier-details",
     notifications: [],
+    notificationsLength:0,
   }),
 
   computed: {
@@ -176,10 +177,13 @@ export default {
     getNotifications() {
       if (this.authenticated) {
         this.notifications = this.user.notifications;
+        if(this.notifications.length !== undefined){
+          this.notificationsLength = this.notifications.length;
+        }
         Echo.private("App.User." + this.user.id).notification((res) => {
           this.notifications.push(res.notification);
         });
-        console.log("notifications: ", this.notifications);
+        console.log("notifications: ", this.notifications.length);
       }
     },
   },
