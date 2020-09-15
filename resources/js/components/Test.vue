@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="submit">
-      <input type="text" v-model="test" placeholder="Test" />
+      <input type="text" v-model="test" placeholder="Test" required />
       <input type="submit" title="Submit" />
     </form>
     <br />
@@ -47,7 +47,7 @@ export default {
         .delete("tests/" + id)
         .then((res) => {
           this.get();
-          console.log("removed:", res);
+          console.log("removed:", res.data);
         })
         .catch((error) => {
           console.log("Error: ", error);
@@ -62,5 +62,11 @@ export default {
 <style scoped>
 div {
   margin: 30px;
+}
+span {
+  color: rgb(255, 0, 179);
+}
+span:hover{
+    cursor: pointer;
 }
 </style>
