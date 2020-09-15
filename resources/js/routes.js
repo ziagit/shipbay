@@ -86,6 +86,8 @@ import Services from './components/backend/company/services/Services'
 
 import store from './store'
 
+import Test from './components/Test';
+
 function webGuard(to, from, next) {
     if (!store.getters['auth/authenticated']) {
         next('/login')
@@ -105,6 +107,7 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
+        {path: '/test', component: Test},
         {
             name: 'root',
             path: '/',

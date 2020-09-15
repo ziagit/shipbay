@@ -114,6 +114,6 @@ Route::get("unauthorized", function(){
   return response()->json(['message'=> 'You are unauthorized!'], 401);
 })->name('unauthorized');
 
-Route::post('test', 'Order\CalculatorController@calculator');
+Route::resource('tests', 'TestController');
 
 

@@ -1,13 +1,14 @@
 <template>
   <div class="card">
-    <div>
+    <div class="header">
       <span class="md-display-1">Card information</span>
     </div>
     <md-card>
       <form @submit.prevent="getStripeToken" id="payment-form" enctype="multipart/form-data">
         <md-card-content>
           <div v-if="successMessage && !parymentTogal">
-            <div class="alert-success">{{successMessage}}</div><br>
+            <div class="alert-success">{{successMessage}}</div>
+            <br />
             <a v-if="authenticated" href="/#/shipper/card">Continue to payment</a>
             <a v-else href="/#/shipment/payment-details" target="_blank">Continue your order</a>
           </div>
@@ -54,8 +55,13 @@
           </div>
         </md-card-content>
         <md-card-actions>
-          <md-button v-if="!dataLoading && parymentTogal" id="submit-button" class="md-primary" type="submit">Submit</md-button>
-          <Spinner v-if="dataLoading"/>
+          <md-button
+            v-if="!dataLoading && parymentTogal"
+            id="submit-button"
+            class="md-primary"
+            type="submit"
+          >Submit</md-button>
+          <Spinner v-if="dataLoading" />
         </md-card-actions>
       </form>
     </md-card>
@@ -63,8 +69,8 @@
 </template>
 <script>
 import axios from "axios";
-import { mapGetters,mapActions } from "vuex";
-import Spinner from '../shared/Spinner'
+import { mapGetters, mapActions } from "vuex";
+import Spinner from "../shared/Spinner";
 var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
 var elements = stripe.elements();
 var style = {
@@ -102,8 +108,8 @@ export default {
     dataLoading: false,
     successMessage: null,
     errorMessage: null,
-    parymentTogal:true,
-    order:null,
+    parymentTogal: true,
+    order: null,
   }),
 
   mounted: function () {
@@ -159,7 +165,7 @@ export default {
           localStorage.setItem("order", JSON.stringify(this.order));
           this.form.email = this.form.address = this.form.city = this.form.postalcode = this.form.state = this.form.name = null;
           this.dataLoading = false;
-          this.parymentTogal=false
+          this.parymentTogal = false;
         })
         .catch((err) => {
           this.errorMassage = err;
@@ -167,12 +173,12 @@ export default {
         });
     },
   },
-  created(){
+  created() {
     this.order = JSON.parse(localStorage.getItem("order"));
   },
-  components:{
-    Spinner
-  }
+  components: {
+    Spinner,
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -255,8 +261,11 @@ export default {
 
 @media only screen and (min-width: 600px) {
   .card {
-    .md-display-1 {
-      font-size: 30px;
+    .header {
+      margin: 10px auto;
+      .md-display-1 {
+        font-size: 30px;
+      }
     }
   }
 }
