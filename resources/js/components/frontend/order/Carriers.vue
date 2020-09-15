@@ -7,7 +7,7 @@
     </div>
     <div v-show="!dataLoading">
       <div class="icon">
-        <img src="http://localhost:8000/images/carrier.svg" width="100" />
+        <img :src="'/images/carrier.svg'" width="100" />
       </div>
       <span class="md-display-1">Select the carrier of your choice</span>
       <md-card class="items">
@@ -32,7 +32,7 @@
       <md-list class="md-triple-line carriers" v-if="carriersExist">
         <md-list-item v-for="carrier in carriers" :key="carrier.id">
           <md-avatar>
-            <img src="http://localhost:8000/images/carrier-logo.jpg" alt="People" />
+            <img :src="'/images/carrier-logo.jpg'" alt="People" />
           </md-avatar>
           <div class="md-list-item-text">
             <span>{{carrier.company}}</span>

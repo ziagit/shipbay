@@ -1,5 +1,8 @@
 const CONFIG = {
-    baseUrl: 'http://localhost:8000/api/',
-    imagePath: 'http://localhost:8000/images/'
+    // local
+    // imgUrl: 'http://localhost:8000/images/', 
+
+    //production
+    imgUrl: 'http://104.154.95.189/images/',
 }
 export default CONFIG;

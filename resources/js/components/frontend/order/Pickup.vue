@@ -1,7 +1,7 @@
 <template>
   <div class="origin">
     <div class="icon">
-      <img src="http://localhost:8000/images/a-b.svg" width="100" />
+      <img :src="'/images/a-b.svg'" width="100" />
     </div>
     <span class="md-display-1">Where are you shipping from?</span>
     <form @submit.prevent="nextStep()">

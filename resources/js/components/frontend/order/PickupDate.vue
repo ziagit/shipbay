@@ -1,7 +1,7 @@
 <template>
   <div class="pickup-date">
     <div class="icon">
-      <img src="http://localhost:8000/images/date.svg" width="100" />
+      <img :src="'/images/date.svg'" width="100" />
     </div>
     <span class="md-display-1">When to pick-up? *</span>
     <form @submit.prevent="nextStep()">

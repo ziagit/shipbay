@@ -8,7 +8,7 @@
 
     <div v-show="!dataLoding">
       <div class="icon">
-        <img src="http://localhost:8000/images/result.svg" width="100" />
+        <img :src="'/images/result.svg'" width="100" />
       </div>
       <span class="md-display-1">Item dimensional weight</span>
       <div>We calculated your item(s) based on the weight and dimensions you provided.</div>

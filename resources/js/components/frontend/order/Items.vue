@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <div class="icon">
-      <img src="http://localhost:8000/images/item.svg" width="100" />
+      <img :src="'/images/item.svg'" width="100" />
     </div>
     <span class="md-display-1">What items are you shipping?</span>
     <md-card mode="ios" color="light" v-if="items.length > 0">
