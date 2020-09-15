@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MeController extends Controller
 {
-/*     public function __invoke(Request $request)
+    public function __invoke(Request $request)
     {
         $user = $request->user();
         $notifications = $user->unreadNotifications;
@@ -18,18 +18,6 @@ class MeController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'notifications' => $notifications,
-            'role' => $role
-        ]);
-    } */
-    public function __invoke(Request $request)
-    {
-        $user = $request->user();
-        $role = $user->roles;
-       
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
             'role' => $role
         ]);
     }
