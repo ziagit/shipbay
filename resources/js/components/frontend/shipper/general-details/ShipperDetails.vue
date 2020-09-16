@@ -1,59 +1,57 @@
 <template>
-  <div>
-    <md-card class="no-shadow-bordered">
-      <md-card-header v-if="shipper">
-        <div class="md-title">Shipper details</div>
-      </md-card-header>
-      <md-card-content>
-        <div class="details" v-if="shipper">
-          <div class="shipper-name">
-            <span class="md-subheading">
-              {{shipper.first_name}}
-              <span class="line">|</span>
-              {{shipper.last_name}}
-              <span class="line">|</span>
-              {{shipper.full_address.address}}
-            </span>
-            <br />
-            <span class="md-subheading">
-              {{shipper.full_address.country.name}}
-              <span class="line">|</span>
-              {{shipper.full_address.state.name}}
-              <span class="line">|</span>
-              {{shipper.full_address.city.name}}
-              <span class="line">|</span>
-              {{shipper.full_address.citycode}}
-            </span>
-            <br />
+  <md-card class="no-shadow-bordered">
+    <md-card-header v-if="shipper">
+      <div class="md-title">Shipper details</div>
+    </md-card-header>
+    <md-card-content>
+      <div class="details" v-if="shipper">
+        <div class="shipper-name">
+          <span class="md-subheading">
+            {{shipper.first_name}}
+            <span class="line">|</span>
+            {{shipper.last_name}}
+            <span class="line">|</span>
+            {{shipper.full_address.address}}
+          </span>
+          <br />
+          <span class="md-subheading">
+            {{shipper.full_address.country.name}}
+            <span class="line">|</span>
+            {{shipper.full_address.state.name}}
+            <span class="line">|</span>
+            {{shipper.full_address.city.name}}
+            <span class="line">|</span>
+            {{shipper.full_address.citycode}}
+          </span>
+          <br />
 
-            <span class="md-subheading">
-              {{shipper.phone}}
-              <span class="line">|</span>
-              {{shipper.user.email}}
-            </span>
-            <br />
-          </div>
+          <span class="md-subheading">
+            {{shipper.phone}}
+            <span class="line">|</span>
+            {{shipper.user.email}}
+          </span>
+          <br />
         </div>
-        <md-empty-state
-          v-else
-          class="md-primary"
-          md-icon="sentiment_satisfied_alt"
-          md-label="Card not added yet"
-          md-description="Click bellow link to add new details"
-        >
-          <md-button to="add-details" class="md-default md-raised md-icon-button">
-            <md-icon>add</md-icon>
-          </md-button>
-        </md-empty-state>
-      </md-card-content>
-      <md-card-actions>
-        <md-button v-if="shipper" to="edit-details" class="md-primary md-icon-button">
-          <md-icon>edit</md-icon>
-          <md-tooltip>Edit profile</md-tooltip>
+      </div>
+      <md-empty-state
+        v-else
+        class="md-primary"
+        md-icon="sentiment_satisfied_alt"
+        md-label="Card not added yet"
+        md-description="Click bellow link to add new details"
+      >
+        <md-button to="add-details" class="md-default md-raised md-icon-button">
+          <md-icon>add</md-icon>
         </md-button>
-      </md-card-actions>
-    </md-card>
-  </div>
+      </md-empty-state>
+    </md-card-content>
+    <md-card-actions>
+      <md-button v-if="shipper" to="edit-details" class="md-primary md-icon-button">
+        <md-icon>edit</md-icon>
+        <md-tooltip>Edit profile</md-tooltip>
+      </md-button>
+    </md-card-actions>
+  </md-card>
 </template>
 <script>
 import axios from "axios";

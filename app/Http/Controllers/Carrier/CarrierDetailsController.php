@@ -9,7 +9,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Address;
 
 class CarrierDetailsController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      *

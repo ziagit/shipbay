@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Shipper;
 use App\Address;
 use App\Http\Controllers\Controller;
 use App\Shipper;
-use App\Http\Requests\ShipperDetailsRequest;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 

@@ -8,7 +8,7 @@
         </md-button>
         <div class="carrier-logo">
           <md-avatar class="md-large">
-            <img :src="imgUrl()" alt="Logo" />
+            <img :src="'/images/uploads/'+carrier.logo" alt="Logo" />
             <md-field class="select-logo">
               <md-tooltip>Select new logo</md-tooltip>
               <md-file
@@ -228,9 +228,6 @@ export default {
           console.log(err);
         }
       );
-    },
-    imgUrl() {
-      return "http://localhost:8000/images/uploads/" + this.oldLogo;
     },
   },
   created() {
