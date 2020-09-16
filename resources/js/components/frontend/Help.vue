@@ -1,12 +1,10 @@
 <template>
-  <div class="help">
-    <md-card mode="ios">
-      <md-card-header>
-        <span class="md-display-1">help</span>
-      </md-card-header>
-      <md-card-content></md-card-content>
-    </md-card>
-  </div>
+  <md-card>
+    <md-card-header>
+      <span class="md-display-1">help</span>
+    </md-card-header>
+    <md-card-content></md-card-content>
+  </md-card>
 </template>
 
 <script>
@@ -19,27 +17,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.help {
-  width: 100%;
+.md-card {
   height: calc(100vh - 200px);
-  .md-card {
-    margin: auto;
-    padding: 20px;
-    background: #fff;
 
-    .md-display-1 {
-      font-size: 24px;
-    }
+  .md-display-1 {
+    font-size: 24px;
   }
 }
 @media only screen and (min-width: 600px) {
-  .help {
-    .md-card {
-      width: 90%;
-      margin: 3em auto;
-      .md-display-1 {
-        font-size: 30px;
-      }
+  .md-card {
+    .md-display-1 {
+      font-size: 30px;
     }
   }
 }

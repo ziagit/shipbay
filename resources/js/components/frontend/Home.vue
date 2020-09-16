@@ -113,7 +113,7 @@ export default {
     toggleCard: false,
     activeRoute: "carrier-details",
     notifications: [],
-    notificationsLength:0,
+    notificationsLength: 0,
   }),
 
   computed: {
@@ -166,18 +166,27 @@ export default {
         });
     },
     profile() {
-      if (this.user.role[0].name == "carrier") {
-        this.$router.push("/carrier");
-        this.toggleCard = !this.toggleCard;
-      } else if (this.user.role[0].name == "shipper") {
-        this.toggleCard = !this.toggleCard;
-        this.$router.push("/shipper");
+      switch (this.user.role[0].name) {
+        case "shipper":
+          this.$router.push("/shipper");
+          this.toggleCard = !this.toggleCard;
+          break;
+        case "carrier":
+          this.$router.push("/carrier");
+          this.toggleCard = !this.toggleCard;
+          break;
+        case "admin":
+          this.$router.push("/admin");
+          this.toggleCard = !this.toggleCard;
+          break;
+        default:
+          this.$router.push("/");
       }
     },
     getNotifications() {
       if (this.authenticated) {
         this.notifications = this.user.notifications;
-        if(this.notifications.length !== undefined){
+        if (this.notifications.length !== undefined) {
           this.notificationsLength = this.notifications.length;
         }
         Echo.private("App.User." + this.user.id).notification((res) => {
@@ -238,7 +247,7 @@ export default {
   .md-app-content {
     background: #f0f2f5;
     /* background-image: linear-gradient(#2f2f65, #2a6ab3); */
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
   }
 
   .live-chat {

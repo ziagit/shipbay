@@ -10,6 +10,8 @@ import Login from './components/frontend/auth/Login';
 import Card from './components/frontend/card/Card';
 import Register from './components/frontend/auth/Register';
 import CarrierProfile from './components/frontend/carrier/CarrierProfile';
+import AboutUs from './components/frontend/AboutUs'
+import OurServices from './components/frontend/OurServices'
 
 
 import Welcome from './components/frontend/auth/Welcome';
@@ -235,8 +237,8 @@ export default new VueRouter({
                     ],
                     beforeEnter: webGuard
                 },
-                { name: 'about', path: 'about', component: About },
-                { name: 'services', path: 'services', component: Services },
+                { name: 'about', path: 'about', component: AboutUs },
+                { name: 'services', path: 'services', component: OurServices },
                 { name: 'help', path: 'help', component: Help },
                 { name: 'signin', path: '/login', component: Login },
                 { name: 'signup', path: '/register', component: Register },

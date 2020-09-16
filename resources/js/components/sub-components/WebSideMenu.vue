@@ -1,7 +1,7 @@
 <template>
   <div class="web-menu">
     <md-list :md-expand-single="expandSingle">
-      <md-list-item to="/" @click="menuVisible = !menuVisible">
+      <md-list-item to="/home" @click="menuVisible = !menuVisible">
         <md-icon>home</md-icon>
         <span class="md-list-item-text">Home</span>
       </md-list-item>

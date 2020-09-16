@@ -63,13 +63,15 @@ export default {
                     ? this.$router.push(
                         this.$route.query.redirect || "/shipper"
                       )
-                    : this.$router.push("shipper/profile/add-details");
+                    : this.$router.push("/shipper/profile/add-details");
                 });
                 break;
               case "carrier":
                 axios.get("carrier/details").then((res) => {
                   res.data.first_name !== undefined
-                    ? this.$router.push("/carrier")
+                    ? this.$router.push(
+                        this.$route.query.redirect || "/carrier"
+                      )
                     : this.$router.push("/carrier/general-info/add-carrier");
                 });
                 break;
