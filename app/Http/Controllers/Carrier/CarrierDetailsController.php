@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Carrier;
 
+use App\Accessory;
 use App\Http\Controllers\Controller;
 use App\carrier;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class CarrierDetailsController extends Controller
      */
     public function index()
     {
-        return Carrier::all();
+        return Accessory::all();
         $userId = JWTAuth::user()->id;
         $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
         return response()->json($carrier);
