@@ -8,6 +8,8 @@ use App\carrier;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Address;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CarrierDetailsController extends Controller
 { 
@@ -18,12 +20,13 @@ class CarrierDetailsController extends Controller
      */
     public function index()
     {
-        $carriers = Carrier::all();
-        if($carriers){
+        try {
+            $carriers = Carrier::all();
             return $carriers;
-        }else{
-            return "Carrier not found";
+        } catch (Exception $exception) {
+            return $exception;
         }
+
         $userId = JWTAuth::user()->id;
         $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
         return response()->json($carrier);
