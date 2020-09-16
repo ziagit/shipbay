@@ -29,8 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('read-notification/{id}', 'NotificationController@show');
   });
   Route::group(['namespace' => 'Carrier', 'prefix' => 'carrier'], function () {
-    Route::get('details','CarrierDetailsController@index');
-    /* Route::resource('details', 'CarrierDetailsController'); */
+    Route::resource('details', 'CarrierDetailsController');
     Route::resource('accessories', 'AccessoryController');
     Route::get('accessories-lookup', 'AccessoryController@accessories');
     Route::resource('rates', 'RateController');
