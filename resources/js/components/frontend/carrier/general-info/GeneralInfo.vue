@@ -71,7 +71,7 @@ export default {
     }),
     async get() {
       await axios
-        .get("carrier/details")
+        .get("carrier/get-carrier")
         .then((res) => {
           console.log("carriers: ",res.data)
           this.carrier = res.data;

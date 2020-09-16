@@ -1,5 +1,6 @@
 <?php
 
+use App\Carrier;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('read-notification/{id}', 'NotificationController@show');
   });
   Route::group(['namespace' => 'Carrier', 'prefix' => 'carrier'], function () {
-    Route::resource('details', 'CarrierDetailsController');
+    /* Route::resource('details', 'CarrierDetailsController'); */
+
+    Route::get('get-carrier', function(){
+      $carriers = Carrier::all();
+      return response()->json($carriers);
+    });
+
     Route::resource('accessories', 'AccessoryController');
     Route::get('accessories-lookup', 'AccessoryController@accessories');
     Route::resource('rates', 'RateController');
