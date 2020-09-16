@@ -19,10 +19,6 @@ class ShipperSeeder extends Seeder
             'address' => 'House no. 13, 25th st',
             'phone' => '0775059616',
             'user_id' => 2,
-            'country_id' => 1,
-            'state_id' => 1,
-            'city_id' => 1,
-            'citycode_id' => 2,
         ];
         Shipper::insert($shipper);
     }
