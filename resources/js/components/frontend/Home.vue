@@ -48,7 +48,8 @@
               <md-menu-content>
                 <div class="author-card">
                   <md-avatar class="md-large">
-                    <img src="http://localhost:8000/images/carrier-logo.jpg" alt="Marcos Moura" />
+                    <!-- <img src="/images/carrier-logo.jpg" alt="Marcos Moura" /> -->
+                    <md-icon>face</md-icon>
                   </md-avatar>
                   <div>
                     <div>{{user.name}}</div>
@@ -60,7 +61,7 @@
                       <md-icon>face</md-icon>Profile
                     </div>
                     <div class="link" @click="signOut">
-                      <md-icon>moped</md-icon>Signout
+                      <md-icon>power_settings_new</md-icon>Signout
                     </div>
                   </div>
                 </div>
@@ -260,6 +261,7 @@ export default {
   text-align: center;
   .md-avatar {
     margin: 7px;
+    background: #f0f2f5;
   }
   .author-card-links {
     text-align: left;
