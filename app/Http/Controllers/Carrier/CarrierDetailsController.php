@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Carrier;
 
-use App\Accessory;
 use App\Http\Controllers\Controller;
 use App\carrier;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Address;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CarrierDetailsController extends Controller
 {
