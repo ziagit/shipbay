@@ -1,13 +1,11 @@
 <?php
 
-use App\Carrier;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Functions;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,11 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
   Route::group(['namespace' => 'Carrier', 'prefix' => 'carrier'], function () {
     /* Route::resource('details', 'CarrierDetailsController'); */
 
-    Route::get('get-carrier', function(){
-      $userId = JWTAuth::user()->id;
-      $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
-      return response()->json($carrier);
-    });
+    Route::get('get-carrier', 'CarrierDetailsController@index');
 
     Route::resource('accessories', 'AccessoryController');
     Route::get('accessories-lookup', 'AccessoryController@accessories');
