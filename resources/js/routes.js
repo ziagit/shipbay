@@ -162,7 +162,7 @@ export default new VueRouter({
                                 { name: 'add-carrier', path: 'add-carrier', component: AddGeneralInfo },
                                 { name: 'edit-carrier', path: 'edit-carrier', component: EditGeneralInfo }
                             ]
-                        },
+                        }, 
                         {
                             name: 'rates', path: 'rates', component: RateContainer,
                             children: [
@@ -193,7 +193,7 @@ export default new VueRouter({
                             name: 'account', path: 'account', component: CarrierAccountContainer,
                             children: [
                                 { path: '', redirect: 'details' },
-                                { name: 'account-details', path: 'details', component: CarrierAccount },
+                                { name: 'carrier-account', path: 'details', component: CarrierAccount },
                                 { name: 'edit-account', path: 'edit', component: EditCarrierAccount },
                             ]
                         },

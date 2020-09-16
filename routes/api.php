@@ -29,7 +29,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('read-notification/{id}', 'NotificationController@show');
   });
   Route::group(['namespace' => 'Carrier', 'prefix' => 'carrier'], function () {
-    Route::resource('details', 'CarrierDetailsController');
+    Route::get('details','CarrierDetailsController@index');
+    /* Route::resource('details', 'CarrierDetailsController'); */
     Route::resource('accessories', 'AccessoryController');
     Route::get('accessories-lookup', 'AccessoryController@accessories');
     Route::resource('rates', 'RateController');
@@ -41,9 +42,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('job-status', 'JobController@jobStatus');
   });
   Route::group(['namespace' => 'Shipper', 'prefix' => 'shipper'], function () {
-    Route::resource('account', 'ShipperAccountController');
     Route::resource('details', 'ShipperDetailsController');
-
+    Route::resource('account', 'ShipperAccountController');
     Route::resource('orders', 'ShipperOrderController');
 
     Route::get('order-status', 'ShipperOrderController@status');

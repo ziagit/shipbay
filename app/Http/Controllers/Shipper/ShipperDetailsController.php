@@ -61,7 +61,7 @@ class ShipperDetailsController extends Controller
         }
         $this->storeAddress($request,$shipper->id);
       
-        return response()->json(["message"=>"Saved successfully!",200]);
+        return response()->json(["message"=>"Saved successfully!"],200);
     }
     public function storeAddress($request, $shipperId){
 
@@ -126,7 +126,7 @@ class ShipperDetailsController extends Controller
         $shipper->update();
         $this->updateAddress($request,$shipper->id);
       
-        return response()->json(["message"=>"Updated successfully!",200]);
+        return response()->json(["message"=>"Updated successfully!"],200);
     }
     public function updateAddress($request, $shipperId){
         $address = Address::find($request->addressId);

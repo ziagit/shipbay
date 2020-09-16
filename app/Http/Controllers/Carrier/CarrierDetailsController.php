@@ -79,7 +79,7 @@ class CarrierDetailsController extends Controller
         $carrier->save();
         $this->storeAddress($request, $carrier->id);
 
-        return response()->json(["message" => "Saved successfully!", 200]);
+        return response()->json(["message" => "Saved successfully!"],200);
     }
     public function storeAddress($request, $carrierId)
     {
@@ -167,7 +167,7 @@ class CarrierDetailsController extends Controller
         $carrier->update();
         $this->updateAddress($request, $carrier->id);
 
-        return response()->json(["message" => "Updated successfully!", 200]);
+        return response()->json(["message" => "Updated successfully!"],200);
     }
     public function updateAddress($request, $carrierId)
     {
