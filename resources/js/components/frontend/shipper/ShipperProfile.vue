@@ -1,19 +1,26 @@
 <template>
   <div>
     <md-card>
-      <md-card-content>
-        <div v-if="windowWidth < 600" class="phone-viewport">
-          <md-bottom-bar md-sync-route>
-            <md-bottom-bar-item to="/components/bottom-bar" exact md-label="Home" md-icon="home"></md-bottom-bar-item>
-            <md-bottom-bar-item to="/components/bottom-bar/posts" md-label="Posts" md-icon="home"></md-bottom-bar-item>
-            <md-bottom-bar-item
-              to="/components/bottom-bar/favorites"
-              md-label="Favorites"
-              md-icon="favorite"
-            ></md-bottom-bar-item>
-          </md-bottom-bar>
-        </div>
-        <div v-else class="buttons">
+      <md-card-header>
+        <md-menu
+          :mdCloseOnClick="closeOnClick"
+          :mdCloseOnSelect="closeOnSelect"
+          md-size="auto"
+          v-if="windowWidth < 600"
+        >
+          <md-button md-menu-trigger class="md-icon-button">
+            <md-icon>more_vert</md-icon>
+          </md-button>
+
+          <md-menu-content>
+            <md-menu-item @click="navigateTo('/shipper')">General</md-menu-item>
+            <md-menu-item @click="navigateTo('/shipper/account')">Account</md-menu-item>
+            <md-menu-item @click="navigateTo('/shipper/orders')">Orders</md-menu-item>
+            <md-menu-item @click="navigateTo('/shipper/card')">Card</md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+        <div class="buttons" v-else>
           <md-button
             to="/shipper"
             v-bind:class="{active: $route.name == 'details' || $route.name == 'add-details' || $route.name == 'edit-details'}"
@@ -28,6 +35,8 @@
           >Orders</md-button>
           <md-button to="/shipper/card" v-bind:class="{active: $route.name == 'card'}">Card</md-button>
         </div>
+      </md-card-header>
+      <md-card-content>
         <router-view></router-view>
       </md-card-content>
     </md-card>
@@ -38,16 +47,20 @@
 export default {
   name: "CarrierProfile",
   data: () => ({
-    windowWidth: null,
+    windowWidth: 600,
+    closeOnSelect: true,
+    closeOnClick: true,
   }),
   mounted() {
     window.addEventListener("resize", () => {
       this.windowWidth = window.innerWidth;
     });
   },
-  created() {
-    console.log("xxx ", this.$route.name);
-  },
+  methods:{
+    navigateTo(route){
+      this.$router.push(route);
+    }
+  }
 };
 </script>
 
@@ -67,7 +80,6 @@ md-card {
 .buttons {
   display: flex;
   text-align: left !important;
-  margin-bottom: 14px;
 }
 .active {
   color: #448aff;

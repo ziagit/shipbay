@@ -1,7 +1,25 @@
 <template>
   <md-card mode="ios">
-    <md-card-content>
-      <div class="buttons">
+    <md-card-header>
+      <md-menu
+        :mdCloseOnClick="closeOnClick"
+        :mdCloseOnSelect="closeOnSelect"
+        md-size="auto"
+        v-if="windowWidth < 666"
+      >
+        <md-button md-menu-trigger class="md-icon-button">
+          <md-icon>more_vert</md-icon>
+        </md-button>
+
+        <md-menu-content>
+          <md-menu-item @click="navigateTo('/carrier/account')">Account</md-menu-item>
+          <md-menu-item @click="navigateTo('/carrier/general-info')">General info</md-menu-item>
+          <md-menu-item @click="navigateTo('/carrier/accessories')">Accessories</md-menu-item>
+          <md-menu-item @click="navigateTo('/carrier/rates')">Rates</md-menu-item>
+          <md-menu-item @click="navigateTo('/carrier/history')">Job history</md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      <div v-else class="buttons">
         <md-button
           to="/carrier/account"
           v-bind:class="{active: $route.name == 'carrier-account' || $route.name == 'edit-account'}"
@@ -17,16 +35,18 @@
         <md-button
           to="/carrier/rates"
           v-bind:class="{active: $route.name == 'rate-list' || $route.name == 'add-rate' || $route.name == 'edit-rate'}"
-        >Rate</md-button>
+        >Rates</md-button>
         <md-button
           to="/carrier/history"
           v-bind:class="{active: $route.name == 'jobs' || $route.name == 'job-details'}"
         >Job history</md-button>
-     <!--     <md-button
+        <!--     <md-button
           to="/carrier/card"
           v-bind:class="{active: $route.name == 'carrier-card' }"
-        >Card</md-button> -->
+        >Card</md-button>-->
       </div>
+    </md-card-header>
+    <md-card-content>
       <router-view></router-view>
     </md-card-content>
   </md-card>
@@ -35,9 +55,20 @@
 <script>
 export default {
   name: "CarrierProfile",
-  data: () => ({}),
-  created() {
-    console.log("xxx ", this.$route.name);
+  data: () => ({
+    windowWidth: 666,
+    closeOnSelect: true,
+    closeOnClick: true,
+  }),
+  mounted() {
+    window.addEventListener("resize", () => {
+      this.windowWidth = window.innerWidth;
+    });
+  },
+  methods: {
+    navigateTo(route) {
+      this.$router.push(route);
+    },
   },
 };
 </script>
@@ -53,7 +84,6 @@ export default {
 .buttons {
   display: flex;
   text-align: left !important;
-  margin-bottom: 14px;
 }
 .active {
   color: #448aff;
