@@ -12,7 +12,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CarrierDetailsController extends Controller
-{ 
+{
     /**
      * Display a listing of the resource.
      *
@@ -20,12 +20,8 @@ class CarrierDetailsController extends Controller
      */
     public function index()
     {
-        try {
-            $carriers = Carrier::all();
-            return $carriers;
-        } catch (Exception $exception) {
-            return $exception;
-        }
+        $carriers = Carrier::all();
+        return $carriers;
 
         $userId = JWTAuth::user()->id;
         $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
@@ -89,7 +85,7 @@ class CarrierDetailsController extends Controller
         $carrier->save();
         $this->storeAddress($request, $carrier->id);
 
-        return response()->json(["message" => "Saved successfully!"],200);
+        return response()->json(["message" => "Saved successfully!"], 200);
     }
     public function storeAddress($request, $carrierId)
     {
@@ -177,7 +173,7 @@ class CarrierDetailsController extends Controller
         $carrier->update();
         $this->updateAddress($request, $carrier->id);
 
-        return response()->json(["message" => "Updated successfully!"],200);
+        return response()->json(["message" => "Updated successfully!"], 200);
     }
     public function updateAddress($request, $carrierId)
     {
