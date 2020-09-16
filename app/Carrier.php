@@ -18,7 +18,7 @@ class Carrier extends Model
     }
 
     public function accessories(){
-        return $this->belongsToMany(Accessory::class)->withPivot(['src_value', 'des_value']);
+        return $this->belongsToMany(Accessory::class);
     }
 
     public function jobs(){
