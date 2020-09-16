@@ -7,7 +7,6 @@ use App\carrier;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Address;
-use App\Shipper;
 
 class CarrierDetailsController extends Controller
 { 
@@ -18,7 +17,7 @@ class CarrierDetailsController extends Controller
      */
     public function index()
     {
-        return Shipper::all();
+        return Carrier::all();
         $userId = JWTAuth::user()->id;
         $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
         return response()->json($carrier);

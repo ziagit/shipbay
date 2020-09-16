@@ -7,10 +7,6 @@ use PHPUnit\Framework\Constraint\Count;
 
 class Carrier extends Model
 {
-/*     protected $fillable = [
-        
-    ]; */
-    //
     public function user(){
         return $this->belongsTo(User::class);
     }
