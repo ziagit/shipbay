@@ -21,7 +21,7 @@
       </div>
 
       <div class="action">
-        <md-button to="destination" class="md-icon-button md-raised">
+        <md-button to="delivery" class="md-icon-button md-raised">
           <md-icon>keyboard_arrow_left</md-icon>
         </md-button>
         <md-button class="md-icon-button md-raised md-primary" type="submit">
