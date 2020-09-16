@@ -78,8 +78,8 @@ export default {
           this.temp.country = this.shipper.full_address.country.id;
           this.tempData(this.temp).then((res) => {});
         })
-        .catch((err) => {
-          console.log("Error: ", err);
+        .catch((error) => {
+          console.log("Error: ", error);
         });
     },
   },

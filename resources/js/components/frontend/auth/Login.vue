@@ -57,15 +57,6 @@ export default {
         this.signIn(this.form)
           .then((res) => {
             switch (this.user.role[0].name) {
-              case "shipper":
-                axios.get("shipper/details").then((res) => {
-                  res.data.first_name !== undefined
-                    ? this.$router.push(
-                        this.$route.query.redirect || "/shipper"
-                      )
-                    : this.$router.push("/shipper/profile/add-details");
-                });
-                break;
               case "carrier":
                 axios.get("carrier/details").then((res) => {
                   res.data.first_name !== undefined
@@ -73,6 +64,15 @@ export default {
                         this.$route.query.redirect || "/carrier"
                       )
                     : this.$router.push("/carrier/general-info/add-carrier");
+                });
+                break;
+              case "shipper":
+                axios.get("shipper/details").then((res) => {
+                  res.data.first_name !== undefined
+                    ? this.$router.push(
+                        this.$route.query.redirect || "/shipper"
+                      )
+                    : this.$router.push("/shipper/profile/add-details");
                 });
                 break;
               case "admin":
