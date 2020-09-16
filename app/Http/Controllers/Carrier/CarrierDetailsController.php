@@ -17,6 +17,7 @@ class CarrierDetailsController extends Controller
      */
     public function index()
     {
+        return "OK.";
         $userId = JWTAuth::user()->id;
         $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
         return response()->json($carrier);

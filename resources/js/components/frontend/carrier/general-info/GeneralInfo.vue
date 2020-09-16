@@ -73,6 +73,7 @@ export default {
       await axios
         .get("carrier/details")
         .then((res) => {
+          console.log("carriers: ",res.data)
           this.carrier = res.data;
           this.temp.me = this.carrier.id;
           this.temp.country = this.carrier.full_address.country.id;
