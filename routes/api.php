@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Functions;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +34,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* Route::resource('details', 'CarrierDetailsController'); */
 
     Route::get('get-carrier', function(){
-      $carriers = Carrier::all();
-      return response()->json($carriers);
+      $userId = JWTAuth::user()->id;
+      $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
+      return response()->json($carrier);
     });
 
     Route::resource('accessories', 'AccessoryController');
