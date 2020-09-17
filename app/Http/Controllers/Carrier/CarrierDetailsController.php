@@ -42,7 +42,6 @@ class CarrierDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        dd(phpinfo());
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
