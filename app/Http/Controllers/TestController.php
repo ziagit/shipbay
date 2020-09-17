@@ -25,9 +25,4 @@ class TestController extends Controller
         return response()->json(['message'=>'Deleted successfully!'], 200);
     }
 
-    public function carrier(){
-        $userId = JWTAuth::user()->id;
-        $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
-        return response()->json($carrier);
-    }
 }

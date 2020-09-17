@@ -16,12 +16,6 @@ class CarrierDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function carrier(){
-        $userId = JWTAuth::user()->id;
-        $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
-        return response()->json($carrier);
-    }
-
     public function index()
     {
         $userId = JWTAuth::user()->id;
@@ -174,7 +168,7 @@ class CarrierDetailsController extends Controller
         $carrier->update();
         $this->updateAddress($request, $carrier->id);
 
-        return response()->json(["message" => "Updated successfully!"], 200);
+        return response()->json(["message" => "Updated successfully!x"], 200);
     }
     public function updateAddress($request, $carrierId)
     {

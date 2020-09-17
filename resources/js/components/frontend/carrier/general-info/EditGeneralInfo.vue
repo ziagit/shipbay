@@ -8,7 +8,7 @@
         </md-button>
         <div class="carrier-logo">
           <md-avatar class="md-large">
-            <img :src="'/images/uploads/'+carrier.logo" alt="Logo" />
+            <img :src="'/images/uploads/'+oldLogo" alt="Logo" />
             <md-field class="select-logo">
               <md-tooltip>Select new logo</md-tooltip>
               <md-file
@@ -163,11 +163,11 @@ export default {
       axios
         .post("carrier/details/" + this.temp.me, fd)
         .then((res) => {
-          console.log(">> ", res.data);
-          this.$router.push("/carrier");
+          console.log("response ", res.data);
+          /* this.$router.push("/carrier"); */
         })
         .catch((error) => {
-          console.log("eerrr: ", error.response);
+          console.log("eerrr: ", error);
           this.snackbar.message = error.response.data.errors;
           this.snackbar.statusCode = error.response.status;
           this.snackbar.show = true;

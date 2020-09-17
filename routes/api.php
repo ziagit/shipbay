@@ -30,8 +30,6 @@ Route::group(['middleware' => 'auth:api'], function () {
   });
   Route::group(['namespace' => 'Carrier', 'prefix' => 'carrier'], function () {
     Route::resource('details', 'CarrierDetailsController');
-
-
     Route::resource('accessories', 'AccessoryController');
     Route::get('accessories-lookup', 'AccessoryController@accessories');
     Route::resource('rates', 'RateController');
@@ -116,6 +114,3 @@ Route::get("unauthorized", function(){
 })->name('unauthorized');
 
 Route::resource('tests', 'TestController');
-
-
-/* Route::get('carrier/details', 'TestController@carrier'); */
