@@ -42,6 +42,7 @@ class CarrierDetailsController extends Controller
      */
     public function store(Request $request)
     {
+        dd(phpinfo());
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -52,7 +53,7 @@ class CarrierDetailsController extends Controller
             'citycode' => 'required',
         ]);
 
-        try{
+     /*    try{ */
             if ($request->hasFile('logo')) {
                 //        for production only   
                 /*             $path = base_path();
@@ -69,9 +70,9 @@ class CarrierDetailsController extends Controller
             } else {
                 $logo_name = "logo not available";
             }
-        }catch(Exception $e){
+   /*      }catch(Exception $e){
             die ('File did not upload: ' . $e->getMessage());
-        }
+        } */
 
 
 
