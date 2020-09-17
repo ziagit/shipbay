@@ -21,11 +21,16 @@
                 <label>Last name</label>
                 <md-input v-model="form.lastName" required></md-input>
               </md-field>
+              <md-field>
+                <label>Address</label>
+                <md-input v-model="form.address" required></md-input>
+              </md-field>
+              <md-field>
+                <label>Phone</label>
+                <md-input v-model="form.phone" required></md-input>
+              </md-field>
             </div>
-            <md-field>
-              <label>Address</label>
-              <md-input v-model="form.address" required></md-input>
-            </md-field>
+
             <div class="row">
               <md-field>
                 <md-select
@@ -66,19 +71,11 @@
                   <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
                 </md-select>
               </md-field>
-
               <md-field>
                 <label>Postalcode</label>
                 <md-input v-model="form.citycode" required></md-input>
               </md-field>
             </div>
-            <div>
-              <md-field>
-                <label>Phone</label>
-                <md-input v-model="form.phone" required></md-input>
-              </md-field>
-            </div>
-
             <md-button type="submit">Save</md-button>
           </form>
         </md-card-content>
@@ -131,9 +128,9 @@ export default {
         .then((res) => {
           if (localStorage.getItem("cRoute") === "/order/select-carrier") {
             this.$router.push("/shipment/additional-details");
-          }else{
+          } else {
             this.$router.push(this.$route.query.redirect || "/shipper");
-          }     
+          }
         })
         .catch((error) => {
           this.snackbar.show = true;
@@ -188,8 +185,9 @@ export default {
   .row {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     .md-field {
-      width: 49%;
+      flex: 25%;
     }
   }
   .md-display-1 {

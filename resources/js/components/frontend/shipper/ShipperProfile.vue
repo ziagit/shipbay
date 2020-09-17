@@ -6,7 +6,8 @@
           :mdCloseOnClick="closeOnClick"
           :mdCloseOnSelect="closeOnSelect"
           md-size="auto"
-          v-if="windowWidth < 600"
+          md-dense
+          class="mobile-menu"
         >
           <md-button md-menu-trigger class="md-icon-button">
             <md-icon>more_vert</md-icon>
@@ -20,15 +21,15 @@
           </md-menu-content>
         </md-menu>
 
-        <div class="buttons" v-else>
-          <md-button
-            to="/shipper"
-            v-bind:class="{active: $route.name == 'details' || $route.name == 'add-details' || $route.name == 'edit-details'}"
-          >General</md-button>
+        <div class="tablet-menu">
           <md-button
             to="/shipper/account"
             v-bind:class="{active: $route.name == 'account-details' || $route.name == 'edit-account'}"
           >Account</md-button>
+          <md-button
+            to="/shipper"
+            v-bind:class="{active: $route.name == 'details' || $route.name == 'add-details' || $route.name == 'edit-details'}"
+          >General</md-button>
           <md-button
             to="/shipper/orders"
             v-bind:class="{active: $route.name == 'order-list' || $route.name == 'order-details'}"
@@ -56,39 +57,37 @@ export default {
       this.windowWidth = window.innerWidth;
     });
   },
-  methods:{
-    navigateTo(route){
+  methods: {
+    navigateTo(route) {
       this.$router.push(route);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.phone-viewport {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-}
-md-card {
+.md-card {
   margin: 0;
-  md-card-content {
+  padding-bottom: 20px;
+  .md-card-content {
     padding: 0;
     text-align: center;
   }
-}
-.buttons {
-  display: flex;
-  text-align: left !important;
-}
-.active {
-  color: #448aff;
+  .tablet-menu {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 600px) {
-  md-card {
-    margin: 0;
-    padding: 0;
+  .mobile-menu {
+    display: none;
+  }
+  .tablet-menu {
+    display: flex !important;
+    text-align: left !important;
+  }
+  .md-card {
+    margin: 3em auto;
     width: 90%;
   }
 }

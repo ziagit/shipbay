@@ -10,19 +10,30 @@
         <div class="carrier-name">
           <h2 v-if="carrier.company">{{carrier.company}}</h2>
           <h2 v-else>{{carrier.last_name}}</h2>
-          <span
-            class="md-subheading"
-          >{{carrier.first_name}} | {{carrier.last_name}} | {{carrier.full_address.address}}</span>
-          <br />
-          <span
-            class="md-subheading"
-          >{{carrier.full_address.country.name}} | {{carrier.full_address.state.name}} | {{carrier.full_address.city.name}} | {{carrier.full_address.citycode}}</span>
+          <span class="md-subheading">
+            {{carrier.first_name}}
+            <span class="line">|</span>
+            {{carrier.last_name}}
+            <span class="line">|</span>
+            {{carrier.full_address.address}}
+          </span>
           <br />
           <span class="md-subheading">
-            {{carrier.phone}} | {{carrier.user.name}} |
-            <span
-              v-show="carrier.website"
-            >{{carrier.website}}</span>
+            {{carrier.full_address.country.name}}
+            <span class="line">|</span>
+            {{carrier.full_address.state.name}}
+            <span class="line">|</span>
+            {{carrier.full_address.city.name}}
+            <span class="line">|</span>
+            {{carrier.full_address.citycode}}
+          </span>
+          <br />
+          <span class="md-subheading">
+            {{carrier.phone}}
+            <span class="line">|</span>
+            {{carrier.user.name}}
+            <span class="line">|</span>
+            <span v-show="carrier.website">{{carrier.website}}</span>
           </span>
           <br />
         </div>
@@ -34,7 +45,7 @@
       </div>
     </md-card-content>
     <md-card-actions v-if="carrier">
-      <md-button to="edit-carrier" class="md-primary md-icon-button">
+      <md-button to="edit" class="md-primary md-icon-button">
         <md-icon>edit</md-icon>
         <md-tooltip>Edit profile</md-tooltip>
       </md-button>
@@ -57,7 +68,7 @@
 import axios from "axios";
 import { mapActions } from "vuex";
 export default {
-  name: "GeneralInfo",
+  name: "CarrierDetails",
   data: () => ({
     carrier: null,
     temp: {
@@ -73,7 +84,7 @@ export default {
       await axios
         .get("carrier/details")
         .then((res) => {
-          console.log("carriers: ",res.data)
+          console.log("carriers: ", res.data);
           this.carrier = res.data;
           this.temp.me = this.carrier.id;
           this.temp.country = this.carrier.full_address.country.id;

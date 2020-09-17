@@ -16,7 +16,7 @@
             </md-field>
           </md-avatar>
         </div>
-        <div class="carrier-details">
+        <div class="inputs-container">
           <div class="row">
             <md-field>
               <md-input type="text" v-model="form.first_name" placeholder="First name" required></md-input>
@@ -221,22 +221,26 @@ export default {
 <style lang="scss" scoped>
 .main-card {
   padding: 30px;
-  margin-top: 60px;
   text-align: center;
   box-shadow: none;
   border: solid 1px #ddd;
   .carrier-logo {
     text-align: center;
-    margin-top: -50px;
+    margin-top: -40px;
     .md-large {
       background: #ddd;
     }
   }
-  .carrier-details {
+  .inputs-container {
     .row {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      .md-field {
+        flex: 25%;
+      }
     }
   }
 }
+
 </style>

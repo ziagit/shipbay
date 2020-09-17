@@ -78,6 +78,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   name: "EditAccessory",
   data: () => ({
@@ -147,8 +148,13 @@ export default {
       }
     },
   },
+  computed: {
+    ...mapGetters({
+      temp: "shared/temp",
+    }),
+  },
   created() {
-    this.form.carrierId = this.$store.state.shared.carrierData.carrierId;
+    this.form.carrierId = this.temp.me;
     this.get();
     this.edit();
   },

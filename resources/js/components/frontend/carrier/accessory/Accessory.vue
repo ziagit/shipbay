@@ -14,7 +14,7 @@
       <md-card-header>
         <div class="md-title">Accessories</div>
         <md-button
-          to="add-accessory"
+          to="add"
           class="md-icon-button add-btn"
           v-show="accessories.length != 0"
         >
@@ -45,7 +45,7 @@
               <td>${{accessory.pivot.des_value}}</td>
               <td>
                 <md-button
-                  :to="{path: 'edit-accessory/'+ accessory.id}"
+                  :to="{path: 'edit/'+ accessory.id}"
                   class="md-primay md-icon-button"
                 >
                   <md-icon>edit</md-icon>

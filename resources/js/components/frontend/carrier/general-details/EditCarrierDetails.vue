@@ -32,6 +32,9 @@
               <md-input v-model="form.last_name" placeholder="Last name"></md-input>
             </md-field>
             <md-field>
+              <md-input type="tel" v-model="form.phone" placeholder="Phone" required></md-input>
+            </md-field>
+            <md-field>
               <label>Address</label>
               <md-input v-model="form.address" placeholder="Address"></md-input>
             </md-field>
@@ -82,10 +85,6 @@
             </md-field>
           </div>
           <div class="row">
-            <md-field>
-              <label>Phone</label>
-              <md-input v-model="form.phone" placeholder="Phone"></md-input>
-            </md-field>
             <md-field>
               <label>Website</label>
               <md-input v-model="form.website" placeholder="Website"></md-input>
@@ -164,7 +163,7 @@ export default {
         .post("carrier/details/" + this.temp.me, fd)
         .then((res) => {
           console.log("response ", res.data);
-          /* this.$router.push("/carrier"); */
+          this.$router.push("/carrier");
         })
         .catch((error) => {
           console.log("eerrr: ", error);
@@ -209,7 +208,7 @@ export default {
     edit() {
       axios.get("carrier/details/" + this.temp.me).then(
         (res) => {
-          console.log("........ ", res.data)
+          console.log("........ ", res.data);
           this.form.first_name = res.data.first_name;
           this.form.last_name = res.data.last_name;
           this.form.address = res.data.full_address.address;
@@ -239,24 +238,25 @@ export default {
 <style lang="scss" scoped>
 .main-card {
   padding: 30px;
-  margin-top: 60px;
   text-align: center;
   box-shadow: none;
   border: solid 1px #ddd;
   .carrier-logo {
     text-align: center;
-    margin-top: -50px;
+    margin-top: -40px;
     .md-large {
       background: #ddd;
     }
-    .select-logo{
+    .select-logo {
       position: absolute;
     }
   }
-  .carrier-details {
-    .row {
-      display: flex;
-      justify-content: space-between;
+  .row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .md-field {
+      flex: 25%;
     }
   }
   .add-btn {

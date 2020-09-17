@@ -52,26 +52,17 @@ class CarrierDetailsController extends Controller
             'citycode' => 'required',
         ]);
 
-     /*    try{ */
+        try {
             if ($request->hasFile('logo')) {
-                //        for production only   
-                /*             $path = base_path();
-                            $path = str_replace("coffee54", "public_html", $path);
-                            $destinationPath = $path . '/images/coffeequery'; */
-    
                 $file = $request->file('logo');
                 $logo_name = time() . '.' . $file->getClientOriginalName();
-    
-                /* $image->move($destinationPath, $image_name); */
-                
                 $file->move(public_path('images/uploads'), $logo_name);
-                
             } else {
                 $logo_name = "logo not available";
             }
-   /*      }catch(Exception $e){
-            die ('File did not upload: ' . $e->getMessage());
-        } */
+        } catch (Exception $e) {
+            die('File did not upload: ' . $e->getMessage());
+        }
 
 
 
@@ -145,25 +136,23 @@ class CarrierDetailsController extends Controller
             'citycode' => 'required',
         ]);
         $carrier = Carrier::find($id);
+        try {
+            if ($request->hasFile('logo')) {
 
-        if ($request->hasFile('logo')) {
-            /*          for production only   
-                        $path = base_path();
-                        $path = str_replace("coffee54", "public_html", $path);
-                        $destinationPath = $path . '/images/coffeequery'; 
-                        $old_image_path = $destinationPath.'/'.$project->name;
-                        */
-            $old_image_path = public_path('images/uploads/' . $carrier->logo);
-            if (file_exists($old_image_path)) {
-                @unlink($old_image_path);
+                $old_image_path = public_path('images/uploads/' . $carrier->logo);
+                if (file_exists($old_image_path)) {
+                    @unlink($old_image_path);
+                }
+                $file = $request->file('logo');
+                $logo_name = time() . '.' . $file->getClientOriginalName();
+                $file->move(public_path('images/uploads'), $logo_name);
+            } else {
+                $logo_name = $carrier->logo;
             }
-            $file = $request->file('logo');
-            $logo_name = time() . '.' . $file->getClientOriginalName();
-            /* $image->move($destinationPath, $image_name); */
-            $file->move(public_path('images/uploads'), $logo_name);
-        } else {
-            $logo_name = $carrier->logo;
+        } catch (Exception $e) {
+            die('File did not upload: ' . $e->getMessage());
         }
+
 
         $carrier->first_name = $request->first_name;
         $carrier->last_name = $request->last_name;

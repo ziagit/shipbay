@@ -17,7 +17,7 @@
           <md-input v-model="keywords" id="search"/>
         </md-field> -->
         <div class="md-title">Rates</div>
-        <md-button to="add-rate" class="md-icon-button add-rate" v-if="rates != null">
+        <md-button to="add" class="md-icon-button add-rate" v-if="rates != null">
           <md-icon>add</md-icon>
           <md-tooltip>Add new rate</md-tooltip>
         </md-button>
@@ -69,7 +69,7 @@
               <td>{{rate.fsc}}</td>
               <td>{{rate.transit_day}}</td>
               <td>
-                <md-button :to="{path: 'edit-rate/'+ rate.id}" class="md-icon-button md-primary">
+                <md-button :to="{path: 'edit/'+ rate.id}" class="md-icon-button md-primary">
                   <md-icon>edit</md-icon>
                   <md-tooltip>Edit Rate</md-tooltip>
                 </md-button>

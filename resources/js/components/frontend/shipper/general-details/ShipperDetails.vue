@@ -40,13 +40,13 @@
         md-label="Card not added yet"
         md-description="Click bellow link to add new details"
       >
-        <md-button to="add-details" class="md-default md-raised md-icon-button">
+        <md-button to="add" class="md-default md-raised md-icon-button">
           <md-icon>add</md-icon>
         </md-button>
       </md-empty-state>
     </md-card-content>
     <md-card-actions>
-      <md-button v-if="shipper" to="edit-details" class="md-primary md-icon-button">
+      <md-button v-if="shipper" to="edit" class="md-primary md-icon-button">
         <md-icon>edit</md-icon>
         <md-tooltip>Edit profile</md-tooltip>
       </md-button>
@@ -93,9 +93,6 @@ export default {
 .md-card {
   box-shadow: none;
   text-align: center;
-  .line {
-    color: #ddd;
-  }
   .md-display-1 {
     font-size: 30px;
   }

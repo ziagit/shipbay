@@ -15,10 +15,10 @@ import OurServices from './components/frontend/OurServices'
 
 
 import Welcome from './components/frontend/auth/Welcome';
-import GeneralInfo from './components/frontend/carrier/general-info/GeneralInfo';
-import InfoContainer from './components/frontend/carrier/general-info/InfoContainer';
-import EditGeneralInfo from './components/frontend/carrier/general-info/EditGeneralInfo';
-import AddGeneralInfo from './components/frontend/carrier/general-info/AddGeneralInfo';
+import CarrierDetails from './components/frontend/carrier/general-details/CarrierDetails';
+import CarrierDetailsContainer from './components/frontend/carrier/general-details/CarrierDetailsContainer';
+import EditCarrierDetails from './components/frontend/carrier/general-details/EditCarrierDetails';
+import AddCarrierDetails from './components/frontend/carrier/general-details/AddCarrierDetails';
 import Accessory from './components/frontend/carrier/accessory/Accessory'
 import AccessoryContainer from './components/frontend/carrier/accessory/AccessoryContainer'
 import EditAccessory from './components/frontend/carrier/accessory/EditAccessory';
@@ -153,32 +153,32 @@ export default new VueRouter({
                     path: 'carrier',
                     component: CarrierProfile,
                     children: [
-                        { path: '', redirect: 'general-info' },
+                        { path: '', redirect: 'profile' },
                         {
-                            name: 'general-info', path: 'general-info', component: InfoContainer,
+                            name: 'profile', path: 'profile', component: CarrierDetailsContainer,
                             children: [
-                                { path: '', redirect: 'carrier-details' },
-                                { name: 'carrier-details', path: 'carrier-details', component: GeneralInfo },
-                                { name: 'add-carrier', path: 'add-carrier', component: AddGeneralInfo },
-                                { name: 'edit-carrier', path: 'edit-carrier', component: EditGeneralInfo }
+                                { path: '', redirect: 'details' },
+                                { name: 'carrier-details', path: 'details', component: CarrierDetails },
+                                { name: 'add-carrier', path: 'add', component: AddCarrierDetails },
+                                { name: 'edit-carrier', path: 'edit', component: EditCarrierDetails }
                             ]
                         }, 
                         {
                             name: 'rates', path: 'rates', component: RateContainer,
                             children: [
-                                { path: '', redirect: 'rate-list' },
-                                { name: 'rate-list', path: 'rate-list', component: CarrierRates },
-                                { name: 'add-rate', path: 'add-rate', component: AddRate },
-                                { name: 'edit-rate', path: 'edit-rate/:id', component: EditRate }
+                                { path: '', redirect: 'list' },
+                                { name: 'rate-list', path: 'list', component: CarrierRates },
+                                { name: 'add-rate', path: 'add', component: AddRate },
+                                { name: 'edit-rate', path: 'edit/:id', component: EditRate }
                             ]
                         },
                         {
                             name: 'accessories', path: 'accessories', component: AccessoryContainer,
                             children: [
-                                { path: '', redirect: 'accessory-list' },
-                                { name: 'accessory-list', path: 'accessory-list', component: Accessory },
-                                { name: 'add-accessory', path: 'add-accessory', component: AddAccessory },
-                                { name: 'edit-accessory', path: 'edit-accessory/:id', component: EditAccessory }
+                                { path: '', redirect: 'list' },
+                                { name: 'accessory-list', path: 'list', component: Accessory },
+                                { name: 'add-accessory', path: 'add', component: AddAccessory },
+                                { name: 'edit-accessory', path: 'edit/:id', component: EditAccessory }
                             ]
                         },
                         {
@@ -186,7 +186,7 @@ export default new VueRouter({
                             children: [
                                 { path: '', redirect: 'jobs' },
                                 { name: 'jobs', path: 'jobs', component: Jobs },
-                                { name: 'job-details', path: 'job-details/:id', component: JobDetails }
+                                { name: 'job-details', path: 'details/:id', component: JobDetails }
                             ]
                         },
                         {
@@ -212,8 +212,8 @@ export default new VueRouter({
                             children: [
                                 { path: '', redirect: 'details' },
                                 { name: 'details', path: 'details', component: ShipperDetails },
-                                { name: 'add-details', path: 'add-details', component: AddShipperDetails },
-                                { name: 'edit-details', path: 'edit-details', component: EditShipperDetails }
+                                { name: 'add-details', path: 'add', component: AddShipperDetails },
+                                { name: 'edit-details', path: 'edit', component: EditShipperDetails }
                             ]
                         },
                         {
@@ -221,7 +221,7 @@ export default new VueRouter({
                             children: [
                                 { path: '', redirect: 'details' },
                                 { name: 'account-details', path: 'details', component: ShipperAccount },
-                                { name: 'edit-account', path: 'edit-account/:id', component: EditShipperAccount },
+                                { name: 'edit-account', path: 'edit/:id', component: EditShipperAccount },
                             ]
                         },
                         {

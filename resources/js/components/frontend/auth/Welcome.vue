@@ -24,9 +24,9 @@ export default {
   methods: {
     completRegisteration() {
       if (this.user.role[0].name == "shipper") {
-        this.$router.push("/shipper/profile/add-details");
+        this.$router.push("/shipper/profile/add");
       } else if (this.user.role[0].name == "carrier") {
-        this.$router.push("/carrier/general-info/add-carrier");
+        this.$router.push("/carrier/profile/add");
       }
     },
   },

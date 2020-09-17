@@ -52,7 +52,9 @@ export default {
     margin: 5px 10px;
   }
 }
-
+.line {
+  color: #ddd;
+}
 .md-table-content {
   max-width: calc(100vw - 80px);
   overflow-x: auto !important;
@@ -60,9 +62,21 @@ export default {
 .md-display-1 {
   font-size: 24px;
 }
+.md-body-1 {
+  width: 100% !important;
+}
+.active {
+  color: #448aff !important;
+}
+.md-accent {
+  color: #ff5252 !important;
+}
 @media only screen and (min-width: 600px) {
   .md-display-1 {
     font-size: 30px;
+  }
+  .md-body-1 {
+    width: 50% !important;
   }
   label {
     font-size: 14px;

@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: "InfoContainer",
+  name: "CarrierDetailsContainer",
 };
 </script>
 <style lang="scss">
