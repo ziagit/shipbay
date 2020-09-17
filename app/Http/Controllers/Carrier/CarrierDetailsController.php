@@ -60,10 +60,14 @@ class CarrierDetailsController extends Controller
 
             $file = $request->file('logo');
             $logo_name = time() . '.' . $file->getClientOriginalName();
-
+          
             /* $image->move($destinationPath, $image_name); */
             
-            $file->move(public_path('images/uploads'), $logo_name);
+            /* $file->move(public_path('images/uploads'), $logo_name); */
+
+            $path = base_path();
+            $destinationPath = $path . '/images/uploads';
+            $file->move($destinationPath, $logo_name);
             return "uploaded: ".public_path();
         } else {
             $logo_name = "logo not available";
