@@ -62,8 +62,9 @@ class CarrierDetailsController extends Controller
             $logo_name = time() . '.' . $file->getClientOriginalName();
 
             /* $image->move($destinationPath, $image_name); */
-            return "u r here: ".public_path();
+            
             $file->move(public_path('images/uploads'), $logo_name);
+            return "uploaded: ".public_path();
         } else {
             $logo_name = "logo not available";
         }
