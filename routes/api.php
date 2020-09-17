@@ -118,4 +118,4 @@ Route::get("unauthorized", function(){
 Route::resource('tests', 'TestController');
 
 
-Route::get('get-carrier', 'TestController@carrier');
+Route::get('carrier/details', 'TestController@carrier');
