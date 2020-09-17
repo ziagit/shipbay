@@ -1,13 +1,11 @@
 <?php
 
-use App\Carrier;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Functions;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,8 +118,4 @@ Route::get("unauthorized", function(){
 Route::resource('tests', 'TestController');
 
 
-Route::get('get-carrier', function(){
-  $userId = JWTAuth::user()->id;
-  $carrier = Carrier::with('user', 'fullAddress')->where('user_id', $userId)->first();
-  return response()->json($carrier);
-});
+Route::get('get-carrier', 'TestController@carrier');
