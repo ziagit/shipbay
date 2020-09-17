@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Carrier;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Carrier;
-use App\rate;
-use App\State;
-use App\City;
-use App\Citycode;
+use App\Rate;
 use Illuminate\Support\Facades\Auth;
 
 class RateController extends Controller
@@ -71,7 +68,7 @@ class RateController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\rate  $rate
+     * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,7 +80,7 @@ class RateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\rate  $rate
+     * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -125,7 +122,7 @@ class RateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\rate  $rate
+     * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
     public function destroy($rateId)
