@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Carrier;
 
 use App\Http\Controllers\Controller;
-use App\carrier;
+use App\Carrier;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Address;

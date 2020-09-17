@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('read-notification/{id}', 'NotificationController@show');
   });
   Route::group(['namespace' => 'Carrier', 'prefix' => 'carrier'], function () {
-    /* Route::resource('details', 'CarrierDetailsController'); */
+    Route::resource('details', 'CarrierDetailsController');
 
 
     Route::resource('accessories', 'AccessoryController');
@@ -118,4 +118,4 @@ Route::get("unauthorized", function(){
 Route::resource('tests', 'TestController');
 
 
-Route::get('carrier/details', 'TestController@carrier');
+/* Route::get('carrier/details', 'TestController@carrier'); */
