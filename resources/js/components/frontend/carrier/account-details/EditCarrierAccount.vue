@@ -77,6 +77,7 @@ export default {
       axios
         .put("carrier/account/" + this.user.id, this.form)
         .then((res) => {
+          this.$router.push("account")
           console.log("response: ", res.data);
         })
         .catch((error) => {

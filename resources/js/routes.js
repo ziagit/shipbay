@@ -274,6 +274,6 @@ export default new VueRouter({
                 }
             ],
         },
-        { path: '*', redirect: '/' }
+      /*   { path: '*', redirect: '/' } */
     ],
 })

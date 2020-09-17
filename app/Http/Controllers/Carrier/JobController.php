@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Carrier;
 use App\Http\Controllers\Controller;
-use App\Carrier;
 use App\Job;
 use App\Jobstatus;
 use App\Notifications\JobUpdated;

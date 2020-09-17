@@ -53,6 +53,7 @@ class CarrierDetailsController extends Controller
 
 
         if ($request->hasFile('logo')) {
+            return "file exist. u r good upto here.";
             //        for production only   
             /*             $path = base_path();
                         $path = str_replace("coffee54", "public_html", $path);
