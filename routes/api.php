@@ -114,3 +114,11 @@ Route::get("unauthorized", function(){
 })->name('unauthorized');
 
 Route::resource('tests', 'TestController');
+
+Route::get("test", function(){
+  if(Auth::user()->roles[0]->name === 'shipper'){
+    return Auth::user()->roles[0]->name;
+  }else{
+    return "u r not shipper";
+  }
+});

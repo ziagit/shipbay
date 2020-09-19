@@ -71,6 +71,14 @@ export default {
 .md-accent {
   color: #ff5252 !important;
 }
+.md-list-item {
+  .md-list-item-button {
+    font-size: 14px !important;
+    .md-list-item-content {
+      min-height: 35px !important;
+    }
+  }
+}
 @media only screen and (min-width: 600px) {
   .md-display-1 {
     font-size: 30px;

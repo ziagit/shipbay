@@ -280,7 +280,6 @@ export default {
         });
     },
     getStates(countryId) {
-      this.stateList = null;
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
           this.stateList = element.state_list;
@@ -348,8 +347,8 @@ export default {
   },
 
   created() {
-    this.carrierId = this.temp.me 
-    this.countryId = this.temp.country
+    this.carrierId = this.temp.me;
+    this.countryId = this.temp.country;
     this.getCountries();
     this.get();
   },

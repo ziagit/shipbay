@@ -43,7 +43,7 @@ class CheckoutController extends Controller
 
     public function store(CheckoutRequest $request)
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->roles[0]->name === 'shipper') {
             if ($this->checkCustomer() === null) {
                 try {
                     $customer = Stripe::customers()->create([

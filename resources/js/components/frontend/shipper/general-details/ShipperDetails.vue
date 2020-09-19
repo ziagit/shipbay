@@ -1,11 +1,9 @@
 <template>
   <md-card class="no-shadow-bordered">
-    <md-card-header v-if="shipper">
-      <div class="md-title">Shipper details</div>
-    </md-card-header>
     <md-card-content>
-      <div class="details" v-if="shipper">
-        <div class="shipper-name">
+      <div v-if="shipper">
+        <div>
+          <h2>{{shipper.last_name}}</h2>
           <span class="md-subheading">
             {{shipper.first_name}}
             <span class="line">|</span>

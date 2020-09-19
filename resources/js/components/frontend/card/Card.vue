@@ -9,7 +9,7 @@
           <div v-if="successMessage && !parymentTogal">
             <div class="alert-success">{{successMessage}}</div>
             <br />
-            <a v-if="authenticated" href="/#/shipper/card">Continue to payment</a>
+            <a v-if="authenticated && user.role[0].name === 'shipper'" href="/#/shipper/card">Continue to payment</a>
             <a v-else href="/#/shipment/payment-details" target="_blank">Continue your order</a>
           </div>
           <div class="alert-error" v-if="errorMessage">{{successMessage}}</div>
@@ -135,6 +135,7 @@ export default {
   computed: {
     ...mapGetters({
       authenticated: "auth/authenticated",
+      user: "auth/user"
     }),
   },
 

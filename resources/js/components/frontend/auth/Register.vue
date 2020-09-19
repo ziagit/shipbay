@@ -10,7 +10,7 @@
           <form @submit.prevent="submit" enctype="multipart/form-data">
             <md-field>
               <label>Name</label>
-              <md-input v-model="form.name" required></md-input>
+              <md-input v-model="form.name" required ref="focusable"></md-input>
             </md-field>
             <md-field>
               <label>Email</label>
@@ -87,6 +87,9 @@ export default {
           });
       }
     },
+  },
+  mounted() {
+    this.$refs.focusable.$el.focus();
   },
   components: { Spinner, Snackbar },
 };

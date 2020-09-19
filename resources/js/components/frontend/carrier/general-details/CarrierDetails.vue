@@ -1,15 +1,15 @@
 <template>
   <md-card>
     <md-card-content v-if="carrier">
-      <div class="carrier-logo">
+      <div v-if="carrier.company !== 'null'" class="carrier-logo">
         <md-avatar class="md-large">
           <img :src="'/images/uploads/'+carrier.logo" alt="Logo" />
         </md-avatar>
       </div>
-      <div class="details">
-        <div class="carrier-name">
-          <h2 v-if="carrier.company">{{carrier.company}}</h2>
-          <h2 v-else>{{carrier.last_name}}</h2>
+      <div>
+        <div>
+          <h2 v-if="carrier.company === 'null'">{{carrier.last_name}}</h2>
+          <h2 v-else>{{carrier.company}}</h2>
           <span class="md-subheading">
             {{carrier.first_name}}
             <span class="line">|</span>
@@ -30,14 +30,12 @@
           <br />
           <span class="md-subheading">
             {{carrier.phone}}
-            <span class="line">|</span>
-            {{carrier.user.name}}
-            <span class="line">|</span>
-            <span v-show="carrier.website">{{carrier.website}}</span>
+            <span v-if="carrier.company !== 'null'" class="line">|</span>
+            <span v-if="carrier.company !== 'null'">{{carrier.website}}</span>
           </span>
           <br />
         </div>
-        <div class="md-body-1">
+        <div v-if="carrier.company !== 'null'" class="md-body-1">
           <br />
           <span class="subheading">About company</span>
           <p v-show="carrier.detail">{{carrier.detail}}</p>
@@ -71,6 +69,7 @@ export default {
   name: "CarrierDetails",
   data: () => ({
     carrier: null,
+    hasCompany: false,
     temp: {
       me: null,
       country: null,
@@ -84,7 +83,6 @@ export default {
       await axios
         .get("carrier/details")
         .then((res) => {
-          console.log("carriers: ", res.data);
           this.carrier = res.data;
           this.temp.me = this.carrier.id;
           this.temp.country = this.carrier.full_address.country.id;

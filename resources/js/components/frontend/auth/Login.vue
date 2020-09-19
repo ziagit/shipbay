@@ -20,7 +20,7 @@
         <md-button to="/register" class="md-primary">Register</md-button>
       </md-card-content>
       <div class="login-througth">
-        <md-button to="/shipment" class="primary" v-if="orderExist">Continue as guest</md-button>
+        <md-button to="/shipment/additional-details" class="primary" v-if="orderExist">Continue as guest</md-button>
       </div>
     </md-card>
     <Snackbar :data="snackbar" />
@@ -63,7 +63,7 @@ export default {
                     ? this.$router.push(
                         this.$route.query.redirect || "/carrier"
                       )
-                    : this.$router.push("/carrier/general-info/add-carrier");
+                    : this.$router.push("/carrier/profile/add");
                 });
                 break;
               case "shipper":
@@ -72,7 +72,7 @@ export default {
                     ? this.$router.push(
                         this.$route.query.redirect || "/shipper"
                       )
-                    : this.$router.push("/shipper/profile/add-details");
+                    : this.$router.push("/shipper/profile/add");
                 });
                 break;
               case "admin":

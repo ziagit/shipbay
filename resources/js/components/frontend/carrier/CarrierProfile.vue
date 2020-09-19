@@ -56,9 +56,7 @@ export default {
     closeOnSelect: true,
     closeOnClick: true,
   }),
-  created() {
-    this.getScreenSize();
-  },
+
   methods: {
     navigateTo(route) {
       this.$router.push(route);

@@ -40,31 +40,28 @@
                 </md-menu-content>
               </md-menu>
             </md-badge>
-
-            <md-menu md-size="big" md-direction="top-start" :md-active.sync="toggleCard">
-              <md-button class="md-icon-button" md-menu-trigger>
+            <md-menu
+              md-size="big"
+              md-direction="bottom-end"
+              :mdCloseOnClick="closeOnClick"
+              :mdCloseOnSelect="closeOnSelect"
+            >
+              <md-button md-menu-trigger class="md-icon-button">
                 <md-icon>account_circle</md-icon>
               </md-button>
+
               <md-menu-content>
-                <div class="author-card">
+                <div class="menu-head">
                   <md-avatar class="md-large">
-                    <!-- <img src="/images/carrier-logo.jpg" alt="Marcos Moura" /> -->
                     <md-icon>face</md-icon>
                   </md-avatar>
                   <div>
                     <div>{{user.name}}</div>
                     <div>{{user.email}}</div>
                   </div>
-
-                  <div class="author-card-links">
-                    <div class="link" @click="profile">
-                      <md-icon>face</md-icon>Profile
-                    </div>
-                    <div class="link" @click="signOut">
-                      <md-icon>power_settings_new</md-icon>Signout
-                    </div>
-                  </div>
                 </div>
+                <md-menu-item @click="profile">Profile</md-menu-item>
+                <md-menu-item @click="signOut">Signout</md-menu-item>
               </md-menu-content>
             </md-menu>
           </div>
@@ -115,6 +112,8 @@ export default {
     activeRoute: "carrier-details",
     notifications: [],
     notificationsLength: 0,
+    closeOnClick: false,
+    closeOnSelect: true,
   }),
 
   computed: {
@@ -257,23 +256,12 @@ export default {
     bottom: 10px;
   }
 }
-.author-card {
+.menu-head {
   text-align: center;
+  margin-bottom: 18px;
   .md-avatar {
     margin: 7px;
     background: #f0f2f5;
-  }
-  .author-card-links {
-    text-align: left;
-    padding: 20px 0;
-    font-size: 12px;
-    .link {
-      padding: 3px 10px;
-    }
-    div:hover {
-      background: #f0f2f5;
-      cursor: pointer;
-    }
   }
 }
 </style>

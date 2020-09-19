@@ -39,7 +39,7 @@
                   id="country"
                   placeholder="Country"
                   required
-                  @input="getStates($event)"
+                  @input="states($event)"
                 >
                   <md-option
                     v-for="country in countryList"
@@ -55,7 +55,7 @@
                   id="state"
                   placeholder="State"
                   required
-                  @input="getCities($event)"
+                  @input="cities($event)"
                 >
                   <md-option
                     v-for="state in stateList"
@@ -71,7 +71,7 @@
                   id="city"
                   placeholder="City"
                   required
-                  @input="getCityZip($event)"
+                  @input="zips($event)"
                 >
                   <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
                 </md-select>
@@ -152,31 +152,30 @@ export default {
           console.log("Error: ", err);
         });
     },
-    getStates(countryId) {
+    states(countryId) {
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
           this.stateList = element.state_list;
         }
       });
     },
-    getCities(stateId) {
+    cities(stateId) {
       this.stateList.forEach((element) => {
         if (element.id == stateId) {
           this.cityList = element.city_list;
         }
       });
     },
-    getCityZip(id) {
-      this.cityList.forEach((element) => {
+    zips(id) {
+/*       this.cityList.forEach((element) => {
         if (element.id == id) {
           this.citycodeList = element.citycodes;
         }
-      });
+      }); */
     },
   },
   created() {
     this.getCountries();
-    console.log("hhhh: ", this.temp.me);
   },
 };
 </script>

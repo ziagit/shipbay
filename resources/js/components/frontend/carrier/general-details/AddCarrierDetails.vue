@@ -19,7 +19,7 @@
         <div class="inputs-container">
           <div class="row">
             <md-field>
-              <md-input type="text" v-model="form.first_name" placeholder="First name" required></md-input>
+              <md-input type="text" v-model="form.first_name" placeholder="First name" required ref="focusable"></md-input>
             </md-field>
             <md-field>
               <md-input type="text" v-model="form.last_name" placeholder="Last name" required></md-input>
@@ -87,17 +87,17 @@
             <div class="row">
               <md-field>
                 <label>Company Name</label>
-                <md-input v-model="form.company" placeholder="Company name"></md-input>
+                <md-input v-model="form.company" placeholder="Company name" :required="hasCompany"></md-input>
               </md-field>
               <md-field>
                 <label>Website</label>
-                <md-input type="url" v-model="form.website" placeholder="Website"></md-input>
+                <md-input type="url" v-model="form.website" placeholder="Website (optional)"></md-input>
               </md-field>
             </div>
             <div class="row">
               <md-field>
                 <label>About your company</label>
-                <md-textarea v-model="form.detail"></md-textarea>
+                <md-textarea v-model="form.detail" :required="hasCompany"></md-textarea>
               </md-field>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default {
         });
     },
     states(countryId) {
-      this.stateList = null;
+      this.form.state = null;
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
           this.stateList = element.state_list;
@@ -193,7 +193,7 @@ export default {
       });
     },
     cities(stateId) {
-      this.cityList = null;
+      this.form.city = null;
       this.stateList.forEach((element) => {
         if (element.id == stateId) {
           this.cityList = element.city_list;
@@ -201,13 +201,16 @@ export default {
       });
     },
     zips(id) {
-      this.citycodeList = null;
-      this.cityList.forEach((element) => {
+      this.form.citycode = null;
+      /*       this.cityList.forEach((element) => {
         if (element.id == id) {
           this.citycodeList = element.citycodes;
         }
-      });
+      }); */
     },
+  },
+  mounted() {
+    this.$refs.focusable.$el.focus();
   },
   created() {
     this.countries();
@@ -242,5 +245,4 @@ export default {
     }
   }
 }
-
 </style>

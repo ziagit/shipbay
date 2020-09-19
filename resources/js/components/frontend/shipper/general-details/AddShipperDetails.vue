@@ -1,85 +1,88 @@
 <template>
   <div class="add-shipper">
     <md-card class="no-shadow-bordered">
-      <div class="card-container">
-        <md-card-header>
-          <div class="md-title">Add shipper details</div>
-          <md-button @click="$router.back()" class="md-icon-button close-btn">
-            <md-icon>close</md-icon>
-            <md-tooltip>Cancel</md-tooltip>
-          </md-button>
-        </md-card-header>
+      <md-card-header>
+        <div class="md-title">Add shipper details</div>
+        <md-button @click="$router.back()" class="md-icon-button close-btn">
+          <md-icon>close</md-icon>
+          <md-tooltip>Cancel</md-tooltip>
+        </md-button>
+      </md-card-header>
 
-        <md-card-content>
-          <form @submit.prevent="submit">
-            <div class="row">
-              <md-field>
-                <label>First name</label>
-                <md-input v-model="form.firstName" required></md-input>
-              </md-field>
-              <md-field>
-                <label>Last name</label>
-                <md-input v-model="form.lastName" required></md-input>
-              </md-field>
-              <md-field>
-                <label>Address</label>
-                <md-input v-model="form.address" required></md-input>
-              </md-field>
-              <md-field>
-                <label>Phone</label>
-                <md-input v-model="form.phone" required></md-input>
-              </md-field>
-            </div>
+      <md-card-content>
+        <form @submit.prevent="submit">
+          <div class="row">
+            <md-field>
+              <label>First name</label>
+              <md-input v-model="form.firstName" required ref="focusable"></md-input>
+            </md-field>
+            <md-field>
+              <label>Last name</label>
+              <md-input v-model="form.lastName" required></md-input>
+            </md-field>
+            <md-field>
+              <label>Address</label>
+              <md-input v-model="form.address" required></md-input>
+            </md-field>
+            <md-field>
+              <label>Phone</label>
+              <md-input v-model="form.phone" required></md-input>
+            </md-field>
+          </div>
 
-            <div class="row">
-              <md-field>
-                <md-select
-                  v-model="form.country"
-                  name="country"
-                  id="country"
-                  placeholder="Country"
-                  required
-                  @input="getStates($event)"
-                >
-                  <md-option
-                    v-for="country in countryList"
-                    :value="country.id"
-                    :key="country.id"
-                  >{{country.name}}</md-option>
-                </md-select>
-              </md-field>
-              <md-field v-if="stateList != null">
-                <md-select
-                  v-model="form.state"
-                  name="state"
-                  id="state"
-                  placeholder="State"
-                  required
-                  @input="getCities($event)"
-                >
-                  <md-option
-                    v-for="state in stateList"
-                    :key="state.id"
-                    :value="state.id"
-                  >{{state.name}}</md-option>
-                </md-select>
-              </md-field>
-            </div>
-            <div>
-              <md-field v-if="cityList != null">
-                <md-select v-model="form.city" name="city" id="city" placeholder="City" required>
-                  <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
-                </md-select>
-              </md-field>
-              <md-field>
-                <label>Postalcode</label>
-                <md-input v-model="form.citycode" required></md-input>
-              </md-field>
-            </div>
-            <md-button type="submit">Save</md-button>
-          </form>
-        </md-card-content>
-      </div>
+          <div class="row">
+            <md-field>
+              <md-select
+                v-model="form.country"
+                name="country"
+                id="country"
+                placeholder="Country"
+                required
+                @input="states($event)"
+              >
+                <md-option
+                  v-for="country in countryList"
+                  :value="country.id"
+                  :key="country.id"
+                >{{country.name}}</md-option>
+              </md-select>
+            </md-field>
+            <md-field v-if="stateList != null">
+              <md-select
+                v-model="form.state"
+                name="state"
+                id="state"
+                placeholder="State"
+                required
+                @input="cities($event)"
+              >
+                <md-option
+                  v-for="state in stateList"
+                  :key="state.id"
+                  :value="state.id"
+                >{{state.name}}</md-option>
+              </md-select>
+            </md-field>
+            <md-field v-if="cityList != null">
+              <md-select
+                v-model="form.city"
+                name="city"
+                id="city"
+                placeholder="City"
+                @input="zips($event)"
+                required
+              >
+                <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
+              </md-select>
+            </md-field>
+            <md-field>
+              <label>Postalcode</label>
+              <md-input v-model="form.citycode" required></md-input>
+            </md-field>
+          </div>
+          <md-button type="submit">Save</md-button>
+        </form>
+      </md-card-content>
     </md-card>
     <md-snackbar
       class="required-feild-error"
@@ -148,27 +151,33 @@ export default {
           console.log("Error: ", error);
         });
     },
-    getStates(countryId) {
+    states(countryId) {
+      this.form.state = null;
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
           this.stateList = element.state_list;
         }
       });
     },
-    getCities(stateId) {
+    cities(stateId) {
+      this.form.city = null;
       this.stateList.forEach((element) => {
         if (element.id == stateId) {
           this.cityList = element.city_list;
         }
       });
     },
-    getCityZip(id) {
-      this.cityList.forEach((element) => {
+    zips(id) {
+      this.form.citycode = null;
+      /*       this.cityList.forEach((element) => {
         if (element.id == id) {
           this.citycodeList = element.citycodes;
         }
-      });
+      }); */
     },
+  },
+  mounted() {
+    this.$refs.focusable.$el.focus();
   },
   created() {
     this.getCountries();
@@ -177,6 +186,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .md-card {
+  padding: 30px;
   text-align: center;
   .card-container {
     margin: auto;

@@ -7,7 +7,7 @@
           <md-tooltip>Cancel</md-tooltip>
         </md-button>
         <div class="carrier-logo">
-          <md-avatar class="md-large">
+          <md-avatar v-if="hasCompany" class="md-large">
             <img :src="'/images/uploads/'+oldLogo" alt="Logo" />
             <md-field class="select-logo">
               <md-tooltip>Select new logo</md-tooltip>
@@ -42,12 +42,7 @@
           <div class="row">
             <md-field>
               <label for="country">Country</label>
-              <md-select
-                v-model="form.country"
-                name="country"
-                id="country"
-                @input="getStates($event)"
-              >
+              <md-select v-model="form.country" name="country" id="country" @input="states($event)">
                 <md-option
                   v-for="country in countryList"
                   :value="country.id"
@@ -58,7 +53,7 @@
 
             <md-field>
               <label for="state">State</label>
-              <md-select v-model="form.state" name="state" id="state" @input="getCities($event)">
+              <md-select v-model="form.state" name="state" id="state" @input="cities($event)">
                 <md-option
                   v-for="state in stateList"
                   :key="state.id"
@@ -69,7 +64,7 @@
 
             <md-field>
               <label for="city">City</label>
-              <md-select v-model="form.city" name="city" id="city" @input="getZips($event)">
+              <md-select v-model="form.city" name="city" id="city" @input="zips($event)">
                 <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
               </md-select>
             </md-field>
@@ -84,22 +79,25 @@
               ></md-input>
             </md-field>
           </div>
-          <div class="row">
-            <md-field>
-              <label>Website</label>
-              <md-input v-model="form.website" placeholder="Website"></md-input>
-            </md-field>
-            <md-field>
-              <label>Company Name</label>
-              <md-input v-model="form.company" placeholder="Company name"></md-input>
-            </md-field>
-          </div>
-          <div class="row"></div>
-          <div class="row">
-            <md-field>
-              <label>About your company</label>
-              <md-textarea v-model="form.detail"></md-textarea>
-            </md-field>
+          <md-switch v-model="hasCompany" class="md-primary">Do you have a company?</md-switch>
+          <div class="company" v-if="hasCompany">
+            <div class="row">
+              <md-field>
+                <label>Website</label>
+                <md-input v-model="form.website" placeholder="Website"></md-input>
+              </md-field>
+              <md-field>
+                <label>Company Name</label>
+                <md-input v-model="form.company" placeholder="Company name" :required="hasCompany"></md-input>
+              </md-field>
+            </div>
+            <div class="row"></div>
+            <div class="row">
+              <md-field>
+                <label>About your company</label>
+                <md-textarea v-model="form.detail" :required="hasCompany"></md-textarea>
+              </md-field>
+            </div>
           </div>
         </div>
         <md-button type="submit" class="md-primary md-small-fab">Done</md-button>
@@ -133,6 +131,7 @@ export default {
     countryList: null,
     stateList: null,
     cityList: null,
+    hasCompany: false,
   }),
   computed: {
     ...mapGetters({
@@ -184,21 +183,21 @@ export default {
           console.log("Error: ", err);
         });
     },
-    getStates(countryId) {
+    states(countryId) {
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
           this.stateList = element.state_list;
         }
       });
     },
-    getCities(stateId) {
+    cities(stateId) {
       this.stateList.forEach((element) => {
         if (element.id == stateId) {
           this.cityList = element.city_list;
         }
       });
     },
-    getZips(id) {
+    zips(id) {
       this.cityList.forEach((element) => {
         if (element.id == id) {
           this.citycodeList = element.citycodes;
@@ -208,7 +207,9 @@ export default {
     edit() {
       axios.get("carrier/details/" + this.temp.me).then(
         (res) => {
-          console.log("........ ", res.data);
+          if(res.data.company !== "null"){
+            this.hasCompany= true
+          }
           this.form.first_name = res.data.first_name;
           this.form.last_name = res.data.last_name;
           this.form.address = res.data.full_address.address;

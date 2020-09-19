@@ -280,7 +280,6 @@ export default {
         });
     },
     getStates(countryId) {
-      this.stateList = null;
       this.countryList.forEach((element) => {
         if (element.id == countryId) {
           this.stateList = element.state_list;
@@ -289,6 +288,7 @@ export default {
     },
 
     getSrcCities(id) {
+      this.form.src_city = null
       this.states.forEach((element) => {
         if (element.id == id) {
           this.srcCities = element.city_list;
@@ -296,6 +296,7 @@ export default {
       });
     },
     getSrcZips(id) {
+      this.form.src_zip=null
       this.srcCities.forEach((element) => {
         if (element.id == id) {
           this.srcZips = element.citycodes;
@@ -303,6 +304,7 @@ export default {
       });
     },
     getDesCities(id) {
+      this.form.des_city=null
       this.states.forEach((element) => {
         if (element.id == id) {
           this.desCities = element.city_list;
@@ -310,6 +312,7 @@ export default {
       });
     },
     getDesZips(id) {
+      this.form.des_zip = null
       this.desCities.forEach((element) => {
         if (element.id == id) {
           this.desZips = element.citycodes;
