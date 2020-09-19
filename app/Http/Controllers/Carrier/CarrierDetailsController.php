@@ -58,7 +58,7 @@ class CarrierDetailsController extends Controller
                 $logo_name = time() . '.' . $file->getClientOriginalName();
                 $file->move(public_path('images/uploads'), $logo_name);
             } else {
-                $logo_name = "logo not available";
+                $logo_name = "undefined";
             }
         } catch (Exception $e) {
             die('File did not upload: ' . $e->getMessage());

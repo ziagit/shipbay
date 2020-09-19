@@ -3,7 +3,8 @@
     <md-card-content v-if="carrier">
       <div v-if="carrier.company !== 'null'" class="carrier-logo">
         <md-avatar class="md-large">
-          <img :src="'/images/uploads/'+carrier.logo" alt="Logo" />
+          <md-icon  v-if="carrier.logo === 'undefined'">sentiment_satisfied_alt</md-icon>
+          <img v-else :src="'/images/uploads/'+carrier.logo" alt="Logo" />
         </md-avatar>
       </div>
       <div>

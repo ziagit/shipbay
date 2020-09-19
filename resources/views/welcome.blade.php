@@ -30,6 +30,9 @@
         <app></app>
     </div>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Start of HubSpot Embed Code -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8222208.js"></script>
+<!-- End of HubSpot Embed Code -->
 </body>
 
 </html>
