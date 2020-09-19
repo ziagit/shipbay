@@ -83,8 +83,8 @@
         </md-toolbar>
 
         <div class="side-menu">
-          <AdminSideMenu v-if="authenticated && user.role[0].name === 'admin'" />
-          <WebSideMenu v-else />
+          <AdminSideMenu v-on:hideSideMenu="toggleMenu" v-if="authenticated && user.role[0].name === 'admin'" />
+          <WebSideMenu v-on:hideSideMenu="toggleMenu" v-else />
         </div>
       </md-app-drawer>
 
