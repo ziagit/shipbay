@@ -5,7 +5,7 @@
     </div>
     <md-card>
       <md-card-content>
-        <img src="http://localhost:8000/images/mastercard.svg" />
+        <img :src="'/images/mastercard.svg'" />
         <div v-if="dataLoading" class="spinner">
           <Spinner />
         </div>
