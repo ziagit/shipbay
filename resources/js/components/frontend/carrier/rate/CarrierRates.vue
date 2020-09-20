@@ -93,7 +93,7 @@
           md-label="Not available"
           md-description="Click + icon to add"
         >
-          <md-button to="add-rate" class="md-icon-button md-raised">
+          <md-button to="add" class="md-icon-button md-raised">
             <md-icon>add</md-icon>
             <md-tooltip>Add new rate</md-tooltip>
           </md-button>
