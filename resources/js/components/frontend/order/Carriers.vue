@@ -32,7 +32,8 @@
       <md-list class="md-triple-line carriers" v-if="carriersExist">
         <md-list-item v-for="carrier in carriers" :key="carrier.id">
           <md-avatar>
-            <img :src="'/images/uploads/'+carrier.logo" alt="People" />
+            <md-icon  v-if="carrier.logo === 'undefined'">sentiment_satisfied_alt</md-icon>
+            <img v-else :src="'/images/uploads/'+carrier.logo" alt="People" />
           </md-avatar>
           <div class="md-list-item-text">
             <span>{{carrier.company}}</span>
