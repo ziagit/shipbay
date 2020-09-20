@@ -188,10 +188,6 @@ export default {
 .md-card {
   padding: 30px;
   text-align: center;
-  .card-container {
-    margin: auto;
-    max-width: 600px;
-  }
   .row {
     display: flex;
     justify-content: space-between;
