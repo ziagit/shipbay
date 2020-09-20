@@ -49,6 +49,7 @@
                   :key="country.id"
                 >{{country.name}}</md-option>
               </md-select>
+              <input class="hidden-input" v-model="form.country" required />
             </md-field>
 
             <md-field>
@@ -60,6 +61,7 @@
                   :value="state.id"
                 >{{state.name}}</md-option>
               </md-select>
+              <input class="hidden-input" v-model="form.state" required />
             </md-field>
 
             <md-field>
@@ -67,6 +69,7 @@
               <md-select v-model="form.city" name="city" id="city" @input="zips($event)">
                 <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
               </md-select>
+              <input class="hidden-input" v-model="form.city" required />
             </md-field>
 
             <md-field>

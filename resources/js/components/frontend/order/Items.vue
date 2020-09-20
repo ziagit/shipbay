@@ -32,7 +32,7 @@
           <md-input v-model="item.description" required></md-input>
         </md-field>
         <md-field>
-          <md-select v-model="item.type" name="type" id="type" placeholder="Package type" required>
+          <md-select v-model="item.type" name="type" id="type" placeholder="Package type">
             <md-option
               v-for="type in itemTypes"
               :key="type.id"
@@ -40,6 +40,7 @@
               :typeName="type.title"
             >{{type.title}}</md-option>
           </md-select>
+          <input class="hidden-input" v-model="item.type" required />
         </md-field>
         <div v-if="item.type" class="change-font">
           <div class="row dimentions">

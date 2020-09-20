@@ -37,7 +37,6 @@
                 name="country"
                 id="country"
                 placeholder="Country"
-                required
                 @input="states($event)"
               >
                 <md-option
@@ -46,6 +45,7 @@
                   :key="country.id"
                 >{{country.name}}</md-option>
               </md-select>
+              <input class="hidden-input" v-model="form.country" required />
             </md-field>
             <md-field v-if="stateList != null">
               <md-select
@@ -53,7 +53,6 @@
                 name="state"
                 id="state"
                 placeholder="State"
-                required
                 @input="cities($event)"
               >
                 <md-option
@@ -62,6 +61,7 @@
                   :value="state.id"
                 >{{state.name}}</md-option>
               </md-select>
+              <input class="hidden-input" v-model="form.state" required />
             </md-field>
             <md-field v-if="cityList != null">
               <md-select
@@ -74,6 +74,7 @@
               >
                 <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
               </md-select>
+              <input class="hidden-input" v-model="form.city" required />
             </md-field>
             <md-field>
               <label>Postalcode</label>

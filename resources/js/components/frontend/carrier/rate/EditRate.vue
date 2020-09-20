@@ -55,7 +55,7 @@
                         :value="state.id"
                       >{{state.name}}</md-option>
                     </md-select>
-                    <input class="hidden" v-model="form.src_state" required />
+                    <input class="hidden-" v-model="form.src_state" required />
                   </md-field>
                 </td>
                 <td>
@@ -75,7 +75,7 @@
                         :value="city.id"
                       >{{city.name}}</md-option>
                     </md-select>
-                    <input class="hidden" v-model="form.src_city" required />
+                    <input class="hidden-" v-model="form.src_city" required />
                   </md-field>
                 </td>
                 <td>
@@ -88,7 +88,7 @@
                         :value="zip.id"
                       >{{zip.postal_code}}</md-option>
                     </md-select>
-                    <input class="hidden" v-model="form.src_zip" required />
+                    <input class="hidden-" v-model="form.src_zip" required />
                   </md-field>
                 </td>
                 <td>
@@ -108,7 +108,7 @@
                         :value="state.id"
                       >{{state.name}}</md-option>
                     </md-select>
-                    <input class="hidden" v-model="form.des_state" required />
+                    <input class="hidden-" v-model="form.des_state" required />
                   </md-field>
                 </td>
                 <td>
@@ -128,7 +128,7 @@
                         :value="city.id"
                       >{{city.name}}</md-option>
                     </md-select>
-                    <input class="hidden" v-model="form.des_city" required />
+                    <input class="hidden-" v-model="form.des_city" required />
                   </md-field>
                 </td>
                 <td>
@@ -141,7 +141,7 @@
                         :value="zip.id"
                       >{{zip.postal_code}}</md-option>
                     </md-select>
-                    <input class="hidden" v-model="form.des_zip" required />
+                    <input class="hidden-" v-model="form.des_zip" required />
                   </md-field>
                 </td>
                 <td>
@@ -394,10 +394,5 @@ export default {
     top: 0;
     right: 0;
   }
-}
-.hidden {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
 }
 </style>

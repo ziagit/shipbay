@@ -79,6 +79,11 @@ export default {
     }
   }
 }
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
 @media only screen and (min-width: 600px) {
   .md-display-1 {
     font-size: 30px;
