@@ -47,7 +47,6 @@
                       name="src_state"
                       id="src_state"
                       md-dense
-                      required
                     >
                       <md-option
                         v-for="state in states"
@@ -66,7 +65,6 @@
                       name="src_city"
                       id="src_city"
                       md-dense
-                      required
                       @input="getSrcZips($event)"
                     >
                       <md-option
@@ -81,7 +79,7 @@
                 <td>
                   <md-field>
                     <label for="src_zip">Zip</label>
-                    <md-select v-model="form.src_zip" name="src_zip" id="src_zip" md-dense required>
+                    <md-select v-model="form.src_zip" name="src_zip" id="src_zip" md-dense>
                       <md-option
                         v-for="zip in srcZips"
                         :key="zip.id"
@@ -100,7 +98,6 @@
                       name="des_state"
                       id="des_state"
                       md-dense
-                      required
                     >
                       <md-option
                         v-for="des_state in states"
@@ -119,7 +116,6 @@
                       name="des_city"
                       id="des_city"
                       md-dense
-                      required
                       @input="getDesZips($event)"
                     >
                       <md-option
@@ -134,7 +130,7 @@
                 <td>
                   <md-field>
                     <label for="des_zip">Zip</label>
-                    <md-select v-model="form.des_zip" name="des_zip" id="des_zip" md-dens required>
+                    <md-select v-model="form.des_zip" name="des_zip" id="des_zip" md-dens>
                       <md-option
                         v-for="zip in desZips"
                         :key="zip.id"
