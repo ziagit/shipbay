@@ -70,7 +70,6 @@
                 id="city"
                 placeholder="City"
                 @input="zips($event)"
-                required
               >
                 <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
               </md-select>
