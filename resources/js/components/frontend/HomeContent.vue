@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="action">
-        <md-button @click="getQuote()" class="md-primary md-raised">Get a free quote</md-button>
+        <md-button @click="getQuote()" class="md-primary md-raised">Get a free qu<div class="circle"></div>te </md-button>
       </div>
     </div>
     <div class="image"></div>
@@ -34,6 +34,27 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.circle {
+  animation: pulse 2s infinite;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: solid 2px rgba(255, 82, 82, 1);
+  display: inline-block;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 30px rgba(255, 82, 82, 0);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
 .home-content {
   text-align: center;
   padding-top: 60px;
