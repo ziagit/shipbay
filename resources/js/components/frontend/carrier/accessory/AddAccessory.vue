@@ -32,7 +32,6 @@
                       name="name"
                       id="name"
                       md-dense
-                      required
                       @input="onInput($event)"
                     >
                       <md-option
@@ -41,6 +40,7 @@
                         :value="accessory.id"
                       >{{accessory.name}}</md-option>
                     </md-select>
+                    <input class="hidden-input" v-model="form.name" required />
                   </md-field>
                 </td>
                 <td v-show="acType">

@@ -40,6 +40,7 @@
                         :value="accessory.id"
                       >{{accessory.name}}</md-option>
                     </md-select>
+                    <input class="hidden-input" v-model="form.name" required />
                   </md-field>
                 </td>
                 <td v-show="acType">
