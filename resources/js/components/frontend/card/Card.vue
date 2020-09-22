@@ -9,7 +9,10 @@
           <div v-if="successMessage && !parymentTogal">
             <div class="alert-success">{{successMessage}}</div>
             <br />
-            <a v-if="authenticated && user.role[0].name === 'shipper'" href="/#/shipper/card">Continue to payment</a>
+            <a
+              v-if="authenticated && user.role[0].name === 'shipper'"
+              href="/#/shipper/card"
+            >Continue to payment</a>
             <a v-else href="/#/shipment/payment-details" target="_blank">Continue your order</a>
           </div>
           <div class="alert-error" v-if="errorMessage">{{successMessage}}</div>
@@ -135,7 +138,7 @@ export default {
   computed: {
     ...mapGetters({
       authenticated: "auth/authenticated",
-      user: "auth/user"
+      user: "auth/user",
     }),
   },
 
@@ -151,19 +154,24 @@ export default {
       });
     },
     handleStripeToken: function (token) {
-      this.form.price = this.order.carrier.price;
-      if (this.order.id !== undefined) {
-        this.form.orderId = this.order.id;
+      if (this.order !== null) {
+        this.form.price = this.order.carrier.price;
+        if (this.order.id !== undefined) {
+          this.form.orderId = this.order.id;
+        }
       }
       this.form.stripeToken = token.id;
       axios
         .post("charge", this.form)
         .then((res) => {
           this.successMessage = res.data["message"];
-          this.order.id = res.data["id"];
-          this.order.billing.status = res.data["status"];
-          this.order.billing.email = res.data["email"];
-          localStorage.setItem("order", JSON.stringify(this.order));
+          if (this.order !== null) {
+            this.order.id = res.data["id"];
+            this.order.billing.status = res.data["status"];
+            this.order.billing.email = res.data["email"];
+            localStorage.setItem("order", JSON.stringify(this.order));
+          }
+
           this.form.email = this.form.address = this.form.city = this.form.postalcode = this.form.state = this.form.name = null;
           this.dataLoading = false;
           this.parymentTogal = false;

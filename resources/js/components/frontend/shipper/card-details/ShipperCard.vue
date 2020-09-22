@@ -1,54 +1,52 @@
 <template>
-  <div class="payment-details">
-    <md-card class="no-shadow-bordered">
-      <md-card-header>
-        <div class="md-title">Card information</div>
-      </md-card-header>
-      <md-card-content>
-        <div v-show="dataLoading" class="loading">
-          <Spinner />
-        </div>
-        <div v-show="!dataLoading">
-          <div v-if="card.name">
-            <p class="md-body-1">The following information is associated with our payment system.</p>
-            <div>
-              <div class="md-subheading">Name: {{card.name}}</div>
-              <div class="md-subheading">Email: {{card.email}}</div>
-              <div class="edit-card">
-                <a href="/#/checkout" target="_blank" class="md-primary md-icon-button">
-                  <md-icon>edit</md-icon>
-                  <md-tooltip>Edit card information</md-tooltip>
-                </a>
-              </div>
+  <md-card class="no-shadow-bordered">
+    <md-card-header>
+      <div class="md-title">Card information</div>
+    </md-card-header>
+    <md-card-content>
+      <div v-show="dataLoading" class="loading">
+        <Spinner />
+      </div>
+      <div v-show="!dataLoading">
+        <div v-if="card.name">
+          <p>The following information is associated with our payment system.</p>
+          <div>
+            <div class="md-subheading">Name: {{card.name}}</div>
+            <div class="md-subheading">Email: {{card.email}}</div>
+            <div class="edit-card">
+              <a href="/#/checkout" target="_blank" class="md-primary md-icon-button">
+                <md-icon>edit</md-icon>
+                <md-tooltip>Edit card information</md-tooltip>
+              </a>
             </div>
           </div>
-          <md-empty-state
-            v-else
-            class="md-primary"
-            md-icon="sentiment_satisfied_alt"
-            md-label="Card not added yet"
-            md-description="Click bellow link to add one"
-          >
-            <a href="/#/checkout" target="_blank">Add new card</a>
-          </md-empty-state>
         </div>
-      </md-card-content>
-      <md-card-actions>
-        <div class="process-order" v-if="pendingOrder">
-          <div class="alert-success" v-if="successMessage">{{successMessage}}</div>
-          <div class="alert-error" v-if="errorMessage">{{errorMessage}}</div>
+        <md-empty-state
+          v-else
+          class="md-primary"
+          md-icon="sentiment_satisfied_alt"
+          md-label="Card not added yet"
+          md-description="Click bellow link to add one"
+        >
+          <a href="/#/checkout" target="_blank">Add new card</a>
+        </md-empty-state>
+      </div>
+    </md-card-content>
+    <md-card-actions>
+      <div class="process-order" v-if="pendingOrder">
+        <div class="alert-success" v-if="successMessage">{{successMessage}}</div>
+        <div class="alert-error" v-if="errorMessage">{{errorMessage}}</div>
 
-          <md-button v-if="!cardSubmiting && isCustomer" @click="chargeCustomer()">Pay now</md-button>
-          <md-button v-if="paymentStatus" @click="targetRoute()">Process order</md-button>
-          <Spinner v-if="cardSubmiting"/>
-        </div>
-      </md-card-actions>
-    </md-card>
-  </div>
+        <md-button v-if="!cardSubmiting && isCustomer" @click="chargeCustomer()">Pay now</md-button>
+        <md-button v-if="paymentStatus" @click="targetRoute()">Process order</md-button>
+        <Spinner v-if="cardSubmiting" />
+      </div>
+    </md-card-actions>
+  </md-card>
 </template>
 <script>
 import axios from "axios";
-import Spinner from '../../shared/Spinner'
+import Spinner from "../../shared/Spinner";
 export default {
   name: "ShipperPaymentDetails",
   data: () => ({
@@ -74,9 +72,9 @@ export default {
             this.card.name = res.data.name;
             this.card.email = res.data.email;
             this.dataLoading = false;
-            this.isCustomer=true
-          }else{
-            this.dataLoading=false
+            this.isCustomer = true;
+          } else {
+            this.dataLoading = false;
           }
           if (this.watchLocalstorage) {
             this.pendingOrder = true;
@@ -137,22 +135,23 @@ export default {
       }
     },
     targetRoute() {
-      window.open("/#"+localStorage.getItem("cRoute"),'_blank')
+      window.open("/#" + localStorage.getItem("cRoute"), "_blank");
     },
   },
   created() {
     this.getCard();
     this.checkPaymentStatus();
   },
-  components:{
-    Spinner
-  }
+  components: {
+    Spinner,
+  },
 };
 </script>
 <style lang="scss" scoped>
-.payment-details {
-  .md-card {
-    text-align: center;
+.md-card {
+  text-align: center;
+  .md-card-content{
+      text-align: center !important;
   }
   .edit-card {
     margin-top: 30px;
