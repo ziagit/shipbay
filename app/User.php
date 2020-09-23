@@ -69,4 +69,7 @@ class User extends Authenticatable implements JWTSubject
     public function shipperOrders(){
         $this->shipper()->with('orders');
     }
+    public function shipperWithAddress(){
+        return $this->shipper()->with('fullAddress');
+    }
 }

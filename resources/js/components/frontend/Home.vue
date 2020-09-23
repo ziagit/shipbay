@@ -145,7 +145,7 @@ export default {
           break;
         case "carrier":
           this.$router.push(
-            "/carrier/history/job-details/" + notification.data.job.id
+            "/carrier/history/details/" + notification.data.job.id
           );
           break;
         case "admin":

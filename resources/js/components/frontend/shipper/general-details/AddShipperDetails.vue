@@ -69,7 +69,6 @@
                 name="city"
                 id="city"
                 placeholder="City"
-                @input="zips($event)"
               >
                 <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
               </md-select>
@@ -167,14 +166,14 @@ export default {
         }
       });
     },
-    zips(id) {
+   /*   zips(id) {
       this.form.citycode = null;
-      /*       this.cityList.forEach((element) => {
+           this.cityList.forEach((element) => {
         if (element.id == id) {
           this.citycodeList = element.citycodes;
         }
-      }); */
-    },
+      }); 
+    },*/
   },
   mounted() {
     this.$refs.focusable.$el.focus();

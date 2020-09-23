@@ -111,7 +111,6 @@ export default {
     border: none;
     font-family: "Roboto";
     font-size: 16px;
-    color: rgba(0,0,0,0.54);;
   }
   input:focus {
     outline: none;

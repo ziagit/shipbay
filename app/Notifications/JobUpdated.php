@@ -46,7 +46,7 @@ class JobUpdated extends Notification
         return (new MailMessage)
         ->subject('Shipment Status')
         ->greeting('Dear Customer')
-        ->line('Your frieght '.$jobstatus->title)
+        ->line('Your frieght is '.$jobstatus->title)
         ->action('View more details', $url);
     }
 

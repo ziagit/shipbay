@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="header">
-      <span class="md-display-1">Card information</span>
+      <span class="md-display-1">Card Information</span>
     </div>
     <md-card>
       <form @submit.prevent="getStripeToken" id="payment-form" enctype="multipart/form-data">
@@ -17,12 +17,22 @@
           </div>
           <div class="alert-error" v-if="errorMessage">{{successMessage}}</div>
           <div v-if="parymentTogal" class="billing-details">
-            <div class="checkbox" v-if="order">
+            <div class="checkbox" v-if="!authenticated && order">
               <md-checkbox
                 class="md-primary"
-                v-model="pickAddress"
+                v-model="addFromStorage"
               >Is your billing address same to your pickup address ?</md-checkbox>
             </div>
+            <div class="checkbox" v-if="authenticated && user.role[0].name === 'shipper'">
+              <md-checkbox class="md-primary" v-model="addFromDb">
+                Is your billing address same to your account ?
+                <md-icon class="md-primary">
+                  info
+                  <md-tooltip>You wounldn't notified in case of different email!</md-tooltip>
+                </md-icon>
+              </md-checkbox>
+            </div>
+
             <md-field>
               <label>Email</label>
               <md-input type="email" v-model="form.email" required></md-input>
@@ -107,7 +117,9 @@ export default {
       price: null,
     },
     error: null,
-    pickAddress: false,
+    addFromStorage: false,
+    addFromDb: false,
+    shipperExist: null,
     dataLoading: false,
     successMessage: null,
     errorMessage: null,
@@ -123,13 +135,41 @@ export default {
     card.mount(this.$refs.card);
   },
   watch: {
-    pickAddress: function (value) {
+    addFromStorage: function (value) {
       if (value) {
         this.form.email = this.order.shipper.pickDetails.email;
         this.form.address = this.order.shipper.pickDetails.address;
         this.form.state = this.order.shipper.pickDetails.stateName;
         this.form.city = this.order.shipper.pickDetails.cityName;
         this.form.postalcode = this.order.shipper.pickDetails.postalCodeName;
+      } else {
+        this.form.email = this.form.address = this.form.state = this.form.city = this.form.postalcode = null;
+      }
+    },
+    addFromDb: function (value) {
+      if (value) {
+        if (this.shipperExist === null) {
+          axios
+            .get("shipper/shipper-address")
+            .then((res) => {
+              this.form.email = res.data.email;
+              this.form.address = res.data.shipper_with_address.address;
+              this.form.state =
+                res.data.shipper_with_address.full_address.state.name;
+              this.form.city =
+                res.data.shipper_with_address.full_address.city.name;
+              this.form.postalcode =
+                res.data.shipper_with_address.full_address.citycode;
+              this.shipperExist = res.data;
+            })
+            .catch((err) => console.log(err));
+        } else {
+          this.form.email = this.shipperExist.email;
+          this.form.address = this.shipperExist.shipper_with_address.address;
+          this.form.state = this.shipperExist.shipper_with_address.full_address.state.name;
+          this.form.city = this.shipperExist.shipper_with_address.full_address.city.name;
+          this.form.postalcode = this.shipperExist.shipper_with_address.full_address.citycode;
+        }
       } else {
         this.form.email = this.form.address = this.form.state = this.form.city = this.form.postalcode = null;
       }
@@ -199,16 +239,18 @@ export default {
     font-size: 24px;
   }
   .md-card {
-    background: #fff;
-    padding: 10px 20px 0 20px;
     .checkbox {
       text-align: left;
     }
     .row {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
       .md-field {
-        width: 32%;
+        flex: 30%;
+        label {
+          font-size: 14px;
+        }
       }
     }
   }
@@ -275,6 +317,9 @@ export default {
       .md-display-1 {
         font-size: 30px;
       }
+    }
+    .md-card {
+      padding: 10px 20px 0 20px;
     }
   }
 }

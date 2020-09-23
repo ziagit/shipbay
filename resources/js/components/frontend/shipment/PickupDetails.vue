@@ -37,6 +37,9 @@
           <md-field>
             <label>Email</label>
             <md-input type="email" v-model="pickDetails.email" required></md-input>
+            <md-icon class="md-primary">info
+              <md-tooltip>If you are not ش guest, use an email registered with us to receive notification!</md-tooltip>
+            </md-icon>
           </md-field>
         </div>
       </div>

@@ -47,8 +47,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('order-status', 'ShipperOrderController@status');
     Route::get("card-details", 'CardController@getCustomer');
+    Route::get('shipper-address', "ShipperAccountController@shipperAddress");
   });
-  Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware'=>'role'], function () {
+  Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'role'], function () {
     Route::resource('countries', 'AdminCountryController');
     Route::get('search-country', 'AdminCountryController@search');
     Route::resource('states', 'AdminStateController');
@@ -109,16 +110,12 @@ Route::group(['namespace' => 'Order'], function () {
   Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
 });
 
-Route::get("unauthorized", function(){
-  return response()->json(['message'=> 'You are unauthorized!'], 401);
+Route::get("unauthorized", function () {
+  return response()->json(['message' => 'You are unauthorized!'], 401);
 })->name('unauthorized');
 
 Route::resource('tests', 'TestController');
 
-Route::get("test", function(){
-  if(Auth::user()->roles[0]->name === 'shipper'){
-    return Auth::user()->roles[0]->name;
-  }else{
-    return "u r not shipper";
-  }
+Route::get("test", function () {
+  return User::with('shipperWithAddress')->where('id', Auth::id())->first();
 });

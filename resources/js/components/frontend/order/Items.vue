@@ -42,8 +42,8 @@
           </md-select>
           <input class="hidden-input" v-model="item.type" required />
         </md-field>
-        <div v-if="item.type" class="change-font">
-          <div class="row dimentions">
+        <div v-if="item.type">
+          <div class="row row1">
             <md-field>
               <label>Length (inches)</label>
               <md-input type="number" v-model="item.length" required min="1"></md-input>
@@ -57,7 +57,7 @@
               <md-input type="number" v-model="item.height" required min="1"></md-input>
             </md-field>
           </div>
-          <div class="row weight">
+          <div class="row row2">
             <md-field>
               <label>Weight (pounds)</label>
               <md-input type="number" v-model="item.weight" required min="1"></md-input>
@@ -82,7 +82,7 @@
           class="md-primary"
           @change="checkboxTogal(condition)"
         >{{condition.name}}</md-checkbox>
-        <div class="row change-font temperature" v-if="tempTogal">
+        <div class="row row3" v-if="tempTogal">
           <md-field>
             <label>Min temperature (FH)</label>
             <md-input v-model="myItem.minTemp" :required="tempTogal"></md-input>
@@ -303,16 +303,13 @@ export default {
   .row {
     display: flex;
     justify-content: space-between;
-  }
-  .dimentions {
-    .md-field {
-      width: 32%;
-    }
-  }
-  .weight,
-  .temperature {
-    .md-field {
-      width: 48%;
+    flex-wrap: wrap;
+    .md-field{
+      flex: 30%;
+      margin: 0 2px;
+      label{
+        font-size: 14px;
+      }
     }
   }
   .icon,
@@ -324,18 +321,6 @@ export default {
   .btn-close {
     position: relative;
     float: right;
-  }
-  .order-summary {
-    position: absolute;
-    top: 109px;
-    right: 0px;
-    padding: 20px;
-    text-align: left;
-  }
-  .change-font {
-    label {
-      font-size: 10px;
-    }
   }
   .md-card {
     ul {

@@ -95,4 +95,8 @@ class ShipperAccountController extends Controller
     {
         //
     }
+
+    public function shipperAddress(){
+        return User::with('shipperWithAddress')->where('id', Auth::id())->first();
+    }
 }

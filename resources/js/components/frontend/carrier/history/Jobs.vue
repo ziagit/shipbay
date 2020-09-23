@@ -23,7 +23,7 @@
               <td v-bind:class="{delivered: job.jobstatus.id == 5}">{{job.jobstatus.title}}</td>
 
               <td>
-                <md-button :to="{path: 'job-details/'+job.id}" class="md-primay md-icon-button">
+                <md-button :to="{path: 'details/'+job.id}" class="md-primay md-icon-button">
                   <md-icon>more_horiz</md-icon>
                   <md-tooltip>View more</md-tooltip>
                 </md-button>

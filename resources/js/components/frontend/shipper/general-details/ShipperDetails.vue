@@ -35,7 +35,7 @@
         v-else
         class="md-primary"
         md-icon="sentiment_satisfied_alt"
-        md-label="Card not added yet"
+        md-label="No details available"
         md-description="Click bellow link to add new details"
       >
         <md-button to="add" class="md-default md-raised md-icon-button">
@@ -71,6 +71,7 @@ export default {
       await axios
         .get("shipper/details")
         .then((res) => {
+          console.log("shipper ", res.data)
           this.shipper = res.data;
           this.temp.me = this.shipper.id;
           this.temp.country = this.shipper.full_address.country.id;

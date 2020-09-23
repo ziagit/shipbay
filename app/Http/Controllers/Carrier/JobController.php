@@ -85,7 +85,6 @@ class JobController extends Controller
         $job = Job::find($id);
         $job->jobstatus_id = $request->status;
         $job->update();
-
         if ($request->emails[0] !== $request->emails[1]) {
             foreach ($request->emails as $email) {
                 $user = User::where('email', $email)->first();
