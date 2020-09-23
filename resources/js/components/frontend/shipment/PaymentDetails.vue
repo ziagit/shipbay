@@ -17,8 +17,8 @@
           <div v-else>
             <p>You don't have payment history.</p>
             <!-- <router-link v-if="authenticated" to="/shipper/card">Add your card informations</router-link> -->
-            <router-link to="/checkout">Add your card informations</router-link>
-          </div>
+            <a href="/#/checkout">Add your card informations</a>
+         </div>
           <p>
             Credit cards can be securely saved for future orders. Payment information that is deleted or not saved to your account will be stored for 90 days in the case of any order refunds or adjustments. For more details, please read the
             <a

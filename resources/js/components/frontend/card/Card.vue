@@ -221,6 +221,9 @@ export default {
           console.log(err);
         });
     },
+    reloadPage(){
+      window.location.reload()
+    }
   },
   created() {
     this.order = JSON.parse(localStorage.getItem("order"));
