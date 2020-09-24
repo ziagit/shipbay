@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="orders" v-if="orders">
     <!-- delete dialog-->
     <md-dialog-confirm
       :md-active.sync="deleteTogal"
@@ -128,7 +128,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.main-container {
+.orders {
   width: 100%;
   .add-btn {
     position: fixed;

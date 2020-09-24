@@ -13,7 +13,9 @@
 export default {
   name: "Complation",
   data: () => ({}),
-  created() {},
+  updated() {
+    window.location.reload()
+  },
 };
 </script>
 <style lang="scss" scoped>

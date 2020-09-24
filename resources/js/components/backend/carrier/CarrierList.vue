@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="carriers" v-if="carriers">
     <!-- delete dialog-->
     <md-dialog-confirm
       :md-active.sync="deleteTogal"
@@ -10,7 +10,6 @@
       @md-confirm="confirm()"
       @md-cancel="cancel"
     />
-
 
     <md-table md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
@@ -27,34 +26,64 @@
         md-label="No state found"
         :md-description="`No state found for this query. Try a different search term or create a new state.`"
       >
-        <md-button class="md-primary md-raised" @click="add()">Create new carrier</md-button>
+        <md-button class="md-primary md-raised" @click="add()"
+          >Create new carrier</md-button
+        >
       </md-table-empty-state>
       <md-table-row>
         <md-table-head md-numeric>ID</md-table-head>
         <md-table-head>First name</md-table-head>
         <md-table-head>Last name</md-table-head>
-        <md-table-head>Country</md-table-head>
         <md-table-head>Phone</md-table-head>
         <md-table-head>Email</md-table-head>
+        <md-table-head>Address</md-table-head>
+        <md-table-head>Accessories</md-table-head>
+        <md-table-head>Rates</md-table-head>
         <md-table-head>Actions</md-table-head>
       </md-table-row>
       <md-table-row v-for="carrier in carriers.data" :key="carrier.id">
         <md-table-cell md-numeric>{{ carrier.id }}</md-table-cell>
         <md-table-cell>{{ carrier.first_name }}</md-table-cell>
         <md-table-cell>{{ carrier.last_name }}</md-table-cell>
-        <md-table-cell>{{ carrier.country.name }}</md-table-cell>
         <md-table-cell>{{ carrier.phone }}</md-table-cell>
         <md-table-cell>{{ carrier.user.email }}</md-table-cell>
+        <md-table-cell>
+          <a class="md-primary" @click="address(carrier.id)">
+            Address
+          </a>
+        </md-table-cell>
+        <md-table-cell>
+          <a class="md-primary" @click="accessories(carrier.id)">
+            Accessories
+          </a>
+        </md-table-cell>
+        <md-table-cell>
+          <a class="md-primary" @click="rates(carrier.id)">
+            Rates
+          </a>
+        </md-table-cell>
 
         <md-table-cell md-label="Actions">
-          <md-button class="md-icon-button md-accent" @click="remove(carrier.id)">
+          <md-button
+            class="md-icon-button md-primary"
+            @click="edit(carrier.id)"
+          >
+            <md-icon>edit</md-icon>
+          </md-button>
+          <md-button
+            class="md-icon-button md-accent"
+            @click="remove(carrier.id)"
+          >
             <md-icon>delete</md-icon>
           </md-button>
         </md-table-cell>
       </md-table-row>
-      
     </md-table>
-    <pagination :limit="4" :data="carriers" @pagination-change-page="get"></pagination>
+    <pagination
+      :limit="4"
+      :data="carriers"
+      @pagination-change-page="get"
+    ></pagination>
   </div>
 </template>
 
@@ -85,10 +114,11 @@ export default {
           console.log(err);
         });
     },
-    get(page=1) {
+    get(page = 1) {
       axios
-        .get("admin/carriers?page="+page)
+        .get("admin/carriers?page=" + page)
         .then((res) => {
+          console.log("carriers; ", res.data.data);
           this.carriers = res.data;
         })
         .catch((err) => {
@@ -126,6 +156,9 @@ export default {
         });
     },
     cancel() {},
+    address(id){},
+    accessories(id){},
+    rates(id){}
   },
   created() {
     this.get();
@@ -133,7 +166,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.main-container {
+.carriers {
   width: 100%;
   .add-btn {
     position: fixed;
@@ -141,5 +174,4 @@ export default {
     right: 20px;
   }
 }
-
 </style>

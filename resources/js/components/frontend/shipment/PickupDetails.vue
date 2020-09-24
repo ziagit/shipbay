@@ -32,12 +32,13 @@
         <div class="row">
           <md-field>
             <label>Phone</label>
-            <md-input type="text" v-model="pickDetails.phone" required></md-input>
+            <md-input type="tel" v-model="pickDetails.phone" @input="acceptNumber" required></md-input>
           </md-field>
           <md-field>
             <label>Email</label>
             <md-input type="email" v-model="pickDetails.email" required></md-input>
-            <md-icon class="md-primary">info
+            <md-icon class="md-primary">
+              info
               <md-tooltip>If you are not ش guest, use an email registered with us to receive notification!</md-tooltip>
             </md-icon>
           </md-field>
@@ -75,6 +76,14 @@ export default {
     },
   }),
   methods: {
+    acceptNumber() {
+      var x = this.value
+        .replace(/\D/g, "")
+        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      this.pickDetails.phone = !x[2]
+        ? x[1]
+        : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
+    },
     nextStep() {
       if (this.validator()) {
         let order = JSON.parse(localStorage.getItem("order"));

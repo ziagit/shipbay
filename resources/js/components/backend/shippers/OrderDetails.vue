@@ -1,79 +1,107 @@
 <template>
-  <div>
-    <md-card class="no-shadow-bordered">
-      <md-card-header>
-        <div>
-          <div class="md-title">Order details</div>
-          <div v-if="dataLoaded" class="job-id">
-            <span>{{order.uniqid}}</span> |
-            <span>{{formatedDate}}</span>
+  <md-card class="no-shadow-bordered">
+    <md-card-header>
+      <div>
+        <div class="md-title">Order details</div>
+        <div v-if="dataLoaded" class="job-id">
+          <span>{{ order.uniqid }}</span> |
+          <span>{{ formatedDate }}</span>
+        </div>
+      </div>
+
+      <md-button @click="$router.back()" class="md-icon-button close-btn">
+        <md-icon>close</md-icon>
+        <md-tooltip>Cancel</md-tooltip>
+      </md-button>
+    </md-card-header>
+    <md-card-content v-if="dataLoaded">
+      <div class="status">
+        <span>Status: {{ order.job_with_status.jobstatus.title }}</span>
+      </div>
+      <div class="src-des">
+        <md-card class="src">
+          <md-card-content>
+            <h3 class="md-subheading">Pickup details</h3>
+            <div class="body-1">
+              Contact name: {{ order.full_address[0].name }}
+            </div>
+            <div class="body-1">
+              Address: {{ order.full_address[0].address }}
+            </div>
+            <div class="body-1">
+              City: {{ order.full_address[0].city.name }}
+            </div>
+            <div class="body-1">
+              Zip code: {{ order.full_address[0].citycode.postal_code }}
+            </div>
+            <div class="body-1">Phone: {{ order.full_address[0].phone }}</div>
+            <div class="body-1">Email: {{ order.full_address[0].email }}</div>
+            <div class="body-1">
+              Appointment: {{ order.src_appointment_time }}
+            </div>
+          </md-card-content>
+        </md-card>
+        <md-card class="des">
+          <md-card-content>
+            <h3 class="md-subheading">Delivery details</h3>
+            <div class="body-1">
+              Contact name: {{ order.full_address[1].name }}
+            </div>
+            <div class="body-1">
+              Address: {{ order.full_address[1].address }}
+            </div>
+            <div class="body-1">
+              City: {{ order.full_address[1].city.name }}
+            </div>
+            <div class="body-1">
+              Zip code: {{ order.full_address[1].citycode.postal_code }}
+            </div>
+            <div class="body-1">Phone: {{ order.full_address[1].phone }}</div>
+            <div class="body-1">Email: {{ order.full_address[1].email }}</div>
+            <div class="body-1">
+              Appointment: {{ order.des_appointment_time }}
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <md-card class="items">
+        <md-card-content>
+          <h3 class="md-subheading">Items</h3>
+          <div v-for="item in order.items" :key="item.id">
+            <div class="body-1">
+              {{ item.description }}, {{ item.dimentional_weight }} Pounds
+            </div>
           </div>
-        </div>
-
-        <md-button @click="$router.back()" class="md-icon-button close-btn">
-          <md-icon>close</md-icon>
-          <md-tooltip>Cancel</md-tooltip>
-        </md-button>
-      </md-card-header>
-      <md-card-content v-if="dataLoaded">
-        <div class="status">
-          <span>Status: {{order.job_with_status.jobstatus.title}}</span>
-        </div>
-        <div class="src-des">
-          <md-card class="src">
-            <md-card-content>
-              <h3 class="md-subheading">Pickup details</h3>
-              <div class="body-1">Contact name: {{order.full_address[0].name}}</div>
-              <div class="body-1">Address: {{order.full_address[0].address}}</div>
-              <div class="body-1">City: {{order.full_address[0].city.name}}</div>
-              <div class="body-1">Zip code: {{order.full_address[0].citycode.postal_code}}</div>
-              <div class="body-1">Phone: {{order.full_address[0].phone}}</div>
-              <div class="body-1">Email: {{order.full_address[0].email}}</div>
-              <div class="body-1">Appointment: {{order.src_appointment_time}}</div>
-            </md-card-content>
-          </md-card>
-          <md-card class="des">
-            <md-card-content>
-              <h3 class="md-subheading">Delivery details</h3>
-              <div class="body-1">Contact name: {{order.full_address[1].name}}</div>
-              <div class="body-1">Address: {{order.full_address[1].address}}</div>
-              <div class="body-1">City: {{order.full_address[1].city.name}}</div>
-              <div class="body-1">Zip code: {{order.full_address[1].citycode.postal_code}}</div>
-              <div class="body-1">Phone: {{order.full_address[1].phone}}</div>
-              <div class="body-1">Email: {{order.full_address[1].email}}</div>
-              <div class="body-1">Appointment: {{order.des_appointment_time}}</div>
-            </md-card-content>
-          </md-card>
-        </div>
-
-        <md-card class="items">
-          <md-card-content>
-            <h3 class="md-subheading">Items</h3>
-            <div v-for="item in order.items" :key="item.id">
-              <div class="body-1">{{item.description}}, {{item.dimentional_weight}} Pounds</div>
+          <div>
+            <h3 class="md-subheading">Item conditions</h3>
+            <div class="body-1">
+              Min temperature(FH) {{ order.min_temperature }}
             </div>
-            <div>
-              <h3 class="md-subheading">Item conditions</h3>
-              <div class="body-1">Min temperature(FH) {{order.min_temperature}}</div>
-              <div class="body-1">Max temperature(FH) {{order.max_temperature}}</div>
-              <div class="body-1">Is dangerouse good? {{order.max_temperature}}</div>
+            <div class="body-1">
+              Max temperature(FH) {{ order.max_temperature }}
             </div>
-          </md-card-content>
-        </md-card>
-        <md-card class="shipment">
-          <md-card-content>
-            <h3 class="md-subheading">Shippment general info</h3>
-            <div class="body-1">Pickup date: {{order.pickup_date}}</div>
-            <div class="body-1">Start loadtime: {{order.start_loadtime}}</div>
-            <div class="body-1">End loadtime: {{order.end_loadtime}}</div>
-            <div class="body-1">Estimated item value: ${{order.estimated_value}}</div>
-            <div class="body-1">Cost: ${{Math.round(order.cost)}}</div>
-          </md-card-content>
-        </md-card>
-      </md-card-content>
-      <md-card-actions></md-card-actions>
-    </md-card>
-  </div>
+            <div class="body-1">
+              Is dangerouse good? {{ order.max_temperature }}
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+      <md-card class="shipment">
+        <md-card-content>
+          <h3 class="md-subheading">Shippment general info</h3>
+          <div class="body-1">Pickup date: {{ order.pickup_date }}</div>
+          <div class="body-1">Start loadtime: {{ order.start_loadtime }}</div>
+          <div class="body-1">End loadtime: {{ order.end_loadtime }}</div>
+          <div class="body-1">
+            Estimated item value: ${{ order.estimated_value }}
+          </div>
+          <div class="body-1">Cost: ${{ Math.round(order.cost) }}</div>
+        </md-card-content>
+      </md-card>
+    </md-card-content>
+    <md-card-actions></md-card-actions>
+  </md-card>
 </template>
 <script>
 import axios from "axios";

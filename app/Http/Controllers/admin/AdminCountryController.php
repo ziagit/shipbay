@@ -16,7 +16,8 @@ class AdminCountryController extends Controller
      */
     public function index()
     {
-        return Country::paginate(5);
+        $countries=Country::paginate(5);
+        return response()->json($countries);
     }
 
     /**

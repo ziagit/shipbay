@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="shippers" v-if="shippers">
     <!-- delete dialog-->
     <md-dialog-confirm
       :md-active.sync="deleteTogal"
@@ -10,7 +10,6 @@
       @md-confirm="confirm()"
       @md-cancel="cancel"
     />
-
 
     <md-table md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
@@ -32,12 +31,20 @@
         <md-table-head md-numeric>ID</md-table-head>
         <md-table-head>First name</md-table-head>
         <md-table-head>Last name</md-table-head>
+        <md-table-head>Address</md-table-head>
+        <md-table-head>Orders</md-table-head>
         <md-table-head>Actions</md-table-head>
       </md-table-row>
       <md-table-row v-for="shipper in shippers.data" :key="shipper.id">
         <md-table-cell md-numeric>{{ shipper.id }}</md-table-cell>
         <md-table-cell>{{ shipper.first_name }}</md-table-cell>
         <md-table-cell>{{ shipper.last_name }}</md-table-cell>
+        <md-table-cell>
+          <a @click="address(shipper.id)">Address</a>
+        </md-table-cell>
+        <md-table-cell>
+          <a @click="orders(shipper.id)">Orders</a>
+        </md-table-cell>
 
         <md-table-cell md-label="Actions">
           <md-button class="md-icon-button md-accent" @click="remove(shipper.id)">
@@ -120,7 +127,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.main-container {
+.shippers {
   width: 100%;
   .add-btn {
     position: fixed;

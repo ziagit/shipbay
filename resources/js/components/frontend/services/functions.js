@@ -16,10 +16,10 @@ export default {
         let dw = x >= y ? x : y;
         return dw;
     },
-    totalDw(items) {
+    totalWeight(items) {
         let total = 0;
         items.forEach((element) => {
-            total = total + element.dw;
+            total = total + parseFloat(element.weight);
         });
         return total;
     },

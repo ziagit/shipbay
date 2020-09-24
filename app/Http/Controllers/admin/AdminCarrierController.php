@@ -15,7 +15,7 @@ class AdminCarrierController extends Controller
      */
     public function index()
     {
-        $carriers = Carrier::with('user','country')->paginate(5);
+        $carriers = Carrier::with('user','fullAddress')->paginate(5);
         return response()->json($carriers);
     }
 

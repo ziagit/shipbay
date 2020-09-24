@@ -23,10 +23,10 @@
           </div>
           <div v-for="item in order.myItem.items" :key="item.id">
             <md-icon>dot</md-icon>
-            {{item.description}}, {{Math.round(item.dw)}} Pounds
+            {{item.description}}, {{item.weight}} Pounds
           </div>
           <md-divider></md-divider>
-          <span>Total: {{Math.round(totalDw())}} Pounds</span>
+          <span>Total: {{totalWeight()}} Pounds</span>
         </md-card-content>
       </md-card>
       <md-list class="md-triple-line carriers" v-if="carriersExist">
@@ -127,8 +127,8 @@ export default {
     editItem() {
       this.$router.push("items");
     },
-    totalDw() {
-      return functions.totalDw(this.order.myItem.items)
+    totalWeight() {
+      return functions.totalWeight(this.order.myItem.items)
     },
   },
 

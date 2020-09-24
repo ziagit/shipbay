@@ -153,7 +153,7 @@ export default {
           this.myItem["items"] = this.items;
           storage.myItem = this.myItem;
           localStorage.setItem("order", JSON.stringify(storage));
-          this.$router.push("item-details");
+          this.$router.push("carriers");
         } else {
           this.itemExistError = !this.itemExistError;
         }
