@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://js.stripe.com/v3/"></script>
-    <link rel="stylesheet" type="text/css" href="http://ws1.postescanada-canadapost.ca/css/addresscomplete-2.30.min.css?key=ph95-xf94-jj56-cd85" /><script type="text/javascript" src="http://ws1.postescanada-canadapost.ca/js/addresscomplete-2.30.min.js?key=ph95-xf94-jj56-cd85"></script>
+    <link rel="stylesheet" type="text/css" href="http://ws1.postescanada-canadapost.ca/css/addresscomplete-2.30.min.css?key=ph95-xf94-jj56-cd85" />
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
     <style>
@@ -18,7 +18,6 @@
             height: 100%;
             min-height: 100%;
         }
-
         #app {
             height: 100%;
             min-height: 100%;
@@ -31,6 +30,7 @@
         <app></app>
     </div>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="http://ws1.postescanada-canadapost.ca/js/addresscomplete-2.30.min.js?key=ph95-xf94-jj56-cd85"></script>
 
 </body>
 

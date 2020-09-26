@@ -12,7 +12,7 @@
       </li>
     </ul> -->
 
-    <form action="/">
+    <form action="/" method="post">
       <md-field>
         <label>Country</label>
         <md-input
