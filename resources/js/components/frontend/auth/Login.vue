@@ -61,7 +61,7 @@ export default {
                 axios.get("carrier/details").then((res) => {
                   res.data.first_name !== undefined
                     ? this.$router.push(
-                        this.$route.query.redirect || "/carrier"
+                        this.$route.query.redirect || "/"
                       )
                     : this.$router.push("/carrier/profile/add");
                 });
@@ -70,7 +70,7 @@ export default {
                 axios.get("shipper/details").then((res) => {
                   res.data.first_name !== undefined
                     ? this.$router.push(
-                        this.$route.query.redirect || "/shipper"
+                        this.$route.query.redirect || "/"
                       )
                     : this.$router.push("/shipper/profile/add");
                 });

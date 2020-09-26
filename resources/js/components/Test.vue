@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="submit">
+    <!--     <form @submit.prevent="submit">
       <input type="text" v-model="test" placeholder="Test" required />
       <input type="submit" title="Submit" />
     </form>
@@ -10,13 +10,49 @@
         {{test.id}} : {{test.test}}
         <span @click="remove(test.id)">Delete</span>
       </li>
-    </ul>
+    </ul> -->
+
+    <form action="/">
+      <md-field>
+        <label>Country</label>
+        <md-input
+          type="text"
+          name="country"
+          v-model="country"
+          required
+        ></md-input>
+      </md-field>
+      <md-field>
+        <label>State</label>
+        <md-input type="text" name="state" v-model="state" required></md-input>
+      </md-field>
+      <md-field>
+        <label>City</label>
+        <md-input type="text" name="city" v-model="city" required></md-input>
+      </md-field>
+      <md-field>
+        <label>Postal code</label>
+        <md-input type="text" name="postalcode" v-model="postalcode" required></md-input>
+      </md-field>
+      <md-field>
+        <label>Address</label>
+        <md-input type="text" name="address" v-model="address" required></md-input>
+      </md-field>
+      <button type="submit">Submit</button>
+    </form>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
   data: () => ({
+    country:null,
+    state:null,
+    city:null,
+    postalcode:null,
+    address:null,
+
+
     tests: null,
     test: null,
   }),
@@ -60,13 +96,16 @@ export default {
 };
 </script>
 <style scoped>
+form{
+  max-width: 600px;
+}
 div {
   margin: 30px;
 }
 span {
   color: rgb(255, 0, 179);
 }
-span:hover{
-    cursor: pointer;
+span:hover {
+  cursor: pointer;
 }
 </style>
