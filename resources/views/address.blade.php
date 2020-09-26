@@ -17,6 +17,7 @@
             height: 100%;
             min-height: 100%;
         }
+
         #app {
             height: 100%;
             min-height: 100%;
@@ -25,8 +26,17 @@
 </head>
 
 <body>
+    <link rel="stylesheet" type="text/css" href="http://ws1.postescanada-canadapost.ca/css/addresscomplete-2.30.min.css?key=yc97-ja41-mj26-nu81" />
+    <script type="text/javascript" src="http://ws1.postescanada-canadapost.ca/js/addresscomplete-2.30.min.js?key=yc97-ja41-mj26-nu81"></script>
     <div id="app">
-        <app></app>
+        <form action="/" method="post">
+            <input type="text" name="address" placeholder="Address">
+            <input type="text" name="city" placeholder="City">
+            <input type="text" name="state" placeholder="State">
+            <input type="text" name="postalcode" placeholder="Postal code">
+            <input type="text" name="country" placeholder="Country">
+            <input type="submit" value="Sumbit">
+        </form>
     </div>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
