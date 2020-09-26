@@ -157,7 +157,9 @@ export default {
     },
     cancel() {},
     address(id){},
-    accessories(id){},
+    accessories(id){
+      this.$router.push('accessories/'+id)
+    },
     rates(id){}
   },
   created() {

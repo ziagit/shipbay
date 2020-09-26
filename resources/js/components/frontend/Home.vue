@@ -92,16 +92,13 @@
         <router-view></router-view>
       </md-app-content>
     </md-app>
-    <div v-if="authenticated && user.role[0].name !=='admin'" class="live-chat">
-      <LiveChat></LiveChat>
-    </div>
+
   </div>
 </template>
 
 <script>
 import AdminSideMenu from "../sub-components/AdminSideMenu";
 import WebSideMenu from "../sub-components/WebSideMenu";
-import LiveChat from "./LiveChat";
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -195,7 +192,6 @@ export default {
     this.getNotifications();
   },
   components: {
-    LiveChat,
     AdminSideMenu,
     WebSideMenu,
   },

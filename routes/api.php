@@ -18,6 +18,31 @@ use App\Services\Functions;
 |
 */
 
+Route::get("testing", function(){
+  return response()->json(["message"=>"hi from the end point"]);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
   Route::post('signin', 'SignInController')->name('signin');
   Route::post('signup', 'SignUpController');
@@ -74,6 +99,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('contact', 'Company\AdminContactController');
     Route::resource('services', 'Company\AdminServiceController');
     Route::get('search-service', 'AdminServiceController@search');
+
+    Route::resource('carrier/accessories', 'AdminAccessoryListController');
+    Route::delete('carrier/accessories/{cId}/{aId}', 'AdminAccessoryListController@destroy');
   });
   Route::group(['namespace' => 'Order'], function () {
     Route::post('charge-customer', 'CheckoutController@chargeCustomer');

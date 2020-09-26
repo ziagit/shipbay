@@ -64,22 +64,14 @@
         </md-card-actions>
       </md-card>
     </form>
-    <md-snackbar
-      class="required-feild-error"
-      :md-position="snackbar.position"
-      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.show"
-      md-persistent
-    >
-      <span>{{snackbar.message}}</span>
-      <span style="color:red">Status: {{snackbar.errorStatus}}</span>
-    </md-snackbar>
+ <Snackbar :data="snackbar" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import Snackbar from "../../../frontend/shared/Snackbar"
 export default {
   name: "AddAccessory",
   data: () => ({
@@ -89,13 +81,10 @@ export default {
       desValue: null,
       carrierId: null,
     },
-    snackbar: {
+        snackbar: {
       show: false,
-      position: "center",
-      duration: 5000,
-      isInfinity: false,
       message: null,
-      errorStatus: null,
+      statusCode: null,
     },
     accessories: null,
     acType: true,

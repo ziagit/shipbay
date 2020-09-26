@@ -47,7 +47,7 @@
           <md-list-item class="md-inset" to="/admin/rates" @click="hideMenu()"
             >Rates</md-list-item
           >
-          <md-list-item class="md-inset" to="/admin/caccessories" @click="hideMenu()"
+          <md-list-item class="md-inset" to="/admin/carrier/accessories" @click="hideMenu()"
             >Accessories</md-list-item
           >
         </md-list>

@@ -84,8 +84,8 @@
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 import Spinner from "../shared/Spinner";
-var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
-var elements = stripe.elements();
+/* var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
+var elements = stripe.elements(); */
 var style = {
   base: {
     color: "#32325d",

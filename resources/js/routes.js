@@ -69,13 +69,15 @@ import ShipperCard from './components/frontend/shipper/card-details/ShipperCard'
 import Admin from './components/backend/Admin'
 import Dashboard from './components/backend/Dashboard'
 import Comapany from './components/backend/company/Company'
-
+//backend
 import Country from './components/backend/lookups/country/Country'
 import State from './components/backend/lookups/state/State'
 import City from './components/backend/lookups/city/City'
 import Zips from './components/backend/lookups/zip/Zips'
-import CarrierList from './components/backend/carrier/CarrierList'
 import Accessories from './components/backend/lookups/accessories/Accessories'
+
+import CarrierList from './components/backend/carrier/CarrierList'
+import CarrierAccessories from './components/backend/carrier/accessories/CarrierAccessories'
 import Rates from './components/backend/carrier/Rates'
 import Orders from './components/backend/shippers/Orders'
 import OrderDetails from './components/backend/shippers/OrderDetails'
@@ -109,7 +111,7 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
-        {path: '/test', component: Test},
+        { path: '/test', component: Test },
         {
             name: 'root',
             path: '/',
@@ -129,7 +131,7 @@ export default new VueRouter({
                         { name: 'delivery', path: 'delivery', component: Delivery },
                         { name: 'delivery-service', path: 'delivery-services', component: DeliveryServices },
                         { name: 'items', path: 'items', component: Items },
-                        { name: 'item-details', path:  'item-details', component: ItemDetails },
+                        { name: 'item-details', path: 'item-details', component: ItemDetails },
                         { name: 'carriers', path: 'carriers', component: Carriers }
                     ]
                 },
@@ -162,7 +164,7 @@ export default new VueRouter({
                                 { name: 'add-carrier', path: 'add', component: AddCarrierDetails },
                                 { name: 'edit-carrier', path: 'edit', component: EditCarrierDetails }
                             ]
-                        }, 
+                        },
                         {
                             name: 'rates', path: 'rates', component: RateContainer,
                             children: [
@@ -258,9 +260,11 @@ export default new VueRouter({
                         { name: 'states', path: 'states', component: State },
                         { name: 'cities', path: 'cities', component: City },
                         { name: 'zips', path: 'zips', component: Zips },
+                        { name: 'accessories', path: 'accessories', component: Accessories },
+
                         { name: 'carriers', path: 'carriers', component: CarrierList },
                         { name: 'rates', path: 'rates', component: Rates },
-                        { name: 'accessories', path: 'accessories', component: Accessories },
+                        { name: 'carrier-accessories', path: 'accessories/:id', component: CarrierAccessories },
                         { name: 'shippers', path: 'shippers', component: Shippers },
                         { name: 'orders', path: 'orders', component: Orders },
                         { name: 'order', path: 'order/:id', component: OrderDetails },
@@ -274,6 +278,6 @@ export default new VueRouter({
                 }
             ],
         },
-      /*   { path: '*', redirect: '/' } */
+        /*   { path: '*', redirect: '/' } */
     ],
 })
