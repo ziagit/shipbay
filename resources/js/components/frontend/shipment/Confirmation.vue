@@ -1,7 +1,9 @@
 <template>
   <div class="confirmation">
     <span class="md-display-1">Confirmation</span>
-    <div class="md-display-body">Please take a look at the details to confirm the shipment.</div>
+    <div class="md-display-body">
+      Please take a look at the details to confirm the shipment.
+    </div>
 
     <md-card>
       <md-card-content>
@@ -9,62 +11,94 @@
         <div>
           <div class="item-head">Source</div>
           <div class="item">
-            <div class="md-body-1">State: {{shipment.shipper.pickDetails.stateName}}</div>
-            <div
-              class="md-body-1"
-            >City: {{shipment.shipper.pickDetails.cityName}}, {{shipment.shipper.pickDetails.postalCodeName}}</div>
-            <div class="md-body-1">Address: {{shipment.shipper.pickDetails.address}}</div>
-            <div class="md-body-1">Contact name: {{shipment.shipper.pickDetails.name}}</div>
-            <div class="md-body-1">Phone: {{shipment.shipper.pickDetails.phone}}</div>
-            <div class="md-body-1">Email: {{shipment.shipper.pickDetails.email}}</div>
+            <div class="md-body-1">
+              State: {{ shipment.shipper.pickDetails.stateName }}
+            </div>
+            <div class="md-body-1">
+              City: {{ shipment.shipper.pickDetails.cityName }},
+              {{ shipment.shipper.pickDetails.postalCodeName }}
+            </div>
+            <div class="md-body-1">
+              Address: {{ shipment.shipper.pickDetails.address }}
+            </div>
+            <div class="md-body-1">
+              Contact name: {{ shipment.shipper.pickDetails.name }}
+            </div>
+            <div class="md-body-1">
+              Phone: {{ shipment.shipper.pickDetails.phone }}
+            </div>
+            <div class="md-body-1">
+              Email: {{ shipment.shipper.pickDetails.email }}
+            </div>
           </div>
         </div>
         <md-divider class="md-inset"></md-divider>
         <div>
           <div class="item-head">Destination</div>
           <div class="item">
-            <div class="md-body-1">State: {{shipment.shipper.deliveryDetails.stateName}}</div>
-            <div
-              class="md-body-1"
-            >City: {{shipment.shipper.deliveryDetails.cityName}}, {{shipment.shipper.deliveryDetails.postalCodeName}}</div>
-            <div class="md-body-1">Address: {{shipment.shipper.deliveryDetails.address}}</div>
-            <div class="md-body-1">Contact name: {{shipment.shipper.deliveryDetails.name}}</div>
-            <div class="md-body-1">Phone: {{shipment.shipper.deliveryDetails.phone}}</div>
-            <div class="md-body-1">Email: {{shipment.shipper.deliveryDetails.email}}</div>
+            <div class="md-body-1">
+              State: {{ shipment.shipper.deliveryDetails.stateName }}
+            </div>
+            <div class="md-body-1">
+              City: {{ shipment.shipper.deliveryDetails.cityName }},
+              {{ shipment.shipper.deliveryDetails.postalCodeName }}
+            </div>
+            <div class="md-body-1">
+              Address: {{ shipment.shipper.deliveryDetails.address }}
+            </div>
+            <div class="md-body-1">
+              Contact name: {{ shipment.shipper.deliveryDetails.name }}
+            </div>
+            <div class="md-body-1">
+              Phone: {{ shipment.shipper.deliveryDetails.phone }}
+            </div>
+            <div class="md-body-1">
+              Email: {{ shipment.shipper.deliveryDetails.email }}
+            </div>
           </div>
         </div>
         <md-divider class="md-inset"></md-divider>
         <div>
           <div class="item-head">Item(s)</div>
           <div class="item">
-            <div class="md-body-1" v-for="item in shipment.myItem.items" :key="item.id">
-              <div class="md-body-1">Name: {{item.description}}, {{Math.round(item.dw)}} Pounds</div>
-            </div>
             <div
               class="md-body-1"
-            >Totoal dimentional weight: {{Math.round(totalDw())}} Pounds</div>
+              v-for="item in shipment.myItem.items"
+              :key="item.id"
+            >
+              <div class="md-body-1">
+                Name: {{ item.description }}, {{ item.weight }} Pounds
+              </div>
+            </div>
+            <div class="md-body-1">
+              Totoal dimentional weight: {{ totalWeight() }} Pounds
+            </div>
           </div>
         </div>
         <md-divider class="md-inset"></md-divider>
         <div>
           <div class="item-head">Carrier</div>
           <div class="item">
-            <div class="md-body-1">Name: {{shipment.carrier.company}}</div>
-            <div class="md-body-1">Phone: {{shipment.carrier.phone}}</div>
+            <div class="md-body-1">Name: {{ shipment.carrier.company }}</div>
+            <div class="md-body-1">Phone: {{ shipment.carrier.phone }}</div>
             <div class="md-body-1">
               Cost:
-              <span class="green">${{Math.round(shipment.carrier.price)}}</span>
+              <span class="green"
+                >${{ Math.round(shipment.carrier.price) }}</span
+              >
             </div>
           </div>
         </div>
         <div>
           <div class="md-title">Billing details</div>
-          <div class="item-head">The following email is associated with your card</div>
+          <div class="item-head">
+            The following email is associated with your card
+          </div>
           <div class="item">
-            <div class="md-body-1">{{shipment.billing.email}}</div>
+            <div class="md-body-1">{{ shipment.billing.email }}</div>
             <div class="md-body-1" v-if="shipment.billing.status">
               Status:
-              <span class="green">{{shipment.billing.status}}</span>
+              <span class="green">{{ shipment.billing.status }}</span>
             </div>
           </div>
         </div>
@@ -73,20 +107,26 @@
           <p>Important notice</p>
           <ul>
             <li>
-              All rates quoted are provided according to the Description of Goods declared by the
-              Shipper and may be subject to additional charges in the case of misdeclaration.
+              All rates quoted are provided according to the Description of
+              Goods declared by the Shipper and may be subject to additional
+              charges in the case of misdeclaration.
             </li>
             <li>
-              If your load needs Special Handling, please select it for an accurate quote. Carriers
-              charge for Special Handling if needed, and this will affect your final invoice.
+              If your load needs Special Handling, please select it for an
+              accurate quote. Carriers charge for Special Handling if needed,
+              and this will affect your final invoice.
             </li>
             <li>
-              The pickup date and transit time vary by the carrier and are not guaranteed unless
-              otherwise stated.
+              The pickup date and transit time vary by the carrier and are not
+              guaranteed unless otherwise stated.
             </li>
             <li>
               <md-menu md-direction="top-start" :md-active.sync="toggle">
-                Here is our <span class="term-link" md-menu-trigger>Terms & Conditions</span> for further details
+                Here is our
+                <span class="term-link" md-menu-trigger
+                  >Terms & Conditions</span
+                >
+                for further details
                 <md-menu-content>
                   <TermsAndConditions />
                 </md-menu-content>
@@ -97,7 +137,12 @@
             <p>By clicking on Confirm you accept our Terms & Conditions</p>
             <div>
               <Spinner v-if="dataLoading" />
-              <md-button v-if="!dataLoading" @click="confirm()" class="md-primary">Confirm</md-button>
+              <md-button
+                v-if="!dataLoading"
+                @click="confirm()"
+                class="md-primary"
+                >Confirm</md-button
+              >
             </div>
           </div>
         </div>
@@ -108,10 +153,11 @@
 </template>
 <script>
 import axios from "axios";
-import functions from '../services/functions'
+import functions from "../services/functions";
 import Spinner from "../shared/Spinner";
 import Snackbar from "../shared/Snackbar";
-import TermsAndConditions from '../shared/TermsAndConditions'
+import TermsAndConditions from "../shared/TermsAndConditions";
+import functions from "../services/functions";
 export default {
   name: "Confirmation",
   data: () => ({
@@ -121,7 +167,7 @@ export default {
     snackbar: {
       show: false,
       message: null,
-      statusCode:null,
+      statusCode: null,
     },
   }),
   methods: {
@@ -143,13 +189,12 @@ export default {
         .catch((err) => {
           this.snackbar.show = true;
           this.snackbar.message = err.message;
-          this.snackbar.statusCode = err.status
+          this.snackbar.statusCode = err.status;
           console.log(err);
         });
     },
-    totalDw() {
-      let order = JSON.parse(localStorage.getItem("order"));
-      return functions.totalDw(order.myItem.items)
+    totalWeight() {
+      return functions.totalWeight(this.order.myItem.items);
     },
   },
   created() {
@@ -159,7 +204,7 @@ export default {
   components: {
     Spinner,
     Snackbar,
-    TermsAndConditions
+    TermsAndConditions,
   },
 };
 </script>
@@ -191,10 +236,10 @@ export default {
       text-align: right;
     }
   }
-  .term-link{
+  .term-link {
     color: #448aff;
   }
-  .term-link:hover{
+  .term-link:hover {
     cursor: pointer;
   }
 }
