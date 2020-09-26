@@ -157,7 +157,6 @@ import functions from "../services/functions";
 import Spinner from "../shared/Spinner";
 import Snackbar from "../shared/Snackbar";
 import TermsAndConditions from "../shared/TermsAndConditions";
-import functions from "../services/functions";
 export default {
   name: "Confirmation",
   data: () => ({
