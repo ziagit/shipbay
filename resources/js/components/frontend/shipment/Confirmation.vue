@@ -193,12 +193,12 @@ export default {
         });
     },
     totalWeight() {
-      return functions.totalWeight(this.order.myItem.items);
+      return functions.totalWeight(this.shipment.myItem.items);
     },
   },
   created() {
     this.shipment = JSON.parse(localStorage.getItem("order"));
-    console.log("in confirmation ", JSON.parse(localStorage.getItem("order")));
+    console.log("in confirmation ", this.shipment);
   },
   components: {
     Spinner,
