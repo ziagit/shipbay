@@ -22,6 +22,10 @@
             height: 100%;
             min-height: 100%;
         }
+        .search{
+            margin-top: 100px;
+            margin-left: 200px;
+        }
     </style>
 </head>
 
@@ -30,11 +34,11 @@
     <script type="text/javascript" src="http://ws1.postescanada-canadapost.ca/js/addresscomplete-2.30.min.js?key=yc97-ja41-mj26-nu81"></script>
     <div id="app">
         <form action="/" method="post">
-            <input type="text" name="address" placeholder="Address">
-            <input type="text" name="city" placeholder="City">
-            <input type="text" name="state" placeholder="State">
-            <input type="text" name="postalcode" placeholder="Postal code">
-            <input type="text" name="country" placeholder="Country">
+            <input type="text" name="address" placeholder="Address" class="search">
+            <input type="hidden" name="city" placeholder="City">
+            <input type="hidden" name="state" placeholder="State">
+            <input type="hidden" name="postalcode" placeholder="Postal code">
+            <input type="hidden" name="country" placeholder="Country">
             <input type="submit" value="Sumbit">
         </form>
     </div>
