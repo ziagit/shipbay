@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCitycodeRateTable extends Migration
+class CreateCityRateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateCitycodeRateTable extends Migration
      */
     public function up()
     {
-        Schema::create('citycode_rate', function (Blueprint $table) {
+        Schema::create('city_rate', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('citycode_id');
+            $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('rate_id');
             $table->string('type');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateCitycodeRateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('citycode_rate');
+        Schema::dropIfExists('city_rate');
     }
 }

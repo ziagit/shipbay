@@ -140,6 +140,7 @@ export default {
       this.dataLoading = false;
     }, 5000);
     localStorage.setItem('cRoute',this.$router.currentRoute.path);
+    console.log("in carrier: ", this.order)
   },
   components: {
     CarrierRateInfo,

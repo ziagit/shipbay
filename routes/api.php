@@ -17,32 +17,6 @@ use App\Services\Functions;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get("testing", function(){
-  return response()->json(["message"=>"hi from the end point"]);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
   Route::post('signin', 'SignInController')->name('signin');
   Route::post('signup', 'SignUpController');
@@ -64,6 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource('jobs', 'JobController');
     Route::get('job-status', 'JobController@jobStatus');
+
   });
   Route::group(['namespace' => 'Shipper', 'prefix' => 'shipper'], function () {
     Route::resource('details', 'ShipperDetailsController');
@@ -102,6 +77,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource('carrier/accessories', 'AdminAccessoryListController');
     Route::delete('carrier/accessories/{cId}/{aId}', 'AdminAccessoryListController@destroy');
+
+    Route::post('upload-city', 'AdminImportFileController@importCity')->name('importCity');
+    Route::post('upload-postalcode', 'AdminImportFileController@importPostalcode')->name('importPostalcode');
   });
   Route::group(['namespace' => 'Order'], function () {
     Route::post('charge-customer', 'CheckoutController@chargeCustomer');
@@ -114,7 +92,9 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('cities', 'CityController@all');
   Route::get('zips', 'ZipController@all');
   Route::get('states/{id}', 'StateController@show');
+  Route::get('search-state/{countryId}','StateController@search');
   Route::get('cities/{id}', 'CityController@show');
+  Route::get('search-city/{stateId}','CityController@search');
   Route::get('citycodes/{id}', 'ZipController@show');
   Route::get('citycodes', 'ZipController@index');
 });
@@ -122,8 +102,9 @@ Route::group(['namespace' => 'Order'], function () {
   Route::post('charge', 'CheckoutController@store');
   Route::get('payment-status/{orderId}', 'CheckoutController@checkPayment');
   Route::get("check-payment/{id}", 'CheckoutController@checkPayment');
-
   Route::get('search-city', 'OrderController@search');
+  Route::get('searching', 'OrderController@queryBuilder');
+
   Route::get('location-type', 'OrderController@locationType');
   Route::get('pick-services', 'OrderController@pickServices');
   Route::get('delivery-services', 'OrderController@deliveryServices');

@@ -17,7 +17,9 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "~4.0",
+        "spatie/laravel-query-builder": "^3.2",
         "stripe/stripe-php": "^7.46",
         "tymon/jwt-auth": "^1.0"
     },

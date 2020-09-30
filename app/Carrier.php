@@ -14,7 +14,11 @@ class Carrier extends Model
         return $this->belongsToMany(Rate::class);
     }
     public function carrierRates(){
-        return $this->rates()->with('rateCitycode');
+        return $this->rates()->with('cities');
+    }
+
+    public function rateWithCity(){
+        return $this->rates()->with('cityWithState');
     }
 
     public function accessories(){

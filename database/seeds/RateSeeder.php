@@ -27,11 +27,11 @@ class RateSeeder extends Seeder
                 '_4k_5k' => 5,
                 '_5k_10k' => 4,
                 'above_10k' => 3,
-                'fsc' => 2,
+                'fsc' => 20,
                 'transit_day' => 1,
             ],
             [
-                'min_rate' => 23,
+                'min_rate' => 30,
                 '_0k_1k' => 10,
                 '_1k_2k' => 9,
                 '_2k_3k' => 8,
@@ -39,7 +39,7 @@ class RateSeeder extends Seeder
                 '_4k_5k' => 6,
                 '_5k_10k' => 5,
                 'above_10k' => 4,
-                'fsc' => 3,
+                'fsc' => 30,
                 'transit_day' => 2,
             ]
         ];
@@ -49,10 +49,10 @@ class RateSeeder extends Seeder
         $carrier->rates()->attach([1,2]);
 
         $rate = Rate::find(1);
-        $rate->citycodes()->attach(1,['type'=>'src']);
-        $rate->citycodes()->attach(2,['type'=>'des']);
+        $rate->cities()->attach(1,['type'=>'src']);
+        $rate->cities()->attach(2,['type'=>'des']);
         $rate= Rate::find(2);
-        $rate->citycodes()->attach(5,['type'=>'src']);
-        $rate->citycodes()->attach(3,['type'=>'des']);
+        $rate->cities()->attach(5,['type'=>'src']);
+        $rate->cities()->attach(3,['type'=>'des']);
     }
 }

@@ -308,7 +308,7 @@ export default {
       flex: 30%;
       margin: 0 2px;
       label{
-        font-size: 14px;
+        font-size: 11px;
       }
     }
   }

@@ -88,6 +88,7 @@ class OrderController extends Controller
     {
         //
     }
+
     public function search(Request $request)
     {
         $keywords = $request->keywords;
@@ -96,7 +97,7 @@ class OrderController extends Controller
                 $q->where('name', 'like', '%' . $keywords . '%');
             })
             ->with('citycodeCity')
-            ->paginate(10);
+            ->paginate(5);
         return $citycodes;
     }
 

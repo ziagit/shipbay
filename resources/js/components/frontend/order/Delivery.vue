@@ -11,14 +11,19 @@
           <md-input v-model="keywords" required></md-input>
         </md-field>
         <ul>
-          <li v-if="notFound !== null" class="not-found">{{this.notFound}}</li>
+          <li v-if="notFound !== null" class="not-found">
+            {{ this.notFound }}
+          </li>
         </ul>
         <ul v-if="results.length > 0">
           <li
             v-for="result in results"
             :key="result.id"
             @click="select(result)"
-          >{{result.citycode_city[0].state.name}}, {{result.citycode_city[0].name}} - {{result.postal_code}}</li>
+          >
+            {{ result.citycode_city[0].name }},
+            {{ result.citycode_city[0].state.name }} - {{ result.postal_code }}
+          </li>
         </ul>
       </div>
 
@@ -29,7 +34,8 @@
           v-model="des.accessories[0]"
           :value="service.code"
           class="md-primary"
-        >{{service.name}}</md-radio>
+          >{{ service.name }}</md-radio
+        >
       </div>
 
       <div class="action">
@@ -98,9 +104,9 @@ export default {
     },
     select(selected) {
       this.keywords =
-        selected.citycode_city[0].state.name +
-        ", " +
         selected.citycode_city[0].name +
+        ", " +
+        selected.citycode_city[0].state.name +
         " - " +
         selected.postal_code;
       this.des.state = selected.citycode_city[0].state.id;
@@ -136,9 +142,9 @@ export default {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.des) {
         this.keywords =
-          storage.des.stateName +
-          ", " +
           storage.des.cityName +
+          ", " +
+          storage.des.stateName +
           " - " +
           storage.des.postalCodeName;
         this.des.country = storage.des.country;
@@ -216,5 +222,4 @@ export default {
     margin: 20px auto;
   }
 }
-
 </style>

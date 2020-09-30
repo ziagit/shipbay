@@ -9,10 +9,16 @@ class Rate extends Model
     public function carriers(){
         return $this->belongsToMany(Carrier::class);
     }
-    public function citycodes(){
-        return $this->belongsToMany(Citycode::class)->withPivot('type')->withTimestamps();
+    public function cities(){
+        return $this->belongsToMany(City::class)->withPivot('type')->withTimestamps();
     }
-    public function rateCitycode(){
+
+    public function cityWithState(){
+        return $this->cities()->with('state');
+    }
+
+
+/*     public function rateCitycode(){
         return $this->citycodes()->with('citycodeCity');
-    }
+    } */
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Location;
+
 use App\Http\Controllers\Controller;
 use App\state;
 use Illuminate\Http\Request;
@@ -83,7 +84,16 @@ class StateController extends Controller
     {
         //
     }
-    public function all(){
+    public function all()
+    {
         return State::all();
+    }
+    public function search(Request $request, $id)
+    {
+        $keywords = $request->keywords;
+        $state = State::where('country_id', $id)
+            ->where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return $state;
     }
 }

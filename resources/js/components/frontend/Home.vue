@@ -2,7 +2,11 @@
   <div class="home">
     <md-app>
       <md-app-toolbar class="md-default">
-        <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+        <md-button
+          class="md-icon-button"
+          @click="toggleMenu"
+          v-if="!menuVisible"
+        >
           <md-icon>menu</md-icon>
         </md-button>
         <router-link to="/">
@@ -11,7 +15,11 @@
 
         <div class="md-toolbar-section-end">
           <div v-if="authenticated">
-            <md-badge class="md-primary" :md-content="notifications.length" md-dense>
+            <md-badge
+              class="md-primary"
+              :md-content="notifications.length"
+              md-dense
+            >
               <md-menu>
                 <md-button md-menu-trigger class="md-icon-button">
                   <md-icon>notifications</md-icon>
@@ -21,14 +29,17 @@
                     v-for="notification in notifications"
                     :key="notification.id"
                     @click="notificationDetails(notification)"
-                  >Job: {{notification.data.job.id}}</md-menu-item>
+                    >Job: {{ notification.data.job.id }}</md-menu-item
+                  >
                 </md-menu-content>
                 <md-menu-content v-if="user.role[0].name === 'shipper'">
                   <md-menu-item
                     v-for="notification in notifications"
                     :key="notification.id"
                     @click="markAsRead(notification.id)"
-                  >Your order({{notification.data.job.order_id}}) is: {{notification.data.job.jobstatus.title}}</md-menu-item>
+                    >Your order({{ notification.data.job.order_id }}) is:
+                    {{ notification.data.job.jobstatus.title }}</md-menu-item
+                  >
                   <md-tooltip>Click to mark as read.</md-tooltip>
                 </md-menu-content>
                 <md-menu-content v-if="user.role[0].name === 'admin'">
@@ -36,7 +47,8 @@
                     v-for="notification in notifications"
                     :key="notification.id"
                     @click="notificationDetails(notification)"
-                  >Job ({{notification.data.job.order_id}})</md-menu-item>
+                    >Job ({{ notification.data.job.order_id }})</md-menu-item
+                  >
                 </md-menu-content>
               </md-menu>
             </md-badge>
@@ -56,8 +68,8 @@
                     <md-icon>face</md-icon>
                   </md-avatar>
                   <div>
-                    <div>{{user.name}}</div>
-                    <div>{{user.email}}</div>
+                    <div>{{ user.name }}</div>
+                    <div>{{ user.email }}</div>
                   </div>
                 </div>
                 <md-menu-item @click="profile">Profile</md-menu-item>
@@ -83,7 +95,10 @@
         </md-toolbar>
 
         <div class="side-menu">
-          <AdminSideMenu v-on:hideSideMenu="toggleMenu" v-if="authenticated && user.role[0].name === 'admin'" />
+          <AdminSideMenu
+            v-on:hideSideMenu="toggleMenu"
+            v-if="authenticated && user.role[0].name === 'admin'"
+          />
           <WebSideMenu v-on:hideSideMenu="toggleMenu" v-else />
         </div>
       </md-app-drawer>
@@ -92,7 +107,6 @@
         <router-view></router-view>
       </md-app-content>
     </md-app>
-
   </div>
 </template>
 
@@ -181,11 +195,12 @@ export default {
       }
     },
     getNotifications() {
+      if (this.authenticated) {
         this.notifications = this.user.notifications;
         Echo.private("App.User." + this.user.id).notification((res) => {
           this.notifications.push(res.notification);
         });
-        console.log("notifications: ", this.notifications.length);
+      }
     },
   },
   created() {

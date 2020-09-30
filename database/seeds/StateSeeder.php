@@ -15,23 +15,55 @@ class StateSeeder extends Seeder
 
         $states =  [
             [
-                'name' => 'New yark',
-                'country_id' => 1
-            ],
-            [
-                'name' => 'Alaska',
-                'country_id' => 1
-            ],
-            [
-                'name' => 'Arizona',
+                'name' => 'NL',
                 'country_id' => 2
             ],
             [
-                'name' => 'Vencover',
+                'name' => 'NS',
                 'country_id' => 2
             ],
             [
-                'name' => 'Torento',
+                'name' => 'PE',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'NB',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'QC',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'ON',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'MB',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'SK',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'AB',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'BC',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'NU',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'NT',
+                'country_id' => 2
+            ],
+            [
+                'name' => 'YT',
                 'country_id' => 2
             ]
         ];

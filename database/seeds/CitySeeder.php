@@ -16,24 +16,52 @@ class CitySeeder extends Seeder
 
         $cities =  [
             [
-                'name' => 'Holtsville',
+                'name' => 'CAPE BROYLE',
                 'state_id' => 1
             ],
             [
-                'name' => 'Fishers Island',
+                'name' => 'CLARKES BEACH',
                 'state_id' => 1
             ],
             [
-                'name' => 'Staten Island',
+                'name' => 'COLEYS POINT SOUTH',
                 'state_id' => 1
             ],
             [
-                'name' => 'Anchorage',
+                'name' => 'ST. JOHN\'S',
+                'state_id' => 1
+            ],
+            [
+                'name' => 'HALIFAX',
                 'state_id' => 2
             ],
             [
-                'name' => 'Sitka',
+                'name' => 'FRENCH VILLAGE',
                 'state_id' => 2
+            ],
+            [
+                'name' => 'GLEN HAVEN',
+                'state_id' => 2
+            ],
+            [
+                'name' => 'SEABRIGHT',
+                'state_id' => 2
+            ],
+            [
+                'name' => 'STRATFORD',
+                'state_id' => 3
+            ],
+            [
+                'name' => 'CHARLOTTETOWN',
+                'state_id' => 3
+            ],
+            [
+                'name' => 'MONCTON',
+                'state_id' => 4
+            ],
+            [
+                'name' => 'LUTES MOUNTAIN',
+                'state_id' => 4
             ]
         ];
 

@@ -86,4 +86,12 @@ class CityController extends Controller
     public function all(){
         return City::all();
     }
+    public function search(Request $request, $id)
+    {
+        $keywords = $request->keywords;
+        $state = City::where('state_id', $id)
+            ->where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return $state;
+    }
 }

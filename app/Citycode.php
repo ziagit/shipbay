@@ -13,10 +13,6 @@ class Citycode extends Model
     public function citycodeCity(){
         return $this->cities()->with('state');
     }
-  
-    public function rates(){
-        return $this->belongsToMany(Rate::class)->withPivot('type')->withTimestamps();
-    }
 
     public function address(){
         return $this->hasMany(Address::class);

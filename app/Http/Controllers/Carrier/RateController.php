@@ -19,8 +19,7 @@ class RateController extends Controller
     {
         $userId = Auth::user()->id;
         $carrierId = Carrier::where('user_id', $userId)->first('id')->id;
-
-        $rates = Carrier::with('carrierRates')->find($carrierId);
+        $rates = Carrier::with('rateWithCity')->find($carrierId);
         return response()->json($rates);
     }
 
@@ -60,8 +59,8 @@ class RateController extends Controller
         $carrier = Carrier::find($request->carrierId);
         $rate->carriers()->attach($carrier);
 
-        $rate->citycodes()->attach($request->src_zip, ['type' => 'src']);
-        $rate->citycodes()->attach($request->des_zip, ['type' => 'des']);
+        $rate->cities()->attach($request->src_city, ['type' => 'src']);
+        $rate->cities()->attach($request->des_city, ['type' => 'des']);
         return response()->json(['message' => 'Saved successfully!'], 200);
     }
 
@@ -73,7 +72,7 @@ class RateController extends Controller
      */
     public function show($id)
     {
-        $rate = Rate::with('rateCitycode')->find($id);
+        $rate = Rate::with('cityWithState')->find($id);
         return response()->json($rate);
     }
 
@@ -97,7 +96,6 @@ class RateController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $rate = Rate::find($id);
         $rate->min_rate = $request->min_rate;
         $rate->_0k_1k = $request->k0_k1;
@@ -112,10 +110,10 @@ class RateController extends Controller
 
         $rate->update();
 
-        $rate->citycodes()->detach();
+        $rate->cities()->detach();
 
-        $rate->citycodes()->attach($request->src_zip, ['type' => 'src']);
-        $rate->citycodes()->attach($request->des_zip, ['type' => 'des']);
+        $rate->cities()->attach($request->src_city, ['type' => 'src']);
+        $rate->cities()->attach($request->des_city, ['type' => 'des']);
         return response()->json(['message' => 'Updated successfully!'], 200);
     }
 
@@ -128,9 +126,9 @@ class RateController extends Controller
     public function destroy($rateId)
     {
         $rate = Rate::find($rateId);
-        $rate->citycodes()->detach();
+        $rate->cities()->detach();
         $rate->delete();
-        return "deleted";
+        return response()->json(["message"=>"Deleted successfully!"],200);
     }
     public function search(Request $request)
     {

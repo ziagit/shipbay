@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Carrier;
@@ -11,21 +12,24 @@ class Functions
         $selectedCarriers = array();
         $i = 0;
 
-        $order_src = $request->src['postalCode'];
-        $order_des = $request->des['postalCode'];
-        $dimentional_weight = $this->calcDW($request->myItem['items']);
+        $order_src = $request->src['city'];
+        $order_des = $request->des['city'];
+        $dimentional_weight = 95;/* $this->calcDW($request->myItem['items']); */
+
         // search src & des zips in rate table
         $carriers = Carrier::with('carrierRates', 'accessories')->get();
+
         if (!is_array($carriers)) {
             $carriers = json_decode($carriers);
         }
+
         foreach ($carriers as $carrier) {
             foreach ($carrier->carrier_rates as $rate) {
-                $rate_src = $rate->rate_citycode[0]->id;
-                $rate_des = $rate->rate_citycode[1]->id;
+                $rate_src = $rate->cities[0]->id;
+                $rate_des = $rate->cities[1]->id;
                 $carrier_accessories = $carrier->accessories;
                 $cost = 0;
-                if (($order_src == $rate_src) && ($order_des == $rate_des)) {
+                if (($rate_src === $order_src) && ($rate_des === $order_des)) {
                     switch ($dimentional_weight) {
                         case ($dimentional_weight > 0 && $dimentional_weight <= 1000):
                             $cost = $this->costCalc($dimentional_weight, $rate->_0k_1k, $rate);
@@ -126,5 +130,4 @@ class Functions
 
         return $dw;
     }
-
 }

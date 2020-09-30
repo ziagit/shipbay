@@ -102,6 +102,7 @@ export default {
         .get("admin/zips?page=" + page)
         .then((res) => {
           this.zips = res.data;
+          console.log("zips: ", res.data.data)
         })
         .catch((err) => {
           console.log("Error: ", err);
