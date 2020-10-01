@@ -15,9 +15,7 @@ class ShipmentaddressSeeder extends Seeder
         Shipmentaddress::truncate();
         $addresses = [
             [
-                'company' => 'Company or individual name',
                 'address' => 'Second streat of New york',
-                'refrence' => null,
                 'instructions' => null,
                 'name' => 'Zia',
                 'phone' => '0775050616',
@@ -28,9 +26,7 @@ class ShipmentaddressSeeder extends Seeder
                 'citycode_id' => 1,
             ],
             [
-                'company' => 'Company or individual name 2',
                 'address' => 'Lissangelate addesre skd',
-                'refrence' => null,
                 'instructions' => null,
                 'name' => 'Ali',
                 'phone' => '0775050616',

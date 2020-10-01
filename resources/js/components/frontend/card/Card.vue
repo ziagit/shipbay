@@ -14,9 +14,7 @@
                 </div>
                 <div class="alert-error" v-if="errorMessage">{{successMessage}}</div>
                 <div v-if="parymentTogal" class="billing-details">
-                    <div class="checkbox" v-if="!authenticated && order">
-                        <md-checkbox class="md-primary" v-model="addFromStorage">Is your billing address same to your pickup address ?</md-checkbox>
-                    </div>
+
                     <div class="checkbox" v-if="authenticated && user.role[0].name === 'shipper'">
                         <md-checkbox class="md-primary" v-model="addFromDb">
                             Is your billing address same to your account ?
@@ -77,8 +75,8 @@ import {
     mapActions
 } from "vuex";
 import Spinner from "../shared/Spinner";
-/* var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
-var elements = stripe.elements(); */
+var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
+var elements = stripe.elements();
 var style = {
     base: {
         color: "#32325d",
@@ -110,7 +108,6 @@ export default {
             price: null,
         },
         error: null,
-        addFromStorage: false,
         addFromDb: false,
         shipperExist: null,
         dataLoading: false,
@@ -128,17 +125,6 @@ export default {
         card.mount(this.$refs.card);
     },
     watch: {
-        addFromStorage: function (value) {
-            if (value) {
-                this.form.email = this.order.shipper.pickDetails.email;
-                this.form.address = this.order.shipper.pickDetails.address;
-                this.form.state = this.order.shipper.pickDetails.stateName;
-                this.form.city = this.order.shipper.pickDetails.cityName;
-                this.form.postalcode = this.order.shipper.pickDetails.postalCodeName;
-            } else {
-                this.form.email = this.form.address = this.form.state = this.form.city = this.form.postalcode = null;
-            }
-        },
         addFromDb: function (value) {
             if (value) {
                 if (this.shipperExist === null) {

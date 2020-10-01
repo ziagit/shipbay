@@ -170,6 +170,7 @@ export default {
                         localStorage.removeItem("prg-value");
                     }
                     this.$router.push("completion");
+                    console.log("data: ", res.data)
                     this.dataLoading = false;
                 })
                 .catch((err) => {

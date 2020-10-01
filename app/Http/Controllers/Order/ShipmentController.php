@@ -91,8 +91,6 @@ class ShipmentController extends Controller
         $order->max_temperature = $request->myItem['maxTemp'];
         $order->cost = $request->carrier['price'];
         $order->estimated_value = $request->shipper['estimatedValue'];
-        $order->start_loadtime = $request->shipper['startLoadTime'];
-        $order->end_loadtime = $request->shipper['endLoadTime'];
         $order->shipper_id = $shipperId;
 
         $order->update();
@@ -130,33 +128,31 @@ class ShipmentController extends Controller
     {
         $addressId = array();
         $srcAddress = [
-            'company' => $request->shipper['pickDetails']['company'],
-            'address' => $request->shipper['pickDetails']['address'],
-            'refrence' => $request->shipper['pickDetails']['refrenceNumber'],
-            'instructions' => $request->shipper['pickDetails']['instructions'],
-            'name' => $request->shipper['pickDetails']['name'],
-            'phone' => $request->shipper['pickDetails']['phone'],
-            'email' => $request->shipper['pickDetails']['email'],
+            'instructions' => $request->shipper['instructions'],
+            'name' => $request->shipper['pickupName'],
+            'phone' => $request->shipper['pickupPhone'],
+            'email' => $request->shipper['pickupEmail'],
             'country_id' => $request->src['country'],
-            'state_id' => $request->shipper['pickDetails']['state'],
-            'city_id' => $request->shipper['pickDetails']['city'],
-            'citycode_id' => $request->shipper['pickDetails']['postalCode'],
+            'address' => $request->src['address'],
+
+            'state_id' => $request->src['state'],
+            'city_id' => $request->src['city'],
+            'citycode_id' => $request->src['postalCode'],
         ];
         $srcId = Shipmentaddress::insertGetId($srcAddress);
         array_push($addressId, $srcId);
 
         $desAddress = [
-            'company' => $request->shipper['deliveryDetails']['company'],
-            'address' => $request->shipper['deliveryDetails']['address'],
-            'refrence' => $request->shipper['deliveryDetails']['refrenceNumber'],
-            'instructions' => $request->shipper['deliveryDetails']['instructions'],
-            'name' => $request->shipper['deliveryDetails']['name'],
-            'phone' => $request->shipper['deliveryDetails']['phone'],
-            'email' => $request->shipper['deliveryDetails']['email'],
+            'instructions' => $request->shipper['instructions'],
+            'name' => $request->shipper['deliveryName'],
+            'phone' => $request->shipper['deliveryPhone'],
+            'email' => $request->shipper['deliveryEmail'],
             'country_id' => $request->des['country'],
-            'state_id' => $request->shipper['deliveryDetails']['state'],
-            'city_id' => $request->shipper['deliveryDetails']['city'],
-            'citycode_id' => $request->shipper['deliveryDetails']['postalCode'],
+            'address' => $request->des['address'],
+
+            'state_id' => $request->des['state'],
+            'city_id' => $request->des['city'],
+            'citycode_id' => $request->des['postalCode'],
         ];
         $desId = Shipmentaddress::insertGetId($desAddress);
         array_push($addressId, $desId);
@@ -174,7 +170,7 @@ class ShipmentController extends Controller
         }
 
         $shipper = new Shipper();
-        $shipper->first_name = $shipperData['pickDetails']['company'];
+        $shipper->first_name = $shipperData['pickupName'];
         $shipper->save();
 
         return $shipper->id;
