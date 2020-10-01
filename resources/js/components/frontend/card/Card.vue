@@ -65,11 +65,13 @@
             </md-card-actions>
         </form>
     </md-card>
+    <Snackbar :data="snackbar" />
 </div>
 </template>
 
 <script>
 import axios from "axios";
+import Snackbar from "../shared/Snackbar";
 import {
     mapGetters,
     mapActions
@@ -115,6 +117,11 @@ export default {
         errorMessage: null,
         parymentTogal: true,
         order: null,
+        snackbar: {
+            show: false,
+            message: null,
+            statusCode: null,
+        },
     }),
 
     mounted: function () {
@@ -196,6 +203,10 @@ export default {
                     this.parymentTogal = false;
                 })
                 .catch((err) => {
+                    this.dataLoading = false;
+                    this.snackbar.show = true;
+                    this.snackbar.message = err.response.data.message;
+                    this.snackbar.statusCode = err.response.status;
                     this.errorMassage = err;
                     console.log(err);
                 });
