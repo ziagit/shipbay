@@ -1,21 +1,30 @@
 <template>
   <div class="destination">
     <div class="icon">
-      <img :src="'/images/a-b.svg'" width="100" />
+      <img :src="'/images/b-a.svg'" width="100" />
     </div>
     <span class="md-display-1">Where are you shipping to?</span>
     <form @submit.prevent="nextStep()">
       <div class="search-container">
-        <md-field>
+        <md-field v-if="!isSelected">
           <label>City/Zip code</label>
-          <md-input v-model="keywords" required></md-input>
+          <md-input
+            v-model="keywords"
+            required
+            ref="focusable"
+            @keydown="removingChar($event)"
+          ></md-input>
+        </md-field>
+        <md-field v-if="isSelected">
+          <label>Address</label>
+          <md-input v-model="tempAddress" required></md-input>
         </md-field>
         <ul>
           <li v-if="notFound !== null" class="not-found">
             {{ this.notFound }}
           </li>
         </ul>
-        <ul v-if="results.length > 0">
+        <ul v-if="!isSelected">
           <li
             v-for="result in results"
             :key="result.id"
@@ -37,11 +46,16 @@
           >{{ service.name }}</md-radio
         >
       </div>
-
+      <md-card v-if="isSelected">
+        <md-button @click="edit()" class="md-icon-button md-primary edit"
+          ><md-icon>edit</md-icon></md-button
+        >
+        <md-card-content>
+          {{ des.cityName }}, {{ des.stateName }} - {{ des.postalCodeName
+          }}<br />{{ des.address }}
+        </md-card-content>
+      </md-card>
       <div class="action">
-        <md-button to="pickup-date" class="md-icon-button md-raised">
-          <md-icon>keyboard_arrow_left</md-icon>
-        </md-button>
         <md-button class="md-icon-button md-raised md-primary" type="submit">
           <md-icon>keyboard_arrow_right</md-icon>
         </md-button>
@@ -54,6 +68,7 @@ export default {
   name: "Destination",
   data: () => ({
     keywords: null,
+    tempAddress: null,
     results: [],
     isSelected: false,
     notFound: null,
@@ -67,12 +82,16 @@ export default {
       cityName: null,
       postalCode: null,
       postalCodeName: null,
+      address: null,
       accessories: ["bs"],
     },
   }),
   watch: {
     keywords(after, before) {
       this.search();
+    },
+    tempAddress(data) {
+      this.des.address = data;
     },
     results(data) {
       if (data.length === 0) {
@@ -92,6 +111,7 @@ export default {
         .get("search-city", { params: { keywords: this.keywords } })
         .then((res) => {
           this.results = res.data.data;
+          console.log("resluts: ", this.results);
         })
         .catch((err) => {
           console.log(err);
@@ -102,13 +122,11 @@ export default {
         this.isSelected = false;
       }
     },
+    edit() {
+      this.isSelected = false;
+      this.$refs.focusable.$el.focus();
+    },
     select(selected) {
-      this.keywords =
-        selected.citycode_city[0].name +
-        ", " +
-        selected.citycode_city[0].state.name +
-        " - " +
-        selected.postal_code;
       this.des.state = selected.citycode_city[0].state.id;
       this.des.stateName = selected.citycode_city[0].state.name;
       this.des.city = selected.citycode_city[0].id;
@@ -116,37 +134,31 @@ export default {
       this.des.postalCode = selected.id;
       this.des.postalCodeName = selected.postal_code;
       this.isSelected = true;
+      localStorage.setItem("dflug", this.isSelected);
     },
 
-    nextStep(prgValue) {
-      if (this.keywords) {
-        let storage = JSON.parse(localStorage.getItem("order"));
-        if (storage.des) {
-          for (let i = 0; i < storage.des.accessories.length; i++) {
-            if (
-              storage.des.accessories[i] === "bs" ||
-              storage.des.accessories[i] === "rs" ||
-              storage.des.accessories[i] === "sp"
-            ) {
-              storage.des.accessories.splice(i, 1);
-            }
+    nextStep() {
+      let storage = JSON.parse(localStorage.getItem("order"));
+      if (storage.des) {
+        for (let i = 0; i < storage.des.accessories.length; i++) {
+          if (
+            storage.des.accessories[i] === "bs" ||
+            storage.des.accessories[i] === "rs" ||
+            storage.des.accessories[i] === "sp"
+          ) {
+            storage.des.accessories.splice(i, 1);
           }
         }
-        storage.des = this.des;
-        localStorage.setItem("order", JSON.stringify(storage));
-        this.$router.push("delivery-services");
       }
+      storage.des = this.des;
+      localStorage.setItem("order", JSON.stringify(storage));
+      this.$router.push("delivery-services");
     },
 
     init() {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.des) {
-        this.keywords =
-          storage.des.cityName +
-          ", " +
-          storage.des.stateName +
-          " - " +
-          storage.des.postalCodeName;
+        this.isSelected = localStorage.getItem("sflug");
         this.des.country = storage.des.country;
         this.des.countryName = storage.des.countryName;
         this.des.state = storage.des.state;
@@ -156,6 +168,8 @@ export default {
         this.des.postalCode = storage.des.postalCode;
         this.des.postalCodeName = storage.des.postalCodeName;
         this.des.accessories = storage.des.accessories;
+        this.des.address = storage.des.address;
+        this.tempAddress = storage.des.address;
       }
     },
     getAccessories() {
@@ -220,6 +234,13 @@ export default {
   .options,
   .action {
     margin: 20px auto;
+  }
+  .md-card {
+    .edit {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
 }
 </style>
