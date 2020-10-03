@@ -13,7 +13,7 @@ class StateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function zia(){
-        return "working up to here!";
+        return State::all();
     }
     public function index()
     {
