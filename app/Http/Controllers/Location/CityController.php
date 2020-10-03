@@ -13,7 +13,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        
+        return City::all();
     }
 
     /**
@@ -82,9 +82,6 @@ class CityController extends Controller
     public function destroy(city $city)
     {
         //
-    }
-    public function all(){
-        return City::all();
     }
 
     public function search(Request $request, $id)

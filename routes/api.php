@@ -86,10 +86,10 @@ Route::group(['middleware' => 'auth:api'], function () {
   });
 });
 Route::group(['namespace' => 'Location'], function () {
-  Route::get('countries-with-states', 'CountryController@index');
-  Route::get('countries', 'CountryController@all');
-  Route::get('states', 'StateController@all');
-  Route::get('cities', 'CityController@all');
+  Route::get('countries-with-states', 'CountryController@all');
+  Route::get('countries', 'CountryController@index');
+  Route::get('states', 'StateController@index');
+  Route::get('cities', 'CityController@index');
   Route::get('zips', 'ZipController@all');
   Route::get('states/{id}', 'StateController@show');
   Route::get('cities/{id}', 'CityController@show');
@@ -131,4 +131,3 @@ Route::get("test", function () {
   return User::with('shipperWithAddress')->where('id', Auth::id())->first();
 });
 
-Route::get('zia', 'Location\StateController@zia');

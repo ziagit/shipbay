@@ -16,7 +16,7 @@ class StateController extends Controller
 
     public function index()
     {
-        //
+        return State::all();
     }
 
     /**
@@ -85,10 +85,6 @@ class StateController extends Controller
     {
         //
     }
-    public function all(){
-        return State::all();
-    }
-
 
     public function search(Request $request, $id)
     {

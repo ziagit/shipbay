@@ -13,8 +13,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countries = Country::with('stateList')->get();
-        return $countries;
+        return Country::all();
     }
 
     /**
@@ -83,6 +82,7 @@ class CountryController extends Controller
         //
     }
     public function all(){
-        return Country::all();
+        $countries = Country::with('stateList')->get();
+        return $countries;
     }
 }
