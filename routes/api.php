@@ -99,7 +99,6 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('search-state/{id}','StateController@search');
   Route::get('search-city/{id}','CityController@search');
 
-  Route::get('zia', 'StateController@zia');
 });
 Route::group(['namespace' => 'Order'], function () {
   Route::post('charge', 'CheckoutController@store');
@@ -130,4 +129,8 @@ Route::resource('tests', 'TestController');
 
 Route::get("test", function () {
   return User::with('shipperWithAddress')->where('id', Auth::id())->first();
+});
+
+Route::get('zia', function(){
+  return 'Working!';
 });
