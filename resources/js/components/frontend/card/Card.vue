@@ -220,6 +220,7 @@ export default {
     },
     components: {
         Spinner,
+        Snackbar
     },
 };
 </script>
