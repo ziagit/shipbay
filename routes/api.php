@@ -98,6 +98,8 @@ Route::group(['namespace' => 'Location'], function () {
 
   Route::get('search-state/{id}','StateController@search');
   Route::get('search-city/{id}','CityController@search');
+
+  Route::get('zia', 'StateController@zia');
 });
 Route::group(['namespace' => 'Order'], function () {
   Route::post('charge', 'CheckoutController@store');

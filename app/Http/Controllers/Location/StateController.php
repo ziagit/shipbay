@@ -12,6 +12,9 @@ class StateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function zia(){
+        return State::all();
+    }
     public function index()
     {
         //
