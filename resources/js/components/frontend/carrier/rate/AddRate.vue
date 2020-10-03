@@ -51,34 +51,34 @@
                             </td>
 
                             <td>
-                                <input v-model="form.min_rate" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.min_rate" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.k0_k1" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.k0_k1" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.k1_k2" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.k1_k2" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.k2_k3" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.k2_k3" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.k3_k4" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.k3_k4" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.k4_k5" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.k4_k5" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.k5_k10" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.k5_k10" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.above_10k" required placeholder="($)" />
+                                <input type="number" min="1" v-model="form.above_10k" required placeholder="($)" />
                             </td>
                             <td>
-                                <input v-model="form.fsc" required placeholder="(%)" />
+                                <input type="number" min="1" v-model="form.fsc" required placeholder="(%)" />
                             </td>
                             <td>
-                                <input v-model="form.transit_day" required placeholder="(day)" />
+                                <input type="number" min="1" v-model="form.transit_day" required placeholder="(day)" />
                             </td>
                         </tr>
                     </tbody>
@@ -133,7 +133,6 @@ export default {
     },
     methods: {
         getSrcStates(keywords) {
-            console.log("evnet fired ");
             axios
                 .get("search-state/" + this.countries[1].id, {
                     params: {
@@ -141,7 +140,7 @@ export default {
                     },
                 })
                 .then((res) => {
-                    console.log("resss: ", res.data.data);
+                    console.log("state search res: ", res.data.data);
                     this.srcStates = res.data.data;
                 })
                 .catch((err) => {

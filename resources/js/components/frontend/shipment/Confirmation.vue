@@ -12,23 +12,23 @@
                 <div class="item-head">Source</div>
                 <div class="item">
                     <div class="md-body-1">
-                        State: {{ shipment.src.state }}
+                        State: {{ shipment.src.stateName }}
                     </div>
                     <div class="md-body-1">
-                        City: {{ shipment.src.city }},
-                        {{ shipment.src.postalcode }}
+                        City: {{ shipment.src.cityName }},
+                        {{ shipment.src.postalCodeName }}
                     </div>
                     <div class="md-body-1">
                         Address: {{ shipment.src.address }}
                     </div>
                     <div class="md-body-1">
-                        Contact name: {{ shipment.shipper.senderName }}
+                        Contact name: {{ shipment.shipper.pickupName }}
                     </div>
                     <div class="md-body-1">
-                        Phone: {{ shipment.shipper.senderPhone }}
+                        Phone: {{ shipment.shipper.pickupPhone }}
                     </div>
                     <div class="md-body-1">
-                        Email: {{ shipment.shipper.senderEmail }}
+                        Email: {{ shipment.shipper.pickupEmail }}
                     </div>
                 </div>
             </div>
@@ -37,23 +37,23 @@
                 <div class="item-head">Destination</div>
                 <div class="item">
                     <div class="md-body-1">
-                        State: {{ shipment.des.state }}
+                        State: {{ shipment.des.stateName }}
                     </div>
                     <div class="md-body-1">
-                        City: {{ shipment.des.city }},
-                        {{ shipment.des.postalcode }}
+                        City: {{ shipment.des.cityName }},
+                        {{ shipment.des.postalCodeName }}
                     </div>
                     <div class="md-body-1">
                         Address: {{ shipment.des.address }}
                     </div>
                     <div class="md-body-1">
-                        Contact name: {{ shipment.shipper.receiverName }}
+                        Contact name: {{ shipment.shipper.deliveryName }}
                     </div>
                     <div class="md-body-1">
-                        Phone: {{ shipment.shipper.receiverPhone }}
+                        Phone: {{ shipment.shipper.deliveryPhone }}
                     </div>
                     <div class="md-body-1">
-                        Email: {{ shipment.shipper.receiverEmail }}
+                        Email: {{ shipment.shipper.deliveryEmail }}
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="md-body-1">
-                        Totoal dimentional weight: {{ totalWeight() }} Pounds
+                        Totoal weight: {{ totalWeight() }} Pounds
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
             <div>
                 <div class="item-head">Carrier</div>
                 <div class="item">
-                    <div class="md-body-1">Name: {{ shipment.carrier.company }}</div>
+                    <div class="md-body-1">Name: <span v-if="shipment.carrier.company !== 'null'">{{ shipment.carrier.company }}</span><span v-else>{{ shipment.carrier.last_name }}</span></div>
                     <div class="md-body-1">Phone: {{ shipment.carrier.phone }}</div>
                     <div class="md-body-1">
                         Cost:
@@ -86,7 +86,7 @@
             <div>
                 <div class="md-title">Billing details</div>
                 <div class="item-head">
-                    The following email is associated with your card
+                    The following email is attached to your card
                 </div>
                 <div class="item">
                     <div class="md-body-1">{{ shipment.billing.email }}</div>

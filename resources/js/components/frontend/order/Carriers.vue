@@ -40,10 +40,10 @@
                     <span v-else>{{carrier.last_name}}</span>
                     <span>{{carrier.first_name}}</span>
                     <p>
-                        <md-menu md-direction="top-start" :md-active.sync="toggleCarrierInfo">
+                        <md-menu md-direction="top-start" :md-active.sync="carrier.togal">
                             Read <span class="carrier-info" md-menu-trigger>more</span> about this carrier
                             <md-menu-content>
-                                <CarrierInfo :detail="carrier.detail" :name="carrier.company" />
+                                <CarrierInfo :lastName="carrier.last_name" :company="carrier.company" :detail="carrier.detail" />
                             </md-menu-content>
                         </md-menu>
                     </p>
@@ -51,7 +51,7 @@
                 <div class="list-action">
                     <div>
                         <span>${{Math.round(carrier.price)}}</span>
-                        <md-menu md-direction="top-start" :md-active.sync="priceToggle">
+                        <md-menu md-direction="top-start" :md-active.sync="carrier.togal">
                             <md-icon md-menu-trigger class="md-primary info">info</md-icon>
                             <md-menu-content>
                                 <CarrierRateInfo />
@@ -93,6 +93,13 @@ export default {
         toggleCarrierInfo: false,
         priceToggle: false,
     }),
+    watch: {
+        carriers(data) {
+            for (let i = 0; i < data.length; i++) {
+                data[i]['togal'] = false
+            }
+        }
+    },
     computed: {
         ...mapGetters({
             authenticated: "auth/authenticated",

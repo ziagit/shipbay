@@ -92,11 +92,12 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('cities', 'CityController@all');
   Route::get('zips', 'ZipController@all');
   Route::get('states/{id}', 'StateController@show');
-  Route::get('search-state/{countryId}','StateController@search');
   Route::get('cities/{id}', 'CityController@show');
-  Route::get('search-city/{stateId}','CityController@search');
   Route::get('citycodes/{id}', 'ZipController@show');
   Route::get('citycodes', 'ZipController@index');
+
+  Route::get('search-state/{id}','StateController@search');
+  Route::get('search-city/{id}','CityController@search');
 });
 Route::group(['namespace' => 'Order'], function () {
   Route::post('charge', 'CheckoutController@store');
