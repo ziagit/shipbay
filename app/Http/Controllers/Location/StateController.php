@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Location;
+
+use App\Country;
 use App\Http\Controllers\Controller;
 use App\state;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ class StateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function zia(){
-        return State::all();
+        return Country::all();
     }
     public function index()
     {
