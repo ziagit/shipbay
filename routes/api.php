@@ -131,6 +131,4 @@ Route::get("test", function () {
   return User::with('shipperWithAddress')->where('id', Auth::id())->first();
 });
 
-Route::get('zia', function(){
-  return 'Working!';
-});
+Route::get('zia', 'Location\StateController@zia');
