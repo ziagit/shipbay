@@ -75,6 +75,7 @@ import State from './components/backend/lookups/state/State'
 import City from './components/backend/lookups/city/City'
 import Zips from './components/backend/lookups/zip/Zips'
 import Accessories from './components/backend/lookups/accessories/Accessories'
+import RateRanges from './components/backend/lookups/rate-ranges/RateRanges'
 
 import CarrierList from './components/backend/carrier/CarrierList'
 import CarrierAccessories from './components/backend/carrier/accessories/CarrierAccessories'
@@ -261,6 +262,7 @@ export default new VueRouter({
                         { name: 'cities', path: 'cities', component: City },
                         { name: 'zips', path: 'zips', component: Zips },
                         { name: 'accessories', path: 'accessories', component: Accessories },
+                        { name: 'range', path: 'rate-ranges', component: RateRanges },
 
                         { name: 'carriers', path: 'carriers', component: CarrierList },
                         { name: 'rates', path: 'rates', component: Rates },

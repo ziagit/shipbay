@@ -1,5 +1,6 @@
 <?php
 
+use App\Raterange;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -77,6 +78,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource('carrier/accessories', 'AdminAccessoryListController');
     Route::delete('carrier/accessories/{cId}/{aId}', 'AdminAccessoryListController@destroy');
+
+    Route::resource('rate-ranges','AdminRaterangeController');
+    Route::get('search-rate-range','AdminRaterangeController@search');
+    Route::get('/range', function(){
+      $ranges = Raterange::all();
+      return $ranges[0]['value'];
+    });
 
     Route::post('upload-city', 'AdminImportFileController@importCity')->name('importCity');
     Route::post('upload-postalcode', 'AdminImportFileController@importPostalcode')->name('importPostalcode');

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Carrier;
+use App\Raterange;
 
 class Functions
 {
@@ -11,7 +12,7 @@ class Functions
         //find total dimentional_weight & source & destination cities in order table
         $selectedCarriers = array();
         $i = 0;
-
+        $ranges = Raterange::all();
         $order_src = $request->src['city'];
         $order_des = $request->des['city'];
         $dimentional_weight = 95;/* $this->calcDW($request->myItem['items']); */
@@ -31,25 +32,25 @@ class Functions
                 $cost = 0;
                 if (($rate_src === $order_src) && ($rate_des === $order_des)) {
                     switch ($dimentional_weight) {
-                        case ($dimentional_weight > 0 && $dimentional_weight <= 1000):
+                        case ($dimentional_weight > 0 && $dimentional_weight <= $ranges[0]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_0k_1k, $rate);
                             break;
-                        case ($dimentional_weight > 1000 && $dimentional_weight <= 2000):
+                        case ($dimentional_weight > $ranges[0]['value'] && $dimentional_weight <= $ranges[1]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_1k_2k, $rate);
                             break;
-                        case ($dimentional_weight > 2000 && $dimentional_weight <= 3000):
+                        case ($dimentional_weight > $ranges[1]['value'] && $dimentional_weight <= $ranges[2]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_2k_3k, $rate);
                             break;
-                        case ($dimentional_weight > 3000 && $dimentional_weight <= 4000):
+                        case ($dimentional_weight > $ranges[2]['value'] && $dimentional_weight <= $ranges[3]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_3k_4k, $rate);
                             break;
-                        case ($dimentional_weight > 4000 && $dimentional_weight <= 5000):
+                        case ($dimentional_weight > $ranges[3]['value'] && $dimentional_weight <= $ranges[4]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_4k_5k, $rate);
                             break;
-                        case ($dimentional_weight > 5000 && $dimentional_weight <= 10000):
+                        case ($dimentional_weight > $ranges[4]['value'] && $dimentional_weight <= $ranges[5]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_5k_10k, $rate);
                             break;
-                        case ($dimentional_weight > 10000):
+                        case ($dimentional_weight > $ranges[5]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->above_10k, $rate);
                             break;
                         default:

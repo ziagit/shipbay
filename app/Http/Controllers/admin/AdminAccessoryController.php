@@ -84,12 +84,12 @@ class AdminAccessoryController extends Controller
             'name' => 'required',
             'code' =>'required'
         ]);
-        $city = Accessory::find($id);
+        $accessory = Accessory::find($id);
 
-        $city->name = $request->name;
-        $city->code = $request->code;
+        $accessory->name = $request->name;
+        $accessory->code = $request->code;
 
-        $city->save();
+        $accessory->update();
         return response()->json(["message" => "Saved Successfully."], 200);
     }
 

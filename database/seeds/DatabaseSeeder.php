@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CarrierSeeder::class);
         $this->call(AddressSeeder::class);
         $this->call(AccessorySeeder::class);
+        $this->call(RaterangeSeeder::class);
         $this->call(RateSeeder::class);
         $this->call(ItemSeeder::class);
     }
