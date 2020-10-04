@@ -1,1 +1,25 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80.68 61.72"><defs><style>.cls-1,.cls-2{fill:#737373;}.cls-2,.cls-4{fill-rule:evenodd;}.cls-3{fill:#448aff;}.cls-4{fill:#fff;}</style></defs><path id="Shape-Copy" class="cls-1" d="M66,29.5A16.1,16.1,0,1,1,49.5,45.6,16.31,16.31,0,0,1,66,29.5Zm0,3A13.3,13.3,0,0,0,52.5,45.6a13.51,13.51,0,0,0,27,0C79.6,38.4,73.5,32.5,66,32.5Z" transform="translate(-1.82 -12.11)"/><path id="A" class="cls-2" d="M13.38,47.07l2.75-12h4.63l2.65,12H21l-.49-2.17H16.23l-.39,2.17ZM18,37l-1.18,5.71h3.25L18.89,37Z" transform="translate(-1.82 -12.11)"/><path id="Shape-Copy-2" data-name="Shape-Copy" class="cls-1" d="M18.32,25a16.31,16.31,0,0,1,16.5,16.1,16.31,16.31,0,0,1-16.5,16.1,16.31,16.31,0,0,1-16.5-16.1A16.31,16.31,0,0,1,18.32,25Zm0,3a13.3,13.3,0,0,0-13.5,13.1,13.36,13.36,0,0,0,13.5,13.1,13.3,13.3,0,0,0,13.5-13.1C31.92,33.86,25.82,28,18.32,28Z" transform="translate(-1.82 -12.11)"/><circle class="cls-1" cx="16.57" cy="49.25" r="1.98"/><circle class="cls-1" cx="18.43" cy="53.7" r="1.98"/><circle class="cls-1" cx="22.1" cy="57.75" r="1.98"/><circle class="cls-1" cx="28.02" cy="59.74" r="1.98"/><circle class="cls-1" cx="33.95" cy="57.75" r="1.98"/><circle class="cls-1" cx="37.9" cy="53.35" r="1.98"/><circle class="cls-1" cx="39.67" cy="48.56" r="1.98"/><circle class="cls-1" cx="39.97" cy="43.73" r="1.98"/><circle class="cls-1" cx="39.88" cy="38.98" r="1.98"/><circle class="cls-1" cx="39.97" cy="34.24" r="1.98"/><circle class="cls-1" cx="39.97" cy="29.16" r="1.98"/><circle class="cls-1" cx="39.97" cy="24.09" r="1.98"/><circle class="cls-1" cx="39.88" cy="19.16" r="1.98"/><circle class="cls-1" cx="39.97" cy="14.5" r="1.98"/><circle class="cls-1" cx="41.1" cy="9.75" r="1.98"/><circle class="cls-1" cx="43.71" cy="5.62" r="1.98"/><circle class="cls-1" cx="47.57" cy="2.79" r="1.98"/><circle class="cls-1" cx="53.12" cy="1.98" r="1.98"/><circle class="cls-1" cx="57.46" cy="3.64" r="1.98"/><circle class="cls-1" cx="60.73" cy="6.88" r="1.98"/><circle class="cls-1" cx="63.1" cy="12.26" r="1.98"/><path id="Shape" class="cls-3" d="M66.06,35.72A10.11,10.11,0,1,0,76.24,45.83,10.12,10.12,0,0,0,66.06,35.72Z" transform="translate(-1.82 -12.11)"/><path id="B" class="cls-4" d="M63.4,41.8h3.36a3.34,3.34,0,0,1,2,.56,2.15,2.15,0,0,1,.7,1.75,2.45,2.45,0,0,1-.21,1.12,2.42,2.42,0,0,1-.7.77,2,2,0,0,1,.84.69A2.81,2.81,0,0,1,69,49.77a3.06,3.06,0,0,1-2,.63H63.54V41.8Zm3.29,5H65.08v2.1h1.61a1.49,1.49,0,0,0,.84-.21c.21-.14.28-.42.28-.84C67.81,47.11,67.46,46.76,66.69,46.76Zm-.07-3.49H65.08v2h1.54c.63,0,1-.35,1-1S67.32,43.27,66.62,43.27Z" transform="translate(-1.82 -12.11)"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 85 85" style="enable-background:new 0 0 85 85;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#448AFF;}
+	.st1{fill:#737373;}
+	.st2{fill:#FFFFFF;}
+	.st3{font-family:'MyriadPro-Regular';}
+	.st4{font-size:28.5981px;}
+</style>
+<desc>Created with Sketch.</desc>
+<g>
+	<path id="Shape" class="st0" d="M67.3,30C58.8,30,52,36.8,52,45.2s6.8,15.2,15.3,15.2s15.3-6.8,15.3-15.2S75.7,30,67.3,30z"/>
+	<path id="Shape_1_" class="st1" d="M30.9,73.4c7.5,0,13.6-7.1,13.6-15.8V27.9c0-6.7,4.4-12.2,10.1-12.2c5.2,0,9.4,4.8,10,10.8h3.4
+		c-0.7-8-6.5-14.2-13.5-14.2c-7.4,0-13.5,7-13.5,15.7v29.7c0,6.7-4.6,12.4-10.2,12.4c-5.2,0-9.4-4.8-10-10.8h-3.4
+		C18.1,67.2,23.9,73.4,30.9,73.4z"/>
+	<text transform="matrix(1 0 0 1 61.8076 55.2324)" class="st2 st3 st4">?</text>
+	<path id="Shape-Copy_1_" class="st1" d="M18.7,23c9.1,0,16.5,7.2,16.5,16.1c0,8.9-7.4,16.1-16.5,16.1C9.6,55.1,2.2,48,2.2,39.1
+		S9.6,23,18.7,23z M18.7,26c-7.5,0-13.5,5.9-13.5,13.1s6.1,13.1,13.5,13.1c7.5,0,13.5-5.9,13.5-13.1C32.3,31.9,26.2,26,18.7,26z"/>
+	<path class="st1" d="M18.6,30c-4.1,0-7.5,3.4-7.5,7.5c0,1.8,0.7,3.5,1.8,4.8l5.7,6.7l5.7-6.7c1.1-1.3,1.8-3,1.8-4.8
+		C26.1,33.3,22.8,30,18.6,30z M18.6,40.3c-1.7,0-3.1-1.4-3.1-3.1c0-1.7,1.4-3.1,3.1-3.1c1.7,0,3.1,1.4,3.1,3.1
+		C21.7,38.9,20.3,40.3,18.6,40.3z"/>
+</g>
+</svg>
