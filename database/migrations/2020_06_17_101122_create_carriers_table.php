@@ -19,9 +19,10 @@ class CreateCarriersTable extends Migration
             $table->string('last_name');
             $table->string('company')->nullable();
             $table->string('website')->nullable();
-            $table->string('phone')->unique();
             $table->text('detail')->nullable();
             $table->string('logo')->nullable();
+            $table->unsignedInteger('contact_id');
+            $table->unsignedInteger('address_id');
             $table->unsignedInteger('user_id');
 
             $table->timestamps();

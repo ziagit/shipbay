@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Location;
 use App\Http\Controllers\Controller;
 use App\City;
+use App\Citycode;
+use App\State;
 use Illuminate\Http\Request;
 class CityController extends Controller
 {
@@ -92,4 +94,16 @@ class CityController extends Controller
         ->paginate(5);
         return $cities;
     }
+    public function searchCityState(Request $request, $id)
+    {
+        $keywords = $request->keywords;
+        $citycodes = City::where('name', 'like', '%' . $keywords . '%')
+            ->orWhereHas('state', function ($q) use ($keywords, $id) {
+                $q->where('name', 'like', '%' . $keywords . '%');
+            })
+            ->with('state')
+            ->paginate(5);
+        return $citycodes;
+    }
+
 }

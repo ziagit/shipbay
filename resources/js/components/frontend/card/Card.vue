@@ -10,7 +10,7 @@
                     <div class="alert-success">{{successMessage}}</div>
                     <br />
                     <a v-if="authenticated && user.role[0].name === 'shipper'" href="/#/shipper/card">Continue to payment</a>
-                    <a v-else href="/#/shipment/payment-details" target="_blank">Continue your order</a>
+                    <md-button class="md-primay" v-else @click="paymentPage()">Continue your order</md-button>
                 </div>
                 <div class="alert-error" v-if="errorMessage">{{successMessage}}</div>
                 <div v-if="parymentTogal" class="billing-details">
@@ -78,8 +78,8 @@ import {
     mapGetters,
     mapActions
 } from "vuex";
-/* var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
-var elements = stripe.elements(); */
+var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
+var elements = stripe.elements();
 var style = {
     base: {
         color: "#32325d",
@@ -198,7 +198,6 @@ export default {
                         this.order.billing.email = res.data["email"];
                         localStorage.setItem("order", JSON.stringify(this.order));
                     }
-
                     this.form.email = this.form.address = this.form.city = this.form.postalcode = this.form.state = this.form.name = null;
                     this.dataLoading = false;
                     this.parymentTogal = false;
@@ -212,8 +211,8 @@ export default {
                     console.log(err);
                 });
         },
-        reloadPage() {
-            window.location.reload()
+        paymentPage() {
+            this.$router.push("/shipment/payment-details")
         }
     },
     created() {

@@ -14,10 +14,10 @@ class ShipperSeeder extends Seeder
     {
         Shipper::truncate();
         $shipper = [
-            'first_name' => 'Shipper 1',
-            'last_name' => 'Shipper 1 last name',
-            'address' => 'House no. 13, 25th st',
-            'phone' => '0775059616',
+            'first_name' => 'Ziak',
+            'last_name' => 'KJiow',
+            'address_id'=> 1,
+            'contact_id' => 1,
             'user_id' => 2,
         ];
         Shipper::insert($shipper);

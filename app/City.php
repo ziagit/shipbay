@@ -16,7 +16,7 @@ class City extends Model
     }
 
     public function citycodes(){
-        return $this->belongsToMany(Citycode::class);
+        return $this->hasMany(Citycode::class);
     }
  
     public function address(){

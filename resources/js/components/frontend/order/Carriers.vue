@@ -108,7 +108,7 @@ export default {
     },
     methods: {
         getCarriers() {
-            Axios.post("calculate-rate", JSON.parse(localStorage.getItem("order")))
+            Axios.post("carriers-rate", JSON.parse(localStorage.getItem("order")))
                 .then((res) => {
                     console.log("carriers: ", res.data);
                     if (res.data.length === 0) {

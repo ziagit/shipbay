@@ -66,14 +66,15 @@ import ShipperOrders from './components/frontend/shipper/orders/ShipperOrders'
 import ShipperOrderDetails from './components/frontend/shipper/orders/ShipperOrderDetails'
 import ShipperCard from './components/frontend/shipper/card-details/ShipperCard'
 
+//backend
 import Admin from './components/backend/Admin'
 import Dashboard from './components/backend/Dashboard'
 import Comapany from './components/backend/company/Company'
-//backend
 import Country from './components/backend/lookups/country/Country'
 import State from './components/backend/lookups/state/State'
 import City from './components/backend/lookups/city/City'
 import Zips from './components/backend/lookups/zip/Zips'
+import Addresses from './components/backend/lookups/addresses/Addresses'
 import Accessories from './components/backend/lookups/accessories/Accessories'
 import RateRanges from './components/backend/lookups/rate-ranges/RateRanges'
 
@@ -261,6 +262,7 @@ export default new VueRouter({
                         { name: 'states', path: 'states', component: State },
                         { name: 'cities', path: 'cities', component: City },
                         { name: 'zips', path: 'zips', component: Zips },
+                        { name: 'addresses', path: 'addresses', component: Addresses },
                         { name: 'accessories', path: 'accessories', component: Accessories },
                         { name: 'range', path: 'rate-ranges', component: RateRanges },
 

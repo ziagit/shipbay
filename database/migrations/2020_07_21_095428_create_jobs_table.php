@@ -15,12 +15,10 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
-            $table->integer('src_address_id');
-            $table->integer('des_address_id');
-            $table->integer('shipper_id');
-            $table->integer('carrier_id');
-            $table->string('jobstatus_id')->default(1);
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('shipper_id');
+            $table->unsignedInteger('carrier_id');
+            $table->unsignedInteger('jobstatus_id')->default(1);
             $table->timestamps();
         });
     }

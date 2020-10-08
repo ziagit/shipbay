@@ -15,8 +15,8 @@ class CreateCityRateTable extends Migration
     {
         Schema::create('city_rate', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('rate_id');
+            $table->unsignedInteger('city_id');
+            $table->unsignedInteger('rate_id');
             $table->string('type');
             $table->timestamps();
         });

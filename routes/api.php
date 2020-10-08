@@ -59,6 +59,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('search-city', 'AdminCityController@search');
     Route::resource('zips', 'AdminZipController');
     Route::get('search-zip', 'AdminZipController@search');
+    Route::resource('addresses','AdminAddressController');
+    Route::get('search-address','AdminAddressController@search');
+
     Route::resource('users', 'AdminUserController');
     Route::get('search-user', 'AdminUserController@search');
     Route::resource('carriers', 'AdminCarrierController');
@@ -81,10 +84,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource('rate-ranges','AdminRaterangeController');
     Route::get('search-rate-range','AdminRaterangeController@search');
-    Route::get('/range', function(){
-      $ranges = Raterange::all();
-      return $ranges[0]['value'];
-    });
 
     Route::post('upload-city', 'AdminImportFileController@importCity')->name('importCity');
     Route::post('upload-postalcode', 'AdminImportFileController@importPostalcode')->name('importPostalcode');
@@ -92,6 +91,26 @@ Route::group(['middleware' => 'auth:api'], function () {
   Route::group(['namespace' => 'Order'], function () {
     Route::post('charge-customer', 'CheckoutController@chargeCustomer');
   });
+});
+
+Route::group(['namespace' => 'Order'], function () {
+  Route::post('charge', 'CheckoutController@store');
+  Route::get('payment-status/{orderId}', 'CheckoutController@checkPayment');
+  Route::get("check-payment/{id}", 'CheckoutController@checkPayment');
+  Route::get('searching', 'OrderController@queryBuilder');
+
+  Route::get('location-type', 'OrderController@locationType');
+  Route::get('pick-services', 'OrderController@pickServices');
+  Route::get('delivery-services', 'OrderController@deliveryServices');
+  Route::get('pick-date', 'OrderController@pickDate');
+  Route::get('item-type', 'OrderController@itemType');
+  Route::get('item-condition', 'OrderController@itemCondition');
+
+  Route::post('carriers-rate', 'CalculatorController@calculator');
+
+  Route::post('confirm', 'ShipmentController@store');
+  Route::get('shipment-details/{id}', 'ShipmentController@show');
+  Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
 });
 Route::group(['namespace' => 'Location'], function () {
   Route::get('countries-with-states', 'CountryController@all');
@@ -106,29 +125,12 @@ Route::group(['namespace' => 'Location'], function () {
 
   Route::get('search-state/{id}','StateController@search');
   Route::get('search-city/{id}','CityController@search');
+  Route::get('search-city-state/{id}','CityController@searchCityState');
+  Route::get('search-zip/{id}','ZipController@search');
+  Route::get('search-address/{id}','AddressController@search');
+  Route::get('search-address-zip/{id}','AddressController@searchAddressZip');
 
 });
-Route::group(['namespace' => 'Order'], function () {
-  Route::post('charge', 'CheckoutController@store');
-  Route::get('payment-status/{orderId}', 'CheckoutController@checkPayment');
-  Route::get("check-payment/{id}", 'CheckoutController@checkPayment');
-  Route::get('search-city', 'OrderController@search');
-  Route::get('searching', 'OrderController@queryBuilder');
-
-  Route::get('location-type', 'OrderController@locationType');
-  Route::get('pick-services', 'OrderController@pickServices');
-  Route::get('delivery-services', 'OrderController@deliveryServices');
-  Route::get('pick-date', 'OrderController@pickDate');
-  Route::get('item-type', 'OrderController@itemType');
-  Route::get('item-condition', 'OrderController@itemCondition');
-
-  Route::post('calculate-rate', 'CalculatorController@calculator');
-
-  Route::post('confirm', 'ShipmentController@store');
-  Route::get('shipment-details/{id}', 'ShipmentController@show');
-  Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
-});
-
 Route::get("unauthorized", function () {
   return response()->json(['message' => 'You are unauthorized!'], 401);
 })->name('unauthorized');

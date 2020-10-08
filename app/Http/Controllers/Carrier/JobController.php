@@ -25,7 +25,7 @@ class JobController extends Controller
     {
         
         $carrierId = User::with('carrier')->find(Auth::id())->carrier->id;
-        $jobs = Job::with('shipment', 'jobstatus')->where('carrier_id', $carrierId)->orderBy('id','DESC')->get();
+        $jobs = Job::with('orderDetail', 'jobstatus')->where('carrier_id', $carrierId)->orderBy('id','DESC')->get();
         return response()->json($jobs);
     }
 
@@ -58,7 +58,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $jobs = Job::with('shipment', 'jobstatus')->find($id);
+        $jobs = Job::with('orderDetail', 'jobstatus')->find($id);
         return $jobs;
     }
 

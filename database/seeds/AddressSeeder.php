@@ -14,13 +14,41 @@ class AddressSeeder extends Seeder
     {
         Address::truncate();
         $address =  [
-            'address' => 'some test address',
-            'country_id' => 1,
-            'state_id' => 1,
-            'city_id' => 1,
-            'citycode' => 10001,
-            'carrier_id' => 1,
-            'shipper_id' => 1
+            [
+                'name' => "101 100 Auburn Meadows MR SE Auburn Bay",
+                'country_id' => 2,
+                'state_id' => 1,
+                'city_id' => 1,
+                'zip_id' => 1,
+            ],
+            [
+                'name' => "Cavan",
+                'country_id' => 2,
+                'state_id' => 1,
+                'city_id' => 1,
+                'zip_id' => 1,
+            ],
+            [
+                'name' => "Bathurst Line Line",
+                'country_id' => 2,
+                'state_id' => 1,
+                'city_id' => 1,
+                'zip_id' => 1,
+            ],
+            [
+                'name' => "Connors Cove",
+                'country_id' => 2,
+                'state_id' => 1,
+                'city_id' => 1,
+                'zip_id' => 1,
+            ],
+            [
+                'name' => "HARBOUR",
+                'country_id' => 2,
+                'state_id' => 1,
+                'city_id' => 1,
+                'zip_id' => 1,
+            ]
         ];
         Address::insert($address);
     }

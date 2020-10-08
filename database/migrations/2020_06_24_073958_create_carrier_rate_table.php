@@ -15,8 +15,8 @@ class CreateCarrierRateTable extends Migration
     {
         Schema::create('carrier_rate', function (Blueprint $table) {
             $table->id();
-            $table->integer('carrier_id');
-            $table->integer('rate_id');
+            $table->unsignedInteger('carrier_id');
+            $table->unsignedInteger('rate_id');
             $table->timestamps();
         });
     }

@@ -87,4 +87,12 @@ class ZipController extends Controller
     public function all(){
         return Citycode::all();
     }
+    public function search(Request $request, $id)
+    {
+        $keywords = $request->keywords;
+        $results = Citycode::where('address_id',$id)
+        ->where('postal_code', 'like', '%' . $keywords . '%')
+        ->paginate(5);
+        return $results;
+    }
 }

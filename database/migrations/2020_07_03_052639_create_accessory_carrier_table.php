@@ -15,8 +15,8 @@ class CreateAccessoryCarrierTable extends Migration
     {
         Schema::create('accessory_carrier', function (Blueprint $table) {
             $table->id();
-            $table->integer('accessory_id');
-            $table->integer('carrier_id');
+            $table->unsignedInteger('accessory_id');
+            $table->unsignedInteger('carrier_id');
             $table->double('src_value');
             $table->double('des_value');
             $table->timestamps();

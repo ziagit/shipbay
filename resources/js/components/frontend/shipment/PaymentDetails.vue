@@ -43,7 +43,6 @@
             </div>
         </md-card-actions>
     </md-card>
-
     <div class="action">
         <md-button @click="prevStep()" class="md-icon-button md-raised">
             <md-icon>keyboard_arrow_left</md-icon>
@@ -132,6 +131,9 @@ export default {
         this.checkPayment();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
         console.log("in payment", JSON.parse(localStorage.getItem("order")));
+    },
+    activated() {
+        window.location.reload(true)
     },
     components: {
         Spinner,

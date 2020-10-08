@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
-use App\Address;
 use App\Shipper;
 use App\Item;
 use App\Order;
@@ -11,7 +10,8 @@ use App\Accessory;
 use App\Carrier;
 use App\Job;
 use App\Notifications\JobCreated;
-use App\Shipmentaddress;
+use App\Customeraddress;
+use App\Contact;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,14 +46,12 @@ class ShipmentController extends Controller
      */
     public function store(Request $request)
     {
-        $addressId = $this->storeAddress($request);
-
         $shipperId = $this->storeShipper($request->shipper);
 
         if ($shipperId) {
-            $orderId = $this->storeOrderItem($request, $shipperId, $addressId);
+            $orderId = $this->storeOrder($request, $shipperId);
 
-            $job = $this->createNewJob($orderId, $addressId, $shipperId, $request->carrier);
+            $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
 
             $user  = Carrier::with('user')->find($request->carrier['id'])->user;
             $admin = User::find(1);
@@ -64,25 +62,11 @@ class ShipmentController extends Controller
         }
         return response()->json(['message' => 'Shipper not found!'], 404);
     }
-    public function storeOrderItem($request, $shipperId, $addressId)
+    public function storeOrder($request, $shipperId)
     {
-        $items = $request->myItem['items'];
-        $data = array();
-        $itemId = array();
-        foreach ($items as $item) {
-            if (!empty($item)) {
-                $data = [
-                    'description' => $item['description'],
-                    'dimentional_weight' => $this->calculateDW($item),
-                    'itemtype_id' => $item['type'],
-                    'deliveryclass_id' => 1
-                ];
-            }
-            $id = Item::insertGetId($data);
-            array_push($itemId, $id);
-        }
-
-        //saving order
+        $contactId = $this->storeContact($request);
+        $addressId = $this->storeAddress($request);
+        
         $order = Order::where('uniqid', $request->id)->first();
         $order->pickup_date = $request->pickDate;
         $order->src_appointment_time = $request->src['appointmentTime'];
@@ -91,18 +75,17 @@ class ShipmentController extends Controller
         $order->max_temperature = $request->myItem['maxTemp'];
         $order->cost = $request->carrier['price'];
         $order->estimated_value = $request->shipper['estimatedValue'];
+        $order->instructions = $request->shipper['instructions'];
+
         $order->shipper_id = $shipperId;
 
         $order->update();
-
+        $itemId = $this->storeItem($request);
         $order->items()->attach($itemId);
 
-        $src_address = Shipmentaddress::find($addressId[0]);
-        $order->shipmentaddresses()->attach($src_address, ['type' => 'src']);
-
-        $des_address = Shipmentaddress::find($addressId[1]);
-        $order->shipmentaddresses()->attach($des_address, ['type' => 'des']);
-
+        $order->contacts()->attach($contactId);
+        $order->addresses()->attach($addressId);
+        
         foreach ($request->src['accessories'] as $accessory) {
             if (!empty($accessory)) {
                 $src_accessory = Accessory::where('code', $accessory)->get();
@@ -123,40 +106,66 @@ class ShipmentController extends Controller
         }
         return $order->id;
     }
-
+    public function storeItem($request){
+        $items = $request->myItem['items'];
+        $data = array();
+        $itemId = array();
+        foreach ($items as $item) {
+            if (!empty($item)) {
+                $data = [
+                    'description' => $item['description'],
+                    'dimentional_weight' => $this->calculateDW($item),
+                    'itemtype_id' => $item['type'],
+                    'deliveryclass_id' => 1
+                ];
+            }
+            $id = Item::insertGetId($data);
+            array_push($itemId, $id);
+        }
+        return $itemId;
+    }
     public function storeAddress($request)
     {
         $addressId = array();
         $srcAddress = [
-            'instructions' => $request->shipper['instructions'],
-            'name' => $request->shipper['pickupName'],
-            'phone' => $request->shipper['pickupPhone'],
-            'email' => $request->shipper['pickupEmail'],
             'country_id' => $request->src['country'],
-            'address' => $request->src['address'],
-
             'state_id' => $request->src['state'],
             'city_id' => $request->src['city'],
-            'citycode_id' => $request->src['postalCode'],
+            'zip_id' => $request->src['postalCode'],
+            'address_id' => $request->src['address'],
         ];
-        $srcId = Shipmentaddress::insertGetId($srcAddress);
+        $srcId = Customeraddress::insertGetId($srcAddress);
         array_push($addressId, $srcId);
 
         $desAddress = [
-            'instructions' => $request->shipper['instructions'],
-            'name' => $request->shipper['deliveryName'],
-            'phone' => $request->shipper['deliveryPhone'],
-            'email' => $request->shipper['deliveryEmail'],
             'country_id' => $request->des['country'],
-            'address' => $request->des['address'],
-
             'state_id' => $request->des['state'],
             'city_id' => $request->des['city'],
-            'citycode_id' => $request->des['postalCode'],
+            'zip_id' => $request->des['postalCode'],
+            'address_id' => $request->des['address'],
         ];
-        $desId = Shipmentaddress::insertGetId($desAddress);
+        $desId = Customeraddress::insertGetId($desAddress);
         array_push($addressId, $desId);
         return $addressId;
+    }
+    public function storeContact($request){
+        $contactId = array();
+        $srcContact = [
+            'name' => $request->shipper['pickupName'],
+            'phone' => $request->shipper['pickupPhone'],
+            'email' => $request->shipper['pickupEmail']
+        ];
+        $srcId = Contact::insertGetId($srcContact);
+        array_push($contactId, $srcId);
+
+        $desContact = [
+            'name' => $request->shipper['deliveryName'],
+            'phone' => $request->shipper['deliveryPhone'],
+            'email' => $request->shipper['deliveryEmail']
+        ];
+        $desId = Contact::insertGetId($desContact);
+        array_push($contactId, $desId);
+        return $contactId;
     }
 
     public function storeShipper($shipperData)
@@ -176,12 +185,10 @@ class ShipmentController extends Controller
         return $shipper->id;
     }
 
-    public function createNewJob($order, $address, $shipperId, $carrier)
+    public function createNewJob($order, $shipperId, $carrier)
     {
         $job = new Job();
         $job->order_id = $order;
-        $job->src_address_id = $address[0];
-        $job->des_address_id = $address[1];
         $job->shipper_id = $shipperId;
         $job->carrier_id = $carrier['id'];
         $job->save();

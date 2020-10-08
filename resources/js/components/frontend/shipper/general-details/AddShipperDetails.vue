@@ -1,207 +1,303 @@
 <template>
-  <div class="add-shipper">
-    <md-card class="no-shadow-bordered">
-      <md-card-header>
-        <div class="md-title">Add shipper details</div>
-        <md-button @click="$router.back()" class="md-icon-button close-btn">
-          <md-icon>close</md-icon>
-          <md-tooltip>Cancel</md-tooltip>
-        </md-button>
-      </md-card-header>
+<div>
+    <form @submit.prevent="submit" enctype="multipart/form-data">
+        <md-card class="main-card" v-touch:tap="tapHandler">
+            <div class="inputs-container">
+                <div class="row">
+                    <md-field>
+                        <label for="">First name</label>
+                        <md-input type="text" v-model="form.first_name" required ref="focusable"></md-input>
+                    </md-field>
+                    <md-field>
+                        <label for="">Last name</label>
+                        <md-input type="text" v-model="form.last_name" required></md-input>
+                    </md-field>
+                    <md-field>
+                        <label for="">Phone</label>
+                        <md-input type="tel" v-model="form.phone" required></md-input>
+                    </md-field>
+                </div>
+                <div class="row">
+                    <md-field>
+                        <label for="">Select country</label>
+                        <md-select v-model="form.country" name="country" id="country">
+                            <md-option v-for="country in countries" :value="country.id" :key="country.id">{{ country.name }}</md-option>
+                        </md-select>
+                        <input class="hidden-input" v-model="form.country" required />
+                    </md-field>
 
-      <md-card-content>
-        <form @submit.prevent="submit">
-          <div class="row">
-            <md-field>
-              <label>First name</label>
-              <md-input v-model="form.firstName" required ref="focusable"></md-input>
-            </md-field>
-            <md-field>
-              <label>Last name</label>
-              <md-input v-model="form.lastName" required></md-input>
-            </md-field>
-            <md-field>
-              <label>Address</label>
-              <md-input v-model="form.address" required></md-input>
-            </md-field>
-            <md-field>
-              <label>Phone</label>
-              <md-input v-model="form.phone" required></md-input>
-            </md-field>
-          </div>
-
-          <div class="row">
-            <md-field>
-              <md-select
-                v-model="form.country"
-                name="country"
-                id="country"
-                placeholder="Country"
-                @input="states($event)"
-              >
-                <md-option
-                  v-for="country in countryList"
-                  :value="country.id"
-                  :key="country.id"
-                >{{country.name}}</md-option>
-              </md-select>
-              <input class="hidden-input" v-model="form.country" required />
-            </md-field>
-            <md-field v-if="stateList != null">
-              <md-select
-                v-model="form.state"
-                name="state"
-                id="state"
-                placeholder="State"
-                @input="cities($event)"
-              >
-                <md-option
-                  v-for="state in stateList"
-                  :key="state.id"
-                  :value="state.id"
-                >{{state.name}}</md-option>
-              </md-select>
-              <input class="hidden-input" v-model="form.state" required />
-            </md-field>
-            <md-field v-if="cityList != null">
-              <md-select
-                v-model="form.city"
-                name="city"
-                id="city"
-                placeholder="City"
-              >
-                <md-option v-for="city in cityList" :key="city.id" :value="city.id">{{city.name}}</md-option>
-              </md-select>
-              <input class="hidden-input" v-model="form.city" required />
-            </md-field>
-            <md-field>
-              <label>Postalcode</label>
-              <md-input v-model="form.citycode" required></md-input>
-            </md-field>
-          </div>
-          <md-button type="submit">Save</md-button>
-        </form>
-      </md-card-content>
-    </md-card>
-    <md-snackbar
-      class="required-feild-error"
-      :md-position="snackbar.position"
-      :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration"
-      :md-active.sync="snackbar.show"
-      md-persistent
-    >
-      <span>{{snackbar.message}}</span>
-      <span style="color:red">Status: {{snackbar.errorStatus}}</span>
-    </md-snackbar>
-  </div>
+                    <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
+                        <md-field>
+                            <label for="">Search state</label>
+                            <md-input v-model="sk" required v-touch:tap="tapHandler" md-menu-trigger></md-input>
+                        </md-field>
+                        <md-menu-content>
+                            <div v-if="states">
+                                <md-menu-item v-if="states.length === 0">Not found</md-menu-item>
+                            </div>
+                            <div v-else>
+                                <md-menu-item>Type</md-menu-item>
+                            </div>
+                            <md-menu-item v-for="list in states" :key="list.id" @click="selectState(list)">{{ list.name }}</md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
+                        <md-field>
+                            <label for="">Search city</label>
+                            <md-input v-model="ck" required md-menu-trigger></md-input>
+                        </md-field>
+                        <md-menu-content>
+                            <div v-if="cities">
+                                <md-menu-item v-if="cities.length === 0">Not found</md-menu-item>
+                            </div>
+                            <div v-else>
+                                <md-menu-item>Type</md-menu-item>
+                            </div>
+                            <md-menu-item v-for="list in cities" :key="list.id" @click="selectCity(list)">{{ list.name }}</md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+                <div class="row">
+                    <md-menu md-direction="bottom-start" class="zip-address" md-align-trigger md-dense>
+                        <md-field>
+                            <label for="">Search address</label>
+                            <md-input v-model="ak" required md-menu-trigger></md-input>
+                        </md-field>
+                        <md-menu-content>
+                            <div v-if="addresses">
+                                <md-menu-item v-if="addresses.length === 0">Not found</md-menu-item>
+                            </div>
+                            <div v-else>
+                                <md-menu-item>Type</md-menu-item>
+                            </div>
+                            <md-menu-item v-for="list in addresses" :key="list.id" @click="selectAddress(list)">{{ list.name }}</md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <md-menu md-direction="bottom-start" class="zip-address" md-align-trigger md-dense>
+                        <md-field>
+                            <label for="">Search postal code</label>
+                            <md-input v-model="zk" required md-menu-trigger></md-input>
+                        </md-field>
+                        <md-menu-content>
+                            <div v-if="zips">
+                                <md-menu-item v-if="zips.length === 0">Not found</md-menu-item>
+                            </div>
+                            <div v-else>
+                                <md-menu-item>Type</md-menu-item>
+                            </div>
+                            <md-menu-item v-for="list in zips" :key="list.id" @click="selectZip(list)">{{ list.postal_code }}</md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+            <md-button type="submit" class="md-primary md-small-fab">Save</md-button>
+        </md-card>
+    </form>
+    <Snackbar :data="snackbar" />
+</div>
 </template>
+
 <script>
 import axios from "axios";
+import Snackbar from "../../shared/Snackbar";
 export default {
-  name: "ShipperGeneralInfo",
-  data: () => ({
-    form: {
-      firstName: null,
-      lastName: null,
-      address: null,
-      city: null,
-      state: null,
-      citycode: null,
-      country: null,
-      phone: null,
+    name: "AddGeneralInfo",
+    data: () => ({
+        form: {
+            first_name: null,
+            last_name: null,
+            address: null,
+            country: null,
+            state: null,
+            city: null,
+            postal_code: null,
+            address: null,
+            phone: null,
+            website: null,
+            company: null,
+            detail: null,
+        },
+        countries: null,
+        states: null,
+        cities: null,
+        zips: null,
+        addresses: null,
+        hasCompany: false,
+        sk: null,
+        ck: null,
+        zk: null,
+        ak: null,
+        snackbar: {
+            show: false,
+            message: null,
+            statusCode: null,
+        },
+    }),
+    watch: {
+        sk(after, before) {
+            this.getState()
+        },
+        ck(after, before) {
+            this.getCity()
+        },
+        zk(after, before) {
+            this.getZip()
+        },
+        ak(after, before) {
+            this.getAddress()
+        },
     },
-    countryList: null,
-    stateList: null,
-    cityList: null,
-    citycodeList: null,
-    snackbar: {
-      show: false,
-      position: "center",
-      duration: 5000,
-      isInfinity: false,
-      message: null,
-      errorStatus: null,
+    methods: {
+        getState() {
+            axios
+                .get("search-state/" + this.form.country, {
+                    params: {
+                        keywords: this.sk,
+                    },
+                })
+                .then((res) => {
+                    console.log("states: ", res.data.data);
+                    this.states = res.data.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        getCity() {
+            axios
+                .get("search-city/" + this.form.state, {
+                    params: {
+                        keywords: this.ck,
+                    },
+                })
+                .then((res) => {
+                    console.log("cities: ", res.data.data);
+                    this.cities = res.data.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+
+        getAddress() {
+            axios
+                .get("search-address/" + this.form.city, {
+                    params: {
+                        keywords: this.ak,
+                    },
+                })
+                .then((res) => {
+                    console.log("address: ", res.data.data);
+                    this.addresses = res.data.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        getZip() {
+            axios
+                .get("search-zip/" + this.form.address, {
+                    params: {
+                        keywords: this.zk,
+                    },
+                })
+                .then((res) => {
+                    console.log("zips: ", res.data.data);
+                    this.zips = res.data.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        selectState(selected) {
+            this.sk = selected.name
+            this.form.state = selected.id;
+        },
+
+        selectCity(selected) {
+            this.ck = selected.name
+            this.form.city = selected.id;
+        },
+
+        selectAddress(selected) {
+            this.ak = selected.name
+            this.form.address = selected.id;
+        },
+        selectZip(selected) {
+            this.zk = selected.postal_code
+            this.form.postal_code = selected.id;
+        },
+        submit() {
+            axios
+                .post("shipper/details", this.form)
+                .then((res) => {
+                    console.log(">> ", res.data);
+                    this.$router.push("/shipper");
+                })
+                .catch((error) => {
+                    console.log("eerrr: ", error.response);
+                    this.snackbar.message = error.response.data.errors;
+                    this.snackbar.statusCode = error.response.status;
+                    this.snackbar.show = true;
+                });
+        },
+
+        getCountries() {
+            axios
+                .get("countries")
+                .then((res) => {
+                    this.countries = res.data;
+                })
+                .catch((err) => {
+                    console.log("Error: ", err);
+                });
+        },
+        tapHandler(direction) {
+            console.log("tap: ", direction)
+        },
     },
-  }),
-  methods: {
-    submit() {
-      axios
-        .post("shipper/details", this.form)
-        .then((res) => {
-          if (localStorage.getItem("cRoute") === "/order/select-carrier") {
-            this.$router.push("/shipment/additional-details");
-          } else {
-            this.$router.push(this.$route.query.redirect || "/shipper");
-          }
-        })
-        .catch((error) => {
-          this.snackbar.show = true;
-          this.snackbar.message = error.response.data.errors;
-          this.snackbar.errorStatus = error.response.status;
-        });
+    mounted() {
+        this.$refs.focusable.$el.focus();
     },
-    getCountries() {
-      axios
-        .get("countries-with-states")
-        .then((res) => {
-          this.countryList = res.data;
-        })
-        .catch((error) => {
-          console.log("Error: ", error);
-        });
+    created() {
+        this.getCountries();
     },
-    states(countryId) {
-      this.form.state = null;
-      this.countryList.forEach((element) => {
-        if (element.id == countryId) {
-          this.stateList = element.state_list;
-        }
-      });
+    components: {
+        Snackbar,
     },
-    cities(stateId) {
-      this.form.city = null;
-      this.stateList.forEach((element) => {
-        if (element.id == stateId) {
-          this.cityList = element.city_list;
-        }
-      });
-    },
-   /*   zips(id) {
-      this.form.citycode = null;
-           this.cityList.forEach((element) => {
-        if (element.id == id) {
-          this.citycodeList = element.citycodes;
-        }
-      }); 
-    },*/
-  },
-  mounted() {
-    this.$refs.focusable.$el.focus();
-  },
-  created() {
-    this.getCountries();
-  },
 };
 </script>
+
 <style lang="scss" scoped>
-.md-card {
-  padding: 30px;
-  text-align: center;
-  .row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    .md-field {
-      flex: 25%;
+.main-card {
+    padding: 30px;
+    text-align: center;
+    box-shadow: none;
+    border: solid 1px #ddd;
+
+    .shipper-logo {
+        text-align: center;
+        margin-top: -40px;
+
+        .md-large {
+            background: #ddd;
+        }
     }
-  }
-  .md-display-1 {
-    font-size: 30px;
-  }
-  .close-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
+
+    .inputs-container {
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .md-field {
+                flex: 32%;
+            }
+
+            .zip-address {
+                flex: 50%;
+            }
+        }
+    }
 }
 </style>

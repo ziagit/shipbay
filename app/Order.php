@@ -11,21 +11,25 @@ class Order extends Model
     {
         return $this->belongsToMany(Item::class);
     }
+    public function itemsWithType(){
+        return $this->items()->with('itemtype');
+    }
     public function accessories()
     {
         return $this->belongsToMany(Accessory::class)->withPivot('type')->withTimestamps();
     }
-
     public function shipper()
     {
         return $this->belongsTo(Shipper::class);
     }
-
-    public function shipmentaddresses(){
-        return $this->belongsToMany(Shipmentaddress::class)->withPivot('type');
+    public function addresses(){
+        return $this->belongsToMany(Customeraddress::class);
     }
     public function fullAddress(){
-        return $this->shipmentaddresses()->with('country','state','city', 'citycode');
+        return $this->addresses()->with('country','state','city', 'zip','address');
+    }
+    public function contacts(){
+        return $this->belongsToMany(Contact::class);
     }
     public function job()
     {

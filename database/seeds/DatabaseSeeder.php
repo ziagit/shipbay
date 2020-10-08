@@ -17,14 +17,15 @@ class DatabaseSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(StateSeeder::class);
         $this->call(CitySeeder::class);
+        $this->call(AddressSeeder::class);
         $this->call(CitycodeSeeder::class);
         $this->call(ItemtypeSeeder::class);
         $this->call(LocationtypeSeeder::class);
         $this->call(JobstatusSeedder::class);
-        $this->call(ShipmentaddressSeeder::class);
+        $this->call(ContactSeeder::class);
+        $this->call(CustomeraddressSeeder::class);
         $this->call(ShipperSeeder::class);
         $this->call(CarrierSeeder::class);
-        $this->call(AddressSeeder::class);
         $this->call(AccessorySeeder::class);
         $this->call(RaterangeSeeder::class);
         $this->call(RateSeeder::class);

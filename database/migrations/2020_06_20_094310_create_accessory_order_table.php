@@ -15,8 +15,8 @@ class CreateAccessoryOrderTable extends Migration
     {
         Schema::create('accessory_order', function (Blueprint $table) {
             $table->id();
-            $table->integer('accessory_id');
-            $table->integer('order_id');
+            $table->unsignedInteger('accessory_id');
+            $table->unsignedInteger('order_id');
             $table->string('type');
             $table->timestamps();
         });

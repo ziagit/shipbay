@@ -89,18 +89,6 @@ class OrderController extends Controller
         //
     }
 
-    public function search(Request $request)
-    {
-        $keywords = $request->keywords;
-        $citycodes = Citycode::where('postal_code', 'like', '%' . $keywords . '%')
-            ->orWhereHas('cities', function ($q) use ($keywords) {
-                $q->where('name', 'like', '%' . $keywords . '%');
-            })
-            ->with('citycodeCity')
-            ->paginate(5);
-        return $citycodes;
-    }
-
     public function locationType()
     {
         $cities = City::all();

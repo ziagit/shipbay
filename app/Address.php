@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Shipper;
 class Address extends Model
 {
-
     public function country(){
         return $this->belongsTo(Country::class);
     }
@@ -16,16 +15,13 @@ class Address extends Model
     public function city(){
         return $this->belongsTo(City::class);
     }
-
-    public function citycode(){
-        return $this->belongsTo(Citycode::class);
+    public function zip(){
+        return $this->hasOne(Citycode::class);
     }
-
     public function shipper(){
         return $this->belongsTo(Shipper::class);
     }
     public function carrier(){
         return $this->belongsTo(Carrier::class);
     }
-    
 }

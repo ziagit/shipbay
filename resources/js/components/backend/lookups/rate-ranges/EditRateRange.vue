@@ -23,6 +23,7 @@
 <script lang="ts">
 import axios from "axios";
 export default {
+    name: 'EditRateRanges',
     props: ["range"],
     data: () => {
         return {

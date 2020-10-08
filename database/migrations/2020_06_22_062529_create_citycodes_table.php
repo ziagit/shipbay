@@ -16,6 +16,8 @@ class CreateCitycodesTable extends Migration
         Schema::create('citycodes', function (Blueprint $table) {
             $table->id();
             $table->string('postal_code');
+            $table->unsignedInteger('city_id');
+            $table->unsignedInteger('address_id');
             $table->timestamps();
         });
     }

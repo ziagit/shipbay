@@ -223,6 +223,10 @@ export default {
         }
     }
 
+    .md-body-1 {
+        width: 100% !important;
+    }
+
     .md-display-1 {
         font-size: 24px;
     }

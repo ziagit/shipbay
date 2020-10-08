@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Order;
 use App\Item;
 use App\City;
-use App\Shipmentaddress;
+use App\Customeraddress;
 
 class OrderSeeder extends Seeder
 {
@@ -33,10 +33,10 @@ class OrderSeeder extends Seeder
 
         $order->save();
 
-        $src_add = Shipmentaddress::find(1);
-        $order->addresses()->attach($src_add, ['type'=>'src']);
+        $order->addresses()->attach([1,2]);
+        $order->contacts()->attach([1,2]);
 
-        $des_add = Shipmentaddress::find(2);
+        $des_add = Customeraddress::find(2);
         $order->addresses()->attach($des_add, ['type'=>'des']);
 
         $src_accessories = Accessory::where('code','bs')->orWhere('code','in')->orWhere('code','tm')->get();
@@ -44,8 +44,6 @@ class OrderSeeder extends Seeder
 
         $des_accessories = Accessory::where('code','rs')->orWhere('code','in')->orWhere('code','ap')->get();
         $order->accessories()->attach($des_accessories,['type'=>'des']);
-
-
 
     }
 }

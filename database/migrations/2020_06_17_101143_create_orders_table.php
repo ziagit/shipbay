@@ -15,18 +15,17 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->date('pickup_date');
+            $table->date('pickup_date')->nullable();
             $table->string('src_appointment_time')->nullable();
             $table->string('des_appointment_time')->nullable();
             $table->double('min_temperature')->nullable();
             $table->double('max_temperature')->nullable();
-            $table->double('cost');
-            $table->double('estimated_value');
-            $table->string('start_loadtime')->nullable();
-            $table->string('end_loadtime')->nullable();
+            $table->double('cost')->nullable();
+            $table->double('estimated_value')->nullable();
+            $table->string('instructions')->nullable();
             $table->string('charge_id');
             $table->string('uniqid')->unique();
-            $table->unsignedBigInteger('shipper_id');
+            $table->unsignedBigInteger('shipper_id')->nullable();
          
             $table->timestamps();
         });

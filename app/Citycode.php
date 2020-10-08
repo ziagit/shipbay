@@ -8,13 +8,13 @@ class Citycode extends Model
 {
     //
     public function cities(){
-        return $this->belongsToMany(City::class);
+        return $this->belongsTo(City::class);
     }
     public function citycodeCity(){
         return $this->cities()->with('state');
     }
 
     public function address(){
-        return $this->hasMany(Address::class);
+        return $this->belongsTo(Address::class);
     }
 }

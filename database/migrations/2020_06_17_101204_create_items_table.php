@@ -17,8 +17,8 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->text('description');
             $table->double('dimentional_weight');
-            $table->integer('itemtype_id');
-            $table->integer('deliveryclass_id');
+            $table->unsignedInteger('itemtype_id');
+            $table->unsignedInteger('deliveryclass_id');
             $table->timestamps();
         });
     }

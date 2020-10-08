@@ -9,7 +9,7 @@
           <md-input v-model="keywords" id="search"/>
         </md-field> -->
             <div class="md-title">Rates</div>
-            <md-button to="add" class="md-icon-button add-rate" v-if="rates != null">
+            <md-button to="add" class="md-icon-button add-rate" v-if="rates.length != 0">
                 <md-icon>add</md-icon>
                 <md-tooltip>Add new rate</md-tooltip>
             </md-button>
@@ -122,8 +122,9 @@ export default {
             axios
                 .get("carrier/rates")
                 .then((res) => {
-                    console.log("rates: ", res.data)
                     this.rates = res.data.rate_with_city;
+                    console.log("rates: ", this.rates)
+
                 })
                 .catch((err) => {
                     console.log("Error: ", err);

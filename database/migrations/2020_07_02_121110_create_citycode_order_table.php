@@ -15,9 +15,9 @@ class CreateCitycodeOrderTable extends Migration
     {
         Schema::create('citycode_order', function (Blueprint $table) {
             $table->id();
-            $table->integer('citycode_id');
             $table->string('type');
-            $table->integer('order_id');
+            $table->unsignedInteger('citycode_id');
+            $table->unsignedInteger('order_id');
             $table->timestamps();
         });
     }

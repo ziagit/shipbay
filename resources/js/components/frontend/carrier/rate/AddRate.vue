@@ -37,17 +37,61 @@
                     <tbody>
                         <tr>
                             <td>
-                                <Search :data="srcStates" v-on:set-data="getSrcStates" v-on:get-data="selectSrcState" />
+                                <md-menu md-direction="bottom-start" class="search-menu" md-align-trigger md-dense>
+                                    <input v-model="ssk" required md-menu-trigger placeholder="Search" @change="onSrcStateChange" />
+                                    <md-menu-content>
+                                        <div v-if="srcStates">
+                                            <md-menu-item v-if="srcStates.length === 0 ">Not found</md-menu-item>
+                                        </div>
+                                        <div v-else>
+                                            <md-menu-item>Type</md-menu-item>
+                                        </div>
+                                        <md-menu-item v-for="list in srcStates" :key="list.id" @click="selectSrcState(list)">{{ list.name }}</md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
                             </td>
                             <td>
-                                <Search :data="srcCities" v-on:set-data="getSrcCities" v-on:get-data="selectSrcCity" />
+                                <md-menu md-direction="bottom-start" class="search-menu" md-align-trigger md-dense>
+                                    <input v-model="sck" required md-menu-trigger placeholder="Search" />
+                                    <md-menu-content>
+                                        <div v-if="srcCities">
+                                            <md-menu-item v-if="srcCities.length === 0 ">Not found</md-menu-item>
+                                        </div>
+                                        <div v-else>
+                                            <md-menu-item>Type</md-menu-item>
+                                        </div>
+                                        <md-menu-item v-for="list in srcCities" :key="list.id" @click="selectSrcCity(list)">{{ list.name }}</md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
                             </td>
 
                             <td>
-                                <Search :data="desStates" v-on:set-data="getDesStates" v-on:get-data="selectDesState" />
+                                <md-menu md-direction="bottom-start" class="search-menu" md-align-trigger md-dense>
+                                    <input v-model="dsk" required md-menu-trigger placeholder="Search" @change="onDesStateChange" />
+                                    <md-menu-content>
+                                        <div v-if="desStates">
+                                            <md-menu-item v-if="desStates.length === 0 ">Not found</md-menu-item>
+                                        </div>
+                                        <div v-else>
+                                            <md-menu-item>Type</md-menu-item>
+                                        </div>
+                                        <md-menu-item v-for="list in desStates" :key="list.id" @click="selectDesState(list)">{{ list.name }}</md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
                             </td>
                             <td>
-                                <Search :data="desCities" v-on:set-data="getDesCities" v-on:get-data="selectDesCity" />
+                                <md-menu md-direction="bottom-start" class="search-menu" md-align-trigger md-dense>
+                                    <input v-model="dck" required md-menu-trigger placeholder="Search" />
+                                    <md-menu-content>
+                                        <div v-if="desCities">
+                                            <md-menu-item v-if="desCities.length === 0 ">Not found</md-menu-item>
+                                        </div>
+                                        <div v-else>
+                                            <md-menu-item>Type</md-menu-item>
+                                        </div>
+                                        <md-menu-item v-for="list in desCities" :key="list.id" @click="selectDesCity(list)">{{ list.name }}</md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
                             </td>
 
                             <td>
@@ -94,13 +138,16 @@
 
 <script>
 import axios from "axios";
-import Search from "../../shared/Search";
 import {
     mapGetters
 } from "vuex";
 export default {
     name: "AddRate",
     data: () => ({
+        ssk: null, //srcStateKeywords
+        dsk: null, //desStateKeywords
+        sck: null, //srcCityKeywords
+        dck: null, //desCityKeywords
         form: {
             src_state: null,
             des_state: null,
@@ -126,6 +173,20 @@ export default {
         carrierId: null,
         countryId: null,
     }),
+    watch: {
+        ssk(after, before) {
+            this.getSrcStates()
+        },
+        dsk(after, before) {
+            this.getDesStates()
+        },
+        sck(after, before) {
+            this.getSrcCities()
+        },
+        dck(after, before) {
+            this.getDesCities()
+        }
+    },
     computed: {
         ...mapGetters({
             temp: "shared/temp",
@@ -148,6 +209,7 @@ export default {
                 });
         },
         selectSrcState(selected) {
+            this.ssk = selected.name;
             this.form.src_state = selected.id;
         },
         getDesStates(keywords) {
@@ -166,6 +228,7 @@ export default {
         },
         selectDesState(selected) {
             this.form.des_state = selected.id;
+            this.dsk = selected.name;
         },
         getSrcCities(keywords) {
             axios
@@ -183,6 +246,7 @@ export default {
         },
         selectSrcCity(selected) {
             this.form.src_city = selected.id;
+            this.sck = selected.name;
         },
         getDesCities(keywords) {
             axios
@@ -200,8 +264,18 @@ export default {
         },
         selectDesCity(selected) {
             this.form.des_city = selected.id;
+            this.dck = selected.name
         },
-
+        onSrcStateChange() {
+            this.sck = null;
+            this.form.src_city = null;
+            this.srcCities = null;
+        },
+        onDesStateChange() {
+            this.dck = null;
+            this.form.des_city = null;
+            this.desCities = null;
+        },
         submit() {
             axios
                 .post("carrier/rates", this.form)
@@ -232,9 +306,7 @@ export default {
         this.countryId = this.temp.country;
         this.getCountries();
     },
-    components: {
-        Search,
-    },
+
 };
 </script>
 

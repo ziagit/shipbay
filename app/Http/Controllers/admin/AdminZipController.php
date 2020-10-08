@@ -40,19 +40,13 @@ class AdminZipController extends Controller
     {
         $this->validate($request, [
             'postalcodes' => 'required',
-            'city' => 'required'
+            'city' => 'required',
+            'address'=>'required'
         ]);
-        $zipIds= array();
-        foreach($request->postalcodes as $postalcode){
-            $data = [
-                'postal_code' => $postalcode,
-            ];
-            $id = Citycode::insertGetId($data);
-            array_push($zipIds, $id);
-        }
-        $city = City::find($request->city);
-        $city->citycodes()->attach($zipIds);
-
+        $zip = new Citycode();
+        $zip->postal_code = $request->postalcode;
+        $zip->city_id = $request->city;
+        $zip->address_id = $request->address;
         return response()->json(["message" => "Saved Successfully."], 200);
     }
 

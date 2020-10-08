@@ -170,10 +170,6 @@ class CheckoutController extends Controller
     public function createEmptyOrder($chargeId)
     {
         $order = new Order();
-        $order->pickup_date = '2020-01-01';
-        $order->cost = 0;
-        $order->estimated_value = 0;
-        $order->shipper_id = 0;
         $order->charge_id = $chargeId;
         $order->uniqid ='SHBO'.date('Ymd').rand();
         $order->save();

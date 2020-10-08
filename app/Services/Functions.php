@@ -15,15 +15,13 @@ class Functions
         $ranges = Raterange::all();
         $order_src = $request->src['city'];
         $order_des = $request->des['city'];
-        $dimentional_weight = 95;/* $this->calcDW($request->myItem['items']); */
-
+        $dimentional_weight = $this->calcDW($request->myItem['items']);
         // search src & des zips in rate table
-        $carriers = Carrier::with('carrierRates', 'accessories')->get();
+        $carriers = Carrier::with('carrierRates', 'accessories','contact')->get();
 
         if (!is_array($carriers)) {
             $carriers = json_decode($carriers);
         }
-
         foreach ($carriers as $carrier) {
             foreach ($carrier->carrier_rates as $rate) {
                 $rate_src = $rate->cities[0]->id;
@@ -56,9 +54,7 @@ class Functions
                         default:
                             echo 'not found your weight ';
                     }
-
                     $a_value = $this->accessoryCalc($request, $carrier_accessories);
-
                     $cost = $cost + $a_value;
                     $service_charge = ($cost * 10) / 100;
                     $cost = $cost + $service_charge;
@@ -67,7 +63,7 @@ class Functions
                     $selectedCarriers[$i]['last_name'] = $carrier->last_name;
                     $selectedCarriers[$i]['company'] = $carrier->company;
                     $selectedCarriers[$i]['detail'] = $carrier->detail;
-                    $selectedCarriers[$i]['phone'] = $carrier->phone;
+                    $selectedCarriers[$i]['phone'] = $carrier->contact->phone;
                     $selectedCarriers[$i]['website'] = $carrier->website;
                     $selectedCarriers[$i]['logo'] = $carrier->logo;
                     $selectedCarriers[$i]['price'] = $cost;

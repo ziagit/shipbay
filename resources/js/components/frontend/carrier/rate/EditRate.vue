@@ -38,7 +38,7 @@
                         <tr>
                             <td>
                                 <md-menu md-direction="bottom-start" class="search-menu" md-align-trigger md-dense>
-                                    <input v-model="ssk" required md-menu-trigger placeholder="Search" @input="resetSrcCity" />
+                                    <input v-model="ssk" required md-menu-trigger placeholder="Search" @change="onSrcStateChange" />
                                     <md-menu-content>
                                         <div v-if="srcStates">
                                             <md-menu-item v-if="srcStates.length === 0 ">Not found</md-menu-item>
@@ -67,7 +67,7 @@
 
                             <td>
                                 <md-menu md-direction="bottom-start" class="search-menu" md-align-trigger md-dense>
-                                    <input v-model="dsk" required md-menu-trigger placeholder="Search" />
+                                    <input v-model="dsk" required md-menu-trigger placeholder="Search" @change="onDesStateChange" />
                                     <md-menu-content>
                                         <div v-if="desStates">
                                             <md-menu-item v-if="desStates.length === 0 ">Not found</md-menu-item>
@@ -212,11 +212,7 @@ export default {
             this.ssk = selected.name
             this.form.src_state = selected.id;
         },
-        resetSrcCity() {
-            this.sck = null
-            this.form.src_city = null
-            this.desCities = null
-        },
+
         getDesStates() {
             axios
                 .get("search-state/" + this.countries[1].id, {
@@ -252,7 +248,7 @@ export default {
         },
         selectSrcCity(selected) {
             this.form.src_city = selected.id;
-            this.sck = selected.name
+            this.sck = selected.name;
         },
         getDesCities() {
             axios
@@ -272,7 +268,16 @@ export default {
             this.form.des_city = selected.id;
             this.dck = selected.name
         },
-
+        onSrcStateChange() {
+            this.sck = null;
+            this.form.src_city = null;
+            this.srcCities = null;
+        },
+        onDesStateChange() {
+            this.dck = null;
+            this.form.des_city = null;
+            this.desCities = null;
+        },
         update() {
             axios
                 .put("carrier/rates/" + this.$route.params.id, this.form)
