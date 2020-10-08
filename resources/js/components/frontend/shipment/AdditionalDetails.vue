@@ -111,8 +111,7 @@ export default {
                 let order = JSON.parse(localStorage.getItem("order"));
                 order.shipper = this.shipper;
                 localStorage.setItem("order", JSON.stringify(order));
-                /*   this.$router.push("payment-details"); */
-                window.location.assign("/shipment/payment-details")
+                this.$router.push("payment-details");
             }
         },
 

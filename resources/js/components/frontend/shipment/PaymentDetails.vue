@@ -126,15 +126,24 @@ export default {
                     console.log("error: ", error.response);
                 });
         },
+        reloadPage() {
+            if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+
+                console.info("This page is reloaded");
+            } else {
+                window.location.reload(true);
+
+                console.info("This page is not reloaded");
+            }
+        }
     },
     created() {
         this.checkPayment();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
         console.log("in payment", JSON.parse(localStorage.getItem("order")));
+        this.reloadPage()
     },
-    activated() {
-        window.location.reload(true)
-    },
+
     components: {
         Spinner,
         Snackbar,

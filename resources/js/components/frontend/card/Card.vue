@@ -139,14 +139,15 @@ export default {
                     axios
                         .get("shipper/shipper-address")
                         .then((res) => {
+                            console.log("... ", res.data)
                             this.form.email = res.data.email;
-                            this.form.address = res.data.shipper_with_address.address;
+                            this.form.address = res.data.shipper_with_address.full_address.address.name;
                             this.form.state =
                                 res.data.shipper_with_address.full_address.state.name;
                             this.form.city =
                                 res.data.shipper_with_address.full_address.city.name;
                             this.form.postalcode =
-                                res.data.shipper_with_address.full_address.citycode;
+                                res.data.shipper_with_address.full_address.zip.postal_code;
                             this.shipperExist = res.data;
                         })
                         .catch((err) => console.log(err));
