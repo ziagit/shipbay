@@ -1,5 +1,11 @@
 <template>
 <div class="payment-details">
+    <md-dialog :md-active.sync="cartTogal">
+        <md-dialog-title>Add your card information</md-dialog-title>
+        <md-dialog-content>
+            <Card v-on:payment-succeed="refresh" />
+        </md-dialog-content>
+    </md-dialog>
     <div class="header">
         <span class="md-display-1">Payment details</span>
     </div>
@@ -17,7 +23,7 @@
                 <div v-else>
                     <p>You don't have payment history.</p>
                     <!-- <router-link v-if="authenticated" to="/shipper/card">Add your card informations</router-link> -->
-                    <a href="/#/checkout">Add your card informations</a>
+                    <a class="payment-card" @click="card()">Add your card informations</a>
                 </div>
                 <p>
                     Credit cards can be securely saved for future orders. Payment
@@ -61,9 +67,10 @@ import {
     mapGetters
 } from "vuex";
 import axios from "axios";
-import Card from "../services/card";
+import isPaid from "../services/card";
 import Spinner from "../shared/Spinner";
 import Snackbar from "../shared/Snackbar";
+import Card from "../card/Card";
 export default {
     name: "PaymentDetails",
     data: () => ({
@@ -80,6 +87,7 @@ export default {
         dataLoading: true,
         checkingPayment: false,
         test: null,
+        cartTogal: false,
     }),
     computed: {
         ...mapGetters({
@@ -89,26 +97,18 @@ export default {
 
     methods: {
         nextStep() {
-            this.checkingPayment = true;
-            Card.checkPayment().then((res) => {
-                if (res.status) {
-                    this.checkingPayment = false;
-                    this.$router.push("confirmation");
-                } else {
-                    this.snackbar.show = true;
-                }
-            });
+            this.checkingPayment = false;
+            this.$router.push("confirmation");
         },
         prevStep() {
             this.$router.back("delivery-details");
         },
-
         checkPayment() {
-            Card.checkPayment()
+            isPaid.checkPayment()
                 .then((res) => {
                     if (res.status) {
                         this.dataLoading = false;
-                        this.paymentStatus = true;
+                        this.paymentStatus = res.status;
                     } else {
                         this.dataLoading = false;
                         this.snackbar.show = true;
@@ -126,19 +126,28 @@ export default {
                     console.log("error: ", error.response);
                 });
         },
-        reloadPage() {
-            window.location.reload(true)
-        }
+        card() {
+            this.cartTogal = true;
+        },
+        refresh() {
+            this.cartTogal = false;
+            if (this.authenticated) {
+                this.$router.push('/shipper/card');
+            } else {
+                window.location.reload(true);
+            }
+        },
+
     },
     created() {
         this.checkPayment();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
-        console.log("in payment", JSON.parse(localStorage.getItem("order")));
-        /* this.reloadPage() */
     },
+
     components: {
         Spinner,
         Snackbar,
+        Card,
     },
 };
 </script>
@@ -161,6 +170,10 @@ export default {
 
     .md-card {
         text-align: left;
+
+        .payment-card:hover {
+            cursor: pointer;
+        }
 
         .spinner {
             text-align: center;

@@ -231,8 +231,11 @@ export default {
             axios
                 .post("shipper/details", this.form)
                 .then((res) => {
-                    console.log(">> ", res.data);
-                    this.$router.push("/shipper");
+                    if (localStorage.getItem('order') && (localStorage.getItem('cRoute') === '/order/carriers')) {
+                        this.$router.push('/shipment/additional-details')
+                    } else {
+                        this.$router.push("/");
+                    }
                 })
                 .catch((error) => {
                     console.log("eerrr: ", error.response);

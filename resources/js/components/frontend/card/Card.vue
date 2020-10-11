@@ -1,66 +1,54 @@
 <template>
 <div class="card">
-    <div class="header">
-        <span class="md-display-1">Card Information</span>
-    </div>
     <md-card>
         <form @submit.prevent="getStripeToken" id="payment-form" enctype="multipart/form-data">
             <md-card-content>
-                <div v-if="successMessage && !parymentTogal">
-                    <div class="alert-success">{{successMessage}}</div>
-                    <br />
-                    <a v-if="authenticated && user.role[0].name === 'shipper'" href="/#/shipper/card">Continue to payment</a>
-                    <md-button class="md-primay" v-else @click="paymentPage()">Continue your order</md-button>
+
+                <div class="checkbox" v-if="authenticated && user.role[0].name === 'shipper'">
+                    <md-checkbox class="md-primary" v-model="sameAddress">
+                        Is your billing address same to your account ?
+                        <md-icon class="md-primary">
+                            info
+                            <md-tooltip>You wounldn't notified in case of different email!</md-tooltip>
+                        </md-icon>
+                    </md-checkbox>
                 </div>
-                <div class="alert-error" v-if="errorMessage">{{successMessage}}</div>
-                <div v-if="parymentTogal" class="billing-details">
 
-                    <div class="checkbox" v-if="authenticated && user.role[0].name === 'shipper'">
-                        <md-checkbox class="md-primary" v-model="addFromDb">
-                            Is your billing address same to your account ?
-                            <md-icon class="md-primary">
-                                info
-                                <md-tooltip>You wounldn't notified in case of different email!</md-tooltip>
-                            </md-icon>
-                        </md-checkbox>
-                    </div>
-
+                <md-field>
+                    <label>Email</label>
+                    <md-input type="email" v-model="form.email" required></md-input>
+                </md-field>
+                <md-field>
+                    <label>Address</label>
+                    <md-input type="text" v-model="form.address" required></md-input>
+                </md-field>
+                <div class="row">
                     <md-field>
-                        <label>Email</label>
-                        <md-input type="email" v-model="form.email" required></md-input>
+                        <label>City</label>
+                        <md-input type="text" v-model="form.city" required></md-input>
                     </md-field>
                     <md-field>
-                        <label>Address</label>
-                        <md-input type="text" v-model="form.address" required></md-input>
+                        <label>State</label>
+                        <md-input type="text" v-model="form.state" required></md-input>
                     </md-field>
-                    <div class="row">
-                        <md-field>
-                            <label>City</label>
-                            <md-input type="text" v-model="form.city" required></md-input>
-                        </md-field>
-                        <md-field>
-                            <label>State</label>
-                            <md-input type="text" v-model="form.state" required></md-input>
-                        </md-field>
-                        <md-field>
-                            <label>Postal code</label>
-                            <md-input type="text" v-model="form.postalcode" required></md-input>
-                        </md-field>
-                    </div>
                     <md-field>
-                        <label>Name on card</label>
-                        <md-input type="text" v-model="form.name" required></md-input>
+                        <label>Postal code</label>
+                        <md-input type="text" v-model="form.postalcode" required></md-input>
                     </md-field>
-                    <div ref="card">
-                        <!-- A Stripe Element will be inserted here. -->
-                    </div>
-
-                    <!-- Used to display form errors. -->
-                    <div id="card-errors" style="color:red">{{error}}</div>
                 </div>
+                <md-field>
+                    <label>Name on card</label>
+                    <md-input type="text" v-model="form.name" required></md-input>
+                </md-field>
+                <div ref="card">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" style="color:red">{{error}}</div>
             </md-card-content>
             <md-card-actions>
-                <md-button v-if="!dataLoading && parymentTogal" id="submit-button" class="md-primary" type="submit">Submit</md-button>
+                <md-button v-if="!dataLoading" id="submit-button" class="md-primary" type="submit">Submit</md-button>
                 <Spinner v-if="dataLoading" />
             </md-card-actions>
         </form>
@@ -111,12 +99,11 @@ export default {
             price: null,
         },
         error: null,
-        addFromDb: false,
+        sameAddress: false,
         shipperExist: null,
         dataLoading: false,
         successMessage: null,
         errorMessage: null,
-        parymentTogal: true,
         order: null,
         snackbar: {
             show: false,
@@ -133,29 +120,26 @@ export default {
         card.mount(this.$refs.card);
     },
     watch: {
-        addFromDb: function (value) {
+        sameAddress: function (value) {
             if (value) {
                 if (this.shipperExist === null) {
                     axios
                         .get("shipper/shipper-address")
                         .then((res) => {
                             this.form.email = res.data.email;
-                            this.form.address = res.data.shipper_with_address.address;
-                            this.form.state =
-                                res.data.shipper_with_address.full_address.state.name;
-                            this.form.city =
-                                res.data.shipper_with_address.full_address.city.name;
-                            this.form.postalcode =
-                                res.data.shipper_with_address.full_address.citycode;
+                            this.form.address = res.data.shipper_with_address.full_address.address.name;
+                            this.form.state = res.data.shipper_with_address.full_address.state.name;
+                            this.form.city = res.data.shipper_with_address.full_address.city.name;
+                            this.form.postalcode = res.data.shipper_with_address.full_address.zip.postal_code;
                             this.shipperExist = res.data;
                         })
                         .catch((err) => console.log(err));
                 } else {
                     this.form.email = this.shipperExist.email;
-                    this.form.address = this.shipperExist.shipper_with_address.address;
+                    this.form.address = this.shipperExist.shipper_with_address.full_address.address.name;
                     this.form.state = this.shipperExist.shipper_with_address.full_address.state.name;
                     this.form.city = this.shipperExist.shipper_with_address.full_address.city.name;
-                    this.form.postalcode = this.shipperExist.shipper_with_address.full_address.citycode;
+                    this.form.postalcode = this.shipperExist.shipper_with_address.full_address.zip.postal_code;
                 }
             } else {
                 this.form.email = this.form.address = this.form.state = this.form.city = this.form.postalcode = null;
@@ -198,9 +182,8 @@ export default {
                         this.order.billing.email = res.data["email"];
                         localStorage.setItem("order", JSON.stringify(this.order));
                     }
-                    this.form.email = this.form.address = this.form.city = this.form.postalcode = this.form.state = this.form.name = null;
                     this.dataLoading = false;
-                    this.parymentTogal = false;
+                    this.$emit("payment-succeed", res.data["message"]);
                 })
                 .catch((err) => {
                     this.dataLoading = false;
@@ -227,7 +210,6 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-    max-width: 600px;
     margin: auto;
     text-align: center;
 
@@ -236,8 +218,14 @@ export default {
     }
 
     .md-card {
+        box-shadow: none;
+
         .checkbox {
             text-align: left;
+
+            .md-checkbox {
+                margin: 0;
+            }
         }
 
         .row {

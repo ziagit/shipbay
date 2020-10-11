@@ -103,7 +103,7 @@ class JobController extends Controller
 
     public function notifyUser($user, $id)
     {
-        $job = Job::with('shipment', 'jobstatus')->find($id);
+        $job = Job::with('orderDetail', 'jobstatus')->find($id);
 
         $user->notify(new UserJobUpdated($job));
         return $job;
@@ -111,7 +111,7 @@ class JobController extends Controller
 
     public function notifyShipper($emails, $id)
     {
-        $job = Job::with('shipment', 'jobstatus')->find($id);
+        $job = Job::with('orderDetail', 'jobstatus')->find($id);
 
         if ($emails[0] !== $emails[1]) {
             foreach ($emails as $email) {

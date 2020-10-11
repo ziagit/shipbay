@@ -210,12 +210,12 @@ class ShipmentController extends Controller
      */
     public function show($id)
     {
-        $job = Job::with('shipment', 'jobstatus')->find($id);
+        $job = Job::with('orderDetail', 'jobstatus')->find($id);
         return $job;
     }
     public function carrierContacts($id)
     {
-        $carrier = Carrier::find($id);
+        $carrier = Carrier::with('contact')->find($id);
         return $carrier;
     }
     /**

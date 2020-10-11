@@ -26,6 +26,11 @@ export default {
     border-radius: 5px;
 }
 
+.md-dialog-container,
+.md-dialog-fullscreen {
+    border-radius: 12px;
+}
+
 .md-raised {
     /* box-shadow: 0 4px 16px rgba(0,0,0,.12) !important; */
     box-shadow: 0 1px 2px #11111142;
