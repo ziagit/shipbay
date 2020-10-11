@@ -127,7 +127,7 @@
                 </ul>
                 <div class="confirm">
                     <p>By clicking on Confirm you accept our Terms & Conditions</p>
-                    <div>
+                    <div v-if="paymentStatus">
                         <Spinner v-if="dataLoading" />
                         <md-button v-if="!dataLoading" @click="confirm()" class="md-primary">Confirm</md-button>
                     </div>
@@ -142,6 +142,7 @@
 <script>
 import axios from "axios";
 import functions from "../services/functions";
+import Card from "../services/card";
 import Spinner from "../shared/Spinner";
 import Snackbar from "../shared/Snackbar";
 import TermsAndConditions from "../shared/TermsAndConditions";
@@ -150,6 +151,7 @@ export default {
     data: () => ({
         shipment: null,
         dataLoading: false,
+        paymentStatus: false,
         toggle: false,
         snackbar: {
             show: false,
@@ -181,11 +183,35 @@ export default {
                     console.log(err);
                 });
         },
+        checkPayment() {
+            Card.checkPayment()
+                .then((res) => {
+                    if (res.status) {
+                        this.paymentStatus = true;
+                    } else {
+                        this.dataLoading = false;
+                        this.snackbar.show = true;
+                        this.snackbar.message =
+                            "Add your card informations to process your order";
+                        this.snackbar.statusCode = 0;
+                        this.$router.push('/shipment/payment-details')
+                    }
+                })
+                .catch((error) => {
+                    this.dataLoading = false;
+                    this.snackbar.show = true;
+                    this.snackbar.message =
+                        "Somthing is wrong! refresh your page.";
+                    this.snackbar.statusCode = 0;
+                    console.log("error: ", error.response);
+                });
+        },
         totalWeight() {
             return functions.totalWeight(this.shipment.myItem.items);
         },
     },
     created() {
+        this.checkPayment();
         this.shipment = JSON.parse(localStorage.getItem("order"));
         console.log("in confirmation ", this.shipment);
     },

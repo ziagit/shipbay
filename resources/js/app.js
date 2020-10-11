@@ -17,10 +17,10 @@ require('./store/subscriber')
 window.Vue = require('vue');
 Vue.use(VueRouter);
 Vue.use(VueMaterial)
-
+/* 
 import Vue2TouchEvents from 'vue2-touch-events'
  
-Vue.use(Vue2TouchEvents)
+Vue.use(Vue2TouchEvents) */
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

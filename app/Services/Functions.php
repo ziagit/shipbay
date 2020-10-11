@@ -31,6 +31,7 @@ class Functions
                 if (($rate_src === $order_src) && ($rate_des === $order_des)) {
                     switch ($dimentional_weight) {
                         case ($dimentional_weight > 0 && $dimentional_weight <= $ranges[0]['value']):
+                            
                             $cost = $this->costCalc($dimentional_weight, $rate->_0k_1k, $rate);
                             break;
                         case ($dimentional_weight > $ranges[0]['value'] && $dimentional_weight <= $ranges[1]['value']):

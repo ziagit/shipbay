@@ -126,14 +126,15 @@ export default {
                     console.log("error: ", error.response);
                 });
         },
+        reloadPage() {
+            window.location.reload(true)
+        }
     },
     created() {
         this.checkPayment();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
         console.log("in payment", JSON.parse(localStorage.getItem("order")));
-    },
-    activated() {
-        window.location.reload(true)
+        /* this.reloadPage() */
     },
     components: {
         Spinner,

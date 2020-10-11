@@ -82,6 +82,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('carrier/accessories', 'AdminAccessoryListController');
     Route::delete('carrier/accessories/{cId}/{aId}', 'AdminAccessoryListController@destroy');
 
+    Route::resource('carrier/address/{id}','AdminCarrierAddressController');
+
     Route::resource('rate-ranges','AdminRaterangeController');
     Route::get('search-rate-range','AdminRaterangeController@search');
 

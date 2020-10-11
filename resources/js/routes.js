@@ -13,7 +13,6 @@ import CarrierProfile from './components/frontend/carrier/CarrierProfile';
 import AboutUs from './components/frontend/AboutUs'
 import OurServices from './components/frontend/OurServices'
 
-
 import Welcome from './components/frontend/auth/Welcome';
 import CarrierDetails from './components/frontend/carrier/general-details/CarrierDetails';
 import CarrierDetailsContainer from './components/frontend/carrier/general-details/CarrierDetailsContainer';
