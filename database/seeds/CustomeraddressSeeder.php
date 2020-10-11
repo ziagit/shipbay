@@ -1,8 +1,7 @@
 <?php
 
-use App\Customeraddress;
 use Illuminate\Database\Seeder;
-
+use App\Customeraddress;
 class CustomeraddressSeeder extends Seeder
 {
     /**

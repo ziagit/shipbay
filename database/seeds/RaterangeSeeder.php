@@ -1,8 +1,7 @@
 <?php
 
-use App\Raterange;
 use Illuminate\Database\Seeder;
-
+use App\Raterange;
 class RaterangeSeeder extends Seeder
 {
     /**
