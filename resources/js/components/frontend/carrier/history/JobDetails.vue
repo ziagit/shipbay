@@ -148,8 +148,8 @@ export default {
                 .put("carrier/jobs/" + this.$route.params.id, {
                     status: statusId,
                     emails: [
-                        this.job.order_detail.full_address[0].email,
-                        this.job.order_detail.full_address[1].email,
+                        this.job.order_detail.contacts[0].email,
+                        this.job.order_detail.contacts[1].email,
                     ],
                 })
                 .then((res) => {
