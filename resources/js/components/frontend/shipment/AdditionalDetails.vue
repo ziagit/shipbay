@@ -132,6 +132,7 @@ export default {
         this.$refs.focusable.$el.focus();
     },
     created() {
+        console.log(">> ", performance.navigation.type, ' === ', performance.navigation.TYPE_RELOAD)
         this.watchLocalstorage();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
     },

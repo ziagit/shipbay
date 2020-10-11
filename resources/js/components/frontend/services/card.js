@@ -1,7 +1,7 @@
 import axios from "axios";
-var order = JSON.parse(localStorage.getItem('order'))
 export default {
     async checkPayment() {
+        let order = JSON.parse(localStorage.getItem('order'))
         if (
             order &&
             order.id !== undefined &&

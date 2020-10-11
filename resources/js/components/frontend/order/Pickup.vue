@@ -234,6 +234,7 @@ export default {
         },
         getCountries() {
             axios.get("countries").then((res) => {
+                console.log("carunt", res.data)
                 this.order.src.country = res.data[1].id;
                 this.order.src.countryName = res.data[1].name;
             });
