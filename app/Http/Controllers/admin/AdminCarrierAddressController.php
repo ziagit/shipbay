@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Carrier;
+use App\Customeraddress;
 
 class AdminCarrierAddressController extends Controller
 {
@@ -46,7 +48,8 @@ class AdminCarrierAddressController extends Controller
      */
     public function show($id)
     {
-        $carrier = Carrier::with('address')->find($id);
+        $address = Carrier::with('fullAddress')->find($id);
+        return $address;
     }
 
     /**
@@ -69,7 +72,15 @@ class AdminCarrierAddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $address = Customeraddress::find($id);
+        $address->address_id = $request->address;
+        $address->country_id = $request->country;
+        $address->state_id = $request->state;
+        $address->city_id = $request->city;
+        $address->zip_id = $request->postal_code;
+        $address->update();
+        return response()->json(["message"=>"Updated successfully!"],200);
+
     }
 
     /**
@@ -80,6 +91,8 @@ class AdminCarrierAddressController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $address = Customeraddress::find($id);
+        $address->delete();
+        return response()->json(["message"=>"Deleted successfully!"],200);
     }
 }

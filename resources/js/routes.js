@@ -78,6 +78,7 @@ import Accessories from './components/backend/lookups/accessories/Accessories'
 import RateRanges from './components/backend/lookups/rate-ranges/RateRanges'
 
 import CarrierList from './components/backend/carrier/CarrierList'
+import CarrierAddress from './components/backend/carrier/address/CarrierAddress'
 import CarrierAccessories from './components/backend/carrier/accessories/CarrierAccessories'
 import Rates from './components/backend/carrier/Rates'
 import Orders from './components/backend/shippers/Orders'
@@ -266,6 +267,7 @@ export default new VueRouter({
                         { name: 'range', path: 'rate-ranges', component: RateRanges },
 
                         { name: 'carriers', path: 'carriers', component: CarrierList },
+                        { name: 'carrier-address', path: 'carrier-address/:id', component: CarrierAddress },
                         { name: 'rates', path: 'rates', component: Rates },
                         { name: 'carrier-accessories', path: 'accessories/:id', component: CarrierAccessories },
                         { name: 'shippers', path: 'shippers', component: Shippers },
