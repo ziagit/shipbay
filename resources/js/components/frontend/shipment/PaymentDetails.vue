@@ -137,13 +137,11 @@ export default {
                 window.location.reload(true);
             }
         },
-
     },
     created() {
         this.checkPayment();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
     },
-
     components: {
         Spinner,
         Snackbar,
