@@ -79,9 +79,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('services', 'Company\AdminServiceController');
     Route::get('search-service', 'AdminServiceController@search');
 
-    Route::resource('carrier/accessories', 'AdminAccessoryListController');
-    Route::delete('carrier/accessories/{cId}/{aId}', 'AdminAccessoryListController@destroy');
-
+    Route::resource('carrier/accessories', 'AdminCarrierAccessoryController');
+    Route::delete('carrier/accessories/{cId}/{aId}', 'AdminCarrierAccessoryController@destroy');
+    Route::resource('carrier/rates', 'AdminCarrierRateController');
     Route::resource('carrier/addresses','AdminCarrierAddressController');
 
     Route::resource('rate-ranges','AdminRaterangeController');

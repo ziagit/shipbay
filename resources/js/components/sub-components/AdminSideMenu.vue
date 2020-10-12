@@ -37,6 +37,8 @@
                 <md-list-item class="md-inset" to="/admin/orders" @click="hideMenu()">Orders</md-list-item>
             </md-list>
         </md-list-item>
+        <md-list-item class="md-inset" to="/admin/addresses" @click="hideMenu()">Addresses</md-list-item>
+
         <md-list-item to="/admin/users" @click="hideMenu()">
             <md-icon>fire</md-icon>
             <span class="md-list-item-text">Users</span>

@@ -78,9 +78,9 @@ import Accessories from './components/backend/lookups/accessories/Accessories'
 import RateRanges from './components/backend/lookups/rate-ranges/RateRanges'
 
 import CarrierList from './components/backend/carrier/CarrierList'
-import CarrierAddress from './components/backend/carrier/address/CarrierAddress'
+import CarrierAddress from './components/backend/address/CarrierAddress' 
 import CarrierAccessories from './components/backend/carrier/accessories/CarrierAccessories'
-import Rates from './components/backend/carrier/Rates'
+import Rates from './components/backend/carrier/rates/Rates'
 import Orders from './components/backend/shippers/Orders'
 import OrderDetails from './components/backend/shippers/OrderDetails'
 import Shippers from './components/backend/shippers/Shippers'
@@ -267,9 +267,9 @@ export default new VueRouter({
                         { name: 'range', path: 'rate-ranges', component: RateRanges },
 
                         { name: 'carriers', path: 'carriers', component: CarrierList },
-                        { name: 'carrier-address', path: 'carrier-address/:id', component: CarrierAddress },
                         { name: 'rates', path: 'rates', component: Rates },
-                        { name: 'carrier-accessories', path: 'accessories/:id', component: CarrierAccessories },
+                        { name: 'addresses', path: 'addresses', component: CarrierAddress },
+                        { name: 'carrier-accessories', path: 'carrier/accessories', component: CarrierAccessories },
                         { name: 'shippers', path: 'shippers', component: Shippers },
                         { name: 'orders', path: 'orders', component: Orders },
                         { name: 'order', path: 'order/:id', component: OrderDetails },

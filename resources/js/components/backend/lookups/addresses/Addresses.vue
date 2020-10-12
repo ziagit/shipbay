@@ -34,13 +34,13 @@
         <md-table-row>
             <md-table-head md-numeric>ID</md-table-head>
             <md-table-head>Name</md-table-head>
-            <md-table-head>State</md-table-head>
+            <md-table-head>City</md-table-head>
             <md-table-head>Actions</md-table-head>
         </md-table-row>
         <md-table-row v-for="address in addresses.data" :key="address.id">
             <md-table-cell md-numeric>{{ address.id }}</md-table-cell>
-            <md-table-cell md-sort-by="address.name">{{ address.name }}</md-table-cell>
-            <md-table-cell>{{ address.state.name }}</md-table-cell>
+            <md-table-cell>{{ address.name }}</md-table-cell>
+            <md-table-cell>{{ address.city.name }}</md-table-cell>
 
             <md-table-cell md-label="Actions">
                 <md-button class="md-icon-button md-primary" @click="edit(address)">
@@ -100,6 +100,7 @@ export default {
             axios
                 .get("admin/addresses?page=" + page)
                 .then((res) => {
+                    console.log("address: ", res.data.data)
                     this.addresses = res.data;
                 })
                 .catch((err) => {

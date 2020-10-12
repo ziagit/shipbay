@@ -15,7 +15,7 @@ class AdminAddressController extends Controller
      */
     public function index()
     {
-        $addresses = Address::paginate(10);
+        $addresses = Address::with('city')->paginate(10);
         return response()->json($addresses);
     }
 
@@ -48,7 +48,8 @@ class AdminAddressController extends Controller
      */
     public function show($id)
     {
-        //
+        $address = Address::with('city')->find($id);
+        return response()->json($address);
     }
 
     /**

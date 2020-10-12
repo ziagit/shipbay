@@ -40,12 +40,12 @@
                 </a>
             </md-table-cell>
             <md-table-cell>
-                <a class="md-primary" @click="accessories(carrier.id)">
+                <a class="md-primary" :href="'/#/admin/carrier-accessories/'+carrier.id">
                     Accessories
                 </a>
             </md-table-cell>
             <md-table-cell>
-                <a class="md-primary" @click="rates(carrier.id)">
+                <a class="md-primary" :href="'/#/admin/carrier-rates/'+carrier.id">
                     Rates
                 </a>
             </md-table-cell>
@@ -137,11 +137,6 @@ export default {
                 });
         },
         cancel() {},
-
-        accessories(id) {
-            this.$router.push('accessories/' + id)
-        },
-        rates(id) {}
     },
     created() {
         this.get();

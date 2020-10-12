@@ -16,7 +16,7 @@ class AdminRateController extends Controller
      */
     public function index()
     {
-        $rates = Rate::with('carriers','citycodes')->paginate(10);
+        $rates = Rate::with('carriers','cities')->paginate(10);
         return response()->json($rates);
     }
 
