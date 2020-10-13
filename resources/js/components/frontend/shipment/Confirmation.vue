@@ -165,13 +165,28 @@ export default {
             axios
                 .post("confirm", JSON.parse(localStorage.getItem("order")))
                 .then((res) => {
-                    if (localStorage.getItem("order")) {
-                        localStorage.removeItem("order");
-                    }
-                    if (localStorage.getItem("prg-value")) {
-                        localStorage.removeItem("prg-value");
-                    }
-                    this.$router.push("completion");
+                    /*       if (localStorage.getItem("order")) {
+                              localStorage.removeItem("order");
+                          }
+                          if (localStorage.getItem("prg-value")) {
+                              localStorage.removeItem("prg-value");
+                          }
+                          if (localStorage.getItem('dflug')) {
+                              localStorage.removeItem('dflug');
+                          }
+                          if (localStorage.getItem('adflug')) {
+                              localStorage.removeItem('adflug');
+                          }
+                          if (localStorage.getItem('aflug')) {
+                              localStorage.removeItem('aflug');
+                          }
+                          if (localStorage.getItem('sflug')) {
+                              localStorage.removeItem('sflug');
+                          }
+                          if (localStorage.getItem('cRoute')) {
+                              localStorage.removeItem('cRoute');
+                          }
+                          this.$router.push("completion");*/
                     console.log("data: ", res.data)
                     this.dataLoading = false;
                 })

@@ -1,7 +1,7 @@
 <template>
 <div class="carriers" v-if="carriers">
     <!-- delete dialog-->
-    <md-dialog-confirm :md-active.sync="deleteTogal" md-title="I assure what you doing" md-content md-confirm-text="OK" md-cancel-text="Cancel" @md-confirm="confirm()" @md-cancel="cancel" />
+    <md-dialog-confirm :md-active.sync="deleteTogal" md-title="Are you sure, want to delete?" md-content md-confirm-text="OK" md-cancel-text="Cancel" @md-confirm="confirm()" @md-cancel="cancel" />
     <md-dialog :md-active.sync="editTogal">
         <md-dialog-title>Update Carrier</md-dialog-title>
         <md-dialog-content>
@@ -38,7 +38,7 @@
             <md-table-cell>{{ carrier.last_name }}</md-table-cell>
             <md-table-cell>{{ carrier.website }}</md-table-cell>
             <md-table-cell>{{ carrier.company }}</md-table-cell>
-            <md-table-cell>{{ carrier.detail }}</md-table-cell>
+            <md-table-cell class="company-detail">{{ carrier.detail }}</md-table-cell>
 
             <md-table-cell md-label="Actions">
                 <md-button class="md-icon-button md-primary" @click="edit(carrier)">

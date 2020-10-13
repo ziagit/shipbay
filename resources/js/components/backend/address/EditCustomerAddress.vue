@@ -95,7 +95,6 @@ export default {
             city: null,
             address: null,
             postal_code: null,
-            addressId: null,
         },
         countries: null,
         states: null,
@@ -228,25 +227,26 @@ export default {
 
         update() {
             axios
-                .put("admin/carrier/addresses/" + this.address.id, this.form)
+                .put("admin/customer/addresses/" + this.address.id, this.form)
                 .then((res) => {
                     console.log("response ", res.data);
-                    this.$emit('close-dialog')
+                    /*  this.$emit('close-dialog') */
                 })
                 .catch((error) => {
                     console.log("eerrr: ", error);
                 });
         },
         init() {
-            this.form.country = this.address.full_address.country.id;
-            this.form.state = this.address.full_address.state.id;
-            this.form.city = this.address.full_address.city.id;
-            this.form.address = this.address.full_address.address.id;
-            this.form.postal_code = this.address.full_address.zip.id;
-            this.sk = this.address.full_address.state.name
-            this.ck = this.address.full_address.city.name
-            this.zk = this.address.full_address.zip.postal_code
-            this.ak = this.address.full_address.address.name
+            console.log(this.address)
+            this.form.country = this.address.country.id;
+            this.form.state = this.address.state.id;
+            this.form.city = this.address.city.id;
+            this.form.address = this.address.address.id;
+            this.form.postal_code = this.address.zip.id;
+            this.sk = this.address.state.name
+            this.ck = this.address.city.name
+            this.zk = this.address.zip.postal_code
+            this.ak = this.address.address.name
         },
         getCountries() {
             axios

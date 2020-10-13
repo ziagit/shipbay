@@ -16,7 +16,7 @@ class ShipperSeeder extends Seeder
         $shipper = [
             'first_name' => 'Ziak',
             'last_name' => 'KJiow',
-            'address_id'=> 1,
+            'customeraddress_id'=> 1,
             'contact_id' => 1,
             'user_id' => 2,
         ];

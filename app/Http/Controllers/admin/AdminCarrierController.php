@@ -105,7 +105,9 @@ class AdminCarrierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $carrier = Carrier::find($id);
+        $carrier->delete();
+        return response()->json(["message"=>"Deleted successfully!"],200);
     }
     public function search(Request $request)
     {

@@ -14,14 +14,14 @@ class CustomeraddressSeeder extends Seeder
         Customeraddress::truncate();
         $addresses = [
             [
-                'country_id'=> 1,
+                'country_id'=> 2,
                 'state_id'=> 1,
                 'city_id' => 1,
                 'zip_id' => 1,
                 'address_id' => 1,
             ],
             [
-                'country_id'=> 1,
+                'country_id'=> 2,
                 'state_id'=> 2,
                 'city_id' => 2,
                 'zip_id' => 2,

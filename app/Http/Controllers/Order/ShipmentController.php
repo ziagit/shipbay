@@ -16,6 +16,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function React\Promise\Stream\first;
+
 class ShipmentController extends Controller
 {
     /**
@@ -50,7 +52,6 @@ class ShipmentController extends Controller
 
         if ($shipperId) {
             $orderId = $this->storeOrder($request, $shipperId);
-
             $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
 
             $user  = Carrier::with('user')->find($request->carrier['id'])->user;
@@ -66,7 +67,6 @@ class ShipmentController extends Controller
     {
         $contactId = $this->storeContact($request);
         $addressId = $this->storeAddress($request);
-        
         $order = Order::where('uniqid', $request->id)->first();
         $order->pickup_date = $request->pickDate;
         $order->src_appointment_time = $request->src['appointmentTime'];
@@ -84,7 +84,7 @@ class ShipmentController extends Controller
         $order->items()->attach($itemId);
 
         $order->contacts()->attach($contactId);
-        $order->addresses()->attach($addressId);
+        $order->customeraddresses()->attach($addressId);
         
         foreach ($request->src['accessories'] as $accessory) {
             if (!empty($accessory)) {
@@ -168,9 +168,9 @@ class ShipmentController extends Controller
         return $contactId;
     }
 
-    public function storeShipper($shipperData)
+    public function storeShipper($data)
     {
-        if (Auth::check()) {
+        if (Auth::check() && auth()->user()->roles[0]->name === "shipper") {
             $shipper = User::with('shipper')->find(Auth::id())->shipper;
             if ($shipper) {
                 return $shipper->id;
@@ -179,7 +179,7 @@ class ShipmentController extends Controller
         }
 
         $shipper = new Shipper();
-        $shipper->first_name = $shipperData['pickupName'];
+        $shipper->first_name = $data['pickupName'];
         $shipper->save();
 
         return $shipper->id;

@@ -22,11 +22,11 @@ class Order extends Model
     {
         return $this->belongsTo(Shipper::class);
     }
-    public function addresses(){
+    public function customeraddresses(){
         return $this->belongsToMany(Customeraddress::class);
     }
     public function fullAddress(){
-        return $this->addresses()->with('country','state','city', 'zip','address');
+        return $this->customeraddresses()->with('country','state','city', 'zip','address');
     }
     public function contacts(){
         return $this->belongsToMany(Contact::class);

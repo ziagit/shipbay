@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\CustomerAddress;
+use App\Customeraddress;
 
 class AdminCustomerAddressController extends Controller
 {
@@ -15,7 +15,7 @@ class AdminCustomerAddressController extends Controller
      */
     public function index()
     {
-        $addresses = CustomerAddress::with('country','state','city','address','zip','shipper')->paginate(5);
+        $addresses = Customeraddress::with('address','zip','city','state','country','shipper','carrier')->paginate(5);
         return response()->json($addresses);
     }
 
@@ -71,7 +71,14 @@ class AdminCustomerAddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $address = Customeraddress::find($id);
+        $address->country_id = $request->country;
+        $address->state_id = $request->state;
+        $address->city_id = $request->city;
+        $address->zip_id = $request->postal_code;
+        $address->address_id = $request->address;
+        $address->update();
+        return response()->json(["message"=>"Updated successfully!"],200);
     }
 
     /**

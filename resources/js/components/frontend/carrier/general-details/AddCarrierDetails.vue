@@ -277,7 +277,7 @@ export default {
                 .post("carrier/details", fd)
                 .then((res) => {
                     console.log(">> ", res.data);
-                    this.$router.push("/carrier");
+                    /* this.$router.push("/carrier"); */
                 })
                 .catch((error) => {
                     console.log("eerrr: ", error.response);

@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource('carrier/accessories', 'AdminCarrierAccessoryController');
     Route::delete('carrier/accessories/{cId}/{aId}', 'AdminCarrierAccessoryController@destroy');
+    Route::get('carrier/search-accessory', 'AdminCarrierAccessoryController@search');
     Route::resource('carrier/rates', 'AdminCarrierRateController');
     Route::resource('customer/addresses','AdminCustomerAddressController');
 
@@ -140,6 +141,7 @@ Route::get("unauthorized", function () {
 Route::resource('tests', 'TestController');
 
 Route::get("test", function () {
-  return User::with('shipperWithAddress')->where('id', Auth::id())->first();
+  $user = Auth::user();
+  return auth()->user()->roles[0]->name;
 });
 

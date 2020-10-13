@@ -73,7 +73,7 @@ class CarrierDetailsController extends Controller
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
         $carrier->logo = $logo_name;
-        $carrier->address_id = $addressId;
+        $carrier->customeraddress_id = $addressId;
         $carrier->contact_id = $contactId;
         $carrier->user_id = JWTAuth::user()->id;
 
@@ -165,7 +165,7 @@ class CarrierDetailsController extends Controller
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
         $carrier->logo = $logo_name;
-        $carrier->address_id = $addressId;
+        $carrier->customeraddress_id = $addressId;
         $carrier->contact_id = $contactId;
         $carrier->user_id = JWTAuth::user()->id;
         $carrier->update();

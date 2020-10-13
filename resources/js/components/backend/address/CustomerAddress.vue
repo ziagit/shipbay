@@ -26,7 +26,7 @@
         </md-table-empty-state>
         <md-table-row>
             <md-table-head md-numeric>ID</md-table-head>
-            <md-table-head>Name</md-table-head>
+            <md-table-head>Address</md-table-head>
             <md-table-head>Postal code</md-table-head>
             <md-table-head>City</md-table-head>
             <md-table-head>State</md-table-head>
@@ -41,7 +41,10 @@
             <md-table-cell>{{ address.city.name }}</md-table-cell>
             <md-table-cell>{{ address.state.name }}</md-table-cell>
             <md-table-cell>{{ address.country.name }}</md-table-cell>
-            <md-table-cell>{{ address.country.name }}</md-table-cell>
+            <md-table-cell>
+                <span v-if="address.carrier">{{ address.carrier.first_name }}</span>
+                <span v-if="address.shipper">, {{address.shipper.first_name}}</span>
+            </md-table-cell>
 
             <md-table-cell md-label="Actions">
                 <md-button class="md-icon-button md-primary" @click="edit(address)">

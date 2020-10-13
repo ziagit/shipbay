@@ -15,7 +15,7 @@ class AdminShipperController extends Controller
      */
     public function index()
     {
-        $shippers = Shipper::paginate(8);
+        $shippers = Shipper::paginate(9);
         return response()->json($shippers);
     }
 
@@ -71,7 +71,11 @@ class AdminShipperController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $shipper = Shipper::find($id);
+        $shipper->first_name = $request->first_name;
+        $shipper->last_name = $request->last_name;
+        $shipper->update();
+        return response()->json(["message"=>"Updated successfully!"],200);
     }
 
     /**

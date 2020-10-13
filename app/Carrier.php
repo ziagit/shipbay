@@ -13,11 +13,11 @@ class Carrier extends Model
     public function contact(){
         return $this->belongsTo(Contact::class);
     }
-    public function address(){
+    public function customeraddress(){
         return $this->belongsTo(Customeraddress::class);
     }
     public function fullAddress(){
-        return $this->address()->with('country','state','city','zip','address');
+        return $this->customeraddress()->with('country','state','city','zip','address');
     }
     public function rates(){
         return $this->belongsToMany(Rate::class);

@@ -108,6 +108,15 @@ export default {
     z-index: -1;
 }
 
+.company-detail {
+    .md-table-cell-container {
+        width: 150px !important;
+        white-space: nowrap !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
 @media only screen and (min-width: 600px) {
     .md-display-1 {
         font-size: 30px;

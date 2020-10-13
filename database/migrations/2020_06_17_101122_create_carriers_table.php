@@ -22,7 +22,7 @@ class CreateCarriersTable extends Migration
             $table->text('detail')->nullable();
             $table->string('logo')->nullable();
             $table->unsignedInteger('contact_id');
-            $table->unsignedInteger('address_id');
+            $table->unsignedInteger('customeraddress_id');
             $table->unsignedInteger('user_id');
 
             $table->timestamps();

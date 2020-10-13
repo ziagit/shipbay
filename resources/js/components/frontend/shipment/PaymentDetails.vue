@@ -92,6 +92,7 @@ export default {
     computed: {
         ...mapGetters({
             authenticated: "auth/authenticated",
+            user: "auth/user",
         }),
     },
 
@@ -131,7 +132,8 @@ export default {
         },
         refresh() {
             this.cartTogal = false;
-            if (this.authenticated) {
+            console.log("user ", this.user.role[0].name)
+            if (this.authenticated && this.user.role[0].name === "shipper") {
                 this.$router.push('/shipper/card');
             } else {
                 window.location.reload(true);

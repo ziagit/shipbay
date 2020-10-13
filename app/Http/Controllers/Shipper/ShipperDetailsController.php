@@ -57,7 +57,7 @@ class ShipperDetailsController extends Controller
         $shipper = new Shipper();
         $shipper->first_name = $request->first_name;
         $shipper->last_name = $request->last_name;
-        $shipper->address_id = $addressId;
+        $shipper->customeraddress_id = $addressId;
         $shipper->contact_id = $contactId;
         $shipper->user_id = JWTAuth::user()->id;
         $shipper->save();
@@ -131,7 +131,7 @@ class ShipperDetailsController extends Controller
 
         $shipper->first_name = $request->first_name;
         $shipper->last_name = $request->last_name;
-        $shipper->address_id = $addressId;
+        $shipper->customeraddress_id = $addressId;
         $shipper->contact_id = $contactId;
         $shipper->user_id = JWTAuth::user()->id;
         $shipper->update();
