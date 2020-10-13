@@ -3,14 +3,14 @@
     <!-- delete dialog-->
     <md-dialog-confirm :md-active.sync="deleteTogal" md-title="I assure what you doing" md-content md-confirm-text="OK" md-cancel-text="Cancel" @md-confirm="confirm()" @md-cancel="cancel" />
     <!--add -->
-    <md-dialog :md-active.sync="editTogal">
+    <md-dialog :md-active.sync="addTogal">
         <md-dialog-title>Add New Rate</md-dialog-title>
         <md-dialog-content>
-            <AddRate v-on:close-dialog="refresh" :rate="rate" />
+            <AddRate v-on:close-dialog="refresh" />
         </md-dialog-content>
     </md-dialog>
     <!--edit -->
-    <md-dialog :md-active.sync="addTogal">
+    <md-dialog :md-active.sync="editTogal">
         <md-dialog-title>Update Rate</md-dialog-title>
         <md-dialog-content>
             <EditRate v-on:close-dialog="refresh" :rate="rate" />
@@ -49,8 +49,8 @@
             </md-table-row>
             <md-table-row v-for="rate in rates.data" :key="rate.id">
                 <md-table-cell md-numeric>{{ rate.id }}</md-table-cell>
-                <md-table-cell>{{ rate.cities[0].name }}</md-table-cell>
-                <md-table-cell>{{ rate.cities[1].name }}</md-table-cell>
+                <md-table-cell>{{ rate.city_with_state[0].name }}</md-table-cell>
+                <md-table-cell>{{ rate.city_with_state[1].name }}</md-table-cell>
                 <md-table-cell>{{ rate.min_rate }}</md-table-cell>
                 <md-table-cell>{{ rate._0k_1k }}</md-table-cell>
                 <md-table-cell>{{ rate._1k_2k }}</md-table-cell>
@@ -65,7 +65,7 @@
                 <md-table-cell v-else>{{ rate.carriers[0].first_name }}</md-table-cell>
 
                 <md-table-cell md-label="Actions">
-                    <md-button class="md-icon-button md-primary" @click="edit(rate.id)">
+                    <md-button class="md-icon-button md-primary" @click="edit(rate)">
                         <md-icon>edit</md-icon>
                     </md-button>
                     <md-button class="md-icon-button md-accent" @click="remove(rate.id)">

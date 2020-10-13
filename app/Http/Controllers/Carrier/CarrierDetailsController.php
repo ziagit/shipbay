@@ -142,7 +142,6 @@ class CarrierDetailsController extends Controller
             'postal_code' => 'required',
         ]);
         $addressId = $this->updateAddress($request);
-        return $addressId;
         $contactId = $this->updateContact($request);
         $carrier = Carrier::find($id);
 

@@ -2,13 +2,17 @@
 <div class="carriers" v-if="carriers">
     <!-- delete dialog-->
     <md-dialog-confirm :md-active.sync="deleteTogal" md-title="I assure what you doing" md-content md-confirm-text="OK" md-cancel-text="Cancel" @md-confirm="confirm()" @md-cancel="cancel" />
-
+    <md-dialog :md-active.sync="editTogal">
+        <md-dialog-title>Update Carrier</md-dialog-title>
+        <md-dialog-content>
+            <EditCarrierList v-on:close-dialog="refresh" :carrier="carrier" />
+        </md-dialog-content>
+    </md-dialog>
     <md-table md-sort="name" md-sort-order="asc" md-card>
         <md-table-toolbar>
             <div class="md-toolbar-section-start">
                 <h1 class="md-title">Carriers</h1>
             </div>
-
             <md-field md-clearable class="md-toolbar-section-end">
                 <md-input placeholder="Search by name..." v-model="keywords" />
             </md-field>
@@ -19,39 +23,25 @@
         </md-table-empty-state>
         <md-table-row>
             <md-table-head md-numeric>ID</md-table-head>
+            <md-table-head>Logo</md-table-head>
             <md-table-head>First name</md-table-head>
             <md-table-head>Last name</md-table-head>
-            <md-table-head>Phone</md-table-head>
-            <md-table-head>Email</md-table-head>
-            <md-table-head>Address</md-table-head>
-            <md-table-head>Accessories</md-table-head>
-            <md-table-head>Rates</md-table-head>
+            <md-table-head>Website</md-table-head>
+            <md-table-head>Company</md-table-head>
+            <md-table-head>Details</md-table-head>
             <md-table-head>Actions</md-table-head>
         </md-table-row>
-        <md-table-row v-for="carrier in carriers.data" :key="carrier.id">
-            <md-table-cell md-numeric>{{ carrier.id }}</md-table-cell>
+        <md-table-row v-for="(carrier, index) in carriers.data" :key="index">
+            <md-table-cell md-numeric>{{ index+1 }}</md-table-cell>
+            <md-table-cell><img :src="'/images/uploads/'+carrier.logo" alt="Logo" /></md-table-cell>
             <md-table-cell>{{ carrier.first_name }}</md-table-cell>
             <md-table-cell>{{ carrier.last_name }}</md-table-cell>
-            <md-table-cell>{{ carrier.contact.phone }}</md-table-cell>
-            <md-table-cell>{{ carrier.contact.email }}</md-table-cell>
-            <md-table-cell>
-                <a class="md-primary" :href="'/#/admin/carrier-address/'+carrier.id">
-                    Address
-                </a>
-            </md-table-cell>
-            <md-table-cell>
-                <a class="md-primary" :href="'/#/admin/carrier-accessories/'+carrier.id">
-                    Accessories
-                </a>
-            </md-table-cell>
-            <md-table-cell>
-                <a class="md-primary" :href="'/#/admin/carrier-rates/'+carrier.id">
-                    Rates
-                </a>
-            </md-table-cell>
+            <md-table-cell>{{ carrier.website }}</md-table-cell>
+            <md-table-cell>{{ carrier.company }}</md-table-cell>
+            <md-table-cell>{{ carrier.detail }}</md-table-cell>
 
             <md-table-cell md-label="Actions">
-                <md-button class="md-icon-button md-primary" @click="edit(carrier.id)">
+                <md-button class="md-icon-button md-primary" @click="edit(carrier)">
                     <md-icon>edit</md-icon>
                 </md-button>
                 <md-button class="md-icon-button md-accent" @click="remove(carrier.id)">
@@ -66,6 +56,7 @@
 
 <script>
 import axios from "axios";
+import EditCarrierList from "./EditCarrierList";
 
 export default {
     name: "carrier",
@@ -74,6 +65,7 @@ export default {
         carriers: null,
         carrier: null,
         deleteTogal: false,
+        editTogal: false,
     }),
     watch: {
         keywords(after, before) {
@@ -141,6 +133,9 @@ export default {
     created() {
         this.get();
     },
+    components: {
+        EditCarrierList
+    }
 };
 </script>
 

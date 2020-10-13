@@ -15,7 +15,7 @@ class AdminCarrierController extends Controller
      */
     public function index()
     {
-        $carriers = Carrier::with('fullAddress','contact')->paginate(5);
+        $carriers = Carrier::paginate(5);
         return response()->json($carriers);
     }
 
@@ -71,7 +71,30 @@ class AdminCarrierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $carrier = Carrier::find($id);
+
+            if ($request->hasFile('logo')) {
+
+                $old_image_path = public_path('images/uploads/' . $carrier->logo);
+                if (file_exists($old_image_path)) {
+                    @unlink($old_image_path);
+                }
+                $file = $request->file('logo');
+                $logo_name = time() . '.' . $file->getClientOriginalName();
+                $file->move(public_path('images/uploads'), $logo_name);
+            } else {
+                $logo_name = $carrier->logo;
+            }
+
+        $carrier->first_name = $request->first_name;
+        $carrier->last_name = $request->last_name;
+        $carrier->website = $request->website;
+        $carrier->company = $request->company;
+        $carrier->detail = $request->detail;
+        $carrier->logo = $logo_name;
+        $carrier->update();
+
+        return response()->json(["message" => "Updated successfully!"], 200);
     }
 
     /**

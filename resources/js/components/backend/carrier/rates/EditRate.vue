@@ -136,6 +136,7 @@ import {
 } from "vuex";
 export default {
     name: "EditRate",
+    props: ["rate"],
     data: () => ({
         ssk: null, //srcStateKeywords
         dsk: null, //desStateKeywords
@@ -163,7 +164,6 @@ export default {
         desStates: [],
         srcCities: [],
         desCities: [],
-        carrierId: null,
         countryId: null,
     }),
     watch: {
@@ -273,10 +273,9 @@ export default {
         },
         update() {
             axios
-                .put("carrier/rates/" + this.$route.params.id, this.form)
+                .put("carrier/rates/" + this.rate.id, this.form)
                 .then((res) => {
-                    this.$emit("show-snackbar");
-                    this.$router.back();
+                    this.$emit("close-dialog");
                     console.log("res ", res.data);
                 })
                 .catch((err) => {
@@ -287,50 +286,42 @@ export default {
             axios
                 .get("countries")
                 .then((res) => {
-                    this.countries = res.data;
                     console.log("counteris: ", res.data);
+                    this.countries = res.data;
                 })
                 .catch((err) => {
                     console.log("Error: ", err);
                 });
         },
-        get() {
-            axios
-                .get("carrier/rates/" + this.$route.params.id)
-                .then((res) => {
-                    console.log("edit ", res.data);
-                    this.form.src_state = res.data.city_with_state[0].state.id;
-                    this.ssk = res.data.city_with_state[0].state.name;
-                    this.form.src_city = res.data.city_with_state[0].id;
-                    this.sck = res.data.city_with_state[0].name;
-                    this.form.des_state = res.data.city_with_state[1].state.id;
-                    this.dsk = res.data.city_with_state[1].state.name;
-                    this.form.des_city = res.data.city_with_state[1].id;
-                    this.dck = res.data.city_with_state[1].name;
-                    this.form.min_rate = res.data.min_rate;
-                    this.form.k0_k1 = res.data._0k_1k;
-                    this.form.k1_k2 = res.data._1k_2k;
-                    this.form.k2_k3 = res.data._2k_3k;
-                    this.form.k3_k4 = res.data._3k_4k;
-                    this.form.k4_k5 = res.data._4k_5k;
-                    this.form.k5_k10 = res.data._5k_10k;
-                    this.form.above_10k = res.data.above_10k;
-                    this.form.fsc = res.data.fsc;
-                    this.form.transit_day = res.data.transit_day;
-                    this.rateId = res.data.id;
-                })
-                .catch((err) => {
-                    console.log("Error: ", err);
-                });
+        init() {
+            this.form.src_state = this.rate.city_with_state[0].state.id;
+            this.ssk = this.rate.city_with_state[0].state.name;
+            this.form.src_city = this.rate.city_with_state[0].id;
+            this.sck = this.rate.city_with_state[0].name;
+            this.form.des_state = this.rate.city_with_state[1].state.id;
+            this.dsk = this.rate.city_with_state[1].state.name;
+            this.form.des_city = this.rate.city_with_state[1].id;
+            this.dck = this.rate.city_with_state[1].name;
+            this.form.min_rate = this.rate.min_rate;
+            this.form.k0_k1 = this.rate._0k_1k;
+            this.form.k1_k2 = this.rate._1k_2k;
+            this.form.k2_k3 = this.rate._2k_3k;
+            this.form.k3_k4 = this.rate._3k_4k;
+            this.form.k4_k5 = this.rate._4k_5k;
+            this.form.k5_k10 = this.rate._5k_10k;
+            this.form.above_10k = this.rate.above_10k;
+            this.form.fsc = this.rate.fsc;
+            this.form.transit_day = this.rate.transit_day;
+            this.rateId = this.rate.id;
         },
 
     },
 
     created() {
-        this.form.carrierId = this.temp.me;
-        this.countryId = this.temp.country;
+        console.log("rate to edit ", this.rate)
+
         this.getCountries();
-        this.get()
+        this.init()
     },
 
 };
@@ -339,8 +330,6 @@ export default {
 <style lang="scss" scoped>
 .md-card {
     box-shadow: none;
-    border: 1px solid #ddd;
-    text-align: center;
 
     .md-card-content {
         overflow-x: auto;
@@ -371,5 +360,10 @@ export default {
             }
         }
     }
+}
+
+.md-menu-content-bottom-start,
+.md-menu-content-small {
+    z-index: 100 !important;
 }
 </style>
