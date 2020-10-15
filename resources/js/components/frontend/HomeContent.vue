@@ -69,7 +69,9 @@
         </md-card>
     </div>
     <div class="footer">
-
+        <div>Section1</div>
+        <div>Section2</div>
+        <div>Section3</div>
     </div>
 </div>
 </template>
@@ -119,7 +121,7 @@ export default {
     min-height: 100%;
 
     .section1 {
-        background-image: url('http://localhost:8000/images/home-background.png');
+        background-image: url('http://104.154.95.189/images/home-background.png');
         background-repeat: no-repeat;
         background-size: cover;
         height: calc(100vh - 100px);
