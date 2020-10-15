@@ -12,7 +12,11 @@ export default {
 
 <style lang="scss">
 .app {
-    height: 100%;
+    height: 100% !important;
+}
+
+.padding-20 {
+    padding: 20px !important;
 }
 
 .md-card {

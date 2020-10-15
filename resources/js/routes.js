@@ -45,9 +45,7 @@ import Carriers from './components/frontend/order/Carriers'
 
 import Shipment from './components/frontend/shipment/Shipment'
 import AdditionalDetails from './components/frontend/shipment/AdditionalDetails'
-import PickupDetails from './components/frontend/shipment/PickupDetails'
 import PaymentDetails from './components/frontend/shipment/PaymentDetails'
-import DeliveryDetails from './components/frontend/shipment/DeliveryDetails'
 import Confirmation from './components/frontend/shipment/Confirmation'
 import Completion from './components/frontend/shipment/Completion'
 import ShipmentDetails from './components/frontend/shipment/ShipmentDetails'
@@ -101,13 +99,6 @@ function webGuard(to, from, next) {
         next()
     }
 }
-function adminGuard(to, from, next) {
-    if (!store.getters['auth/authenticated']) {
-        next('/login')
-    } else {
-        next('/admin')
-    }
-}
 
 Vue.use(VueRouter);
 
@@ -144,8 +135,6 @@ export default new VueRouter({
                     children: [
                         { path: '', redirect: 'additional-details' },
                         { name: 'additional-details', path: 'additional-details', component: AdditionalDetails },
-                        { name: 'pickup-details', path: 'pickup-details', component: PickupDetails },
-                        { name: 'delivery-details', path: 'delivery-details', component: DeliveryDetails },
                         { name: 'payment-details', path: 'payment-details', component: PaymentDetails },
                         { name: 'confirmation', path: 'confirmation', component: Confirmation },
                         { name: 'completion', path: 'completion', component: Completion },
@@ -283,6 +272,6 @@ export default new VueRouter({
                 }
             ],
         },
-        /*   { path: '*', redirect: '/' } */
+          { path: '*', redirect: '/' }
     ],
 })

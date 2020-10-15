@@ -21,7 +21,7 @@
                 <div class="row">
                     <md-field>
                         <label>Phone</label>
-                        <md-input type="tel" v-model="shipper.pickupPhone" required></md-input>
+                        <md-input type="text" v-model="shipper.pickupPhone" required></md-input>
                     </md-field>
                     <md-field>
                         <label>Email</label>
@@ -37,12 +37,12 @@
             <md-step id="second" md-label="Delivery Contacts" md-description="Required" :md-error="deliveryError">
                 <md-field>
                     <label>Name</label>
-                    <md-input type="tel" v-model="shipper.deliveryName" required></md-input>
+                    <md-input type="text" v-model="shipper.deliveryName" required></md-input>
                 </md-field>
                 <div class="row">
                     <md-field>
                         <label>Phone</label>
-                        <md-input type="tel" v-model="shipper.deliveryPhone" required></md-input>
+                        <md-input type="text" v-model="shipper.deliveryPhone" required></md-input>
                     </md-field>
                     <md-field>
                         <label>Email</label>
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import functions from '../services/functions';
 export default {
     name: "additional-details",
     data: () => ({
@@ -90,23 +91,7 @@ export default {
 
     methods: {
         nextStep() {
-            if (
-                this.shipper.pickupName == null ||
-                this.shipper.pickupPhone == null ||
-                this.shipper.pickupEmail == null
-            ) {
-                this.pickupError = "Required step!";
-                console.log("picup requiered ")
-                return
-            } else if (
-                this.shipper.deliveryName == null ||
-                this.shipper.deliveryPhone == null ||
-                this.shipper.deliveryEmail == null
-            ) {
-                this.deliveryError = "Required step!";
-                console.log('delivery required')
-                return
-            } else {
+            if (this.validator()) {
                 console.log("u r going")
                 let order = JSON.parse(localStorage.getItem("order"));
                 order.shipper = this.shipper;
@@ -114,7 +99,29 @@ export default {
                 this.$router.push("payment-details");
             }
         },
-
+        validator() {
+            if (
+                this.shipper.pickupName == null ||
+                this.shipper.pickupPhone == null ||
+                !functions.phoneValidator(this.shipper.pickupPhone) ||
+                this.shipper.pickupEmail == null ||
+                !functions.emailValidator(this.shipper.pickupEmail)
+            ) {
+                this.pickupError = "Invalid info!";
+                return false;
+            } else if (
+                this.shipper.deliveryName == null ||
+                this.shipper.deliveryPhone == null ||
+                !functions.phoneValidator(this.shipper.deliveryPhone) ||
+                this.shipper.deliveryEmail == null ||
+                !functions.emailValidator(this.shipper.deliveryEmail)
+            ) {
+                this.deliveryError = "Invalid info!";
+                return false;
+            } else {
+                return true;
+            }
+        },
         watchLocalstorage() {
             let storage = JSON.parse(localStorage.getItem("order"));
             if (storage.shipper) {
@@ -132,7 +139,6 @@ export default {
         this.$refs.focusable.$el.focus();
     },
     created() {
-        console.log(">> ", performance.navigation.type, ' === ', performance.navigation.TYPE_RELOAD)
         this.watchLocalstorage();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
     },

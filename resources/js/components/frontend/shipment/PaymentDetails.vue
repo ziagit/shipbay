@@ -1,7 +1,10 @@
 <template>
 <div class="payment-details">
     <md-dialog :md-active.sync="cartTogal">
-        <md-dialog-title>Add your card information</md-dialog-title>
+        <md-dialog-title>
+            <span>Add your card information </span>
+            <img :src="'/images/mastercard.svg'" />
+        </md-dialog-title>
         <md-dialog-content>
             <Card v-on:payment-succeed="refresh" />
         </md-dialog-content>
@@ -11,7 +14,6 @@
     </div>
     <md-card>
         <md-card-content>
-            <img :src="'/images/mastercard.svg'" />
             <div v-if="dataLoading" class="spinner">
                 <Spinner />
             </div>
@@ -132,9 +134,12 @@ export default {
         },
         refresh() {
             this.cartTogal = false;
-            console.log("user ", this.user.role[0].name)
-            if (this.authenticated && this.user.role[0].name === "shipper") {
-                this.$router.push('/shipper/card');
+            if (this.authenticated) {
+                if (this.user.role[0].name === "shipper") {
+                    this.$router.push('/shipper/card');
+                } else {
+                    window.location.reload(true);
+                }
             } else {
                 window.location.reload(true);
             }
@@ -179,13 +184,6 @@ export default {
             text-align: center;
         }
 
-        img {
-            position: absolute;
-            top: 0;
-            right: 5px;
-            width: 2.2em;
-        }
-
         .payment-status {
             .paid {
                 background: green;
@@ -216,6 +214,13 @@ export default {
     .required-feild-error {
         background: crimson;
     }
+}
+
+img {
+    position: absolute;
+    top: 0;
+    right: 9px;
+    width: 2.2em;
 }
 
 @media only screen and (min-width: 600px) {

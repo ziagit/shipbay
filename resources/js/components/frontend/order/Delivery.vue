@@ -12,7 +12,7 @@
             </md-field>
             <md-field v-if="isSelected">
                 <label>Address</label>
-                <md-input v-model="addKeywords" required @keydown="clearAddress($event)"></md-input>
+                <md-input v-model="addKeywords" required ref="focusable" @keydown="clearAddress($event)"></md-input>
             </md-field>
             <ul>
                 <li v-if="notFound !== null" class="not-found">
@@ -146,6 +146,7 @@ export default {
         },
 
         selectCity(selected) {
+            this.$refs.focusable.$el.focus()
             this.des.state = selected.state.id;
             this.des.stateName = selected.state.name;
             this.des.city = selected.id;
@@ -230,6 +231,9 @@ export default {
                 this.des.countryName = res.data[1].name;
             });
         },
+    },
+    mounted() {
+        this.$refs.focusable.$el.focus();
     },
     created() {
         this.$emit("progress", 42);

@@ -125,6 +125,7 @@ export default {
 .login {
     width: 100%;
     height: calc(100vh - 200px);
+    padding: 20px;
 
     .md-card {
         margin: auto;
@@ -157,9 +158,10 @@ export default {
 
 @media only screen and (min-width: 600px) {
     .login {
+        padding-top: 3em;
+
         .md-card {
             max-width: 500px;
-            margin: 3em auto;
 
             .login-througth {
                 .md-button {

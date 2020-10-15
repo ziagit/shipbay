@@ -3,7 +3,6 @@
     <md-card>
         <form @submit.prevent="getStripeToken" id="payment-form" enctype="multipart/form-data">
             <md-card-content>
-
                 <div class="checkbox" v-if="authenticated && user.role[0].name === 'shipper'">
                     <md-checkbox class="md-primary" v-model="sameAddress">
                         Is your billing address same to your account ?
@@ -16,7 +15,7 @@
 
                 <md-field>
                     <label>Email</label>
-                    <md-input type="email" v-model="form.email" required></md-input>
+                    <md-input type="email" v-model="form.email" required ref="focusable"></md-input>
                 </md-field>
                 <md-field>
                     <label>Address</label>
@@ -118,6 +117,7 @@ export default {
             hidePostalCode: true,
         });
         card.mount(this.$refs.card);
+        this.$refs.focusable.$el.focus();
     },
     watch: {
         sameAddress: function (value) {
@@ -196,7 +196,7 @@ export default {
         },
         paymentPage() {
             this.$router.push("/shipment/payment-details")
-        }
+        },
     },
     created() {
         this.order = JSON.parse(localStorage.getItem("order"));
@@ -242,6 +242,7 @@ export default {
             }
         }
     }
+
 }
 
 .alert-error {

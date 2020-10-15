@@ -2,7 +2,7 @@
 <div class="select-carrier">
     <div v-show="dataLoading" class="loading">
         <span class="md-display-1">Calculating...</span>
-        <div class="md-title">We trying to find topest carriers to fit your requirments. please wait</div>
+        <div class="md-display-body">We trying to find topest carriers to fit your requirments. please wait</div>
         <Spinner />
     </div>
     <div v-show="!dataLoading">

@@ -1,5 +1,5 @@
 <template>
-<div class="origin">
+<div class="origin padding-20">
     <div class="icon">
         <img :src="'/images/a-b.svg'" width="100" />
     </div>
@@ -12,7 +12,7 @@
             </md-field>
             <md-field v-if="isSelected">
                 <label>Address</label>
-                <md-input v-model="addKeywords" required @keydown="clearAddress($event)"></md-input>
+                <md-input v-model="addKeywords" required ref="focusable" @keydown="clearAddress($event)"></md-input>
             </md-field>
             <ul>
                 <li v-if="notFound !== null" class="not-found">
@@ -154,6 +154,7 @@ export default {
         },
 
         selectCity(selected) {
+            this.$refs.focusable.$el.focus()
             this.order.src.city = selected.id;
             this.order.src.cityName = selected.name;
             this.order.src.state = selected.state.id;
@@ -234,17 +235,24 @@ export default {
         },
         getCountries() {
             axios.get("countries").then((res) => {
-                console.log("carunt", res.data)
                 this.order.src.country = res.data[1].id;
                 this.order.src.countryName = res.data[1].name;
             });
         },
+        getRoute() {
+            function beforeRouteEnter(to, from, next) {
+                console.log("prev route: ", from)
+            }
+        }
+    },
+    mounted() {
+        this.$refs.focusable.$el.focus();
     },
     created() {
+        this.getCountries();
         this.$emit("progress", 0);
         this.init();
         this.getAccessories();
-        this.getCountries();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);
     },
 };

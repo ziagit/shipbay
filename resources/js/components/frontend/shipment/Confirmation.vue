@@ -12,6 +12,9 @@
                 <div class="item-head">Source</div>
                 <div class="item">
                     <div class="md-body-1">
+                        Country: {{ shipment.src.countryName }}
+                    </div>
+                    <div class="md-body-1">
                         State: {{ shipment.src.stateName }}
                     </div>
                     <div class="md-body-1">
@@ -36,6 +39,9 @@
             <div>
                 <div class="item-head">Destination</div>
                 <div class="item">
+                    <div class="md-body-1">
+                        Country: {{ shipment.des.countryName }}
+                    </div>
                     <div class="md-body-1">
                         State: {{ shipment.des.stateName }}
                     </div>
@@ -165,28 +171,28 @@ export default {
             axios
                 .post("confirm", JSON.parse(localStorage.getItem("order")))
                 .then((res) => {
-                    /*       if (localStorage.getItem("order")) {
-                              localStorage.removeItem("order");
-                          }
-                          if (localStorage.getItem("prg-value")) {
-                              localStorage.removeItem("prg-value");
-                          }
-                          if (localStorage.getItem('dflug')) {
-                              localStorage.removeItem('dflug');
-                          }
-                          if (localStorage.getItem('adflug')) {
-                              localStorage.removeItem('adflug');
-                          }
-                          if (localStorage.getItem('aflug')) {
-                              localStorage.removeItem('aflug');
-                          }
-                          if (localStorage.getItem('sflug')) {
-                              localStorage.removeItem('sflug');
-                          }
-                          if (localStorage.getItem('cRoute')) {
-                              localStorage.removeItem('cRoute');
-                          }
-                          this.$router.push("completion");*/
+                    if (localStorage.getItem("order")) {
+                        localStorage.removeItem("order");
+                    }
+                    if (localStorage.getItem("prg-value")) {
+                        localStorage.removeItem("prg-value");
+                    }
+                    if (localStorage.getItem('dflug')) {
+                        localStorage.removeItem('dflug');
+                    }
+                    if (localStorage.getItem('adflug')) {
+                        localStorage.removeItem('adflug');
+                    }
+                    if (localStorage.getItem('aflug')) {
+                        localStorage.removeItem('aflug');
+                    }
+                    if (localStorage.getItem('sflug')) {
+                        localStorage.removeItem('sflug');
+                    }
+                    if (localStorage.getItem('cRoute')) {
+                        localStorage.removeItem('cRoute');
+                    }
+                    this.$router.push("completion");
                     console.log("data: ", res.data)
                     this.dataLoading = false;
                 })

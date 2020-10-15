@@ -14,12 +14,12 @@
     <style>
         html,
         body {
-            height: 100%;
-            min-height: 100%;
+            height: 100% !important;
+            min-height: 100% !important;
         }
         #app {
-            height: 100%;
-            min-height: 100%;
+            height: 100% !important;
+            min-height: 100% !important;
         }
     </style>
 </head>

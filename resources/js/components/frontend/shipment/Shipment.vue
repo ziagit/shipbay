@@ -18,6 +18,7 @@ export default {
 .shipper {
     width: 100%;
     margin: auto;
+    padding: 20px;
     text-align: center;
 
     .input-container {

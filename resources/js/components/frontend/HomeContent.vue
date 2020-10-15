@@ -1,104 +1,224 @@
 <template>
-  <div class="home-content">
+<div class="home-content">
     <div class="section1">
-      <div class="text">
-        <div class="heading">
-          <span class="md-headline">Smart Shipping!</span>
+        <div class="text">
+            <div class="heading">
+                <span class="md-headline">Smart Shipping!</span>
+            </div>
+            <div class="sub-heading">
+                <span class="md-subheading">We get you shipped in 3 easy steps. Thousands happening everyday!</span>
+            </div>
+            <div class="help">
+                <router-link to="/help" color="help">How it works ?</router-link>
+            </div>
         </div>
-        <div class="sub-heading">
-          <span
-            class="md-subheading"
-          >We get you shipped in 3 easy steps. Thousands happening everyday!</span>
+        <div class="action">
+            <md-button @click="getQuote()" class="md-default md-raised">Get a free qu<div class="circle"></div>te </md-button>
         </div>
-        <div class="help">
-          <router-link to="/help" color="primary">How it works ?</router-link>
-        </div>
-      </div>
-      <div class="action">
-        <md-button @click="getQuote()" class="md-primary md-raised">Get a free qu<div class="circle"></div>te </md-button>
-      </div>
     </div>
-    <div class="image"></div>
-  </div>
+    <div class="section2">
+        <md-card>
+            <md-card-header>
+                <h3 class="md-display-1"><img :src="'/images/logo.svg'" width="50" /> ShipBay</h3>
+                <div class="md-headline"> Real-time online quotes for freight shipping. </div>
+                <p class="md-body-1">You will receive up-to-date freight shipping rates and be able to choose from a variety of contract carriers and transportation modes. Simply pick your price and carrier, and we’ll take care of the rest. Make freight shipping easy when you compare competitive rates from contract carriers, create BOLs and book and track shipments, all in one place.</p>
+                <md-button class="md-primary md-raised">Get Free Quotes</md-button>
+            </md-card-header>
+            <md-card-content>
+                <div class="row">
+                    <img :src="'/images/ltl.svg'" width="50" alt="">
+                    <div>
+                        <div class="md-headline">LTL freight</div>
+                        <div class="md-body-1">Choose from hundreds of contract carriers with our self-service online tools or work directly with a freight expert.</div>
+                        <div>
+                            <router-link to="/">Read more...</router-link>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <img :src="'/images/tld.svg'" width="50" alt="">
+                    <div>
+                        <div class="md-headline">Truckload freight</div>
+                        <div class="md-body-1">Easily ship your refrigerated, flatbed and dry van freight with our large network of contract carriers and the guidance of our freight professionals.</div>
+                        <div>
+                            <router-link to="/">Read more...</router-link>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <img :src="'/images/int.svg'" width="50" alt="">
+                    <div>
+                        <div class="md-headline">Intermodal Rail shipping</div>
+                        <div class="md-body-1">We offer real-time intermodal rates and an in-house team of experts to make your rail shipments easy.</div>
+                        <div>
+                            <router-link to="/">Read more...</router-link>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <img :src="'/images/par.svg'" width="50" alt="">
+                    <div>
+                        <div class="md-headline">Partial Truckload freight</div>
+                        <div class="md-body-1">Find a partial truckload option that fits based on your budget, transit or handling requirements.</div>
+                        <div>
+                            <router-link to="/">Read more...</router-link>
+                        </div>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+    <div class="footer">
+
+    </div>
+</div>
 </template>
+
 <script>
 export default {
-  name: "HomeContainer",
-  data: () => ({}),
-  methods: {
-    getQuote() {
-      this.$router.push("order");
+    name: "HomeContainer",
+    data: () => ({}),
+    methods: {
+        getQuote() {
+            this.$router.push("order");
+        },
     },
-  },
-  components: {},
+    components: {},
 };
 </script>
+
 <style lang="scss" scoped>
 .circle {
-  animation: pulse 2s infinite;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: solid 2px rgba(255, 82, 82, 1);
-  display: inline-block;
+    animation: pulse 2s infinite;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: solid 2px rgb(241, 116, 44);
+    display: inline-block;
 }
+
 @keyframes pulse {
-  0% {
-    transform: scale(0.9);
-    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 30px rgba(255, 82, 82, 0);
-  }
-  100% {
-    transform: scale(0.9);
-  }
+    0% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(228, 109, 12, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 30px rgba(255, 82, 82, 0);
+    }
+
+    100% {
+        transform: scale(0.9);
+    }
 }
+
 .home-content {
-  text-align: center;
-  padding-top: 60px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  .text {
-    margin-left: 7px;
-    .heading {
-      .md-headline {
-        font-size: 2.5em;
-      }
+    text-align: center;
+    width: 100%;
+    min-height: 100%;
+
+    .section1 {
+        background-image: url('http://localhost:8000/images/home-background.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: calc(100vh - 100px);
+        padding-top: 80px;
+
+        .text {
+            margin-left: 7px;
+
+            .heading {
+                .md-headline {
+                    font-size: 2.5em;
+                    color: #fff;
+                }
+            }
+
+            .sub-heading {
+                .md-subheading {
+                    font-size: 1em;
+                    line-height: 1em;
+                    color: #fff;
+                }
+            }
+
+            .help {
+                margin-bottom: 3em;
+                margin-top: 0.7em;
+
+                a {
+                    font-size: 1em;
+                    color: #F9A003;
+                }
+            }
+        }
     }
-    .sub-heading {
-      .md-subheading {
-        font-size: 1em;
-        line-height: 1em;
-      }
+
+    .section2 {
+        margin-top: -50px;
+        padding-bottom: 30px;
+        text-align: left;
+
+        .md-card {
+            .md-card-content {
+                padding: 0 !important;
+                background: #f0f2f58a;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+
+                .row {
+                    flex: 50%;
+                    padding: 20px;
+                    border: solid rgba(221, 221, 221, 0.336);
+                    border-width: 0.01em;
+                    display: flex;
+                    align-items: flex-start;
+
+                    div {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+
     }
-    .help {
-      margin-bottom: 3em;
-      margin-top: 0.7em;
-      a {
-        font-size: 1em;
-      }
-    }
-  }
-  .action {
+
     .md-button {
-      border-radius: 5px;
-      padding: 0 10px;
+        border-radius: 5px;
+        padding: 0 10px;
     }
-  }
+
 }
+
 @media only screen and (min-width: 600px) {
-  .home-content {
-    padding: 100px 50px;
-    text-align: left;
-    .action {
-      ion-button {
-        font-size: 14px;
-      }
+    .home-content {
+        background-size: 100% 100%;
+        text-align: left;
+
+        .section1 {
+            padding: 100px 200px;
+
+            .action {
+                ion-button {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .section2 {
+            .md-card-header {
+                padding-left: 100px;
+                padding-right: 100px;
+                padding-bottom: 50px;
+
+                .md-body-1 {
+                    width: 100% !important;
+                }
+            }
+        }
+
     }
-  }
 }
 </style>
