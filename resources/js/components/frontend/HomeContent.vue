@@ -158,7 +158,16 @@ export default {
                 }
             }
         }
+    }
 
+    .footer {
+        background: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        min-height: 150px;
+        padding: 20px;
     }
 
     .md-button {
