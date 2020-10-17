@@ -1,6 +1,6 @@
 <template>
 <div class="home-content">
-    <div class="section1">
+    <div class="section1" v-bind:style="{'background-image': 'url(/images/home-background.png)'}">
         <div class="text">
             <div class="heading">
                 <span class="md-headline">Smart Shipping!</span>
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="action">
-            <md-button @click="getQuote()" class="md-default md-raised">Get a free qu<div class="circle"></div>te </md-button>
+            <md-button @click="getQuote()" class="md-default md-raised">Get a free quote </md-button>
         </div>
     </div>
     <div class="section2">
@@ -90,38 +90,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.circle {
-    animation: pulse 2s infinite;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: solid 2px rgb(241, 116, 44);
-    display: inline-block;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(0.9);
-        box-shadow: 0 0 0 0 rgba(228, 109, 12, 0.7);
-    }
-
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 30px rgba(255, 82, 82, 0);
-    }
-
-    100% {
-        transform: scale(0.9);
-    }
-}
-
 .home-content {
     text-align: center;
     width: 100%;
     min-height: 100%;
 
     .section1 {
-        background-image: url('http://104.154.95.189/images/home-background.png');
+        /* background-image: url('http://104.154.95.189/images/home-background.png'); */
         background-repeat: no-repeat;
         background-size: cover;
         height: calc(100vh - 100px);
