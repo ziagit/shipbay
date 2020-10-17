@@ -99,6 +99,34 @@ function webGuard(to, from, next) {
         next()
     }
 }
+function orderGuard(to, from, next){
+    if(from.name === 'pickup-services'){
+        next();
+    }else{
+        if (localStorage.getItem("order")) {
+            localStorage.removeItem("order");
+        }
+        if (localStorage.getItem("prg-value")) {
+            localStorage.removeItem("prg-value");
+        }
+        if (localStorage.getItem('dflug')) {
+            localStorage.removeItem('dflug');
+        }
+        if (localStorage.getItem('adflug')) {
+            localStorage.removeItem('adflug');
+        }
+        if (localStorage.getItem('aflug')) {
+            localStorage.removeItem('aflug');
+        }
+        if (localStorage.getItem('sflug')) {
+            localStorage.removeItem('sflug');
+        }
+        if (localStorage.getItem('cRoute')) {
+            localStorage.removeItem('cRoute');
+        }
+        next();
+    }
+}
 
 Vue.use(VueRouter);
 
@@ -118,7 +146,7 @@ export default new VueRouter({
                     component: Order,
                     children: [
                         { path: '', redirect: 'pickup' },
-                        { name: 'pickup', path: 'pickup', component: Pickup },
+                        { name: 'pickup', path: 'pickup', component: Pickup,beforeEnter: orderGuard},
                         { name: 'pickup-services', path: 'pickup-services', component: PickupServices },
                         { name: 'pickup-date', path: 'pickup-date', component: PickupDate },
                         { name: 'delivery', path: 'delivery', component: Delivery },

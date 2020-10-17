@@ -20,13 +20,13 @@
                 </li>
             </ul>
             <ul v-if="!isSelected">
-                <li v-for="city in cities" :key="city.id" @click="selectCity(city)">
+                <li class="city-list" v-for="city in cities" :key="city.id" @click="selectCity(city)">
                     {{ city.name }},
                     {{ city.state.name }}
                 </li>
             </ul>
             <ul v-if="!isAddSelected">
-                <li v-for="address in addresses" :key="address.id" @click="selectAddress(address)">
+                <li class="address-list" v-for="address in addresses" :key="address.id" @click="selectAddress(address)">
                     {{ address.name }},
                     {{ address.zip.postal_code }}
                 </li>
@@ -85,6 +85,9 @@ export default {
                 accessories: ["bs"],
                 appointmentTime: null,
             },
+            pickDate: null,
+            des: null,
+            myItem: null,
             billing: {
                 email: null,
                 status: null,
@@ -214,11 +217,15 @@ export default {
                 this.order.src.stateName = storage.src.stateName;
                 this.order.src.city = storage.src.city;
                 this.order.src.cityName = storage.src.cityName;
-                this.order.src.accessories = storage.src.accessories;
                 this.order.src.postalCode = storage.src.postalCode;
                 this.order.src.postalCodeName = storage.src.postalCodeName;
                 this.order.src.address = storage.src.address;
                 this.order.src.addressName = storage.src.addressName;
+                this.order.src.accessories = storage.src.accessories;
+                this.order.pickDate = storage.pickDate;
+                this.order.src.appointmentTime = storage.src.appointmentTime
+                this.order.des = storage.des;
+                this.order.myItem = storage.myItem;
                 this.addKeywords = storage.src.addressName;
             }
         },
@@ -289,8 +296,10 @@ export default {
                 padding: 10px;
             }
 
-            li:hover {
-                background: #ddd;
+            .city-list:hover,
+            .address-list:hover {
+                background: #F0F2F5;
+                cursor: pointer;
             }
 
             .not-found {

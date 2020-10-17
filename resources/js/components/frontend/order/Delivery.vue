@@ -20,13 +20,13 @@
                 </li>
             </ul>
             <ul v-if="!isSelected">
-                <li v-for="city in cities" :key="city.id" @click="selectCity(city)">
+                <li class="city-list" v-for="city in cities" :key="city.id" @click="selectCity(city)">
                     {{ city.name }},
                     {{ city.state.name }}
                 </li>
             </ul>
             <ul v-if="!isAddSelected">
-                <li v-for="address in addresses" :key="address.id" @click="selectAddress(address)">
+                <li class="address-list" v-for="address in addresses" :key="address.id" @click="selectAddress(address)">
                     {{ address.name }},
                     {{ address.zip.postal_code }}
                 </li>
@@ -81,6 +81,7 @@ export default {
             address: null,
             addressName: null,
             accessories: ["bs"],
+            appointmentTime: null,
         },
     }),
     watch: {
@@ -212,6 +213,7 @@ export default {
                 this.des.addressName = storage.des.addressName;
                 this.addKeywords = storage.des.addressName;
                 this.des.accessories = storage.des.accessories;
+                this.des.appointmentTime = storage.des.appointmentTime;
             }
         },
         getAccessories() {
@@ -272,8 +274,10 @@ export default {
                 padding: 10px;
             }
 
-            li:hover {
-                background: #ddd;
+            .city-list:hover,
+            .address-list:hover {
+                background: #F0F2F5;
+                cursor: pointer;
             }
 
             .not-found {

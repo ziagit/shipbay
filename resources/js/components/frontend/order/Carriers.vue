@@ -66,6 +66,7 @@
         <div class="action">
             <md-button to="/order" class="md-icon-button md-raised md-primary">
                 <md-icon>edit</md-icon>
+                <md-tooltip>Reset!</md-tooltip>
             </md-button>
         </div>
     </div>
