@@ -1,34 +1,41 @@
 <template>
-  <md-card>
-    <md-card-header>
-      <span class="md-display-1">help</span>
-    </md-card-header>
-    <md-card-content></md-card-content>
-  </md-card>
+<div class="help">
+    <md-card>
+        <md-card-header>
+            <span class="md-display-1">help</span>
+        </md-card-header>
+        <md-card-content></md-card-content>
+    </md-card>
+</div>
 </template>
 
 <script>
 import axio from "axios";
 export default {
-  name: "help",
-  data: () => ({}),
-  methods: {},
+    name: "help",
+    data: () => ({}),
+    methods: {},
 };
 </script>
 
 <style lang="scss" scoped>
-.md-card {
-  height: calc(100vh - 200px);
+.help {
+    padding-top: 20px;
 
-  .md-display-1 {
-    font-size: 24px;
-  }
-}
-@media only screen and (min-width: 600px) {
-  .md-card {
-    .md-display-1 {
-      font-size: 30px;
+    .md-card {
+        height: calc(100vh - 100px);
+
+        .md-display-1 {
+            font-size: 24px;
+        }
     }
-  }
+}
+
+@media only screen and (min-width: 600px) {
+    .md-card {
+        .md-display-1 {
+            font-size: 30px;
+        }
+    }
 }
 </style>

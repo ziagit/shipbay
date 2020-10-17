@@ -22,7 +22,7 @@
                 <h3 class="md-display-1"><img :src="'/images/logo.svg'" width="50" /> ShipBay</h3>
                 <div class="md-headline"> Real-time online quotes for freight shipping. </div>
                 <p class="md-body-1">You will receive up-to-date freight shipping rates and be able to choose from a variety of contract carriers and transportation modes. Simply pick your price and carrier, and we’ll take care of the rest. Make freight shipping easy when you compare competitive rates from contract carriers, create BOLs and book and track shipments, all in one place.</p>
-                <md-button class="md-primary md-raised">Get Free Quotes</md-button>
+                <md-button class="md-primary md-raised" @click="getQuote()">Get Free Quotes</md-button>
             </md-card-header>
             <md-card-content>
                 <div class="row">
@@ -68,11 +68,7 @@
             </md-card-content>
         </md-card>
     </div>
-    <div class="footer">
-        <div>Section1</div>
-        <div>Section2</div>
-        <div>Section3</div>
-    </div>
+
 </div>
 </template>
 
@@ -158,16 +154,6 @@ export default {
                 }
             }
         }
-    }
-
-    .footer {
-        background: #333;
-        color: #fff;
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        min-height: 150px;
-        padding: 20px;
     }
 
     .md-button {

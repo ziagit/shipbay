@@ -68,8 +68,8 @@
             </md-toolbar>
 
             <div class="side-menu">
-                <AdminSideMenu v-on:hideSideMenu="toggleMenu" v-if="authenticated && user.role[0].name === 'admin'" />
-                <WebSideMenu v-on:hideSideMenu="toggleMenu" v-else />
+                <AdminSideMenu v-on:hideSideMenu="toggleSideMenu" v-if="authenticated && user.role[0].name === 'admin'" />
+                <WebSideMenu v-on:hideSideMenu="toggleSideMenu" v-else />
             </div>
         </md-app-drawer>
 
@@ -77,6 +77,7 @@
             <router-view></router-view>
         </md-app-content>
     </md-app>
+    <Footer />
 </div>
 </template>
 
@@ -84,6 +85,7 @@
 import AdminSideMenu from "../sub-components/AdminSideMenu";
 import WebSideMenu from "../sub-components/WebSideMenu";
 import axios from "axios";
+import Footer from "./shared/Footer"
 import {
     mapGetters,
     mapActions
@@ -100,7 +102,15 @@ export default {
         closeOnSelect: true,
         connectionStatus: navigator.onLine,
     }),
-
+    watch: {
+        $route() {
+            if (this.$route.name == "accessory-list") {
+                this.activeRoute = "accessory-list";
+            } else if (this.$route.name == "rate-list") {
+                this.activeRoute = "rate-liste";
+            }
+        },
+    },
     computed: {
         ...mapGetters({
             authenticated: "auth/authenticated",
@@ -121,6 +131,12 @@ export default {
         toggleMenu() {
             this.menuVisible = !this.menuVisible;
         },
+        toggleSideMenu() {
+            if (screen.width < 600) {
+                this.menuVisible = !this.menuVisible;
+            }
+        },
+
         notificationDetails(notification) {
             this.setNotification(notification.id).then((res) => {});
             switch (this.user.role[0].name) {
@@ -184,17 +200,14 @@ export default {
     components: {
         AdminSideMenu,
         WebSideMenu,
+        Footer,
     },
-    watch: {
-        $route() {
-            if (this.$route.name == "accessory-list") {
-                this.activeRoute = "accessory-list";
-            } else if (this.$route.name == "rate-list") {
-                this.activeRoute = "rate-liste";
-            }
-            console.log("route: ", this.$route.name);
-        },
-    },
+
+    mounted() {
+        if (screen.width > 600) {
+            this.menuVisible = true;
+        }
+    }
 };
 </script>
 
