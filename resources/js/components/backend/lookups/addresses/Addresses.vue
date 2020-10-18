@@ -1,7 +1,7 @@
 <template>
 <div class="addresses" v-if="addresses">
     <!-- delete dialog-->
-    <md-dialog-confirm :md-active.sync="deleteTogal" md-title="I assure what you doing" md-content md-confirm-text="OK" md-cancel-text="Cancel" @md-confirm="confirm()" @md-cancel="cancel" />
+    <md-dialog-confirm :md-active.sync="deleteTogal" md-title="Are your sure you want to delete?" md-content md-confirm-text="OK" md-cancel-text="Cancel" @md-confirm="confirm()" @md-cancel="cancel" />
     <!-- edit dialog -->
     <md-dialog :md-active.sync="editTogal">
         <md-dialog-title>Update address data</md-dialog-title>

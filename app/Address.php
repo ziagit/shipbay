@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Shipper;
 class Address extends Model
 {
-    public function country(){
-        return $this->belongsTo(Country::class);
-    }
-    public function state(){
-        return $this->belongsTo(State::class);
-    }
+    protected $fillable = ['name','city_id'];
     public function city(){
         return $this->belongsTo(City::class);
     }

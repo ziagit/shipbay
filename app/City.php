@@ -14,10 +14,6 @@ class City extends Model
     public function rates(){
         return $this->belongsToMany(Rate::class)->withPivot('type')->withTimestamps();
     }
-
-    public function citycodes(){
-        return $this->hasMany(Citycode::class);
-    }
  
     public function address(){
         return $this->hasMany(Address::class);

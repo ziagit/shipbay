@@ -17,7 +17,7 @@ class AdminStateController extends Controller
      */
     public function index()
     {
-        $states = State::with('country')->paginate(5);
+        $states = State::with('country')->paginate(10);
         return response()->json($states);
     }
 
@@ -118,7 +118,7 @@ class AdminStateController extends Controller
                 return $q->where('name', 'like', '%' . $keywords . '%');
             })
             ->with('country')
-            ->paginate(5);
+            ->paginate(10);
         return $state;
     }
 }

@@ -16,7 +16,7 @@ class AdminCountryController extends Controller
      */
     public function index()
     {
-        $countries=Country::paginate(5);
+        $countries=Country::paginate(10);
         return response()->json($countries);
     }
 
@@ -113,7 +113,7 @@ class AdminCountryController extends Controller
     {
         $keywords = $request->keywords;
         $country = Country::where('name', 'like', '%' . $keywords . '%')
-            ->paginate(5);
+            ->paginate(10);
         return $country;
     }
 }

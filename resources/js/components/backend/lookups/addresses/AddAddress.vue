@@ -25,8 +25,8 @@
                     <md-input v-model="form.name" name="name"></md-input>
                 </md-field>
                 <md-field>
-                    <md-select v-model="form.state" id="state" placeholder="State">
-                        <md-option v-for="state in states" :key="state.id" :value="state.id">{{ state.name }}</md-option>
+                    <md-select v-model="form.city" id="city" placeholder="City">
+                        <md-option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</md-option>
                     </md-select>
                 </md-field>
             </md-card-content>
@@ -52,9 +52,9 @@ export default {
         return {
             form: {
                 name: null,
-                state: null,
+                city: null,
             },
-            states: null,
+            cities: null,
             file: null,
             uploadTogal: false,
             uploading: false,
@@ -78,9 +78,9 @@ export default {
             let fd = new FormData();
             fd.append("file", this.file);
             axios
-                .post("admin/upload-city", fd)
+                .post("admin/upload-addresses", fd)
                 .then((res) => {
-                    console.log("imported: ", res.data, res.status)
+                    console.log("response: ", res.data)
                     this.snackbar.show = true;
                     this.snackbar.message = res.data.message;
                     this.snackbar.statusCode = res.status;
@@ -97,7 +97,7 @@ export default {
         },
         save() {
             axios
-                .post("admin/cities", this.form)
+                .post("admin/addresses", this.form)
                 .then((res) => {
                     console.log("saved successfully! ", res.data);
                     this.$emit("close-dialog");
@@ -111,9 +111,9 @@ export default {
         },
         get() {
             axios
-                .get("states")
+                .get("cities")
                 .then((res) => {
-                    this.states = res.data;
+                    this.cities = res.data;
                 })
                 .catch((err) => {
                     console.log("Error: ", err);

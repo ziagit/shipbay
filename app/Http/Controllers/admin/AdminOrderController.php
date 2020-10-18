@@ -16,7 +16,7 @@ class AdminOrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('shipper','fullAddress', 'items','jobWithStatus')->paginate(8);
+        $orders = Order::with('shipper','fullAddress', 'items','jobWithStatus')->paginate(10);
         return response()->json($orders);
     }
 
@@ -98,7 +98,7 @@ class AdminOrderController extends Controller
                 return $q->where('name', 'like', '%' . $keywords . '%');
             })
             ->with('cities')
-            ->paginate(5);
+            ->paginate(10);
         return $citycodes;
     }
 }

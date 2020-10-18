@@ -15,7 +15,7 @@ class AdminCarrierController extends Controller
      */
     public function index()
     {
-        $carriers = Carrier::paginate(5);
+        $carriers = Carrier::paginate(10);
         return response()->json($carriers);
     }
 
@@ -113,7 +113,7 @@ class AdminCarrierController extends Controller
     {
         $keywords = $request->keywords;
         $carrier = Carrier::where('first_name', 'like', '%' . $keywords . '%')
-            ->paginate(5);
+            ->paginate(10);
         return $carrier;
     }
 }

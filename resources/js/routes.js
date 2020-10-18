@@ -67,10 +67,10 @@ import ShipperCard from './components/frontend/shipper/card-details/ShipperCard'
 import Admin from './components/backend/Admin'
 import Dashboard from './components/backend/Dashboard'
 import Comapany from './components/backend/company/Company'
-import Country from './components/backend/lookups/country/Country'
-import State from './components/backend/lookups/state/State'
-import City from './components/backend/lookups/city/City'
-import Zips from './components/backend/lookups/zip/Zips'
+import Countries from './components/backend/lookups/countries/Countries'
+import States from './components/backend/lookups/states/States'
+import Cities from './components/backend/lookups/cities/Cities'
+import Zips from './components/backend/lookups/zips/Zips'
 import Addresses from './components/backend/lookups/addresses/Addresses'
 import Accessories from './components/backend/lookups/accessories/Accessories'
 import RateRanges from './components/backend/lookups/rate-ranges/RateRanges'
@@ -275,9 +275,9 @@ export default new VueRouter({
                         { path: '', redirect: 'dashboard' },
                         { name: 'dashboard', path: 'dashboard', component: Dashboard },
                         { name: 'company', path: 'company', component: Comapany },
-                        { name: 'countries', path: 'countries', component: Country, },
-                        { name: 'states', path: 'states', component: State },
-                        { name: 'cities', path: 'cities', component: City },
+                        { name: 'countries', path: 'countries', component: Countries, },
+                        { name: 'states', path: 'states', component: States },
+                        { name: 'cities', path: 'cities', component: Cities },
                         { name: 'zips', path: 'zips', component: Zips },
                         { name: 'addresses', path: 'addresses', component: Addresses },
                         { name: 'accessories', path: 'accessories', component: Accessories },

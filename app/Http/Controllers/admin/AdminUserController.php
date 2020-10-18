@@ -15,7 +15,7 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->paginate(5);
+        $users = User::with('roles')->paginate(10);
         return response()->json($users);
     }
 
@@ -92,7 +92,7 @@ class AdminUserController extends Controller
                 return $q->where('name', 'like', '%' . $keywords . '%');
             })
             ->with('roles')
-            ->paginate(5);
+            ->paginate(10);
         return $user;
     }
 }

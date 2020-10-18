@@ -88,8 +88,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('rate-ranges','AdminRaterangeController');
     Route::get('search-rate-range','AdminRaterangeController@search');
 
-    Route::post('upload-city', 'AdminImportFileController@importCity')->name('importCity');
-    Route::post('upload-postalcode', 'AdminImportFileController@importPostalcode')->name('importPostalcode');
+    Route::post('upload-cities', 'AdminImportFileController@uploadCities')->name('uploadCities');
+    Route::post('upload-addresses', 'AdminImportFileController@uploadAddresses')->name('uploadAddresses');
+    Route::post('upload-zips', 'AdminImportFileController@uploadZips')->name('uploadZips');
   });
   Route::group(['namespace' => 'Order'], function () {
     Route::post('charge-customer', 'CheckoutController@chargeCustomer');
@@ -120,6 +121,7 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('countries', 'CountryController@index');
   Route::get('states', 'StateController@index');
   Route::get('cities', 'CityController@index');
+  Route::get('addresses', 'AddressController@index');
   Route::get('zips', 'ZipController@all');
   Route::get('states/{id}', 'StateController@show');
   Route::get('cities/{id}', 'CityController@show');

@@ -15,7 +15,7 @@ class AdminShipperController extends Controller
      */
     public function index()
     {
-        $shippers = Shipper::paginate(9);
+        $shippers = Shipper::paginate(10);
         return response()->json($shippers);
     }
 
@@ -98,7 +98,7 @@ class AdminShipperController extends Controller
     {
         $keywords = $request->keywords;
         $shipper = Shipper::where('first_name', 'like', '%' . $keywords . '%')
-            ->paginate(8);
+            ->paginate(10);
         return $shipper;
     }
 }

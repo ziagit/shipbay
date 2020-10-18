@@ -15,12 +15,12 @@ class CountrySeeder extends Seeder
         Country::truncate();
         $countries = [
             [
-                'name' => 'United state',
-                'code' => 'US'
-            ],
-            [
                 'name' => 'Canada',
                 'code' => 'CA'
+            ],
+            [
+                'name' => 'United state',
+                'code' => 'US'
             ]
         ];
         Country::insert($countries);

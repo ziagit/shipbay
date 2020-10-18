@@ -8,8 +8,8 @@
                         <md-input v-model="form.name" placeholder="Name"></md-input>
                     </md-field>
                     <md-field>
-                        <md-select v-model="form.state" placeholder="State" id="state">
-                            <md-option v-for="state in states" :key="state.id" :value="state.id">{{state.name}}</md-option>
+                        <md-select v-model="form.city" placeholder="city" id="city">
+                            <md-option v-for="city in cities" :key="city.id" :value="city.id">{{city.name}}</md-option>
                         </md-select>
                     </md-field>
                 </md-content>
@@ -25,20 +25,20 @@
 <script lang="ts">
 import axios from "axios";
 export default {
-    props: ["city"],
+    props: ["address"],
     data: () => {
         return {
             form: {
                 name: null,
-                state: null,
+                city: null,
             },
-            states: null,
+            cities: null,
         };
     },
     methods: {
         update() {
             axios
-                .put("admin/cities/" + this.city.id, this.form)
+                .put("admin/addresses/" + this.address.id, this.form)
                 .then((res) => {
                     console.log("Updated successfully! ", res.data);
                     this.$emit("close-dialog");
@@ -49,9 +49,10 @@ export default {
         },
         get() {
             axios
-                .get("states")
+                .get("cities")
                 .then((res) => {
-                    this.states = res.data;
+                    console.log("cities: ", res.data)
+                    this.cities = res.data;
                 })
                 .catch((err) => {
                     console.log("Error: ", err);
@@ -60,8 +61,8 @@ export default {
     },
     created() {
         this.get();
-        this.form.name = this.city.name;
-        this.form.state = this.city.state.id;
+        this.form.name = this.address.name;
+        this.form.city = this.address.id;
     },
 };
 </script>

@@ -15,7 +15,7 @@ class AdminCustomerAddressController extends Controller
      */
     public function index()
     {
-        $addresses = Customeraddress::with('address','zip','city','state','country','shipper','carrier')->paginate(5);
+        $addresses = Customeraddress::with('address','zip','city','state','country','shipper','carrier')->paginate(10);
         return response()->json($addresses);
     }
 

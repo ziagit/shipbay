@@ -16,7 +16,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        return Address::all();
     }
 
     /**
@@ -48,7 +48,8 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        //
+        $address = Address::where('city_id', $id)->get();
+        return $address;
     }
 
     /**

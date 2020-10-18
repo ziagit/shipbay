@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\City;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Citycode;
@@ -16,8 +15,8 @@ class AdminZipController extends Controller
      */
     public function index()
     {
-        $citycodes = Citycode::with('cities')->paginate(8);
-        return response()->json($citycodes);
+        $zips = Citycode::with('address')->paginate(10);
+        return response()->json($zips);
     }
 
     /**
@@ -39,14 +38,13 @@ class AdminZipController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'postalcodes' => 'required',
-            'city' => 'required',
+            'postalcode' => 'required',
             'address'=>'required'
         ]);
         $zip = new Citycode();
         $zip->postal_code = $request->postalcode;
-        $zip->city_id = $request->city;
         $zip->address_id = $request->address;
+        $zip->save();
         return response()->json(["message" => "Saved Successfully."], 200);
     }
 
@@ -83,17 +81,12 @@ class AdminZipController extends Controller
     {
         $this->validate($request, [
             'postalcode' => 'required',
-            'city' => 'required'
+            'address' => 'required'
         ]);
         $zip = Citycode::find($id);
         $zip->postal_code = $request->postalcode;
+        $zip->address_id = $request->address;
         $zip->update();
-
-        $zip->cities()->detach();
-
-        $city = City::find($request->city);
-    
-        $city->citycodes()->attach($id);
 
         return response()->json(["message" => "Updated Successfully."], 200);
     }
@@ -117,11 +110,11 @@ class AdminZipController extends Controller
     {
         $keywords = $request->keywords;
         $citycodes = Citycode::where('postal_code', 'like', '%' . $keywords . '%')
-            ->orWhereHas('cities', function ($q) use ($keywords) {
+            ->orWhereHas('address', function ($q) use ($keywords) {
                 return $q->where('name', 'like', '%' . $keywords . '%');
             })
-            ->with('cities')
-            ->paginate(5);
+            ->with('address')
+            ->paginate(10);
         return $citycodes;
     }
 }

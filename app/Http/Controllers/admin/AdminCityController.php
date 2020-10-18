@@ -16,7 +16,7 @@ class AdmincityController extends Controller
      */
     public function index()
     {
-        $cities = City::with('state')->paginate(5);
+        $cities = City::with('state')->paginate(10);
         return response()->json($cities);
     }
 
@@ -118,7 +118,7 @@ class AdmincityController extends Controller
                 return $q->where('name', 'like', '%' . $keywords . '%');
             })
             ->with('state')
-            ->paginate(5);
+            ->paginate(10);
         return $city;
     }
 }

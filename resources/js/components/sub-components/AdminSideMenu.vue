@@ -13,8 +13,8 @@
                 <md-list-item class="md-inset" to="/admin/countries" @click="hideMenu()">Country</md-list-item>
                 <md-list-item class="md-inset" to="/admin/states" @click="hideMenu()">States</md-list-item>
                 <md-list-item class="md-inset" to="/admin/cities" @click="hideMenu()">Cities</md-list-item>
-                <md-list-item class="md-inset" to="/admin/zips" @click="hideMenu()">Zip codes</md-list-item>
                 <md-list-item class="md-inset" to="/admin/addresses" @click="hideMenu()">Addresses</md-list-item>
+                <md-list-item class="md-inset" to="/admin/zips" @click="hideMenu()">Zip codes</md-list-item>
                 <md-list-item class="md-inset" to="/admin/accessories" @click="hideMenu()">Accessories</md-list-item>
                 <md-list-item class="md-inset" to="/admin/rate-ranges" @click="hideMenu()">Rate ranges</md-list-item>
             </md-list>
