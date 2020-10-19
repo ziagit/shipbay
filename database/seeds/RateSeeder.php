@@ -51,5 +51,8 @@ class RateSeeder extends Seeder
         $rate = Rate::find(1);
         $rate->cities()->attach(1,['type'=>'src']);
         $rate->cities()->attach(2,['type'=>'des']);
+        $rate = Rate::find(2);
+        $rate->cities()->attach(2,['type'=>'src']);
+        $rate->cities()->attach(1,['type'=>'des']);
     }
 }
