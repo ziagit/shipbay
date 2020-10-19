@@ -13,21 +13,19 @@ class Carrier extends Model
     public function contact(){
         return $this->belongsTo(Contact::class);
     }
-    public function customeraddress(){
-        return $this->belongsTo(Customeraddress::class);
+    public function address(){
+        return $this->belongsTo(Address::class);
     }
     public function fullAddress(){
-        return $this->customeraddress()->with('country','state','city','zip','address');
+        return $this->address()->with('country');
     }
     public function rates(){
-        return $this->belongsToMany(Rate::class);
+        return $this->hasMany(Rate::class);
     }
-    public function carrierRates(){
-        return $this->rates()->with('cities');
+    public function rateWithAddress(){
+        return $this->rates()->with('addresses');
     }
-    public function rateWithCity(){
-        return $this->rates()->with('cityWithState');
-    }
+
     public function accessories(){
         return $this->belongsToMany(Accessory::class)->withPivot(['src_value', 'des_value']);
     }

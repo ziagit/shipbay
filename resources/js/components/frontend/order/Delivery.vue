@@ -20,15 +20,15 @@
                 </li>
             </ul>
             <ul v-if="!isSelected">
-                <li class="city-list" v-for="city in cities" :key="city.id" @click="selectCity(city)">
-                    {{ city.name }},
-                    {{ city.state.name }}
+                <li class="city-list" v-for="list in cities" :key="list.id" @click="selectStateCity(list)">
+                    {{ list.city }},
+                    {{ list.state }}
                 </li>
             </ul>
             <ul v-if="!isAddSelected">
-                <li class="address-list" v-for="address in addresses" :key="address.id" @click="selectAddress(address)">
-                    {{ address.name }},
-                    {{ address.zip.postal_code }}
+                <li class="address-list" v-for="list in addresses" :key="list.id" @click="selectZipAddress(list)">
+                    {{ list.address }},
+                    {{ list.zip }}
                 </li>
             </ul>
         </div>
@@ -36,13 +36,13 @@
         <div class="options">
             <md-radio v-for="service in accessoryList" :key="service.id" v-model="des.accessories[0]" :value="service.code" class="md-primary">{{ service.name }}</md-radio>
         </div>
-        <md-card v-if="isSelected">
+        <md-card v-if="isAddSelected">
             <md-button @click="edit()" class="md-icon-button md-primary edit">
                 <md-icon>edit</md-icon>
             </md-button>
             <md-card-content>
-                <span>{{ des.cityName }}, {{ des.stateName }}</span><br />
-                <span v-if="des.addressName">{{ des.addressName }}, {{des.postalCodeName}}</span>
+                <span>{{ des.address.city }}, {{ des.address.state }}</span><br />
+                <span v-if="des.address.address">{{ des.address.address }}, {{des.address.zip}}</span>
             </md-card-content>
         </md-card>
         <div class="action">
@@ -64,6 +64,7 @@ export default {
         keywords: null,
         addKeywords: null,
         cities: [],
+        city: null,
         addresses: [],
         isSelected: false,
         isAddSelected: false,
@@ -72,24 +73,17 @@ export default {
         des: {
             country: null,
             countryName: null,
-            state: null,
-            stateName: null,
-            city: null,
-            cityName: null,
-            postalCode: null,
-            postalCodeName: null,
             address: null,
-            addressName: null,
             accessories: ["bs"],
             appointmentTime: null,
         },
     }),
     watch: {
         keywords(after, before) {
-            this.searchCity();
+            this.searchStateCity();
         },
         addKeywords(after, before) {
-            this.searchAddress()
+            this.searchZipAddress()
         },
         cities(data) {
             if (data.length === 0) {
@@ -115,9 +109,9 @@ export default {
         },
     },
     methods: {
-        searchCity() {
+        searchStateCity() {
             axios
-                .get("search-city-state/" + 2, {
+                .get("search-state-city/" + 1, {
                     params: {
                         keywords: this.keywords,
                     },
@@ -130,9 +124,9 @@ export default {
                     console.log(err);
                 });
         },
-        searchAddress() {
+        searchZipAddress() {
             axios
-                .get("search-address-zip/" + this.des.city, {
+                .get("search-zip-address/" + this.city, {
                     params: {
                         keywords: this.addKeywords,
                     },
@@ -146,21 +140,15 @@ export default {
                 });
         },
 
-        selectCity(selected) {
+        selectStateCity(selected) {
             this.$refs.focusable.$el.focus()
-            this.des.state = selected.state.id;
-            this.des.stateName = selected.state.name;
-            this.des.city = selected.id;
-            this.des.cityName = selected.name;
+            this.city = selected.city;
             this.isSelected = true;
             localStorage.setItem("dflug", this.isSelected);
         },
-        selectAddress(selected) {
-            this.des.address = selected.id;
-            this.des.addressName = selected.name;
-            this.des.postalCode = selected.zip.id;
-            this.des.postalCodeName = selected.zip.postal_code
-            this.addKeywords = selected.name
+        selectZipAddress(selected) {
+            this.des.address = selected
+            this.addKeywords = selected.address
             this.isAddSelected = true;
             localStorage.setItem("adflug", this.isAddSelected);
         },
@@ -203,15 +191,8 @@ export default {
                 this.isAddSelected = localStorage.getItem("adflug");
                 this.des.country = storage.des.country;
                 this.des.countryName = storage.des.countryName;
-                this.des.state = storage.des.state;
-                this.des.stateName = storage.des.stateName;
-                this.des.city = storage.des.city;
-                this.des.cityName = storage.des.cityName;
-                this.des.postalCode = storage.des.postalCode;
-                this.des.postalCodeName = storage.des.postalCodeName;
                 this.des.address = storage.des.address;
-                this.des.addressName = storage.des.addressName;
-                this.addKeywords = storage.des.addressName;
+                this.addKeywords = storage.des.address.address;
                 this.des.accessories = storage.des.accessories;
                 this.des.appointmentTime = storage.des.appointmentTime;
             }

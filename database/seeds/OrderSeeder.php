@@ -36,9 +36,6 @@ class OrderSeeder extends Seeder
         $order->addresses()->attach([1,2]);
         $order->contacts()->attach([1,2]);
 
-        $des_add = Customeraddress::find(2);
-        $order->addresses()->attach($des_add, ['type'=>'des']);
-
         $src_accessories = Accessory::where('code','bs')->orWhere('code','in')->orWhere('code','tm')->get();
         $order->accessories()->attach($src_accessories, ['type'=>'src']);
 

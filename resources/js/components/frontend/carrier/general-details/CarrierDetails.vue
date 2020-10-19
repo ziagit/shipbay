@@ -16,17 +16,17 @@
                     <span class="line">|</span>
                     {{carrier.last_name}}
                     <span class="line">|</span>
-                    {{carrier.full_address.address.name}}
+                    {{carrier.full_address.address}}
                 </span>
                 <br />
                 <span class="md-subheading">
                     {{carrier.full_address.country.name}}
                     <span class="line">|</span>
-                    {{carrier.full_address.state.name}}
+                    {{carrier.full_address.state}}
                     <span class="line">|</span>
-                    {{carrier.full_address.city.name}}
+                    {{carrier.full_address.city}}
                     <span class="line">|</span>
-                    {{carrier.full_address.zip.postal_code}}
+                    {{carrier.full_address.zip}}
                 </span>
                 <br />
                 <span class="md-subheading">

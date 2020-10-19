@@ -15,12 +15,20 @@ class AddressSeeder extends Seeder
         Address::truncate();
         $address =  [
             [
-                'name' => "Rattles Road",
-                'city_id' => 1,
+                'address' => "Rattles Road",
+                'zip' => 'A0A0A0',
+                'city' => 'ALberta',
+                'state' => 'NL',
+                'locationtype_id' => 1,
+                'country_id' => 1,
             ],
             [
-                'name' => "PO BOX 1392 GREENWOOD NS",
-                'city_id' => 2,
+                'address' => "Rattles Road",
+                'zip' => 'A1A1A1',
+                'city' => 'ALberta',
+                'state' => 'NS',
+                'locationtype_id'=> 2,
+                'country_id' => 1,
             ]
         ];
         Address::insert($address);

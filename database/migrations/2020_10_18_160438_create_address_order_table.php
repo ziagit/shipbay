@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarrierRateTable extends Migration
+class CreateAddressOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCarrierRateTable extends Migration
      */
     public function up()
     {
-        Schema::create('carrier_rate', function (Blueprint $table) {
+        Schema::create('address_order', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('carrier_id');
-            $table->unsignedInteger('rate_id');
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('address_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCarrierRateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carrier_rate');
+        Schema::dropIfExists('address_order');
     }
 }

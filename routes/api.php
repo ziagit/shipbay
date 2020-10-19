@@ -117,24 +117,16 @@ Route::group(['namespace' => 'Order'], function () {
   Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
 });
 Route::group(['namespace' => 'Location'], function () {
-  Route::get('countries-with-states', 'CountryController@all');
   Route::get('countries', 'CountryController@index');
-  Route::get('states', 'StateController@index');
-  Route::get('cities', 'CityController@index');
   Route::get('addresses', 'AddressController@index');
-  Route::get('zips', 'ZipController@all');
-  Route::get('states/{id}', 'StateController@show');
-  Route::get('cities/{id}', 'CityController@show');
-  Route::get('citycodes/{id}', 'ZipController@show');
-  Route::get('citycodes', 'ZipController@index');
 
-  Route::get('search-state/{id}','StateController@search');
-  Route::get('search-city/{id}','CityController@search');
-  Route::get('search-city-state/{id}','CityController@searchCityState');
-  Route::get('search-zip/{id}','ZipController@search');
-  Route::get('search-address/{id}','AddressController@search');
-  Route::get('search-address-zip/{id}','AddressController@searchAddressZip');
 
+  Route::get('search-state/{country}','AddressController@searchState');
+  Route::get('search-city/{state}','AddressController@searchCity');
+  Route::get('search-zip/{city}','AddressController@searchZip');
+  Route::get('search-address/{zip}','AddressController@searchAddress');
+  Route::get('search-state-city/{country}','AddressController@searchStateCity');
+  Route::get('search-zip-address/{city}','AddressController@searchZipAddress');
 });
 Route::get("unauthorized", function () {
   return response()->json(['message' => 'You are unauthorized!'], 401);

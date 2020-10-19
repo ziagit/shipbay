@@ -48,7 +48,7 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        $address = Address::where('city_id', $id)->get();
+        $address = Address::find($id);
         return $address;
     }
 
@@ -86,22 +86,55 @@ class AddressController extends Controller
         //
     }
 
-    public function search(Request $request, $id)
+    public function searchState(Request $request, $country)
     {
         $keywords = $request->keywords;
-        $results = Address::where('city_id', $id)
-        ->where('name', 'like', '%' . $keywords . '%')
+        $results = Address::where('country_id', $country)
+        ->where('state', 'like', '%' . $keywords . '%')
+        ->paginate(5);
+        return $results;
+    }
+    public function searchCity(Request $request, $state)
+    {
+        $keywords = $request->keywords;
+        $results = Address::where('state', $state)
+        ->where('city', 'like', '%' . $keywords . '%')
+        ->paginate(5);
+        return $results;
+    }
+    public function searchZip(Request $request, $city)
+    {
+        $keywords = $request->keywords;
+        $results = Address::where('city', $city)
+        ->where('zip', 'like', '%' . $keywords . '%')
+        ->paginate(5);
+        return $results;
+    }
+    public function searchAddress(Request $request, $zip)
+    {
+        $keywords = $request->keywords;
+        $results = Address::where('zip', $zip)
+        ->where('address', 'like', '%' . $keywords . '%')
+        ->paginate(5);
+        return $results;
+    }
+    public function searchStateCity(Request $request, $country)
+    {
+        $keywords = $request->keywords;
+        $results = Address::where('country_id', $country)
+        ->where('state', 'like', '%' . $keywords . '%')
+        ->orWhere('city', 'like', '%' . $keywords . '%')
+        ->paginate(5);
+        return $results;
+    }
+    public function searchZipAddress(Request $request, $city)
+    {
+        $keywords = $request->keywords;
+        $results = Address::where('city', $city)
+        ->where('zip', 'like', '%' . $keywords . '%')
+        ->orWhere('address', 'like', '%' . $keywords . '%')
         ->paginate(5);
         return $results;
     }
 
-    public function searchAddressZip(Request $request, $id)
-    {
-        $keywords = $request->keywords;
-        $results = Address::where('city_id',$id)
-        ->where('name', 'like', '%' . $keywords . '%')
-        ->with('zip')
-        ->paginate(10);
-        return $results;
-    }
 }

@@ -9,17 +9,17 @@
                     <span class="line">|</span>
                     {{shipper.last_name}}
                     <span class="line">|</span>
-                    {{shipper.full_address.address.name}}
+                    {{shipper.full_address.address}}
                 </span>
                 <br />
                 <span class="md-subheading">
                     {{shipper.full_address.country.name}}
                     <span class="line">|</span>
-                    {{shipper.full_address.state.name}}
+                    {{shipper.full_address.state}}
                     <span class="line">|</span>
-                    {{shipper.full_address.city.name}}
+                    {{shipper.full_address.city}}
                     <span class="line">|</span>
-                    {{shipper.full_address.zip.postal_code}}
+                    {{shipper.full_address.zip}}
                 </span>
                 <br />
                 <span class="md-subheading">

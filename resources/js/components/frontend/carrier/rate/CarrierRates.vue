@@ -18,7 +18,7 @@
             <table class="table" v-if="rates.length != 0">
                 <thead>
                     <tr>
-                        <th rowspan="2"> # </th>
+                        <th rowspan="2"> No </th>
                         <th colspan="2">ORIGIN</th>
                         <th colspan="2">DESTINITION</th>
                         <th rowspan="2">Min charge</th>
@@ -44,10 +44,10 @@
                 <tbody>
                     <tr v-for="(rate, index) in rates" :key="index">
                         <td>{{index+1}}</td>
-                        <td>{{rate.city_with_state[0].state.name}}</td>
-                        <td>{{rate.city_with_state[0].name}}</td>
-                        <td>{{rate.city_with_state[1].state.name}}</td>
-                        <td>{{rate.city_with_state[1].name}}</td>
+                        <td>{{rate.addresses[0].state}}</td>
+                        <td>{{rate.addresses[0].city}}</td>
+                        <td>{{rate.addresses[1].state}}</td>
+                        <td>{{rate.addresses[1].city}}</td>
                         <td>${{rate.min_rate}}</td>
                         <td>${{rate._0k_1k}}</td>
                         <td>${{rate._1k_2k}}</td>
@@ -122,7 +122,8 @@ export default {
             axios
                 .get("carrier/rates")
                 .then((res) => {
-                    this.rates = res.data.rate_with_city;
+
+                    this.rates = res.data.rate_with_address;
                     console.log("rates: ", this.rates)
 
                 })

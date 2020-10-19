@@ -91,9 +91,8 @@ class OrderController extends Controller
 
     public function locationType()
     {
-        $cities = City::all();
         $services = Accessory::where('code', 'bs')->orWhere('code', 'rs')->orWhere('code', 'sp')->get();
-        return compact('cities', 'services');
+        return compact('services');
     }
     public function pickServices()
     {

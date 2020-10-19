@@ -7,18 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Rate extends Model
 {
     public function carriers(){
-        return $this->belongsToMany(Carrier::class);
+        return $this->belongsTo(Carrier::class);
     }
-    public function cities(){
-        return $this->belongsToMany(City::class)->withPivot('type')->withTimestamps();
-    }
-
-    public function cityWithState(){
-        return $this->cities()->with('state');
+    public function addresses(){
+        return $this->belongsToMany(Address::class);
     }
 
 
-/*     public function rateCitycode(){
-        return $this->citycodes()->with('citycodeCity');
-    } */
 }

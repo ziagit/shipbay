@@ -19,7 +19,7 @@ class RateController extends Controller
     {
         $userId = Auth::user()->id;
         $carrierId = Carrier::where('user_id', $userId)->first('id')->id;
-        $rates = Carrier::with('rateWithCity')->find($carrierId);
+        $rates = Carrier::with('rateWithAddress')->find($carrierId);
         return response()->json($rates);
     }
 
@@ -53,14 +53,12 @@ class RateController extends Controller
         $rate->above_10k = $request->above_10k;
         $rate->fsc = $request->fsc;
         $rate->transit_day = $request->transit_day;
+        $rate->carrier_id = $request->carrierId;
 
         $rate->save();
 
-        $carrier = Carrier::find($request->carrierId);
-        $rate->carriers()->attach($carrier);
-
-        $rate->cities()->attach($request->src_city, ['type' => 'src']);
-        $rate->cities()->attach($request->des_city, ['type' => 'des']);
+        $rate->addresses()->attach($request->src_address);
+        $rate->addresses()->attach($request->des_address);
         return response()->json(['message' => 'Saved successfully!'], 200);
     }
 
@@ -72,7 +70,7 @@ class RateController extends Controller
      */
     public function show($id)
     {
-        $rate = Rate::with('cityWithState')->find($id);
+        $rate = Rate::with('addresses')->find($id);
         return response()->json($rate);
     }
 
@@ -107,13 +105,14 @@ class RateController extends Controller
         $rate->above_10k = $request->above_10k;
         $rate->fsc = $request->fsc;
         $rate->transit_day = $request->transit_day;
+        $rate->carrier_id = $request->carrierId;
 
         $rate->update();
 
-        $rate->cities()->detach();
+        $rate->addresses()->detach();
 
-        $rate->cities()->attach($request->src_city, ['type' => 'src']);
-        $rate->cities()->attach($request->des_city, ['type' => 'des']);
+        $rate->addresses()->attach($request->src_address);
+        $rate->addresses()->attach($request->des_address);
         return response()->json(['message' => 'Updated successfully!'], 200);
     }
 
@@ -126,7 +125,7 @@ class RateController extends Controller
     public function destroy($rateId)
     {
         $rate = Rate::find($rateId);
-        $rate->cities()->detach();
+        $rate->addresses()->detach();
         $rate->delete();
         return response()->json(["message"=>"Deleted successfully!"],200);
     }

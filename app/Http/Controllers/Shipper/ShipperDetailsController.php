@@ -47,33 +47,20 @@ class ShipperDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required|unique:contacts',
             'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required',
+            'addressId' => 'required',
         ]);
-        $addressId = $this->storeAddress($request);
         $contactId = $this->storeContact($request);
 
         $shipper = new Shipper();
         $shipper->first_name = $request->first_name;
         $shipper->last_name = $request->last_name;
-        $shipper->customeraddress_id = $addressId;
+        $shipper->address_id = $request->addressId;
         $shipper->contact_id = $contactId;
         $shipper->user_id = JWTAuth::user()->id;
         $shipper->save();
         return response()->json(["message" => "Saved successfully!"], 200);
     }
-    public function storeAddress($request)
-    {
-        $address = new Customeraddress();
-        $address->address_id = $request->address;
-        $address->country_id = $request->country;
-        $address->state_id = $request->state;
-        $address->city_id = $request->city;
-        $address->zip_id = $request->postal_code;
-        $address->save();
-        return $address->id;
-    }
+
     public function storeContact($request){
         $contact = new Contact();
         $contact->name = $request->last_name;
@@ -120,35 +107,21 @@ class ShipperDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required',
             'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required',
+            'addressId' => 'required',
         ]);
-        $addressId = $this->updateAddress($request);
-        return $addressId;
         $contactId = $this->updateContact($request);
         $shipper = Shipper::find($id);
 
         $shipper->first_name = $request->first_name;
         $shipper->last_name = $request->last_name;
-        $shipper->customeraddress_id = $addressId;
+        $shipper->address_id = $request->addressId;
         $shipper->contact_id = $contactId;
         $shipper->user_id = JWTAuth::user()->id;
         $shipper->update();
 
         return response()->json(["message" => "Updated successfully!x"], 200);
     }
-    public function updateAddress($request)
-    {
-        $address = Customeraddress::find($request->addressId);
-        $address->address_id = $request->address;
-        $address->country_id = $request->country;
-        $address->state_id = $request->state;
-        $address->city_id = $request->city;
-        $address->zip_id = $request->postal_code;
-        $address->update();
-        return $address->id;
-    }
+
     public function updateContact($request){
         $contact = Contact::find($request->contactId);
         $contact->name = $request->last_name;

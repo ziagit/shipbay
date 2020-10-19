@@ -3,20 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Shipper;
 class Address extends Model
 {
-    protected $fillable = ['name','city_id'];
-    public function city(){
-        return $this->belongsTo(City::class);
-    }
-    public function zip(){
-        return $this->hasOne(Citycode::class);
+    public function country(){
+        return $this->belongsTo(Country::class);
     }
     public function shipper(){
-        return $this->belongsTo(Shipper::class);
+        return $this->hasMany(Shipper::class);
     }
     public function carrier(){
-        return $this->belongsTo(Carrier::class);
+        return $this->hasMany(Carrier::class);
+    }
+    public function rates(){
+        return $this->belongsToMany(Rate::class);
+    }
+    public function orders(){
+        return $this->belongsToMany(Order::class);
     }
 }
