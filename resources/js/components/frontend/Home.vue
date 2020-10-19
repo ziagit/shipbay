@@ -1,14 +1,16 @@
 <template>
 <div class="home">
-    <md-app>
+    <md-app md-mode="reveal">
         <md-app-toolbar class="md-default">
-            <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+            <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
                 <md-icon>menu</md-icon>
             </md-button>
-            <router-link to="/">
-                <span class="logo">ShipBay</span>
-            </router-link>
-
+            <span class="md-title"><img :src="'/images/logo.svg'" alt="" width="25"> Ship Bay</span>
+            <div class="navigation" v-if="windowWidth > 600">
+                <md-button :class="$route.name === 'home'? 'md-primary': ''" to="/">Home</md-button>
+                <md-button :class="$route.name === 'services'? 'md-primary': ''" to="services">Services</md-button>
+                <md-button :class="$route.name === 'help'? 'md-primary': ''" to="help">How it works</md-button>
+            </div>
             <div class="md-toolbar-section-end">
                 <div v-if="authenticated">
                     <md-badge class="md-primary" :md-content="notifications.length" md-dense>
@@ -57,23 +59,14 @@
             </div>
         </md-app-toolbar>
 
-        <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
-            <md-toolbar class="md-transparent" md-elevation="0">
-                <span>Navigation</span>
-                <div class="md-toolbar-section-end">
-                    <md-button class="md-icon-button md-dense" @click="toggleMenu">
-                        <md-icon>keyboard_arrow_left</md-icon>
-                    </md-button>
-                </div>
-            </md-toolbar>
+        <md-app-drawer :md-active.sync="menuVisible">
+            <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
 
-            <div class="side-menu">
-                <AdminSideMenu v-on:hideSideMenu="toggleSideMenu" v-if="authenticated && user.role[0].name === 'admin'" />
-                <WebSideMenu v-on:hideSideMenu="toggleSideMenu" v-else />
-            </div>
+            <AdminSideMenu v-on:hideSideMenu="toggleSideMenu" v-if="authenticated && user.role[0].name === 'admin'" />
+            <WebSideMenu v-on:hideSideMenu="toggleSideMenu" v-else />
         </md-app-drawer>
 
-        <md-app-content class="my-app-content">
+        <md-app-content>
             <router-view></router-view>
         </md-app-content>
     </md-app>
@@ -95,21 +88,26 @@ export default {
     data: () => ({
         menuVisible: false,
         toggleCard: false,
-        activeRoute: "carrier-details",
+        activeRoute: "home",
         notifications: [],
         notificationsLength: 0,
         closeOnClick: false,
         closeOnSelect: true,
-        connectionStatus: navigator.onLine,
+        windowWidth: window.innerWidth,
     }),
     watch: {
-        $route() {
-            if (this.$route.name == "accessory-list") {
-                this.activeRoute = "accessory-list";
-            } else if (this.$route.name == "rate-list") {
-                this.activeRoute = "rate-liste";
-            }
+        /*         '$route'() {
+                    if (this.$route.name == "home") {
+                        console.log("home is active")
+                        this.activeRoute = "home";
+                    } else if (this.$route.name == "services") {
+                        this.activeRoute = "services";
+                    }
+                }, */
+        windowWidth(value) {
+            console.log("u r wd: ", value)
         },
+        deep: true
     },
     computed: {
         ...mapGetters({
@@ -132,9 +130,7 @@ export default {
             this.menuVisible = !this.menuVisible;
         },
         toggleSideMenu() {
-            if (screen.width < 600) {
-                this.menuVisible = !this.menuVisible;
-            }
+            this.menuVisible = !this.menuVisible;
         },
 
         notificationDetails(notification) {
@@ -196,6 +192,7 @@ export default {
     },
     created() {
         this.getNotifications();
+        console.log("current rout name", this.$route.name)
     },
     components: {
         AdminSideMenu,
@@ -203,11 +200,6 @@ export default {
         Footer,
     },
 
-    mounted() {
-        if (screen.width > 600) {
-            this.menuVisible = true;
-        }
-    }
 };
 </script>
 
@@ -237,6 +229,8 @@ export default {
     .md-app {
         height: 100%;
         border: 1px solid rgba(#000, 0.12);
+
+        .md-app-toolbar {}
     }
 
     // Demo purposes only
@@ -256,6 +250,10 @@ export default {
         position: fixed;
         right: 10px;
         bottom: 10px;
+    }
+
+    .navigation {
+        display: flex;
     }
 }
 

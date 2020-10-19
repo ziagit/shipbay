@@ -94,7 +94,7 @@ export default {
     .section1 {
         background-repeat: no-repeat;
         background-size: cover;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 80px);
         padding-top: 80px;
 
         .text {
@@ -128,7 +128,7 @@ export default {
     }
 
     .section2 {
-        margin-top: -50px;
+        margin-top: -32px;
         padding-bottom: 30px;
         text-align: left;
 

@@ -1,10 +1,11 @@
 <template>
 <div class="services">
     <md-card>
-        <md-card-header>
-            <span class="md-display-1">Services</span>
-        </md-card-header>
-        <md-card-content></md-card-content>
+        <div class="img-container">
+            <img :src="'/images/uploads/truck2.jpg'" alt="">
+        </div>
+        <md-card-content class="card-content">
+        </md-card-content>
     </md-card>
 </div>
 </template>
@@ -23,10 +24,20 @@ export default {
     padding-top: 20px;
 
     .md-card {
-        height: calc(100vh - 100px);
+        min-height: calc(100vh - 100px);
 
-        .md-display-1 {
-            font-size: 24px;
+        .img-container {
+            width: 100%;
+            background: salmon;
+            max-height: 300px;
+            object-fit: cover;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                margin: auto;
+                display: block;
+            }
         }
 
     }

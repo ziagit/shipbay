@@ -65,8 +65,8 @@ import {
     mapGetters,
     mapActions
 } from "vuex";
-var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
-var elements = stripe.elements();
+/* var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
+var elements = stripe.elements(); */
 var style = {
     base: {
         color: "#32325d",
