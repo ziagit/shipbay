@@ -5,7 +5,7 @@
             <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
                 <md-icon>menu</md-icon>
             </md-button>
-            <span class="md-title"><img :src="'/images/logo.svg'" alt="" width="25"> Ship Bay</span>
+            <span class="md-title logo" @click="$router.push('/')"><img :src="'/images/logo.svg'" alt="" width="25"> Shipping TAP</span>
             <div class="navigation" v-if="windowWidth > 600">
                 <md-button :class="$route.name === 'home'? 'md-primary': ''" to="/">Home</md-button>
                 <md-button :class="$route.name === 'services'? 'md-primary': ''" to="services">Services</md-button>
@@ -52,9 +52,13 @@
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <div v-else>
-                    <md-button to="/register">Register</md-button>
-                    <md-button to="/login">Login</md-button>
+                <div v-else class="login-register">
+                    <md-button to="/register" class="md-icon-button">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                    <md-button to="/login" class="md-icon-button">
+                        <md-icon>login</md-icon>
+                    </md-button>
                 </div>
             </div>
         </md-app-toolbar>
@@ -70,7 +74,7 @@
             <router-view></router-view>
         </md-app-content>
     </md-app>
-    <Footer />
+
 </div>
 </template>
 
@@ -78,7 +82,6 @@
 import AdminSideMenu from "../sub-components/AdminSideMenu";
 import WebSideMenu from "../sub-components/WebSideMenu";
 import axios from "axios";
-import Footer from "./shared/Footer"
 import {
     mapGetters,
     mapActions
@@ -197,7 +200,6 @@ export default {
     components: {
         AdminSideMenu,
         WebSideMenu,
-        Footer,
     },
 
 };
@@ -219,18 +221,34 @@ export default {
 .home {
     height: 100%;
 
-    .md-default {
-        background: #fff;
-        /*  box-shadow: 0 2px 4px -3px rgba(0, 0, 0, 0.2),
-            0 0px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); */
-        box-shadow: 0 1px 2px #11111142;
-    }
-
     .md-app {
         height: 100%;
         border: 1px solid rgba(#000, 0.12);
 
-        .md-app-toolbar {}
+        /*         .md-app-toolbar {
+            background: #fff;
+            box-shadow: 0 2px 4px -3px rgba(0, 0, 0, 0.2),
+                0 0px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 1px 2px #11111142;
+
+        } */
+
+        .md-app-toolbar {
+            background: #2D2E2E;
+            box-shadow: none;
+            color: #fff !important;
+            border-bottom: #6b6b6b3b solid 1px;
+
+            .md-title {
+                color: #fff;
+            }
+
+            .md-button,
+            .md-icon-button,
+            .md-icon {
+                color: #fff;
+            }
+        }
     }
 
     // Demo purposes only
@@ -265,5 +283,18 @@ export default {
         margin: 7px;
         background: #f0f2f5;
     }
+}
+
+@media only screen and (max-width: 600px) {
+    .logo {
+        font-size: 16px;
+        padding: 0;
+        margin: 0 !important;
+
+        img {
+            width: 20px;
+        }
+    }
+
 }
 </style>
