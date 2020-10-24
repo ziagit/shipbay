@@ -1,8 +1,8 @@
 <template>
 <div class="services">
     <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/services.svg)'}">
-        <div class="md-display-1"> Real-time online quotes for freight shipping. </div>
-        <p class="md-body-1">You will receive up-to-date freight shipping rates and be able to choose from a variety of contract carriers and transportation modes. Simply pick your price and carrier, and we’ll take care of the rest. Make freight shipping easy when you compare competitive rates from contract carriers, create BOLs and book and track shipments, all in one place.</p>
+        <div class="md-display-1"> Our Services </div>
+        <p class="md-body-1">Not sure what freight class your shipment falls into? No problem! We’ll guide you through the process and calculate it for you.</p>
         <md-button class="md-primary md-raised" @click="getQuote()">Get Free Quotes</md-button>
     </div>
     <md-card>
@@ -12,7 +12,7 @@
                     <div class="md-headline">LTL freight</div>
                     <div class="md-body-1">Choose from hundreds of contract carriers with our self-service online tools or work directly with a freight expert.</div>
                     <div>
-                        <md-button class="md-primary">
+                        <md-button class="md-primary" to="/service-details">
                             <md-icon class="md-primary">subject</md-icon> Read More
                         </md-button>
                     </div>

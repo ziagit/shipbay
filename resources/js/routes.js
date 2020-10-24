@@ -13,6 +13,7 @@ import CarrierProfile from './components/frontend/carrier/CarrierProfile';
 import AboutUs from './components/frontend/AboutUs'
 import ContactUs from './components/frontend/ContactUs'
 import OurServices from './components/frontend/OurServices'
+import ServiceDetails from './components/frontend/ServiceDetails'
 
 import Welcome from './components/frontend/auth/Welcome';
 import CarrierDetails from './components/frontend/carrier/general-details/CarrierDetails';
@@ -262,6 +263,7 @@ export default new VueRouter({
                 { name: 'about', path: 'about', component: AboutUs },
                 { name: 'contact', path: 'contact', component: ContactUs },
                 { name: 'services', path: 'services', component: OurServices },
+                { name: 'services-details', path: 'service-details', component: ServiceDetails },
                 { name: 'help', path: 'help', component: Help },
                 { name: 'signin', path: '/login', component: Login },
                 { name: 'signup', path: '/register', component: Register },

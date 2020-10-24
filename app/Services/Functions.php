@@ -13,26 +13,30 @@ class Functions
         $selectedCarriers = array();
         $i = 0;
         $ranges = Raterange::all();
-        $order_src = $request->src['city'];
-        $order_des = $request->des['city'];
-        $dimentional_weight = $this->calcDW($request->myItem['items']);
+        $order_src = $request->src['address']['id'];
+        $order_des = $request->des['address']['id'];
+        $dimentional_weight = $this->calcDW($request->myItem['items']) ;
         // search src & des zips in rate table
-        $carriers = Carrier::with('carrierRates', 'accessories','contact')->get();
 
-        if (!is_array($carriers)) {
+        $carriers = Carrier::with('rateaddress', 'accessories','contact')->get();
+// if you get error 'must be of the type string or null, object given laravel'; there is a precedency problem.
+//change function name in your Model. in above case rateaddress if you change to rateAddress u would get error.
+
+        /* if (!is_array($carriers)) {
             $carriers = json_decode($carriers);
-        }
+        } */
         foreach ($carriers as $carrier) {
-            foreach ($carrier->carrier_rates as $rate) {
-                $rate_src = $rate->cities[0]->id;
-                $rate_des = $rate->cities[1]->id;
+        
+            foreach ($carrier->rateaddress as $rate) {
+                $rate_src = $rate->addresses[0]->id;
+                $rate_des = $rate->addresses[1]->id;
                 $carrier_accessories = $carrier->accessories;
                 $cost = 0;
                 if (($rate_src === $order_src) && ($rate_des === $order_des)) {
                     switch ($dimentional_weight) {
                         case ($dimentional_weight > 0 && $dimentional_weight <= $ranges[0]['value']):
-                            
                             $cost = $this->costCalc($dimentional_weight, $rate->_0k_1k, $rate);
+                            return $cost;
                             break;
                         case ($dimentional_weight > $ranges[0]['value'] && $dimentional_weight <= $ranges[1]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_1k_2k, $rate);
@@ -55,6 +59,7 @@ class Functions
                         default:
                             echo 'not found your weight ';
                     }
+
                     $a_value = $this->accessoryCalc($request, $carrier_accessories);
                     $cost = $cost + $a_value;
                     $service_charge = ($cost * 10) / 100;
@@ -74,7 +79,6 @@ class Functions
                 }
             }
         }
-
         return response()->json($selectedCarriers);
     }
     public function costCalc($dimentional_weight, $matchedRate, $rate)
@@ -82,10 +86,7 @@ class Functions
         $cost = ($dimentional_weight / 100) * $matchedRate;
         $percentage = ($cost * $rate->fsc) / 100;
         $cost = $cost + $percentage;
-        if ($cost < $rate->min_rate) {
-            $cost = $rate->min_rate;
-        }
-        return $cost;
+        return $cost < $rate->min_rate ? $rate->min_rate : $cost;
     }
     public function accessoryCalc($request, $carrier_accessories)
     {

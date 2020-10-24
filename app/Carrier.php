@@ -22,7 +22,7 @@ class Carrier extends Model
     public function rates(){
         return $this->hasMany(Rate::class);
     }
-    public function rateWithAddress(){
+    public function rateaddress(){
         return $this->rates()->with('addresses');
     }
 

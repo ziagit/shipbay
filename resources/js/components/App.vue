@@ -130,6 +130,10 @@ export default {
     color: #FFA500 !important;
 }
 
+.md-seconday {
+    color: #448aff !important;
+}
+
 .md-button.md-theme-default.md-raised:not([disabled]).md-primary {
     background-color: #FFA500;
 }
@@ -138,6 +142,7 @@ export default {
     border-radius: 30px;
     padding: 0 10px;
     margin: 30px 30px 30px 0;
+    background: #FFA500 !important;
 }
 
 .md-progress-bar-fill {

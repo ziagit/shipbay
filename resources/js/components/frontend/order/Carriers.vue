@@ -1,9 +1,9 @@
 <template>
 <div class="select-carrier">
     <div v-show="dataLoading" class="loading">
+        <Spinner />
         <span class="md-display-1">Calculating...</span>
         <div class="md-display-body">We trying to find topest carriers to fit your requirments. please wait</div>
-        <Spinner />
     </div>
     <div v-show="!dataLoading">
         <div class="icon">
@@ -13,7 +13,7 @@
         <md-card class="items">
             <md-card-content>
                 <md-button class="md-icon-button edit-item" @click="editItem()">
-                    <md-icon>edit</md-icon>
+                    <md-icon class="md-primary">edit</md-icon>
                     <md-tooltip>Edit item</md-tooltip>
                 </md-button>
                 <div>
@@ -52,7 +52,7 @@
                     <div>
                         <span>${{Math.round(carrier.price)}}</span>
                         <md-menu md-direction="top-start" :md-active.sync="carrier.togal">
-                            <md-icon md-menu-trigger class="md-primary info">info</md-icon>
+                            <md-icon md-menu-trigger class="md-seconday info">info</md-icon>
                             <md-menu-content>
                                 <CarrierRateInfo />
                             </md-menu-content>
@@ -70,6 +70,7 @@
             </md-button>
         </div>
     </div>
+    <Snackbar :data="snackbar" />
 </div>
 </template>
 
@@ -82,6 +83,7 @@ import {
 } from "vuex";
 import Axios from "axios";
 import Spinner from "../shared/Spinner";
+import Snackbar from "../shared/Snackbar";
 import functions from '../services/functions'
 export default {
     name: "CarrierList",
@@ -93,6 +95,11 @@ export default {
         carrierTogal: false,
         toggleCarrierInfo: false,
         priceToggle: false,
+        snackbar: {
+            show: false,
+            message: null,
+            statusCode: null,
+        },
     }),
     watch: {
         carriers(data) {
@@ -114,12 +121,18 @@ export default {
                     console.log("carriers: ", res.data);
                     if (res.data.length === 0) {
                         this.carriersExist = false;
+                        this.dataLoading = false;
                         return
                     }
                     this.carriers = res.data;
+                    this.dataLoading = false;
                 })
                 .catch((err) => {
                     console.log(err);
+                    this.dataLoading = false;
+                    this.snackbar.show = true;
+                    this.snackbar.message = err.response.data.message;
+                    this.snackbar.statusCode = err.response.status;
                 });
         },
         select(carrier) {
@@ -151,16 +164,14 @@ export default {
         this.$emit("progress", 100);
         this.getCarriers();
         this.order = JSON.parse(localStorage.getItem("order"));
-        setTimeout(() => {
-            this.dataLoading = true;
-        }, 5000);
         localStorage.setItem('cRoute', this.$router.currentRoute.path);
         console.log("in carrier: ", this.order)
     },
     components: {
         CarrierRateInfo,
         CarrierInfo,
-        Spinner
+        Spinner,
+        Snackbar,
     },
 };
 </script>
@@ -173,7 +184,7 @@ export default {
         text-align: center;
 
         .md-button {
-            border: 1px solid #448aff;
+            border: 1px solid #ffa500;
             padding: 5px;
             border-radius: 5px;
         }
