@@ -56,8 +56,8 @@
                     <md-button to="/register" class="md-icon-button">
                         <md-icon>add</md-icon>
                     </md-button>
-                    <md-button to="/login" class="md-icon-button">
-                        <md-icon>login</md-icon>
+                    <md-button to="/login" class="md-icon-button md-primary">
+                        <md-icon class="md-primary">login</md-icon>
                     </md-button>
                 </div>
             </div>

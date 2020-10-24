@@ -6,7 +6,6 @@
         <md-button class="md-primary md-raised" @click="getQuote()">Get Free Quotes</md-button>
     </div>
     <md-card>
-
         <div class="section2">
             <div class="row" v-bind:style="{'background-image': 'url(/images/home-background.png)'}">
                 <div>
@@ -118,7 +117,6 @@ export default {
 
                 .md-headline {
                     line-height: 40px;
-
                 }
 
                 .md-button {
@@ -133,6 +131,23 @@ export default {
 
 .md-body-1 {
     width: 100% !important;
+}
+
+@media only screen and (max-width: 1199.98px) {
+    .section2 {
+        padding: 60px !important;
+    }
+}
+
+@media only screen and (max-width: 991.98px) {
+    .section2 {
+        padding: 20px !important;
+
+    }
+
+    .md-display-1 {
+        line-height: 38px !important;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -154,6 +169,7 @@ export default {
             margin-top: -150px;
 
             .section2 {
+                flex-direction: column;
                 padding: 0;
 
                 .row {
@@ -186,21 +202,8 @@ export default {
 
 }
 
-@media (max-width: 575.98px) {
-    .services {}
-}
-
-// Small devices (landscape phones, less than 768px)
-@media (max-width: 767.98px) {
-    .services {
-        .section2 {
-            padding: 0 !important;
-        }
-    }
-}
-
 // Medium devices (tablets, less than 992px)
-@media (max-width: 991.98px) {
+/* @media only screen and (max-width: 991.98px) {
     .section1 {
         padding: 50px 100px 100px 100px !important;
 
@@ -223,14 +226,7 @@ export default {
             }
         }
     }
-}
+} */
 
 // Large devices (desktops, less than 1200px)
-@media (max-width: 1199.98px) {
-    .services {
-        .section2 {
-            padding: 60px;
-        }
-    }
-}
 </style>

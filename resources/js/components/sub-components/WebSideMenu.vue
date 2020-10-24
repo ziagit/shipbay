@@ -28,18 +28,18 @@
         <md-divider></md-divider>
 
         <md-list-item to="/facebook" @click="hideMenu()">
-            <md-icon>info</md-icon>
+            <md-icon>facebook</md-icon>
             <span class="md-list-item-text">Facebook</span>
         </md-list-item>
 
         <md-list-item to="/twitter" @click="hideMenu()">
-            <md-icon>info</md-icon>
+            <md-icon>mood</md-icon>
             <span class="md-list-item-text">Twitter</span>
         </md-list-item>
 
-        <md-list-item to="/google" @click="hideMenu()">
-            <md-icon>info</md-icon>
-            <span class="md-list-item-text">Google</span>
+        <md-list-item to="/instagram" @click="hideMenu()">
+            <md-icon>mood</md-icon>
+            <span class="md-list-item-text">Instagram</span>
         </md-list-item>
     </md-list>
 </div>

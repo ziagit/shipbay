@@ -7,7 +7,7 @@
     <md-card>
         <md-card-header>
             <div class="row">
-                <div class="md-headline">Shipping TAP</div>
+                <div class="md-headline heading">Shipping TAP</div>
                 <div class="md-body-1">Shipping TAB was founded to create a better way for
                     people and businesses to ship freight. There were countless carriers to choose from,
                     but there was no way to compare them side by side.
@@ -17,46 +17,42 @@
             </div>
         </md-card-header>
         <div class="section2">
-            <div class="row">
-                <div>
-                    <img :src="'/images/uploads/tracking.svg'" width="100" alt="">
-                    <div class="md-headline">LTL freight</div>
-                    <div class="md-body-1">Choose from hundreds of contract carriers with our self-service online tools or work directly with a freight expert.</div>
+            <div class="md-headline heading">Our Partners</div>
+            <div class="rows">
+                <div class="row">
                     <div>
-                        <md-button class="md-primary md-raised">Read More</md-button>
+                        <img :src="'/images/uploads/actech.png'" width="80" alt="">
+                        <div class="md-headline">Amu Cloud Tech Services</div>
+                        <div class="md-body-1">Choose from hundreds of contract carriers with our self-service online tools or work directly with a freight expert.</div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img :src="'/images/uploads/eg.svg'" width="80" alt="">
+                        <div class="md-headline">EG Logistics Inc.</div>
+                        <div class="md-body-1">Easily ship your refrigerated, flatbed and dry van freight with our large network of contract carriers and the guidance of our freight professionals.</div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img :src="'/images/uploads/item-dw.svg'" width="100" alt="">
+                        <div class="md-headline">X Company</div>
+                        <div class="md-body-1">We offer real-time intermodal rates and an in-house team of experts to make your rail shipments easy.</div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img :src="'/images/uploads/item-dw.svg'" width="100" alt="">
+                        <div class="md-headline">Y Company</div>
+                        <div class="md-body-1">Find a partial truckload option that fits based on your budget, transit or handling requirements.</div>
+
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div>
-                    <img :src="'/images/uploads/tracking.svg'" width="100" alt="">
-                    <div class="md-headline">Truckload freight</div>
-                    <div class="md-body-1">Easily ship your refrigerated, flatbed and dry van freight with our large network of contract carriers and the guidance of our freight professionals.</div>
-                    <div>
-                        <md-button class="md-primary md-raised">Read More</md-button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div>
-                    <img :src="'/images/uploads/tracking.svg'" width="100" alt="">
-                    <div class="md-headline">Intermodal Rail shipping</div>
-                    <div class="md-body-1">We offer real-time intermodal rates and an in-house team of experts to make your rail shipments easy.</div>
-                    <div>
-                        <md-button class="md-primary md-raised">Read More</md-button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div>
-                    <img :src="'/images/uploads/tracking.svg'" width="100" alt="">
-                    <div class="md-headline">Partial Truckload freight</div>
-                    <div class="md-body-1">Find a partial truckload option that fits based on your budget, transit or handling requirements.</div>
-                    <div>
-                        <md-button class="md-primary md-raised">Read More</md-button>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
     </md-card>
@@ -85,8 +81,6 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    height: 100vh;
-
     .section1 {
         background-repeat: no-repeat;
         background-size: cover;
@@ -114,29 +108,34 @@ export default {
         overflow: hidden;
         padding: 50px;
 
+        .heading {
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 60px;
+        }
+
         .md-card-header {
             max-width: 60%;
             margin: auto;
             text-align: center;
-            padding: 50px;
-
-            .md-headline {
-                font-weight: 600;
-                font-size: 30px;
-                line-height: 60px;
-            }
+            margin-bottom: 50px;
         }
 
         .section2 {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
+            text-align: center;
 
-            .row {
-                text-align: center;
-                flex: 25%;
-                padding: 20px;
+            .rows {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+
+                .row {
+                    text-align: center;
+                    flex: 25%;
+                    padding: 20px;
+                }
             }
+
         }
     }
 }
@@ -155,13 +154,15 @@ export default {
 
         .md-card-header {
             padding: 50px 0 0 0 !important;
+            max-width: 78% !important;
         }
 
         .section2 {
             padding: 0 !important;
-            flex-direction: column;
 
-            .row {
+            .rows {
+                flex-direction: column;
+
                 .md-button {
                     margin: 30px 0 0 0;
                 }
