@@ -1,14 +1,16 @@
 <template>
 <div class="home">
-    <md-app>
+    <md-app md-mode="reveal">
         <md-app-toolbar class="md-default">
-            <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+            <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
                 <md-icon>menu</md-icon>
             </md-button>
-            <router-link to="/">
-                <span class="logo">ShipBay</span>
-            </router-link>
-
+            <span class="md-title logo" @click="$router.push('/')"><img :src="'/images/logo.svg'" alt="" width="25"> Shipping TAP</span>
+            <div class="navigation" v-if="windowWidth > 600">
+                <md-button :class="$route.name === 'home'? 'md-primary': ''" to="/">Home</md-button>
+                <md-button :class="$route.name === 'services'? 'md-primary': ''" to="services">Services</md-button>
+                <md-button :class="$route.name === 'help'? 'md-primary': ''" to="help">How it works</md-button>
+            </div>
             <div class="md-toolbar-section-end">
                 <div v-if="authenticated">
                     <md-badge class="md-primary" :md-content="notifications.length" md-dense>
@@ -50,34 +52,29 @@
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <div v-else>
-                    <md-button to="/register">Register</md-button>
-                    <md-button to="/login">Login</md-button>
+                <div v-else class="login-register">
+                    <md-button to="/register" class="md-icon-button">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                    <md-button to="/login" class="md-icon-button">
+                        <md-icon>login</md-icon>
+                    </md-button>
                 </div>
             </div>
         </md-app-toolbar>
 
-        <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
-            <md-toolbar class="md-transparent" md-elevation="0">
-                <span>Navigation</span>
-                <div class="md-toolbar-section-end">
-                    <md-button class="md-icon-button md-dense" @click="toggleMenu">
-                        <md-icon>keyboard_arrow_left</md-icon>
-                    </md-button>
-                </div>
-            </md-toolbar>
+        <md-app-drawer :md-active.sync="menuVisible">
+            <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
 
-            <div class="side-menu">
-                <AdminSideMenu v-on:hideSideMenu="toggleSideMenu" v-if="authenticated && user.role[0].name === 'admin'" />
-                <WebSideMenu v-on:hideSideMenu="toggleSideMenu" v-else />
-            </div>
+            <AdminSideMenu v-on:hideSideMenu="toggleSideMenu" v-if="authenticated && user.role[0].name === 'admin'" />
+            <WebSideMenu v-on:hideSideMenu="toggleSideMenu" v-else />
         </md-app-drawer>
 
-        <md-app-content class="my-app-content">
+        <md-app-content>
             <router-view></router-view>
         </md-app-content>
     </md-app>
-    <Footer />
+
 </div>
 </template>
 
@@ -85,7 +82,6 @@
 import AdminSideMenu from "../sub-components/AdminSideMenu";
 import WebSideMenu from "../sub-components/WebSideMenu";
 import axios from "axios";
-import Footer from "./shared/Footer"
 import {
     mapGetters,
     mapActions
@@ -95,21 +91,26 @@ export default {
     data: () => ({
         menuVisible: false,
         toggleCard: false,
-        activeRoute: "carrier-details",
+        activeRoute: "home",
         notifications: [],
         notificationsLength: 0,
         closeOnClick: false,
         closeOnSelect: true,
-        connectionStatus: navigator.onLine,
+        windowWidth: window.innerWidth,
     }),
     watch: {
-        $route() {
-            if (this.$route.name == "accessory-list") {
-                this.activeRoute = "accessory-list";
-            } else if (this.$route.name == "rate-list") {
-                this.activeRoute = "rate-liste";
-            }
+        /*         '$route'() {
+                    if (this.$route.name == "home") {
+                        console.log("home is active")
+                        this.activeRoute = "home";
+                    } else if (this.$route.name == "services") {
+                        this.activeRoute = "services";
+                    }
+                }, */
+        windowWidth(value) {
+            console.log("u r wd: ", value)
         },
+        deep: true
     },
     computed: {
         ...mapGetters({
@@ -132,9 +133,7 @@ export default {
             this.menuVisible = !this.menuVisible;
         },
         toggleSideMenu() {
-            if (screen.width < 600) {
-                this.menuVisible = !this.menuVisible;
-            }
+            this.menuVisible = !this.menuVisible;
         },
 
         notificationDetails(notification) {
@@ -196,18 +195,13 @@ export default {
     },
     created() {
         this.getNotifications();
+        console.log("current rout name", this.$route.name)
     },
     components: {
         AdminSideMenu,
         WebSideMenu,
-        Footer,
     },
 
-    mounted() {
-        if (screen.width > 600) {
-            this.menuVisible = true;
-        }
-    }
 };
 </script>
 
@@ -227,16 +221,34 @@ export default {
 .home {
     height: 100%;
 
-    .md-default {
-        background: #fff;
-        /*  box-shadow: 0 2px 4px -3px rgba(0, 0, 0, 0.2),
-            0 0px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); */
-        box-shadow: 0 1px 2px #11111142;
-    }
-
     .md-app {
         height: 100%;
         border: 1px solid rgba(#000, 0.12);
+
+        /*         .md-app-toolbar {
+            background: #fff;
+            box-shadow: 0 2px 4px -3px rgba(0, 0, 0, 0.2),
+                0 0px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 1px 2px #11111142;
+
+        } */
+
+        .md-app-toolbar {
+            background: #2D2E2E;
+            box-shadow: none;
+            color: #fff !important;
+            border-bottom: #6b6b6b3b solid 1px;
+
+            .md-title {
+                color: #fff;
+            }
+
+            .md-button,
+            .md-icon-button,
+            .md-icon {
+                color: #fff;
+            }
+        }
     }
 
     // Demo purposes only
@@ -257,6 +269,10 @@ export default {
         right: 10px;
         bottom: 10px;
     }
+
+    .navigation {
+        display: flex;
+    }
 }
 
 .menu-head {
@@ -267,5 +283,18 @@ export default {
         margin: 7px;
         background: #f0f2f5;
     }
+}
+
+@media only screen and (max-width: 600px) {
+    .logo {
+        font-size: 16px;
+        padding: 0;
+        margin: 0 !important;
+
+        img {
+            width: 20px;
+        }
+    }
+
 }
 </style>

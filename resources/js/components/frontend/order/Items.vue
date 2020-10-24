@@ -56,7 +56,7 @@
                     </md-field>
                     <md-field>
                         <label>Number of items</label>
-                        <md-input type="number" v-model="item.number" required min="1"></md-input>
+                        <md-input type="number" class="md-primary" v-model="item.number" required min="1"></md-input>
                     </md-field>
                 </div>
             </div>
@@ -66,7 +66,7 @@
             <md-tooltip>Add another item</md-tooltip>
         </md-button>
         <div class="options">
-            <md-checkbox v-for="condition in accessories" :key="condition.id" v-model="myItem.conditions" :value="condition.code" class="md-primary" @change="checkboxTogal(condition)">{{condition.name}}</md-checkbox>
+            <md-checkbox v-for="condition in accessories" :key="condition.id" v-model="myItem.conditions" :value="condition.code" @change="checkboxTogal(condition)">{{condition.name}}</md-checkbox>
             <div class="row row3" v-if="tempTogal">
                 <md-field>
                     <label>Min temperature (FH)</label>

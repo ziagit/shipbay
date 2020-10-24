@@ -152,7 +152,7 @@ export default {
         this.getCarriers();
         this.order = JSON.parse(localStorage.getItem("order"));
         setTimeout(() => {
-            this.dataLoading = false;
+            this.dataLoading = true;
         }, 5000);
         localStorage.setItem('cRoute', this.$router.currentRoute.path);
         console.log("in carrier: ", this.order)

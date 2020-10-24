@@ -34,11 +34,11 @@
         </div>
 
         <div class="options">
-            <md-radio v-for="service in accessoryList" :key="service.id" v-model="order.src.accessories[0]" :value="service.code" class="md-primary">{{ service.name }}</md-radio>
+            <md-radio v-for="service in accessoryList" :key="service.id" v-model="order.src.accessories[0]" :value="service.code">{{ service.name }}</md-radio>
         </div>
         <md-card v-if="isAddSelected">
             <md-button @click="edit()" class="md-icon-button md-primary edit">
-                <md-icon>edit</md-icon>
+                <md-icon class="md-primary">edit</md-icon>
             </md-button>
             <md-card-content>
                 <span>{{ order.src.address.city }}, {{ order.src.address.state }}</span><br />
