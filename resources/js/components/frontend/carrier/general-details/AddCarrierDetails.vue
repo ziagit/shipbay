@@ -46,7 +46,7 @@
                             <div v-else>
                                 <md-menu-item>Type</md-menu-item>
                             </div>
-                            <md-menu-item v-for="list in states" :key="list.id" @click="selectState(list)">{{ list.name }}</md-menu-item>
+                            <md-menu-item v-for="list in states" :key="list.id" @click="selectState(list)">{{ list.state }}</md-menu-item>
                         </md-menu-content>
                     </md-menu>
                     <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
@@ -61,26 +61,11 @@
                             <div v-else>
                                 <md-menu-item>Type</md-menu-item>
                             </div>
-                            <md-menu-item v-for="list in cities" :key="list.id" @click="selectCity(list)">{{ list.name }}</md-menu-item>
+                            <md-menu-item v-for="list in cities" :key="list.id" @click="selectCity(list)">{{ list.city }}</md-menu-item>
                         </md-menu-content>
                     </md-menu>
                 </div>
                 <div class="row">
-                    <md-menu md-direction="bottom-start" class="zip-address" md-align-trigger md-dense>
-                        <md-field>
-                            <label for="">Search address</label>
-                            <md-input v-model="ak" required md-menu-trigger></md-input>
-                        </md-field>
-                        <md-menu-content>
-                            <div v-if="addresses">
-                                <md-menu-item v-if="addresses.length === 0">Not found</md-menu-item>
-                            </div>
-                            <div v-else>
-                                <md-menu-item>Type</md-menu-item>
-                            </div>
-                            <md-menu-item v-for="list in addresses" :key="list.id" @click="selectAddress(list)">{{ list.name }}</md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
                     <md-menu md-direction="bottom-start" class="zip-address" md-align-trigger md-dense>
                         <md-field>
                             <label for="">Search postal code</label>
@@ -93,9 +78,25 @@
                             <div v-else>
                                 <md-menu-item>Type</md-menu-item>
                             </div>
-                            <md-menu-item v-for="list in zips" :key="list.id" @click="selectZip(list)">{{ list.postal_code }}</md-menu-item>
+                            <md-menu-item v-for="list in zips" :key="list.id" @click="selectZip(list)">{{ list.zip }}</md-menu-item>
                         </md-menu-content>
                     </md-menu>
+                    <md-menu md-direction="bottom-start" class="zip-address" md-align-trigger md-dense>
+                        <md-field>
+                            <label for="">Search address</label>
+                            <md-input v-model="ak" required md-menu-trigger></md-input>
+                        </md-field>
+                        <md-menu-content>
+                            <div v-if="addresses">
+                                <md-menu-item v-if="addresses.length === 0">Not found</md-menu-item>
+                            </div>
+                            <div v-else>
+                                <md-menu-item>Type</md-menu-item>
+                            </div>
+                            <md-menu-item v-for="list in addresses" :key="list.id" @click="selectAddress(list)">{{ list.address }}</md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
                 </div>
 
             </div>
@@ -134,12 +135,8 @@ export default {
         form: {
             first_name: null,
             last_name: null,
-            address: null,
+            addressId: null,
             country: null,
-            state: null,
-            city: null,
-            postal_code: null,
-            address: null,
             phone: null,
             website: null,
             company: null,
@@ -194,7 +191,7 @@ export default {
         },
         getCity() {
             axios
-                .get("search-city/" + this.form.state, {
+                .get("search-city/" + this.sk, {
                     params: {
                         keywords: this.ck,
                     },
@@ -210,7 +207,7 @@ export default {
 
         getAddress() {
             axios
-                .get("search-address/" + this.form.city, {
+                .get("search-address/" + this.zk, {
                     params: {
                         keywords: this.ak,
                     },
@@ -225,7 +222,7 @@ export default {
         },
         getZip() {
             axios
-                .get("search-zip/" + this.form.address, {
+                .get("search-zip/" + this.ck, {
                     params: {
                         keywords: this.zk,
                     },
@@ -239,22 +236,19 @@ export default {
                 });
         },
         selectState(selected) {
-            this.sk = selected.name
-            this.form.state = selected.id;
+            this.sk = selected.state;
         },
 
         selectCity(selected) {
-            this.ck = selected.name
-            this.form.city = selected.id;
+            this.ck = selected.city
         },
 
         selectAddress(selected) {
-            this.ak = selected.name
-            this.form.address = selected.id;
+            this.ak = selected.address;
+            this.form.addressId = selected.id;
         },
         selectZip(selected) {
-            this.zk = selected.postal_code
-            this.form.postal_code = selected.id;
+            this.zk = selected.zip
         },
         onChange(e) {
             this.logo = e.target.files[0];
@@ -264,11 +258,8 @@ export default {
             fd.append("logo", this.logo);
             fd.append("first_name", this.form.first_name);
             fd.append("last_name", this.form.last_name);
-            fd.append("address", this.form.address);
+            fd.append("addressId", this.form.addressId);
             fd.append("country", this.form.country);
-            fd.append("state", this.form.state);
-            fd.append("city", this.form.city);
-            fd.append("postal_code", this.form.postal_code);
             fd.append("phone", this.form.phone);
             fd.append("website", this.form.website);
             fd.append("company", this.form.company);
@@ -277,7 +268,7 @@ export default {
                 .post("carrier/details", fd)
                 .then((res) => {
                     console.log(">> ", res.data);
-                    /* this.$router.push("/carrier"); */
+                    this.$router.push("/carrier");
                 })
                 .catch((error) => {
                     console.log("eerrr: ", error.response);

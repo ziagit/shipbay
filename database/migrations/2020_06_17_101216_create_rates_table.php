@@ -25,6 +25,7 @@ class CreateRatesTable extends Migration
             $table->double('above_10k');   
             $table->double('fsc');
             $table->double('transit_day');
+            $table->unsignedInteger('carrier_id');
 
             $table->timestamps();
         });

@@ -20,29 +20,29 @@
                 </li>
             </ul>
             <ul v-if="!isSelected">
-                <li class="city-list" v-for="city in cities" :key="city.id" @click="selectCity(city)">
-                    {{ city.name }},
-                    {{ city.state.name }}
+                <li class="city-list" v-for="list in cities" :key="list.id" @click="selectStateCity(list)">
+                    {{ list.city }},
+                    {{ list.state }}
                 </li>
             </ul>
             <ul v-if="!isAddSelected">
-                <li class="address-list" v-for="address in addresses" :key="address.id" @click="selectAddress(address)">
-                    {{ address.name }},
-                    {{ address.zip.postal_code }}
+                <li class="address-list" v-for="list in addresses" :key="list.id" @click="selectZipAddress(list)">
+                    {{ list.address }},
+                    {{ list.zip }}
                 </li>
             </ul>
         </div>
 
         <div class="options">
-            <md-radio v-for="service in accessoryList" :key="service.id" v-model="order.src.accessories[0]" :value="service.code" class="md-primary">{{ service.name }}</md-radio>
+            <md-radio v-for="service in accessoryList" :key="service.id" v-model="order.src.accessories[0]" :value="service.code">{{ service.name }}</md-radio>
         </div>
-        <md-card v-if="isSelected">
+        <md-card v-if="isAddSelected">
             <md-button @click="edit()" class="md-icon-button md-primary edit">
-                <md-icon>edit</md-icon>
+                <md-icon class="md-primary">edit</md-icon>
             </md-button>
             <md-card-content>
-                <span>{{ order.src.cityName }}, {{ order.src.stateName }}</span><br />
-                <span v-if="order.src.addressName">{{ order.src.addressName }}, {{order.src.postalCodeName}}</span>
+                <span>{{ order.src.address.city }}, {{ order.src.address.state }}</span><br />
+                <span v-if="order.src.address.address">{{ order.src.address.address }}, {{order.src.address.zip}}</span>
             </md-card-content>
         </md-card>
         <div class="action">
@@ -65,6 +65,7 @@ export default {
         keywords: null,
         addKeywords: null,
         cities: [],
+        city: null,
         addresses: [],
         notFound: null,
         isSelected: false,
@@ -74,14 +75,7 @@ export default {
             src: {
                 country: null,
                 countryName: null,
-                state: null,
-                stateName: null,
-                city: null,
-                cityName: null,
-                postalCode: null,
-                postalCodeName: null,
                 address: null,
-                addressName: null,
                 accessories: ["bs"],
                 appointmentTime: null,
             },
@@ -96,10 +90,10 @@ export default {
     }),
     watch: {
         keywords(after, before) {
-            this.searchCity();
+            this.searchStateCity();
         },
         addKeywords(after, before) {
-            this.searchAddress()
+            this.searchZipAddress()
         },
         cities(data) {
             if (data.length === 0) {
@@ -125,24 +119,25 @@ export default {
         },
     },
     methods: {
-        searchCity() {
+        searchStateCity() {
             axios
-                .get("search-city-state/" + 2, {
+                .get("search-state-city/" + 1, {
                     params: {
                         keywords: this.keywords,
                     },
                 })
                 .then((res) => {
+                    console.log("found cities: ", res.data.data);
+
                     this.cities = res.data.data;
-                    console.log("found cities: ", this.cities);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         },
-        searchAddress() {
+        searchZipAddress() {
             axios
-                .get("search-address-zip/" + this.order.src.city, {
+                .get("search-zip-address/" + this.city, {
                     params: {
                         keywords: this.addKeywords,
                     },
@@ -156,21 +151,15 @@ export default {
                 });
         },
 
-        selectCity(selected) {
+        selectStateCity(selected) {
             this.$refs.focusable.$el.focus()
-            this.order.src.city = selected.id;
-            this.order.src.cityName = selected.name;
-            this.order.src.state = selected.state.id;
-            this.order.src.stateName = selected.state.name;
+            this.city = selected.city;
             this.isSelected = true;
             localStorage.setItem("sflug", this.isSelected);
         },
-        selectAddress(selected) {
-            this.order.src.address = selected.id;
-            this.order.src.addressName = selected.name;
-            this.order.src.postalCode = selected.zip.id;
-            this.order.src.postalCodeName = selected.zip.postal_code
-            this.addKeywords = selected.name
+        selectZipAddress(selected) {
+            this.order.src.address = selected;
+            this.addKeywords = selected.address
             this.isAddSelected = true;
             localStorage.setItem("aflug", this.isAddSelected);
         },
@@ -213,27 +202,19 @@ export default {
                 this.isAddSelected = localStorage.getItem("aflug");
                 this.order.src.country = storage.src.country;
                 this.order.src.countryName = storage.src.countryName;
-                this.order.src.state = storage.src.state;
-                this.order.src.stateName = storage.src.stateName;
-                this.order.src.city = storage.src.city;
-                this.order.src.cityName = storage.src.cityName;
-                this.order.src.postalCode = storage.src.postalCode;
-                this.order.src.postalCodeName = storage.src.postalCodeName;
                 this.order.src.address = storage.src.address;
-                this.order.src.addressName = storage.src.addressName;
                 this.order.src.accessories = storage.src.accessories;
                 this.order.pickDate = storage.pickDate;
                 this.order.src.appointmentTime = storage.src.appointmentTime
                 this.order.des = storage.des;
                 this.order.myItem = storage.myItem;
-                this.addKeywords = storage.src.addressName;
+                this.addKeywords = storage.src.address.address;
             }
         },
         getAccessories() {
             axios
                 .get("location-type")
                 .then((res) => {
-                    this.cityList = res.data.cities;
                     this.accessoryList = res.data.services;
                 })
                 .catch((err) => {

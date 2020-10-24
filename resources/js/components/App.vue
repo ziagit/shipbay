@@ -30,14 +30,19 @@ export default {
     border-radius: 5px;
 }
 
+.md-checkbox.md-theme-default.md-checked .md-checkbox-container {
+    background-color: #FFA500;
+    border-color: #FFA500;
+}
+
+.md-radio.md-theme-default.md-checked .md-radio-container {
+    background-color: #FFA500;
+    border-color: #FFA500;
+}
+
 .md-dialog-container,
 .md-dialog-fullscreen {
     border-radius: 12px;
-}
-
-.md-raised {
-    /* box-shadow: 0 4px 16px rgba(0,0,0,.12) !important; */
-    box-shadow: 0 1px 2px #11111142;
 }
 
 .no-shadow-bordered {
@@ -89,7 +94,7 @@ export default {
 }
 
 .active {
-    color: #448aff !important;
+    color: #FFA500 !important;
 }
 
 .md-accent {
@@ -125,12 +130,18 @@ export default {
     color: #FFA500 !important;
 }
 
+.md-button.md-theme-default.md-raised:not([disabled]).md-primary {
+    background-color: #FFA500;
+}
+
 .md-raised {
     border-radius: 30px;
     padding: 0 10px;
     margin: 30px 30px 30px 0;
+}
+
+.md-progress-bar-fill {
     background: #FFA500 !important;
-    color: #000 !important;
 }
 
 @media only screen and (min-width: 600px) {

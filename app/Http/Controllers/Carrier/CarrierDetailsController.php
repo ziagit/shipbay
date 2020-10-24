@@ -7,7 +7,6 @@ use App\Carrier;
 use App\Contact;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Customeraddress;
 use Exception;
 
 class CarrierDetailsController extends Controller
@@ -48,11 +47,8 @@ class CarrierDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required|unique:contacts',
             'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required',
+            'addressId' => 'required',
         ]);
-        $addressId = $this->storeAddress($request);
         $contactId = $this->storeContact($request);
         try {
             if ($request->hasFile('logo')) {
@@ -73,7 +69,7 @@ class CarrierDetailsController extends Controller
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
         $carrier->logo = $logo_name;
-        $carrier->customeraddress_id = $addressId;
+        $carrier->address_id = $request->addressId;
         $carrier->contact_id = $contactId;
         $carrier->user_id = JWTAuth::user()->id;
 
@@ -81,17 +77,7 @@ class CarrierDetailsController extends Controller
         
         return response()->json(["message" => "Saved successfully!"], 200);
     }
-    public function storeAddress($request)
-    {
-        $address = new Customeraddress();
-        $address->address_id = $request->address;
-        $address->country_id = $request->country;
-        $address->state_id = $request->state;
-        $address->city_id = $request->city;
-        $address->zip_id = $request->postal_code;
-        $address->save();
-        return $address->id;
-    }
+
     public function storeContact($request){
         $contact = new Contact();
         $contact->name = $request->last_name;
@@ -137,11 +123,8 @@ class CarrierDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required',
             'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required',
+            'addressId' => 'required',
         ]);
-        $addressId = $this->updateAddress($request);
         $contactId = $this->updateContact($request);
         $carrier = Carrier::find($id);
 
@@ -165,24 +148,14 @@ class CarrierDetailsController extends Controller
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
         $carrier->logo = $logo_name;
-        $carrier->customeraddress_id = $addressId;
+        $carrier->address_id = $request->addressId;
         $carrier->contact_id = $contactId;
         $carrier->user_id = JWTAuth::user()->id;
         $carrier->update();
 
         return response()->json(["message" => "Updated successfully!"], 200);
     }
-    public function updateAddress($request)
-    {
-        $address = Customeraddress::find($request->addressId);
-        $address->address_id = $request->address;
-        $address->country_id = $request->country;
-        $address->state_id = $request->state;
-        $address->city_id = $request->city;
-        $address->zip_id = $request->postal_code;
-        $address->update();
-        return $address->id;
-    }
+
     public function updateContact($request){
         $contact = Contact::find($request->contactId);
         $contact->name = $request->last_name;

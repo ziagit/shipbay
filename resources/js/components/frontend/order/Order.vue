@@ -1,7 +1,7 @@
 <template>
 <div class="order">
     <div class="progress-container">
-        <md-progress-bar md-mode="determinate" :md-value="amount"></md-progress-bar>
+        <md-progress-bar class="md-primary" md-mode="determinate" :md-value="amount"></md-progress-bar>
     </div>
     <div class="input-container">
         <router-view v-on:progress="progress"></router-view>
@@ -41,7 +41,7 @@ export default {
             background-color: #fff;
 
             .md-progress-bar-fill {
-                background: chocolate;
+                background: #FFA500 !important;
             }
 
             .md-progress-bar-buffer {

@@ -13,10 +13,10 @@ class Shipper extends Model
         return $this->belongsTo(Contact::class);
     }
     public function address(){
-        return $this->belongsTo(Customeraddress::class);
+        return $this->belongsTo(Address::class);
     }
     public function fullAddress(){
-        return $this->address()->with('country','state','city','zip','address');
+        return $this->address()->with('country');
     }
     public function orders(){
         return $this->hasMany(Order::class);

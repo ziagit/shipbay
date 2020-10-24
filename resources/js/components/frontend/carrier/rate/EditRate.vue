@@ -46,7 +46,7 @@
                                         <div v-else>
                                             <md-menu-item>Type</md-menu-item>
                                         </div>
-                                        <md-menu-item v-for="list in srcStates" :key="list.id" @click="selectSrcState(list)">{{ list.name }}</md-menu-item>
+                                        <md-menu-item v-for="list in srcStates" :key="list.id" @click="selectSrcState(list)">{{ list.state }}</md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
                             </td>
@@ -60,7 +60,7 @@
                                         <div v-else>
                                             <md-menu-item>Type</md-menu-item>
                                         </div>
-                                        <md-menu-item v-for="list in srcCities" :key="list.id" @click="selectSrcCity(list)">{{ list.name }}</md-menu-item>
+                                        <md-menu-item v-for="list in srcCities" :key="list.id" @click="selectSrcCity(list)">{{ list.city }}</md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
                             </td>
@@ -75,7 +75,7 @@
                                         <div v-else>
                                             <md-menu-item>Type</md-menu-item>
                                         </div>
-                                        <md-menu-item v-for="list in desStates" :key="list.id" @click="selectDesState(list)">{{ list.name }}</md-menu-item>
+                                        <md-menu-item v-for="list in desStates" :key="list.id" @click="selectDesState(list)">{{ list.state }}</md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
                             </td>
@@ -89,7 +89,7 @@
                                         <div v-else>
                                             <md-menu-item>Type</md-menu-item>
                                         </div>
-                                        <md-menu-item v-for="list in desCities" :key="list.id" @click="selectDesCity(list)">{{ list.name }}</md-menu-item>
+                                        <md-menu-item v-for="list in desCities" :key="list.id" @click="selectDesCity(list)">{{ list.city }}</md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
                             </td>
@@ -195,7 +195,7 @@ export default {
     methods: {
         getSrcStates() {
             axios
-                .get("search-state/" + this.countries[1].id, {
+                .get("search-state/" + this.countries[0].id, {
                     params: {
                         keywords: this.ssk,
                     },
@@ -209,13 +209,12 @@ export default {
                 });
         },
         selectSrcState(selected) {
-            this.ssk = selected.name
-            this.form.src_state = selected.id;
+            this.ssk = selected.state
         },
 
         getDesStates() {
             axios
-                .get("search-state/" + this.countries[1].id, {
+                .get("search-state/" + this.countries[0].id, {
                     params: {
                         keywords: this.dsk,
                     },
@@ -228,12 +227,11 @@ export default {
                 });
         },
         selectDesState(selected) {
-            this.form.des_state = selected.id;
-            this.dsk = selected.name
+            this.dsk = selected.state
         },
         getSrcCities() {
             axios
-                .get("search-city/" + this.form.src_state, {
+                .get("search-city/" + this.ssk, {
                     params: {
                         keywords: this.sck,
                     },
@@ -247,12 +245,12 @@ export default {
                 });
         },
         selectSrcCity(selected) {
-            this.form.src_city = selected.id;
-            this.sck = selected.name;
+            this.form.src_address = selected.id;
+            this.sck = selected.city;
         },
         getDesCities() {
             axios
-                .get("search-city/" + this.form.des_state, {
+                .get("search-city/" + this.dsk, {
                     params: {
                         keywords: this.dck,
                     },
@@ -265,17 +263,17 @@ export default {
                 });
         },
         selectDesCity(selected) {
-            this.form.des_city = selected.id;
-            this.dck = selected.name
+            this.form.des_address = selected.id;
+            this.dck = selected.city
         },
         onSrcStateChange() {
             this.sck = null;
-            this.form.src_city = null;
+            this.form.src_address = null;
             this.srcCities = null;
         },
         onDesStateChange() {
             this.dck = null;
-            this.form.des_city = null;
+            this.form.des_address = null;
             this.desCities = null;
         },
         update() {
@@ -306,14 +304,12 @@ export default {
                 .get("carrier/rates/" + this.$route.params.id)
                 .then((res) => {
                     console.log("edit ", res.data);
-                    this.form.src_state = res.data.city_with_state[0].state.id;
-                    this.ssk = res.data.city_with_state[0].state.name;
-                    this.form.src_city = res.data.city_with_state[0].id;
-                    this.sck = res.data.city_with_state[0].name;
-                    this.form.des_state = res.data.city_with_state[1].state.id;
-                    this.dsk = res.data.city_with_state[1].state.name;
-                    this.form.des_city = res.data.city_with_state[1].id;
-                    this.dck = res.data.city_with_state[1].name;
+                    this.ssk = res.data.addresses[0].state;
+                    this.form.src_address = res.data.addresses[0].id;
+                    this.sck = res.data.addresses[0].city;
+                    this.dsk = res.data.addresses[1].state;
+                    this.form.des_address = res.data.addresses[1].id;
+                    this.dck = res.data.addresses[1].city;
                     this.form.min_rate = res.data.min_rate;
                     this.form.k0_k1 = res.data._0k_1k;
                     this.form.k1_k2 = res.data._1k_2k;
