@@ -28,7 +28,7 @@
                         <md-radio v-model="form.type" value="carrier">Carrier</md-radio>
                         <md-radio v-model="form.type" value="shipper">Shipper</md-radio>
                     </div>
-                    <md-button type="submit" class="md-primary md-raised">Register</md-button>
+                    <md-button type="submit" class="md-primary">Register</md-button>
                 </form>
             </md-card-content>
         </md-card>
