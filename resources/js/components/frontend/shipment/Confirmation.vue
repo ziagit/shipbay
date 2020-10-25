@@ -15,14 +15,14 @@
                         Country: {{ shipment.src.countryName }}
                     </div>
                     <div class="md-body-1">
-                        State: {{ shipment.src.stateName }}
+                        State: {{ shipment.src.address.state }}
                     </div>
                     <div class="md-body-1">
-                        City: {{ shipment.src.cityName }},
-                        {{ shipment.src.postalCodeName }}
+                        City: {{ shipment.src.address.city }},
+                        {{ shipment.src.address.zip }}
                     </div>
                     <div class="md-body-1">
-                        Address: {{ shipment.src.address }}
+                        Address: {{ shipment.src.address.address }}
                     </div>
                     <div class="md-body-1">
                         Contact name: {{ shipment.shipper.pickupName }}
@@ -43,14 +43,14 @@
                         Country: {{ shipment.des.countryName }}
                     </div>
                     <div class="md-body-1">
-                        State: {{ shipment.des.stateName }}
+                        State: {{ shipment.des.address.state }}
                     </div>
                     <div class="md-body-1">
-                        City: {{ shipment.des.cityName }},
-                        {{ shipment.des.postalCodeName }}
+                        City: {{ shipment.des.address.city }},
+                        {{ shipment.des.address.zip }}
                     </div>
                     <div class="md-body-1">
-                        Address: {{ shipment.des.address }}
+                        Address: {{ shipment.des.address.address }}
                     </div>
                     <div class="md-body-1">
                         Contact name: {{ shipment.shipper.deliveryName }}

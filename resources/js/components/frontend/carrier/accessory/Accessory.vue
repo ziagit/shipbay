@@ -2,7 +2,7 @@
 <div>
     <md-dialog-confirm :md-active.sync="active" md-title="Are you sure?" md-content="Make sure it's not an Accident" md-confirm-text="Agree" md-cancel-text="Disagree" @md-cancel="cancel" @md-confirm="confirm" />
 
-    <md-card class="md-primary" md-theme="orange-card">
+    <md-card md-theme="orange-card">
         <md-card-header>
             <div class="md-title">Accessories</div>
             <md-button to="add" class="md-icon-button add-btn" v-show="accessories.length != 0">

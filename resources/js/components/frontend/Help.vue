@@ -3,7 +3,7 @@
     <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/help.svg)'}">
         <div class="md-display-1"> How It Works? </div>
         <p class="md-body-1">Our simple shipping tool is the fastest route to getting your freight on the road. Just enter a few shipment details, review quotes and choose a carrier.</p>
-        <md-button class="md-primary md-raised" @click="getQuote()">Start a new quote</md-button>
+        <md-button class="md-primary md-raised" to="/order">Start a new quote</md-button>
     </div>
     <md-card>
 

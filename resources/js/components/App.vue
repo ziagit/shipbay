@@ -138,11 +138,19 @@ export default {
     background-color: #FFA500;
 }
 
+.md-switch.md-theme-default.md-checked.md-primary .md-switch-thumb {
+    background-color: #FFA500 !important;
+}
+
+.md-switch.md-theme-default.md-checked.md-primary .md-switch-container {
+    background-color: #ffa6005b !important;
+}
+
 .md-raised {
     border-radius: 30px;
     padding: 0 10px;
-    margin: 30px 30px 30px 0;
     background: #FFA500 !important;
+    color: #333 !important;
 }
 
 .md-progress-bar-fill {

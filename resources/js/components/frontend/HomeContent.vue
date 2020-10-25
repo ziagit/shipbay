@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="action">
-            <md-button @click="getQuote()" class="md-default md-raised">Get a free quote </md-button>
+            <md-button to="/order" class="md-raised">Get a free quote </md-button>
         </div>
     </div>
     <md-card>
@@ -63,7 +63,9 @@
             <div class="md-headline order-header">III Steps Order</div>
             <div class="section3">
                 <div class="row">
+                    <img :src="'/images/uploads/item-dw.svg'" width="250" alt="">
                     <div class="text">
+                        <img :src="'/images/uploads/01.svg'" width="50" alt="">
                         <div class="md-headline">Tap the specifications</div>
                         <div class="md-body-1">Specify your shipment and
                             schedule the date. Tap on
@@ -71,30 +73,32 @@
                             in the pick-up and drop-off 1locations.
                         </div>
                     </div>
-                    <img :src="'/images/uploads/item-dw.svg'" width="250" alt="">
                 </div>
             </div>
             <div class="section4">
                 <div class="row">
-                    <img :src="'/images/uploads/select-carrier.svg'" width="250" alt="">
                     <div class="text">
+                        <img :src="'/images/uploads/02.svg'" width="50" alt="">
                         <div class="md-headline">Select the Carrier </div>
                         <div class="md-body-1">Tap on carrier of your
                             choice based on their
                             competitive price, review 2 and customer ratings.</div>
                     </div>
+                    <img :src="'/images/uploads/select-carrier.svg'" width="250" alt="">
+
                 </div>
             </div>
             <div class="section5">
                 <div class="row">
+                    <img :src="'/images/uploads/tracking.svg'" width="250" alt="">
                     <div class="text">
+                        <img :src="'/images/uploads/03.svg'" width="50" alt="">
                         <div class="md-headline">Track the shipment </div>
                         <div class="md-body-1">Relax! we will notify you
                             on every step taken on
                             the shipment. Also, you
                             can track your shipment 3live.</div>
                     </div>
-                    <img :src="'/images/uploads/tracking.svg'" width="250" alt="">
                 </div>
             </div>
         </div>
@@ -117,11 +121,7 @@ import Footer from "./shared/Footer"
 export default {
     name: "HomeContainer",
     data: () => ({}),
-    methods: {
-        getQuote() {
-            this.$router.push("order");
-        },
-    },
+    methods: {},
     components: {
         Footer,
     },
@@ -223,11 +223,7 @@ export default {
                         padding: 20px;
                     }
 
-                    img {
-                        border: solid 1px #f0c67952;
-                        padding: 20px;
-                        border-radius: 10px;
-                    }
+                    img {}
 
                 }
             }

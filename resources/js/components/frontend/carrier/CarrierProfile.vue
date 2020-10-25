@@ -27,10 +27,12 @@
             <router-view></router-view>
         </md-card-content>
     </md-card>
+    <Footer />
 </div>
 </template>
 
 <script>
+import Footer from '../shared/Footer';
 export default {
     name: "CarrierProfile",
     data: () => ({
@@ -43,6 +45,9 @@ export default {
             this.$router.push(route);
         },
     },
+    components: {
+        Footer
+    }
 };
 </script>
 
@@ -50,6 +55,8 @@ export default {
 .carrier {
     .md-card {
         margin: auto;
+        margin-bottom: 30px;
+        min-height: calc(100vh - 117px);
 
         .md-card-content {
             text-align: center;

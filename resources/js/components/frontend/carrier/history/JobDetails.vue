@@ -7,7 +7,7 @@
                 <md-tooltip>Cancel</md-tooltip>
             </md-button>
             <div>
-                <div class="md-title">order_detail details</div>
+                <div class="md-title">Job details</div>
                 <div v-if="dataLoaded" class="job-id">
                     <span>{{job.order_detail.uniqid}}</span> |
                     <span>{{formatedDate}}</span>
@@ -33,10 +33,10 @@
                     <md-card-content>
                         <h3 class="md-subheading">Pickup details</h3>
                         <div class="body-1">Country: {{job.order_detail.full_address[0].country.name}}</div>
-                        <div class="body-1">State: {{job.order_detail.full_address[0].state.name}}</div>
-                        <div class="body-1">City: {{job.order_detail.full_address[0].city.name}}</div>
-                        <div class="body-1">Address: {{job.order_detail.full_address[0].address.name}}</div>
-                        <div class="body-1">Zip code: {{job.order_detail.full_address[0].zip.postal_code}}</div>
+                        <div class="body-1">State: {{job.order_detail.full_address[0].state}}</div>
+                        <div class="body-1">City: {{job.order_detail.full_address[0].city}}</div>
+                        <div class="body-1">Address: {{job.order_detail.full_address[0].address}}</div>
+                        <div class="body-1">Zip code: {{job.order_detail.full_address[0].zip}}</div>
                         <div class="body-1">Contact name: {{job.order_detail.contacts[0].name}}</div>
                         <div class="body-1">Phone: {{job.order_detail.contacts[0].phone}}</div>
                         <div class="body-1">Email: {{job.order_detail.contacts[0].email}}</div>
@@ -47,10 +47,10 @@
                     <md-card-content>
                         <h3 class="md-subheading">Delivery details</h3>
                         <div class="body-1">Country: {{job.order_detail.full_address[1].country.name}}</div>
-                        <div class="body-1">State: {{job.order_detail.full_address[1].state.name}}</div>
-                        <div class="body-1">City: {{job.order_detail.full_address[1].city.name}}</div>
-                        <div class="body-1">Address: {{job.order_detail.full_address[1].address.name}}</div>
-                        <div class="body-1">Zip code: {{job.order_detail.full_address[1].zip.postal_code}}</div>
+                        <div class="body-1">State: {{job.order_detail.full_address[1].state}}</div>
+                        <div class="body-1">City: {{job.order_detail.full_address[1].city}}</div>
+                        <div class="body-1">Address: {{job.order_detail.full_address[1].address}}</div>
+                        <div class="body-1">Zip code: {{job.order_detail.full_address[1].zip}}</div>
                         <div class="body-1">Contact name: {{job.order_detail.contacts[1].name}}</div>
                         <div class="body-1">Phone: {{job.order_detail.contacts[1].phone}}</div>
                         <div class="body-1">Email: {{job.order_detail.contacts[1].email}}</div>

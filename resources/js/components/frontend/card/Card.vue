@@ -126,20 +126,21 @@ export default {
                     axios
                         .get("shipper/shipper-address")
                         .then((res) => {
+                            console.log("add :", res.data)
                             this.form.email = res.data.email;
-                            this.form.address = res.data.shipper_with_address.full_address.address.name;
-                            this.form.state = res.data.shipper_with_address.full_address.state.name;
-                            this.form.city = res.data.shipper_with_address.full_address.city.name;
-                            this.form.postalcode = res.data.shipper_with_address.full_address.zip.postal_code;
+                            this.form.address = res.data.shipper_with_address.full_address.address;
+                            this.form.state = res.data.shipper_with_address.full_address.state;
+                            this.form.city = res.data.shipper_with_address.full_address.city;
+                            this.form.postalcode = res.data.shipper_with_address.full_address.zip;
                             this.shipperExist = res.data;
                         })
                         .catch((err) => console.log(err));
                 } else {
                     this.form.email = this.shipperExist.email;
-                    this.form.address = this.shipperExist.shipper_with_address.full_address.address.name;
-                    this.form.state = this.shipperExist.shipper_with_address.full_address.state.name;
-                    this.form.city = this.shipperExist.shipper_with_address.full_address.city.name;
-                    this.form.postalcode = this.shipperExist.shipper_with_address.full_address.zip.postal_code;
+                    this.form.address = this.shipperExist.shipper_with_address.full_address.address;
+                    this.form.state = this.shipperExist.shipper_with_address.full_address.state;
+                    this.form.city = this.shipperExist.shipper_with_address.full_address.city;
+                    this.form.postalcode = this.shipperExist.shipper_with_address.full_address.zip;
                 }
             } else {
                 this.form.email = this.form.address = this.form.state = this.form.city = this.form.postalcode = null;

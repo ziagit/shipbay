@@ -19,7 +19,7 @@ class RateController extends Controller
     {
         $userId = Auth::user()->id;
         $carrierId = Carrier::where('user_id', $userId)->first('id')->id;
-        $rates = Carrier::with('rateWithAddress')->find($carrierId);
+        $rates = Carrier::with('rateaddress')->find($carrierId);
         return response()->json($rates);
     }
 

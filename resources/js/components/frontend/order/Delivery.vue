@@ -210,8 +210,8 @@ export default {
         },
         getCountries() {
             axios.get("countries").then((res) => {
-                this.des.country = res.data[1].id;
-                this.des.countryName = res.data[1].name;
+                this.des.country = res.data[0].id;
+                this.des.countryName = res.data[0].name;
             });
         },
     },

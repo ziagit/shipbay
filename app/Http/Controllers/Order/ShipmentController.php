@@ -49,7 +49,6 @@ class ShipmentController extends Controller
     public function store(Request $request)
     {
         $shipperId = $this->storeShipper($request->shipper);
-
         if ($shipperId) {
             $orderId = $this->storeOrder($request, $shipperId);
             $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
@@ -66,7 +65,6 @@ class ShipmentController extends Controller
     public function storeOrder($request, $shipperId)
     {
         $contactId = $this->storeContact($request);
-        $addressId = $this->storeAddress($request);
         $order = Order::where('uniqid', $request->id)->first();
         $order->pickup_date = $request->pickDate;
         $order->src_appointment_time = $request->src['appointmentTime'];
@@ -84,7 +82,7 @@ class ShipmentController extends Controller
         $order->items()->attach($itemId);
 
         $order->contacts()->attach($contactId);
-        $order->customeraddresses()->attach($addressId);
+        $order->addresses()->attach([$request->src['address']['id'], $request->des['address']['id']]);
         
         foreach ($request->src['accessories'] as $accessory) {
             if (!empty($accessory)) {
@@ -124,30 +122,7 @@ class ShipmentController extends Controller
         }
         return $itemId;
     }
-    public function storeAddress($request)
-    {
-        $addressId = array();
-        $srcAddress = [
-            'country_id' => $request->src['country'],
-            'state_id' => $request->src['state'],
-            'city_id' => $request->src['city'],
-            'zip_id' => $request->src['postalCode'],
-            'address_id' => $request->src['address'],
-        ];
-        $srcId = Customeraddress::insertGetId($srcAddress);
-        array_push($addressId, $srcId);
 
-        $desAddress = [
-            'country_id' => $request->des['country'],
-            'state_id' => $request->des['state'],
-            'city_id' => $request->des['city'],
-            'zip_id' => $request->des['postalCode'],
-            'address_id' => $request->des['address'],
-        ];
-        $desId = Customeraddress::insertGetId($desAddress);
-        array_push($addressId, $desId);
-        return $addressId;
-    }
     public function storeContact($request){
         $contactId = array();
         $srcContact = [

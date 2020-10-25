@@ -2,7 +2,7 @@
 <div>
     <md-dialog-confirm :md-active.sync="active" md-title="Caution!" md-content="Make sure it's not an accident!" md-confirm-text="Agree" md-cancel-text="Disagree" @md-cancel="cancel" @md-confirm="confirm" />
 
-    <md-card class="md-primary" md-theme="orange-card">
+    <md-card md-theme="orange-card">
         <md-card-header>
             <!--   <md-field md-clearable class="search-feild">
           <label for="search">Search by city/zip... </label>
@@ -59,7 +59,7 @@
                         <td>{{rate.fsc}}</td>
                         <td>{{rate.transit_day}}</td>
                         <td>
-                            <md-button :to="{path: 'edit/'+ rate.id}" class="md-icon-button md-primary">
+                            <md-button :to="{path: 'edit/'+ rate.id}" class="md-icon-button">
                                 <md-icon>edit</md-icon>
                                 <md-tooltip>Edit Rate</md-tooltip>
                             </md-button>
@@ -123,7 +123,7 @@ export default {
                 .get("carrier/rates")
                 .then((res) => {
 
-                    this.rates = res.data.rate_with_address;
+                    this.rates = res.data.rateaddress;
                     console.log("rates: ", this.rates)
 
                 })

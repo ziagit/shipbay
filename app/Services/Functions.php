@@ -36,7 +36,6 @@ class Functions
                     switch ($dimentional_weight) {
                         case ($dimentional_weight > 0 && $dimentional_weight <= $ranges[0]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_0k_1k, $rate);
-                            return $cost;
                             break;
                         case ($dimentional_weight > $ranges[0]['value'] && $dimentional_weight <= $ranges[1]['value']):
                             $cost = $this->costCalc($dimentional_weight, $rate->_1k_2k, $rate);

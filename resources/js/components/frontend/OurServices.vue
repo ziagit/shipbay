@@ -3,7 +3,7 @@
     <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/services.svg)'}">
         <div class="md-display-1"> Our Services </div>
         <p class="md-body-1">Not sure what freight class your shipment falls into? No problem! We’ll guide you through the process and calculate it for you.</p>
-        <md-button class="md-primary md-raised" @click="getQuote()">Get Free Quotes</md-button>
+        <md-button class="md-raised" to="/order">Get A Quotes</md-button>
     </div>
     <md-card>
         <div class="section2">
@@ -87,6 +87,10 @@ export default {
             color: #fff;
             line-height: 66px;
             font-size: 36px;
+        }
+
+        .md-raised {
+            color: #333 !important;
         }
 
     }

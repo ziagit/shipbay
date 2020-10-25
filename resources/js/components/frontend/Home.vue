@@ -13,7 +13,7 @@
             </div>
             <div class="md-toolbar-section-end">
                 <div v-if="authenticated">
-                    <md-badge class="md-primary" :md-content="notifications.length" md-dense>
+                    <md-badge :md-content="notifications.length" md-dense>
                         <md-menu>
                             <md-button md-menu-trigger class="md-icon-button">
                                 <md-icon>notifications</md-icon>

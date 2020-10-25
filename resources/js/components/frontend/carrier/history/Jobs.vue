@@ -1,6 +1,6 @@
 <template>
 <div>
-    <md-card class="md-primary" md-theme="orange-card">
+    <md-card md-theme="orange-card">
         <md-card-header>
             <div class="md-title">Job history</div>
         </md-card-header>
@@ -17,8 +17,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="job in jobs" :key="job.id">
-                        <td>{{job.order_detail.full_address[0].city.name}}</td>
-                        <td>{{job.order_detail.full_address[1].city.name}}</td>
+                        <td>{{job.order_detail.full_address[0].city}}</td>
+                        <td>{{job.order_detail.full_address[1].city}}</td>
                         <td>{{job.created_at}}</td>
                         <td v-bind:class="{delivered: job.jobstatus.id == 5}">{{job.jobstatus.title}}</td>
 
