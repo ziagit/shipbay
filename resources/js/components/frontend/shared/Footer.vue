@@ -30,19 +30,18 @@
             </ul>
         </div>
         <div class="col app-stores">
-            <img :src="'/images/uploads/google-play.svg'" alt="" width="100">
-            <img :src="'/images/uploads/apple-store.svg'" alt="" width="100">
+            <a href="https://play.google.com"><img :src="'/images/uploads/google-play.svg'" alt="" width="100"></a>
+            <a href="https://apple.com"><img :src="'/images/uploads/apple-store.svg'" alt="" width="100"></a>
         </div>
     </div>
     <div class="bottom">
         <span>© 2020 EG Logistics Inc.</span>
-        <span>Terms & Conditions | Privacy Policies</span>
+        <span><a class="terms" href="/#/terms-and-conditions">Terms & Conditions</a> | <a class="policy" href="/#/privacy-policies">Privacy Policies</a></span>
         <span>1 (800) 123-4567</span>
-
         <div class="social-media">
-            <img :src="'/images/uploads/facebook.svg'" alt="" width="30">
-            <img :src="'/images/uploads/instagram.svg'" alt="" width="30">
-            <img :src="'/images/uploads/twitter.svg'" alt="" width="30">
+            <a href="https://facebook.com"><img :src="'/images/uploads/facebook.svg'" alt="" width="30"></a>
+            <a href="https://instagram.com"><img :src="'/images/uploads/instagram.svg'" alt="" width="30"></a>
+            <a href="https://twitter.com"><img :src="'/images/uploads/twitter.svg'" alt="" width="30"></a>
         </div>
     </div>
 
@@ -56,42 +55,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media only screen and (min-width: 600px) {
-    .footer {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-
-        .cols {
-            display: flex;
-            justify-content: space-around;
-            background-clip: text
-        }
-
-        .bottom {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px;
-            border-top: solid 1px rgb(121, 120, 120);
-
-            .social-media {
-                display: flex;
-                justify-content: space-between;
-
-                img {
-                    margin: 5px;
-                }
-            }
-
-        }
-    }
-}
-
 .footer {
     /*   background: #333; */
-    color: #9b9b9b;
-    min-height: 150px;
 
     /*    background-color: black;
     background-image:
@@ -121,6 +86,8 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    color: #9b9b9b;
+    min-height: 150px;
 
     .cols {
         display: flex;
@@ -158,15 +125,22 @@ export default {
 
     }
 
-    .copyright {
+    .bottom {
         display: flex;
         justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+        border-top: solid 1px rgb(121, 120, 120);
 
-        span {
-            -webkit-background-clip: text;
-            background-clip: text;
+        .social-media {
+            display: flex;
+            justify-content: space-between;
 
+            img {
+                margin: 5px;
+            }
         }
+
     }
 }
 
@@ -181,6 +155,7 @@ export default {
             font-size: 8px;
             text-align: center;
             padding: 0;
+            flex-direction: column;
 
             span {
                 order: 2;
@@ -193,6 +168,18 @@ export default {
                     width: 20px;
                 }
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .footer {
+
+        .bottom {
+            font-size: 8px;
+            text-align: center;
+            padding: 0;
+
         }
     }
 }

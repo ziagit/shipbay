@@ -1,5 +1,6 @@
 <?php
 
+use App\PrivacyPage;
 use App\Raterange;
 use App\Role;
 use App\User;
@@ -133,6 +134,11 @@ Route::get("unauthorized", function () {
 })->name('unauthorized');
 
 Route::resource('tests', 'TestController');
+
+Route::get('pages/privacy', function(){
+  $page = PrivacyPage::first();
+  return response()->json($page);
+});
 
 Route::get("test", function () {
   $user = Auth::user();

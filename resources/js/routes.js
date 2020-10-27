@@ -2,20 +2,22 @@ window.Vue = require('vue');
 
 import VueRouter from 'vue-router';
 import Home from './components/frontend/Home';
-
-import Help from './components/frontend/Help';
-import Order from './components/frontend/order/Order';
-import HomeContent from './components/frontend/HomeContent';
-import Login from './components/frontend/auth/Login';
-import Card from './components/frontend/card/Card';
 import Register from './components/frontend/auth/Register';
-import CarrierProfile from './components/frontend/carrier/CarrierProfile';
-import AboutUs from './components/frontend/AboutUs'
-import ContactUs from './components/frontend/ContactUs'
-import OurServices from './components/frontend/OurServices'
-import ServiceDetails from './components/frontend/ServiceDetails'
-
+import Login from './components/frontend/auth/Login';
 import Welcome from './components/frontend/auth/Welcome';
+
+import Card from './components/frontend/card/Card';
+
+import HomeContent from './components/frontend/company/HomeContent';
+import Help from './components/frontend/company/Help';
+import AboutUs from './components/frontend/company/AboutUs'
+import ContactUs from './components/frontend/company/ContactUs'
+import OurServices from './components/frontend/company/OurServices'
+import ServiceDetails from './components/frontend/company/ServiceDetails'
+import Privacy from './components/frontend/company/Privacy'
+import Terms from './components/frontend/company/Terms'
+
+import CarrierProfile from './components/frontend/carrier/CarrierProfile';
 import CarrierDetails from './components/frontend/carrier/general-details/CarrierDetails';
 import CarrierDetailsContainer from './components/frontend/carrier/general-details/CarrierDetailsContainer';
 import EditCarrierDetails from './components/frontend/carrier/general-details/EditCarrierDetails';
@@ -36,21 +38,19 @@ import CarrierAccount from './components/frontend/carrier/account-details/Carrie
 import EditCarrierAccount from './components/frontend/carrier/account-details/EditCarrierAccount';
 import CarrierCard from './components/frontend/carrier/card-details/CarrierCard';
 
+import Order from './components/frontend/order/Order';
 import Pickup from './components/frontend/order/Pickup'
 import PickupServices from './components/frontend/order/PickupServices'
 import PickupDate from './components/frontend/order/PickupDate'
 import Delivery from './components/frontend/order/Delivery'
 import DeliveryServices from './components/frontend/order/DeliveryServices'
 import Items from './components/frontend/order/Items'
-import ItemDetails from './components/frontend/order/ItemDetails'
 import Carriers from './components/frontend/order/Carriers'
-
-import Shipment from './components/frontend/shipment/Shipment'
-import AdditionalDetails from './components/frontend/shipment/AdditionalDetails'
-import PaymentDetails from './components/frontend/shipment/PaymentDetails'
-import Confirmation from './components/frontend/shipment/Confirmation'
-import Completion from './components/frontend/shipment/Completion'
-import ShipmentDetails from './components/frontend/shipment/ShipmentDetails'
+import AdditionalDetails from './components/frontend/order/AdditionalDetails'
+import PaymentDetails from './components/frontend/order/PaymentDetails'
+import Confirmation from './components/frontend/order/Confirmation'
+import Completion from './components/frontend/order/Completion'
+import ShipmentDetails from './components/frontend/order/ShipmentDetails'
 
 import ShipperProfile from './components/frontend/shipper/ShipperProfile'
 import ShipperDetailsContainer from './components/frontend/shipper/general-details/ShipperDetailsContainer'
@@ -154,16 +154,7 @@ export default new VueRouter({
                         { name: 'delivery', path: 'delivery', component: Delivery },
                         { name: 'delivery-service', path: 'delivery-services', component: DeliveryServices },
                         { name: 'items', path: 'items', component: Items },
-                        { name: 'item-details', path: 'item-details', component: ItemDetails },
-                        { name: 'carriers', path: 'carriers', component: Carriers }
-                    ]
-                },
-                {
-                    name: 'shipment',
-                    path: 'shipment',
-                    component: Shipment,
-                    children: [
-                        { path: '', redirect: 'additional-details' },
+                        { name: 'carriers', path: 'carriers', component: Carriers },
                         { name: 'additional-details', path: 'additional-details', component: AdditionalDetails },
                         { name: 'payment-details', path: 'payment-details', component: PaymentDetails },
                         { name: 'confirmation', path: 'confirmation', component: Confirmation },
@@ -270,6 +261,8 @@ export default new VueRouter({
                 { name: 'welcome', path: '/welcome', component: Welcome },
                 { name: 'checkout', path: '/checkout', component: Card },
                 { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },
+                { name: 'privacy', path: '/privacy-policies', component: Privacy},
+                { name: 'terms', path: '/terms-and-conditions', component: Terms},
 
                 {
                     name: 'admin',

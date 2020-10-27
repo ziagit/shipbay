@@ -20,7 +20,7 @@
             <md-button to="/register" class="md-primary">Register</md-button>
         </md-card-content>
         <div class="login-througth">
-            <md-button to="/shipment/additional-details" class="primary" v-if="orderExist">Continue as guest</md-button>
+            <md-button to="/order/additional-details" class="primary" v-if="orderExist">Continue as guest</md-button>
         </div>
     </md-card>
     <Snackbar :data="snackbar" />

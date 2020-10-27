@@ -40,6 +40,10 @@ export default {
     border-color: #FFA500;
 }
 
+.md-radio.md-theme-default.md-checked .md-radio-container:after {
+    background-color: #666;
+}
+
 .md-dialog-container,
 .md-dialog-fullscreen {
     border-radius: 12px;

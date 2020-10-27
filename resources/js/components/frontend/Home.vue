@@ -1,67 +1,6 @@
 <template>
 <div class="home">
     <md-app md-mode="reveal">
-        <md-app-toolbar class="md-default">
-            <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
-                <md-icon>menu</md-icon>
-            </md-button>
-            <span class="md-title logo" @click="$router.push('/')"><img :src="'/images/logo.svg'" alt="" width="25"> Shipping TAP</span>
-            <div class="navigation" v-if="windowWidth > 600">
-                <md-button :class="$route.name === 'home'? 'md-primary': ''" to="/">Home</md-button>
-                <md-button :class="$route.name === 'services'? 'md-primary': ''" to="services">Services</md-button>
-                <md-button :class="$route.name === 'help'? 'md-primary': ''" to="help">How it works</md-button>
-            </div>
-            <div class="md-toolbar-section-end">
-                <div v-if="authenticated">
-                    <md-badge :md-content="notifications.length" md-dense>
-                        <md-menu>
-                            <md-button md-menu-trigger class="md-icon-button">
-                                <md-icon>notifications</md-icon>
-                            </md-button>
-                            <md-menu-content v-if="user.role[0].name === 'carrier'">
-                                <md-menu-item v-for="notification in notifications" :key="notification.id" @click="notificationDetails(notification)">Job: {{ notification.data.job.id }}</md-menu-item>
-                            </md-menu-content>
-                            <md-menu-content v-if="user.role[0].name === 'shipper'">
-                                <md-menu-item v-for="notification in notifications" :key="notification.id" @click="markAsRead(notification.id)">Your order({{ notification.data.job.order_id }}) is:
-                                    {{ notification.data.job.jobstatus.title }}
-                                </md-menu-item>
-                                <md-tooltip>Click to mark as read.</md-tooltip>
-                            </md-menu-content>
-                            <md-menu-content v-if="user.role[0].name === 'admin'">
-                                <md-menu-item v-for="notification in notifications" :key="notification.id" @click="notificationDetails(notification)">Job ({{ notification.data.job.order_id }})</md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </md-badge>
-                    <md-menu md-size="big" md-direction="bottom-end" :mdCloseOnClick="closeOnClick" :mdCloseOnSelect="closeOnSelect">
-                        <md-button md-menu-trigger class="md-icon-button">
-                            <md-icon>account_circle</md-icon>
-                        </md-button>
-
-                        <md-menu-content>
-                            <div class="menu-head">
-                                <md-avatar class="md-large">
-                                    <md-icon>face</md-icon>
-                                </md-avatar>
-                                <div>
-                                    <div>{{ user.name }}</div>
-                                    <div>{{ user.email }}</div>
-                                </div>
-                            </div>
-                            <md-menu-item @click="profile">Profile</md-menu-item>
-                            <md-menu-item @click="signOut">Signout</md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                </div>
-                <div v-else class="login-register">
-                    <md-button to="/register" class="md-icon-button">
-                        <md-icon>add</md-icon>
-                    </md-button>
-                    <md-button to="/login" class="md-icon-button md-primary">
-                        <md-icon class="md-primary">login</md-icon>
-                    </md-button>
-                </div>
-            </div>
-        </md-app-toolbar>
 
         <md-app-drawer :md-active.sync="menuVisible">
             <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
@@ -79,8 +18,8 @@
 </template>
 
 <script>
-import AdminSideMenu from "../sub-components/AdminSideMenu";
-import WebSideMenu from "../sub-components/WebSideMenu";
+import AdminSideMenu from "../components/AdminSideMenu";
+import WebSideMenu from "../components/WebSideMenu";
 import axios from "axios";
 import {
     mapGetters,
@@ -107,10 +46,6 @@ export default {
                         this.activeRoute = "services";
                     }
                 }, */
-        windowWidth(value) {
-            console.log("u r wd: ", value)
-        },
-        deep: true
     },
     computed: {
         ...mapGetters({

@@ -248,6 +248,8 @@ export default {
             z-index: 10;
             box-shadow: 1px 2px 3px #ddd;
             width: 100%;
+            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 8px;
 
             li {
                 text-align: left;
