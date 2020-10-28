@@ -46,17 +46,16 @@
         <div class="row">
             <img :src="'/images/uploads/transparent.svg'" width="60" alt="">
             <div>
-                <div class="md-headline">Transparent </div>
+                <div class="md-title">Transparent </div>
                 <div class="md-body-1">Upfront pricing and free quotes from
                     hundreds of Carriers. know your
                     shipment cost before you ship.</div>
-
             </div>
         </div>
         <div class="row">
             <img :src="'/images/uploads/nosignup.svg'" width="60" alt="">
             <div>
-                <div class="md-headline">No Sign up </div>
+                <div class="md-title">No Sign up </div>
                 <div class="md-body-1">Get free quotes and book your
                     shipment in a few taps. No sign up
                     or membership required.</div>
@@ -66,7 +65,7 @@
         <div class="row">
             <img :src="'/images/uploads/inssured.svg'" width="60" alt="">
             <div>
-                <div class="md-headline">Insured </div>
+                <div class="md-title">Insured </div>
                 <div class="md-body-1">All the shipments happening here
                     are insured through our vetted
                     Carriers insurance policy.
@@ -79,48 +78,75 @@
         <div class="section3">
             <div class="row">
                 <div class="text">
-                    <img :src="'/images/uploads/01.svg'" width="50" alt="">
-                    <div class="md-headline">Tap the specifications</div>
-                    <div class="md-body-1">Specify your shipment and
-                        schedule the date. Tap on
-                        different services you may need
-                        in the pick-up and drop-off 1locations.
+                    <div class="row1">
+                        <div class="md-title">Tap the specifications</div>
+                    </div>
+                    <div class="row2">
+                        <div class="line"></div>
+                        <div class="circle"></div>
+                    </div>
+                    <div class="row3">
+                        <img :src="'/images/uploads/01.svg'" width="10" alt="">
+                        <div class="details">
+                            <div class="md-body-1">Specify your shipment and
+                                schedule the date. Tap on
+                                different services you may need
+                                in the pick-up and drop-off 1locations.
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <img :src="'/images/uploads/dw.png'" width="50" alt="">
-
             </div>
         </div>
         <div class="section4">
             <div class="row">
                 <img :src="'/images/uploads/select-carrier.jpg'" width="50" alt="">
                 <div class="text">
-                    <img :src="'/images/uploads/02.svg'" width="50" alt="">
-                    <div class="md-headline">Select the Carrier </div>
-                    <div class="md-body-1">Tap on carrier of your
-                        choice based on their
-                        competitive price, review 2 and customer ratings.</div>
+                    <div class="col1">
+                        <img :src="'/images/uploads/02.svg'" width="50" alt="">
+                    </div>
+                    <div class="col2">
+                        <div class="line"></div>
+                        <div class="circle"></div>
+                    </div>
+                    <div class="col3">
+                        <div class="md-title">Select the Carrier </div>
+                        <div class="details">
+                            <div class="md-body-1">Tap on carrier of your
+                                choice based on their
+                                competitive price, review and customer ratings.
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
         <div class="section5">
             <div class="row">
                 <div class="text">
-                    <img :src="'/images/uploads/03.svg'" width="50" alt="">
-                    <div class="md-headline">Track the shipment </div>
-                    <div class="md-body-1">Relax! we will notify you
-                        on every step taken on
-                        the shipment. Also, you
-                        can track your shipment 3live.</div>
+                    <div class="col1">
+                        <img :src="'/images/uploads/03.svg'" width="50" alt="">
+                    </div>
+                    <div class="col2">
+                        <div class="circle"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="col3">
+                        <div class="md-title">Track The Shipment</div>
+                        <div class="details">
+                            <div class="md-body-1">Tap on carrier of your
+                                Relax! we will notify you on every step taken on the shipment. Also, you can track your shipment 3live.
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <img :src="'/images/uploads/tracking.jpg'" width="250" alt="">
-
             </div>
         </div>
     </div>
     <div class="section6">
-        <div class="md-headline">LET’S GET YOU A FREE QUOTE.</div>
+        <div class="md-title">LET’S GET YOU A FREE QUOTE.</div>
         <div class="md-body-1">What are you shipping today?</div>
         <div>
             <md-button class="md-default">freight</md-button>
@@ -278,8 +304,10 @@ export default {
             flex: 30%;
             padding: 30px;
 
-            .md-headline {
+            .md-title {
                 line-height: 52px;
+                font-weight: 600;
+                line-height: 44px;
             }
         }
     }
@@ -287,11 +315,8 @@ export default {
     .steps {
         padding: 30px 100px;
 
-        .section3,
-
-        .section4,
-        .section5 {
-            padding: 20px;
+        .section3 {
+            padding: 0 20px;
 
             .row {
                 display: flex;
@@ -299,12 +324,214 @@ export default {
 
                 .text {
                     flex: 40%;
-                    padding: 20px;
+
+                    .row1 {
+                        width: 92%;
+                        text-align: right;
+
+                        .md-title {
+                            text-align: left;
+                            font-weight: 800;
+                            line-height: 31px;
+                            font-size: 24px;
+                            margin-left: 55px;
+                            max-width: 186px;
+                        }
+                    }
+
+                    .row2 {
+                        display: flex;
+                        padding-left: 54px;
+                        margin-right: -9px;
+                        position: relative;
+
+                        .line {
+                            border-bottom: solid 2px #BFBFBF;
+                            width: 100%;
+                            margin-bottom: 9px;
+                        }
+
+                        .circle {
+                            height: 20px;
+                            width: 20px;
+                            border: solid 2px #BFBFBF;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .row3 {
+                        display: flex;
+                        justify-content: space-between;
+
+                        img {
+                            flex: 10%;
+                        }
+
+                        .details {
+                            flex: 100%;
+                            padding-left: 13px;
+
+                            .md-body-1 {
+                                max-width: 212px;
+                            }
+                        }
+
+                    }
 
                 }
 
                 img {
+                    flex: 35%;
+                }
+
+            }
+        }
+
+        .section4 {
+            padding: 0 20px;
+
+            .row {
+                display: flex;
+                justify-content: space-between;
+
+                .text {
                     flex: 40%;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 20px 0 20px 72px;
+
+                    .col1 {
+                        flex: 18%;
+                        align-self: flex-end;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+
+                    .col2 {
+                        position: relative;
+                        flex: 10%;
+                        padding: 29px 10px 0 10px;
+                        margin-bottom: -10px;
+
+                        .line {
+                            border-left: solid 2px #BFBFBF;
+                            height: 100%;
+                            margin-left: 9px;
+                            min-height: 146px;
+                        }
+
+                        .circle {
+                            height: 20px;
+                            width: 20px;
+                            border: solid 2px #BFBFBF;
+                            border-radius: 50%;
+                        }
+
+                    }
+
+                    .col3 {
+                        flex: 90%;
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: column;
+                        padding-top: 20px;
+
+                        .md-title {
+                            font-weight: 800;
+                            line-height: 31px;
+                            font-size: 24px;
+                            max-width: 186px;
+                            margin: none;
+                        }
+
+                        .details {
+                            .md-body-1 {
+                                max-width: 170px;
+                            }
+                        }
+
+                    }
+                }
+
+                img {
+                    flex: 35%;
+                }
+
+            }
+        }
+
+        .section5 {
+            padding: 0 20px;
+
+            .row {
+                display: flex;
+                justify-content: space-between;
+
+                .text {
+                    flex: 40%;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .col1 {
+                        flex: 15%;
+                        align-self: flex-end;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+
+                    .col2 {
+                        position: relative;
+                        flex: 10%;
+                        padding: 0 10px;
+                        margin-top: -10px;
+                        padding-bottom: 19px;
+
+                        .line {
+                            border-left: solid 2px #BFBFBF;
+                            height: 100%;
+                            margin-left: 9px;
+                            min-height: 146px;
+                        }
+
+                        .circle {
+                            height: 20px;
+                            width: 20px;
+                            border: solid 2px #BFBFBF;
+                            border-radius: 50%;
+                        }
+
+                    }
+
+                    .col3 {
+                        flex: 90%;
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: column;
+                        padding-top: 25px;
+
+                        .md-title {
+                            font-weight: 800;
+                            line-height: 31px;
+                            font-size: 24px;
+                            max-width: 186px;
+                            margin: none;
+                        }
+
+                        .details {
+                            .md-body-1 {
+                                max-width: 170px;
+                            }
+                        }
+
+                    }
+                }
+
+                img {
+                    flex: 35%;
                 }
 
             }
@@ -337,6 +564,7 @@ export default {
     width: 100% !important;
 }
 
+/* 
 @media only screen and (max-width: 600px) {
     .home-content {
         width: 100%;
@@ -483,5 +711,5 @@ export default {
         }
     }
 
-}
+} */
 </style>

@@ -1,25 +1,24 @@
 <template>
-<div class="footer" v-bind:style="{'background-image': 'url(/images/uploads/footer-background.svg)'}">
+<div class="footer" v-bind:style="{'background-image': 'url(/images/uploads/f.png)'}">
     <div class="cols">
-        <div class="col">
-            <div class="md-headline">Services</div>
+        <div class="links">
             <ul>
                 <li>
-                    <router-link to="/">LTL freight shipping</router-link>
+                    <router-link to="/">About Us</router-link>
                 </li>
                 <li>
-                    <router-link to="/">Truckload freight shipping</router-link>
+                    <router-link to="/">How it Works</router-link>
                 </li>
                 <li>
-                    <router-link to="/">Intermodal Rail shipping</router-link>
+                    <router-link to="/">Freight</router-link>
                 </li>
                 <li>
-                    <router-link to="/">Partial truckload freight shipping</router-link>
+                    <router-link to="/">Moving</router-link>
+                </li>
+                <li>
+                    <router-link to="/">Insurance Policy</router-link>
                 </li>
             </ul>
-        </div>
-        <div class="col">
-            <div class="md-headline">Our Partners</div>
             <ul>
                 <li>
                     <router-link to="/">Shippers</router-link>
@@ -27,11 +26,17 @@
                 <li>
                     <router-link to="/">Carriers</router-link>
                 </li>
+                <li>
+                    <router-link to="/">Help Center</router-link>
+                </li>
+                <li>
+                    <router-link to="/">Contact</router-link>
+                </li>
             </ul>
         </div>
-        <div class="col app-stores">
-            <a href="https://play.google.com"><img :src="'/images/uploads/google-play.svg'" alt="" width="100"></a>
-            <a href="https://apple.com"><img :src="'/images/uploads/apple-store.svg'" alt="" width="100"></a>
+        <div class="apps">
+            <a href="https://play.google.com"><img :src="'/images/uploads/google-play.svg'" alt="" width="120"></a>
+            <a href="https://apple.com"><img :src="'/images/uploads/apple-store.svg'" alt="" width="120"></a>
         </div>
     </div>
     <div class="bottom">
@@ -86,41 +91,45 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    color: #9b9b9b;
+    color: #fff;
     min-height: 150px;
 
     .cols {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        margin-bottom: 30px;
+        padding: 38px;
 
         .md-headline {
             font-size: 18px;
         }
 
-        .col {
-            padding: 30px 30px 0 30px;
+        .links {
+            flex: 60%;
+            display: flex;
 
             ul {
-                margin: 0;
-                padding-left: 15px;
+                margin: 0 136px 0 30px;
                 list-style: none;
 
-                li::before {
-                    content: "\2022";
-                    font-weight: bold;
-                    display: inline-block;
-                    width: 1em;
-                    margin-left: -1em;
+                li {
+                    list-style-type: none;
+                    margin-bottom: 6px;
                 }
 
                 a {
                     font-size: 13px;
-                    color: #9b9b9b;
+                    color: #fff;
 
                 }
             }
+
+        }
+
+        .apps {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column !important;
         }
 
     }
@@ -130,7 +139,14 @@ export default {
         justify-content: space-around;
         align-items: center;
         padding: 10px;
-        border-top: solid 1px rgb(121, 120, 120);
+        border-top: solid 0.5px #79787885;
+        color: rgb(121, 120, 120);
+
+        span {
+            a {
+                color: rgb(121, 120, 120);
+            }
+        }
 
         .social-media {
             display: flex;
@@ -175,12 +191,12 @@ export default {
 @media only screen and (max-width: 768px) {
     .footer {
 
-        .bottom {
+        /*        .bottom {
             font-size: 8px;
             text-align: center;
             padding: 0;
 
-        }
+        } */
     }
 }
 </style>
