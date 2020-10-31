@@ -128,6 +128,7 @@ export default {
 
         .md-button {
             min-width: 124px;
+            color: #fff !important;
         }
 
     }

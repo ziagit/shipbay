@@ -131,13 +131,14 @@
             </div>
 
         </div>
-        <div class="section6">
-            <div class="md-title">LET’S GET YOU A FREE QUOTE.</div>
-            <div class="md-body-1">What are you shipping today?</div>
-            <div>
-                <md-button class="md-default">freight</md-button>
-                <md-button class="md-default">moving</md-button>
-            </div>
+    </div>
+
+    <div class="section6">
+        <div class="md-title">LET’S GET YOU A FREE QUOTE.</div>
+        <div class="md-body-1">What are you shipping today?</div>
+        <div>
+            <md-button class="md-default">freight</md-button>
+            <md-button class="md-default">moving</md-button>
         </div>
     </div>
 
@@ -253,9 +254,10 @@ export default {
     .wrapper {
         max-width: 1200px;
         margin: auto;
+        padding-bottom: 56px;
 
         .section2 {
-            padding: 30px 100px;
+            padding: 46px 100px;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
@@ -490,24 +492,24 @@ export default {
 
             }
         }
+    }
 
-        .section6 {
-            padding: 2.25em 1.6875em;
-            background-image: -webkit-repeating-radial-gradient(center center, rgba(255, 165, 0, 0.2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-            background-image: -moz-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-            background-image: -ms-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-            background-image: repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-            -webkit-background-size: 3px 3px;
-            -moz-background-size: 3px 3px;
-            background-size: 3px 3px;
-            text-align: center;
+    .section6 {
+        padding: 2.25em 1.6875em;
+        background-image: -webkit-repeating-radial-gradient(center center, rgba(255, 165, 0, 0.2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+        background-image: -moz-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+        background-image: -ms-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+        background-image: repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+        -webkit-background-size: 3px 3px;
+        -moz-background-size: 3px 3px;
+        background-size: 3px 3px;
+        text-align: center;
 
-            :nth-child(3) {
-                margin-top: 20px;
+        :nth-child(3) {
+            margin-top: 20px;
 
-                .md-button {
-                    border: solid 1px #333;
-                }
+            .md-button {
+                border: solid 1px #333;
             }
         }
     }
