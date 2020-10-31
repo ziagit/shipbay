@@ -82,8 +82,8 @@ import {
     mapGetters
 } from "vuex";
 import Axios from "axios";
-import Spinner from "../shared/Spinner";
-import Snackbar from "../shared/Snackbar";
+import Spinner from "../../shared/Spinner";
+import Snackbar from "../../shared/Snackbar";
 import functions from '../services/functions'
 export default {
     name: "CarrierList",

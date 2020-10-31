@@ -1,20 +1,7 @@
 <template>
 <div class="home-content">
     <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/home-background.svg)'}">
-        <div class="header">
-            <div class="left">
-                <md-button class="md-icon-button" @click="menuTogal()">
-                    <md-icon>menu</md-icon>
-                </md-button>
-                <h3 @click="$router.push('/')"><span>Shipping </span> TAP</h3>
-            </div>
-            <div class="right">
-                <md-button class="md-icon-button" @click="menuTogal()">
-                    <md-icon>location_on</md-icon>
-                </md-button>
-                <span @click="$router.push('/')">Track</span>
-            </div>
-        </div>
+        <Header v-on:togal-menu="$emit('togal-menu')" />
         <div class="content">
             <div class="heading">
                 <h1 class="md-display-1">Let’s book your shipment in a few taps.</h1>
@@ -26,7 +13,7 @@
                     <form action="">
                         <div class="inputs">
                             <md-icon>location_on</md-icon>
-                            <md-input v-model="initial" placeholder="Postal code"></md-input>
+                            <input v-model="zip" placeholder="Postal code" />
                             <button type="submit">
                                 <md-icon>east</md-icon>
                             </button>
@@ -40,46 +27,45 @@
             </div>
         </div>
     </div>
+    <div class="wrapper">
+        <div class="section2">
 
-    <div class="section2">
-
-        <div class="row">
-            <img :src="'/images/uploads/transparent.svg'" width="60" alt="">
-            <div>
-                <div class="md-title">Transparent </div>
-                <div class="md-body-1">Upfront pricing and free quotes from
-                    hundreds of Carriers. know your
-                    shipment cost before you ship.</div>
-            </div>
-        </div>
-        <div class="row">
-            <img :src="'/images/uploads/nosignup.svg'" width="60" alt="">
-            <div>
-                <div class="md-title">No Sign up </div>
-                <div class="md-body-1">Get free quotes and book your
-                    shipment in a few taps. No sign up
-                    or membership required.</div>
-
-            </div>
-        </div>
-        <div class="row">
-            <img :src="'/images/uploads/inssured.svg'" width="60" alt="">
-            <div>
-                <div class="md-title">Insured </div>
-                <div class="md-body-1">All the shipments happening here
-                    are insured through our vetted
-                    Carriers insurance policy.
+            <div class="row">
+                <img :src="'/images/uploads/transparent.svg'" width="50" alt="">
+                <div>
+                    <div class="md-title">Transparent </div>
+                    <div class="md-body-1">Upfront pricing and free quotes from
+                        hundreds of Carriers. know your
+                        shipment cost before you ship.</div>
                 </div>
+            </div>
+            <div class="row">
+                <img :src="'/images/uploads/nosignup.svg'" width="50" alt="">
+                <div>
+                    <div class="md-title">No Sign up </div>
+                    <div class="md-body-1">Get free quotes and book your
+                        shipment in a few taps. No sign up
+                        or membership required.</div>
 
+                </div>
+            </div>
+            <div class="row">
+                <img :src="'/images/uploads/inssured.svg'" width="50" alt="">
+                <div>
+                    <div class="md-title">Insured </div>
+                    <div class="md-body-1">All the shipments happening here
+                        are insured through our vetted
+                        Carriers insurance policy.
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-    <div class="steps">
         <div class="section3">
             <div class="row">
                 <div class="text">
                     <div class="row1">
-                        <div class="md-title">Tap the specifications</div>
+                        <div class="md-title">Tap The Specifications</div>
                     </div>
                     <div class="row2">
                         <div class="line"></div>
@@ -111,7 +97,7 @@
                         <div class="circle"></div>
                     </div>
                     <div class="col3">
-                        <div class="md-title">Select the Carrier </div>
+                        <div class="md-title">Select The Carrier </div>
                         <div class="details">
                             <div class="md-body-1">Tap on carrier of your
                                 choice based on their
@@ -143,28 +129,34 @@
                 </div>
                 <img :src="'/images/uploads/tracking.jpg'" width="250" alt="">
             </div>
+
+        </div>
+        <div class="section6">
+            <div class="md-title">LET’S GET YOU A FREE QUOTE.</div>
+            <div class="md-body-1">What are you shipping today?</div>
+            <div>
+                <md-button class="md-default">freight</md-button>
+                <md-button class="md-default">moving</md-button>
+            </div>
         </div>
     </div>
-    <div class="section6">
-        <div class="md-title">LET’S GET YOU A FREE QUOTE.</div>
-        <div class="md-body-1">What are you shipping today?</div>
-        <div>
-            <md-button class="md-default">freight</md-button>
-            <md-button class="md-default">moving</md-button>
-        </div>
-    </div>
+
     <Footer />
 </div>
 </template>
 
 <script>
-import Footer from "../shared/Footer"
+import Footer from "../../shared/Footer"
+import Header from "../../shared/Header"
 
 export default {
-    name: "HomeContainer",
-    data: () => ({}),
+    name: "HomeContent",
+    data: () => ({
+        zip: null
+    }),
     methods: {},
     components: {
+        Header,
         Footer,
     },
 };
@@ -188,42 +180,6 @@ export default {
         background-size: cover;
         background-position: center center;
         margin-bottom: 83px;
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            color: #fff;
-            align-items: center;
-            padding: 0 10px;
-
-            .md-icon {
-                color: #fff;
-            }
-
-            .left {
-                display: flex;
-                align-items: center;
-
-                h3 {
-                    span {
-                        font-family: "Segoe Script", Helvetica, Arial;
-                        font-size: 20px;
-
-                    }
-                }
-            }
-
-            .right {
-                display: flex;
-                align-items: center;
-                padding-right: 20px;
-
-                .md-button {
-                    margin: 0;
-                }
-            }
-
-        }
 
         .content {
             .heading {
@@ -294,29 +250,39 @@ export default {
 
     }
 
-    .section2 {
-        padding: 30px 100px;
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
+    .wrapper {
+        max-width: 1200px;
+        margin: auto;
 
-        .row {
-            flex: 30%;
-            padding: 30px;
+        .section2 {
+            padding: 30px 100px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
 
-            .md-title {
-                line-height: 52px;
-                font-weight: 600;
-                line-height: 44px;
+            .row {
+                flex: 30%;
+                padding: 30px;
+                border: solid 1px #ddd;
+                border-radius: 3px;
+                margin: 10px;
+
+                img {
+                    padding: 10px;
+                    border-radius: 5px;
+                    background: #ffa5001f;
+                }
+
+                .md-title {
+                    line-height: 52px;
+                    font-weight: 600;
+                    line-height: 44px;
+                }
             }
         }
-    }
-
-    .steps {
-        padding: 30px 100px;
 
         .section3 {
-            padding: 0 20px;
+            padding: 30px 150px;
 
             .row {
                 display: flex;
@@ -326,7 +292,6 @@ export default {
                     flex: 40%;
 
                     .row1 {
-                        width: 92%;
                         text-align: right;
 
                         .md-title {
@@ -334,14 +299,14 @@ export default {
                             font-weight: 800;
                             line-height: 31px;
                             font-size: 24px;
-                            margin-left: 55px;
+                            padding-left: 41px;
                             max-width: 186px;
                         }
                     }
 
                     .row2 {
                         display: flex;
-                        padding-left: 54px;
+                        padding-left: 41px;
                         margin-right: -9px;
                         position: relative;
 
@@ -364,15 +329,15 @@ export default {
                         justify-content: space-between;
 
                         img {
-                            flex: 10%;
+                            flex: 5%;
                         }
 
                         .details {
-                            flex: 100%;
+                            flex: 95%;
                             padding-left: 13px;
 
                             .md-body-1 {
-                                max-width: 212px;
+                                max-width: 293px;
                             }
                         }
 
@@ -381,14 +346,14 @@ export default {
                 }
 
                 img {
-                    flex: 35%;
+                    flex: 20%;
                 }
 
             }
         }
 
         .section4 {
-            padding: 0 20px;
+            padding: 30px 150px;
 
             .row {
                 display: flex;
@@ -398,28 +363,23 @@ export default {
                     flex: 40%;
                     display: flex;
                     justify-content: space-between;
-                    padding: 20px 0 20px 72px;
+                    padding-left: 176px;
 
                     .col1 {
-                        flex: 18%;
+                        flex: 13%;
                         align-self: flex-end;
-
-                        img {
-                            width: 100%;
-                        }
                     }
 
                     .col2 {
                         position: relative;
                         flex: 10%;
                         padding: 29px 10px 0 10px;
-                        margin-bottom: -10px;
+                        margin-bottom: -50px;
 
                         .line {
                             border-left: solid 2px #BFBFBF;
                             height: 100%;
                             margin-left: 9px;
-                            min-height: 146px;
                         }
 
                         .circle {
@@ -436,34 +396,31 @@ export default {
                         display: flex;
                         justify-content: space-between;
                         flex-direction: column;
-                        padding-top: 20px;
 
                         .md-title {
                             font-weight: 800;
                             line-height: 31px;
                             font-size: 24px;
                             max-width: 186px;
-                            margin: none;
+                            margin-top: 20px;
                         }
 
                         .details {
-                            .md-body-1 {
-                                max-width: 170px;
-                            }
+                            .md-body-1 {}
                         }
 
                     }
                 }
 
                 img {
-                    flex: 35%;
+                    flex: 20%;
                 }
 
             }
         }
 
         .section5 {
-            padding: 0 20px;
+            padding: 30px 150px;
 
             .row {
                 display: flex;
@@ -475,7 +432,7 @@ export default {
                     justify-content: space-between;
 
                     .col1 {
-                        flex: 15%;
+                        flex: 8%;
                         align-self: flex-end;
 
                         img {
@@ -485,16 +442,14 @@ export default {
 
                     .col2 {
                         position: relative;
-                        flex: 10%;
-                        padding: 0 10px;
-                        margin-top: -10px;
-                        padding-bottom: 19px;
+                        flex: 5%;
+                        padding: 0 10px 22px 10px;
+                        margin-top: -70px;
 
                         .line {
                             border-left: solid 2px #BFBFBF;
                             height: 100%;
                             margin-left: 9px;
-                            min-height: 146px;
                         }
 
                         .circle {
@@ -511,19 +466,18 @@ export default {
                         display: flex;
                         justify-content: space-between;
                         flex-direction: column;
-                        padding-top: 25px;
 
                         .md-title {
                             font-weight: 800;
                             line-height: 31px;
                             font-size: 24px;
                             max-width: 186px;
-                            margin: none;
+                            margin-top: 20px;
                         }
 
                         .details {
                             .md-body-1 {
-                                max-width: 170px;
+                                max-width: 280px;
                             }
                         }
 
@@ -531,29 +485,29 @@ export default {
                 }
 
                 img {
-                    flex: 35%;
+                    flex: 20%;
                 }
 
             }
         }
-    }
 
-    .section6 {
-        padding: 2.25em 1.6875em;
-        background-image: -webkit-repeating-radial-gradient(center center, rgba(255, 165, 0, 0.2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        background-image: -moz-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        background-image: -ms-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        background-image: repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        -webkit-background-size: 3px 3px;
-        -moz-background-size: 3px 3px;
-        background-size: 3px 3px;
-        text-align: center;
+        .section6 {
+            padding: 2.25em 1.6875em;
+            background-image: -webkit-repeating-radial-gradient(center center, rgba(255, 165, 0, 0.2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+            background-image: -moz-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+            background-image: -ms-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+            background-image: repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
+            -webkit-background-size: 3px 3px;
+            -moz-background-size: 3px 3px;
+            background-size: 3px 3px;
+            text-align: center;
 
-        :nth-child(3) {
-            margin-top: 20px;
+            :nth-child(3) {
+                margin-top: 20px;
 
-            .md-button {
-                border: solid 1px #333;
+                .md-button {
+                    border: solid 1px #333;
+                }
             }
         }
     }
@@ -566,150 +520,77 @@ export default {
 
 /* 
 @media only screen and (max-width: 600px) {
-    .home-content {
-        width: 100%;
-        min-height: 100%;
 
-        .section1 {
-            text-align: center;
-            padding: 150px 0 0 0;
-
+} */
+/* @media only screen and (min-width: 1179px) {
+    .section3 {
+        .row {
             .text {
-                margin-left: 7px;
-
-                .heading {
-                    .md-headline {
-                        font-size: 2.5em;
+                .row1 {
+                    .md-title {
+                        margin-left: 74px !important;
                     }
                 }
 
-                .sub-heading {
-                    .md-subheading {
-                        font-size: 1em;
-                        line-height: 1em;
-                    }
-                }
-
-                .help {
-                    margin-bottom: 3em;
-                    margin-top: 0.7em;
-
-                    a {
-                        font-size: 1em;
-                    }
+                .row2 {
+                    padding-left: 73px !important;
                 }
             }
         }
+    }
 
-        .md-card {
+    .section4 {
+        padding: 0 20px;
 
-            .md-card-header {
-                max-width: 100%;
-                padding: 30px;
-            }
+        .row {
+            display: flex;
+            justify-content: space-between;
 
-            .section2 {
-                flex-direction: column;
-                align-items: center;
-                padding: 30px;
+            .text {
+                flex: 40%;
+                display: flex;
+                justify-content: space-between;
+                padding: 20px 0 20px 72px;
 
-                .row {
-                    flex: 100%;
-                    text-align: center;
-                    padding: 0 !important;
-                    margin-bottom: 36px;
-
-                    .md-headline {
-                        line-height: 24px;
-                    }
+                .col1 {
+                    flex: 18%;
+                    align-self: flex-end;
 
                     img {
-                        margin: 20px;
-                    }
-
-                    .md-headline {
-                        margin-bottom: 10px;
+                        width: 100%;
                     }
                 }
 
-            }
+                .col2 {
 
-            .steps {
-                padding: 30px;
-
-                .section3 {
-                    margin-bottom: 50px;
-                    padding: 0;
-
-                    .row {
-                        flex-direction: column;
-                        text-align: center;
-                        align-items: center;
-
-                        img {
-                            order: 1;
-                            background: none;
-                            box-shadow: none;
-                            width: 150px;
-                        }
-
-                        .text {
-                            order: 2;
-                            padding: 20px 0 0 0 !important;
-                            width: 100% !important;
-                        }
-                    }
+                    padding: 84px 10px 0 10px !important;
+                    margin-bottom: -10px;
                 }
 
-                .section4 {
-                    margin-bottom: 50px;
-                    padding: 0;
+                .col3 {
 
-                    .row {
-                        flex-direction: column;
-                        text-align: center;
-                        align-items: center;
+                    padding-top: 76px !important;
 
-                        .text {
-                            padding: 20px 0 0 0 !important;
-                            width: 100% !important;
-                        }
-
-                        img {
-                            background: none;
-                            box-shadow: none;
-                            width: 150px;
-                        }
-                    }
-                }
-
-                .section5 {
-                    margin-bottom: 50px;
-                    padding: 0;
-
-                    .row {
-                        flex-direction: column;
-                        text-align: center;
-                        align-items: center;
-
-                        img {
-                            order: 1;
-                            background: none;
-                            box-shadow: none;
-                            width: 150px;
-                        }
-
-                        .text {
-                            order: 2;
-                            padding: 20px 0 0 0 !important;
-                            width: 100% !important;
-                        }
-                    }
                 }
             }
 
         }
     }
 
+    .section5 {
+
+        .row {
+
+            .text {
+
+                .col3 {
+
+                    padding-top: 56px !important;
+
+                }
+            }
+
+        }
+    }
 } */
 </style>

@@ -5,12 +5,12 @@
         <md-app-drawer :md-active.sync="menuVisible">
             <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
 
-            <AdminSideMenu v-on:hideSideMenu="toggleSideMenu" v-if="authenticated && user.role[0].name === 'admin'" />
-            <WebSideMenu v-on:hideSideMenu="toggleSideMenu" v-else />
+            <AdminSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-if="authenticated && user.role[0].name === 'admin'" />
+            <WebSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-else />
         </md-app-drawer>
 
         <md-app-content>
-            <router-view></router-view>
+            <router-view v-on:togal-menu="menuVisible=!menuVisible"></router-view>
         </md-app-content>
     </md-app>
 
@@ -18,8 +18,9 @@
 </template>
 
 <script>
-import AdminSideMenu from "../components/AdminSideMenu";
-import WebSideMenu from "../components/WebSideMenu";
+import AdminSideMenu from "../shared/AdminSideMenu";
+import WebSideMenu from "../shared/WebSideMenu";
+import Footer from "../shared/Footer";
 import axios from "axios";
 import {
     mapGetters,
@@ -63,12 +64,6 @@ export default {
             this.signOutAction().then(() => {
                 this.$router.push("/");
             });
-        },
-        toggleMenu() {
-            this.menuVisible = !this.menuVisible;
-        },
-        toggleSideMenu() {
-            this.menuVisible = !this.menuVisible;
         },
 
         notificationDetails(notification) {
@@ -127,6 +122,9 @@ export default {
                 });
             }
         },
+        togleMenu() {
+            this.menuVisible = !this.menuVisible;
+        }
     },
     created() {
         this.getNotifications();
@@ -135,6 +133,7 @@ export default {
     components: {
         AdminSideMenu,
         WebSideMenu,
+        Footer,
     },
 
 };

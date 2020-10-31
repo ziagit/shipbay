@@ -33,8 +33,8 @@ import {
     mapActions,
     mapGetters
 } from "vuex";
-import Spinner from "../shared/Spinner";
-import Snackbar from "../shared/Snackbar";
+import Spinner from "../../shared/Spinner";
+import Snackbar from "../../shared/Snackbar";
 export default {
     name: "Login",
     data: () => ({

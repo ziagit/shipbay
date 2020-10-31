@@ -1,8 +1,11 @@
 <template>
 <div class="container">
     <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/about.svg)'}">
-        <div class="md-display-1">About Us</div>
-        <div class="md-body-1">Meet the amazing team behind this project and find out more about how we work.</div>
+        <Header v-on:togal-menu="$emit('togal-menu')" />
+        <div class="content">
+            <div class="md-display-1">About Us</div>
+            <div class="md-body-1">Meet the amazing team behind this project and find out more about how we work.</div>
+        </div>
     </div>
     <md-card>
         <md-card-header>
@@ -62,7 +65,8 @@
 
 <script>
 import axio from "axios";
-import Footer from "../shared/Footer"
+import Footer from "../../shared/Footer"
+import Header from "../../shared/Header"
 export default {
     name: "ContactUs",
     data: () => ({
@@ -74,7 +78,8 @@ export default {
     }),
     methods: {},
     components: {
-        Footer
+        Footer,
+        Header,
     }
 };
 </script>
@@ -87,16 +92,19 @@ export default {
         background-position: center center;
         text-align: center;
         align-items: center;
-        padding: 85px 200px 130px 200px;
 
-        .md-display-1 {
-            color: #fff;
-            line-height: 66px;
-            font-size: 36px;
-        }
+        .content {
+            padding: 85px 200px 130px 200px;
 
-        .md-body-1 {
-            color: #fff;
+            .md-display-1 {
+                color: #fff;
+                line-height: 66px;
+                font-size: 36px;
+            }
+
+            .md-body-1 {
+                color: #fff;
+            }
         }
     }
 

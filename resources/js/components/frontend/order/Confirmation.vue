@@ -149,9 +149,9 @@
 import axios from "axios";
 import functions from "../services/functions";
 import Card from "../services/card";
-import Spinner from "../shared/Spinner";
-import Snackbar from "../shared/Snackbar";
-import TermsAndConditions from "../shared/TermsAndConditions";
+import Spinner from "../../shared/Spinner";
+import Snackbar from "../../shared/Snackbar";
+import TermsAndConditions from "../../shared/TermsAndConditions";
 export default {
     name: "Confirmation",
     data: () => ({

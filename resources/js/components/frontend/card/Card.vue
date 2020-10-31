@@ -58,8 +58,8 @@
 
 <script>
 import axios from "axios";
-import Snackbar from "../shared/Snackbar";
-import Spinner from "../shared/Spinner";
+import Snackbar from "../../shared/Snackbar";
+import Spinner from "../../shared/Spinner";
 
 import {
     mapGetters,

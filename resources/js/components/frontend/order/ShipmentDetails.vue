@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import Footer from '../shared/Footer';
+import Footer from '../../shared/Footer';
 import axios from "axios";
 export default {
     name: "ShipmentDetails",

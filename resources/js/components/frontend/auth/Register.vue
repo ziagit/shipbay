@@ -42,8 +42,8 @@ import axios from "axios";
 import {
     mapActions
 } from "vuex";
-import Spinner from "../shared/Spinner";
-import Snackbar from "../shared/Snackbar";
+import Spinner from "../../shared/Spinner";
+import Snackbar from "../../shared/Snackbar";
 export default {
     name: "SignUp",
     data: () => ({

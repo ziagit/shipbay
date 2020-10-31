@@ -26,6 +26,10 @@ export default {
     border: none;
 }
 
+.md-app .md-app-side-drawer .md-layout-row .md-reveal .md-theme-default {
+    border: none !important;
+}
+
 .md-checkbox .md-checkbox-container {
     border-radius: 5px;
 }

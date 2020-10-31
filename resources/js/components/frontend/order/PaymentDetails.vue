@@ -70,8 +70,8 @@ import {
 } from "vuex";
 import axios from "axios";
 import isPaid from "../services/card";
-import Spinner from "../shared/Spinner";
-import Snackbar from "../shared/Snackbar";
+import Spinner from "../../shared/Spinner";
+import Snackbar from "../../shared/Snackbar";
 import Card from "../card/Card";
 export default {
     name: "PaymentDetails",

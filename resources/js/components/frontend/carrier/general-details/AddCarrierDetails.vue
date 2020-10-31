@@ -128,7 +128,7 @@
 
 <script>
 import axios from "axios";
-import Snackbar from "../../shared/Snackbar";
+import Snackbar from "../../../shared/Snackbar";
 export default {
     name: "AddGeneralInfo",
     data: () => ({

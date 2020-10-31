@@ -95,7 +95,7 @@
 <script>
 import axios from "axios";
 import functions from '../services/functions'
-import Snackbar from '../shared/Snackbar'
+import Snackbar from '../../shared/Snackbar'
 export default {
     name: "Item",
     data: () => ({

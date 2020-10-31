@@ -1,6 +1,7 @@
 <template>
 <div class="container">
     <div class="section1">
+        <Header v-on:togal-menu="$emit('togal-menu')" />
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31958839.600046597!2d-128.4053053!3d60.7318475!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537a66c7aa6b6aaf%3A0x881b41e937e7f1f9!2sBritish%20Columbia%2C%20Canada!5e0!3m2!1sen!2s!4v1603098152028!5m2!1sen!2s" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     </div>
     <md-card>
@@ -45,7 +46,8 @@
 </template>
 
 <script>
-import Footer from "../shared/Footer"
+import Footer from "../../shared/Footer"
+import Header from "../../shared/Header"
 import axio from "axios";
 export default {
     name: "ContactUs",
@@ -58,7 +60,8 @@ export default {
     }),
     methods: {},
     components: {
-        Footer
+        Footer,
+        Header,
     }
 };
 </script>
