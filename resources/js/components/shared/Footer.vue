@@ -40,7 +40,8 @@
                     <router-link to="/help">Help Center</router-link>
                 </li>
                 <li>
-                    <router-link to="/privacy-policies">Insurance Policy</router-link>
+                    <router-link to="/privacy-policies">Insurance Policy | </router-link>
+                    <router-link to="/terms-and-conditions">Terms & Conditions</router-link>
                 </li>
             </ul>
         </div>

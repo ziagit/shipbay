@@ -227,16 +227,19 @@ export default {
     min-height: 100vh !important;
 
     .section1 {
-        padding: 50px 200px 100px 200px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
         color: #fff;
 
-        .md-display-1 {
-            color: #fff;
-            line-height: 66px;
-            font-size: 36px;
+        .content {
+            padding: 50px 200px 100px 200px;
+
+            .md-display-1 {
+                color: #fff;
+                line-height: 66px;
+                font-size: 36px;
+            }
         }
 
     }

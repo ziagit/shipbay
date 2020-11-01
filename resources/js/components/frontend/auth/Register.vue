@@ -1,7 +1,8 @@
 <template>
-<div>
-    <div class="register">
-        <md-card mode="ios">
+<div class="container">
+    <Header v-on:togal-menu="$emit('togal-menu')" />
+    <div class="content">
+        <md-card>
             <md-card-header>
                 <div class="md-title">Register</div>
             </md-card-header>
@@ -33,7 +34,9 @@
             </md-card-content>
         </md-card>
     </div>
+    <Footer />
     <Snackbar :data="snackbar" />
+
 </div>
 </template>
 
@@ -44,6 +47,8 @@ import {
 } from "vuex";
 import Spinner from "../../shared/Spinner";
 import Snackbar from "../../shared/Snackbar";
+import Header from "../../shared/Header";
+import Footer from "../../shared/Footer";
 export default {
     name: "SignUp",
     data: () => ({
@@ -95,32 +100,43 @@ export default {
     },
     components: {
         Spinner,
-        Snackbar
+        Snackbar,
+        Header,
+        Footer,
     },
 };
 </script>
 
 <style lang="scss" scoped>
-.register {
+.container {
     width: 100%;
-    height: calc(100vh - 200px);
-    padding: 20px;
 
-    .md-card {
-        margin: auto;
-        text-align: center;
-        background: #fff;
-
-        .md-card-content {
-            padding: 20px;
-        }
+    .header {
+        color: #000;
+        border-bottom: solid 1px #fff;
     }
-}
 
-@media only screen and (min-width: 600px) {
-    .register {
+    .content {
+        padding: 66px 20px;
+        height: calc(100vh - 50px);
+
         .md-card {
             max-width: 500px;
+            margin: auto;
+            text-align: center;
+            background: #fff;
+
+            .md-card-content {
+                padding: 20px;
+            }
+        }
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+    .register {
+        .md-card {
             margin-top: 3em;
 
             .other-way {

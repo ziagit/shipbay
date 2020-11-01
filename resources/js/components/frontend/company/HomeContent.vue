@@ -10,7 +10,7 @@
             <div class="order">
                 <div class="col1">
                     <h2>Where are you shipping from?</h2>
-                    <form action="">
+                    <form @submit.prevent="submit">
                         <div class="inputs">
                             <md-icon>location_on</md-icon>
                             <input v-model="zip" placeholder="Postal code" />
@@ -155,7 +155,11 @@ export default {
     data: () => ({
         zip: null
     }),
-    methods: {},
+    methods: {
+        submit() {
+            this.$router.push('/order')
+        }
+    },
     components: {
         Header,
         Footer,
@@ -184,8 +188,8 @@ export default {
 
         .content {
             .heading {
-                margin: 200px 0 12px 56px;
-                max-width: 500px;
+                padding: 200px 0 12px 56px;
+                max-width: 541px;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
 
                 .md-display-1 {
@@ -214,6 +218,8 @@ export default {
                     .inputs {
                         background: #fff;
                         border: 1px solid #000;
+                        display: flex;
+                        justify-content: space-between;
 
                         .md-icon {
                             color: #c0c0c0;
@@ -231,7 +237,7 @@ export default {
 
                         button {
                             background: #000;
-                            min-width: 57px !important;
+                            width: 20% !important;
 
                             .md-icon {
                                 color: #fff;

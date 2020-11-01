@@ -1,5 +1,5 @@
 <template>
-<div class="order">
+<div class="container">
     <Header v-on:togal-menu="$emit('togal-menu')" />
     <div class="content">
         <div class="progress-container">
@@ -9,11 +9,13 @@
             <router-view v-on:progress="progress"></router-view>
         </div>
     </div>
+    <Footer />
 </div>
 </template>
 
 <script>
 import Header from "../../shared/Header"
+import Footer from "../../shared/Footer"
 import axios from "axios";
 export default {
     name: "StepperLinear",
@@ -28,18 +30,21 @@ export default {
     },
     components: {
         Header,
+        Footer,
     }
 };
 </script>
 
 <style lang="scss" scoped>
-.order {
+.container {
     .header {
-        background: #333 !important;
+        color: #000 !important;
+        border-bottom: solid 1px #fff;
     }
 
     .content {
         width: 100%;
+        height: calc(100vh - 50px);
         margin: auto;
         padding: 50px 20px 0 20px !important;
         text-align: center;

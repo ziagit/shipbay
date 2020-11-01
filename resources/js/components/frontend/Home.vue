@@ -183,12 +183,14 @@ export default {
                 color: #fff;
             }
         }
+
     }
 
     // Demo purposes only
     .md-drawer {
         width: 230px;
         max-width: calc(100vw - 125px);
+        z-index: 10;
     }
 
     .md-app-content {

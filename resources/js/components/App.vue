@@ -11,6 +11,10 @@ export default {
 </script>
 
 <style lang="scss">
+.md-app-container {
+    transform: none !important;
+}
+
 .app {
     height: 100% !important;
 }
