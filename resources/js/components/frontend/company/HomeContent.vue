@@ -158,7 +158,23 @@ export default {
     methods: {
         submit() {
             this.$router.push('/order')
+        },
+        handleScroll(event) {
+            // Any code to be executed when the window is scrolled
+            console.log("scrolling", event)
         }
+
+    },
+    mounted: function () {
+        var vm = this
+        window.addEventListener('scroll', function (e) {
+            var scrollPos = window.scrollY
+            var winHeight = window.innerHeight
+            var docHeight = document.documentElement.scrollHeight
+            var perc = 100 * scrollPos / (docHeight - winHeight)
+            vm.$el.style.width = perc + '%'
+        })
+        console.log("scrrrrrrrrrrrlin")
     },
     components: {
         Header,
