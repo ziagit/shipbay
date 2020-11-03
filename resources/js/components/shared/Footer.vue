@@ -153,28 +153,8 @@ export default {
 
 @media only screen and (max-width: 600px) {
     .footer {
-        .app-stores {
-            width: 100%;
-            text-align: center;
-        }
-
-        .bottom {
-            font-size: 8px;
-            text-align: center;
-            padding: 0;
-            flex-direction: column;
-
-            span {
-                order: 2;
-            }
-
-            .social-media {
-                order: 1;
-
-                img {
-                    width: 20px;
-                }
-            }
+        .cols {
+            padding: 20px;
         }
     }
 }

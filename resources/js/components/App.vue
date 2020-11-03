@@ -181,4 +181,27 @@ export default {
         font-size: 14px;
     }
 }
+
+@media only screen and (max-width: 600px) {
+
+    .section3 {
+
+        .steps {
+
+            .md-list {
+                .md-list-item-content {
+                    padding: 0 !important;
+
+                    .md-headline {
+                        font-size: 14px !important;
+                    }
+
+                    .details {
+                        font-size: 10px !important;
+                    }
+                }
+            }
+        }
+    }
+}
 </style>

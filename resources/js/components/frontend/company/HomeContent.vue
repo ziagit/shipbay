@@ -363,10 +363,60 @@ export default {
     width: 100% !important;
 }
 
-/* 
 @media only screen and (max-width: 600px) {
+    .section1 {
+        background-position: right !important;
 
-} */
+        .content {
+            .heading {
+                padding: 94px 20px !important;
+
+                .md-display-1 {
+                    font-size: 36px !important;
+                }
+            }
+        }
+    }
+
+    .section2 {
+        padding: 0px 20px 20px 20px !important;
+
+        .row {
+            flex: 100% !important;
+        }
+    }
+
+    .section3 {
+        margin: 0 !important;
+        max-width: 100% !important;
+        padding: 20px !important;
+        text-align: center;
+
+        .steps {
+            position: relative !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            margin-top: 44px !important;
+
+            .md-list {
+                padding: 0 !important;
+
+                .md-list-item-content {
+                    padding: 0 !important;
+
+                    .md-headline {
+                        font-size: 14px !important;
+                    }
+
+                    .details {
+                        font-size: 10px !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
 /* @media only screen and (min-width: 1179px) {
     .section3 {
         .row {
