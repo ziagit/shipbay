@@ -8,10 +8,10 @@
             <AdminSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-if="authenticated && user.role[0].name === 'admin'" />
             <WebSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-else />
         </md-app-drawer>
-
         <md-app-content>
             <router-view v-on:togal-menu="menuVisible=!menuVisible"></router-view>
         </md-app-content>
+
     </md-app>
 
 </div>
@@ -37,6 +37,7 @@ export default {
         closeOnClick: false,
         closeOnSelect: true,
         windowWidth: window.innerWidth,
+
     }),
     watch: {
         /*         '$route'() {
@@ -56,6 +57,18 @@ export default {
     },
 
     methods: {
+        /*         onScroll(e) {
+                    console.log("scrolling ", e)
+                    var currentScrollPosition = e.srcElement.scrollTop;
+                    if (currentScrollPosition > 100) {
+                        this.isScrolled = true;
+                        console.log("val1: ", currentScrollPosition, ' val2: ', this.scrollPosition)
+                    } else {
+                        this.isScrolled = false;
+                    }
+                    this.scrollPosition = currentScrollPosition;
+                }, */
+
         ...mapActions({
             signOutAction: "auth/signOut",
             setNotification: "shared/setNotification",
@@ -140,6 +153,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.md-app-content {
+    max-height: 100vh;
+}
+
 .md-menu-content {
     border-radius: 7px;
 

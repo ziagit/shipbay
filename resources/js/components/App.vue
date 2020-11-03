@@ -13,6 +13,8 @@ export default {
 <style lang="scss">
 .md-app-container {
     transform: none !important;
+    /* max-height: 100vh;
+    overflow: scroll; */
 }
 
 .app {
@@ -49,7 +51,7 @@ export default {
 }
 
 .md-radio.md-theme-default.md-checked .md-radio-container:after {
-    background-color: #666;
+    background-color: #ef9c03;
 }
 
 .md-dialog-container,
@@ -162,7 +164,7 @@ export default {
     border-radius: 30px;
     padding: 0 10px;
     background: #FFA500 !important;
-    color: #333 !important;
+    color: #fff !important;
 }
 
 .md-progress-bar-fill {
@@ -173,10 +175,6 @@ export default {
 
     .md-display-1 {
         font-size: 30px;
-    }
-
-    .md-body-1 {
-        width: 50% !important;
     }
 
     label {

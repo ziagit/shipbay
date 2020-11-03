@@ -14,11 +14,11 @@
             <span class="md-list-item-text">How It Works</span>
         </md-list-item>
         <md-list-item to="/help" @click="hideMenu()">
-            <md-icon>help</md-icon>
+            <md-icon>store_mall_directory</md-icon>
             <span class="md-list-item-text">Shippers</span>
         </md-list-item>
         <md-list-item to="/help" @click="hideMenu()">
-            <md-icon>help</md-icon>
+            <md-icon>send</md-icon>
             <span class="md-list-item-text">Carriers</span>
         </md-list-item>
 
@@ -33,7 +33,7 @@
             <span class="md-list-item-text">Sign In</span>
         </md-list-item>
         <md-list-item to="/register" @click="hideMenu()">
-            <md-icon>login</md-icon>
+            <md-icon>add</md-icon>
             <span class="md-list-item-text">Sign Up</span>
         </md-list-item>
         <!--

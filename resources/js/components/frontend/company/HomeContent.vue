@@ -1,30 +1,20 @@
 <template>
-<div class="home-content">
-    <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/home-background.svg)'}">
-        <Header v-on:togal-menu="$emit('togal-menu')" />
+<div class="container">
+    <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/bg.svg)'}">
+        <Header v-on:togal-menu="$emit('togal-menu')" :class="{bg: isScrolled}" />
         <div class="content">
             <div class="heading">
+                <img :src="'/images/uploads/logo-white1.svg'" alt="" width="86">
                 <h1 class="md-display-1">Let’s book your shipment in a few taps.</h1>
                 <p class="md-subheading">The way you book your travel tickets.</p>
+                <div class="actions">
+                    <button class="md-button md-raised" @click="getQoute()">Start new qoute</button>
+                    <span>
+                        <router-link to="/help">How it works</router-link>
+                    </span>
+                </div>
             </div>
-            <div class="order">
-                <div class="col1">
-                    <h2>Where are you shipping from?</h2>
-                    <form @submit.prevent="submit">
-                        <div class="inputs">
-                            <md-icon>location_on</md-icon>
-                            <input v-model="zip" placeholder="Postal code" />
-                            <button type="submit">
-                                <md-icon>east</md-icon>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col2">
-                    <img :src="'/images/uploads/step1.svg'" width="13" alt="">
-                </div>
 
-            </div>
         </div>
     </div>
     <div class="wrapper">
@@ -39,7 +29,7 @@
                         shipment cost before you ship.</div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row with-shadow">
                 <img :src="'/images/uploads/nosignup.svg'" width="50" alt="">
                 <div>
                     <div class="md-title">No Sign up </div>
@@ -62,75 +52,64 @@
             </div>
         </div>
         <div class="section3">
-            <div class="row">
-                <div class="text">
-                    <div class="row1">
-                        <div class="md-title">Tap The Specifications</div>
-                    </div>
-                    <div class="row2">
-                        <div class="line"></div>
-                        <div class="circle"></div>
-                    </div>
-                    <div class="row3">
-                        <img :src="'/images/uploads/01.svg'" width="10" alt="">
-                        <div class="details">
-                            <div class="md-body-1">Specify your shipment and
-                                schedule the date. Tap on
-                                different services you may need
-                                in the pick-up and drop-off 1locations.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <img :src="'/images/uploads/dw.png'" width="50" alt="">
+            <div class="text">
+                <div class="md-display-1">Transfer a freight in 3 easy steps</div>
+                <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
+                <button class="md-button md-raised">Start Quoting</button>
             </div>
-        </div>
-        <div class="section4">
-            <div class="row">
-                <img :src="'/images/uploads/select-carrier.jpg'" width="50" alt="">
-                <div class="text">
-                    <div class="col1">
-                        <img :src="'/images/uploads/02.svg'" width="50" alt="">
-                    </div>
-                    <div class="col2">
-                        <div class="line"></div>
-                        <div class="circle"></div>
-                    </div>
-                    <div class="col3">
-                        <div class="md-title">Select The Carrier </div>
-                        <div class="details">
-                            <div class="md-body-1">Tap on carrier of your
-                                choice based on their
-                                competitive price, review and customer ratings.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section5">
-            <div class="row">
-                <div class="text">
-                    <div class="col1">
-                        <img :src="'/images/uploads/03.svg'" width="50" alt="">
-                    </div>
-                    <div class="col2">
-                        <div class="circle"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="col3">
-                        <div class="md-title">Track The Shipment</div>
-                        <div class="details">
-                            <div class="md-body-1">Tap on carrier of your
-                                Relax! we will notify you on every step taken on the shipment. Also, you can track your shipment 3live.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <img :src="'/images/uploads/tracking.jpg'" width="250" alt="">
-            </div>
+            <div class="steps">
+                <div class="head"></div>
+                <md-list class="md-double-line">
 
+                    <md-list-item>
+                        <md-avatar>
+                            <img :src="'/images/uploads/dw.svg'" alt="People">
+                        </md-avatar>
+
+                        <div class="md-list-item-text">
+                            <span class="md-headline">Tap The Specifications</span>
+                            <span class="details">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations.</span>
+                        </div>
+
+                        <md-button class="md-icon-button md-list-action">
+                            <img :src="'/images/uploads/01.svg'" alt="1" width="12">
+                        </md-button>
+                    </md-list-item>
+                    <md-divider></md-divider>
+
+                    <md-list-item>
+                        <md-avatar>
+                            <img :src="'/images/uploads/select-carrier.svg'" alt="People">
+                        </md-avatar>
+                        <div class="md-list-item-text">
+                            <span class="md-headline">Select The Carrier</span>
+                            <span class="details">Tap on carrier of your choice based on their competitive price, review and customer ratings.</span>
+                        </div>
+
+                        <md-button class="md-icon-button md-list-action">
+                            <img :src="'/images/uploads/02.svg'" alt="2" width="15">
+                        </md-button>
+                    </md-list-item>
+                    <md-divider></md-divider>
+
+                    <md-list-item>
+                        <md-avatar>
+                            <img :src="'/images/uploads/tracking.svg'" alt="People">
+                        </md-avatar>
+                        <div class="md-list-item-text">
+                            <span class="md-headline">Track The Shipment</span>
+                            <span class="details">Tap on carrier of your Relax! we will notify you on every step taken on the shipment. Also, you can track your shipment 3live.</span>
+                        </div>
+
+                        <md-button class="md-icon-button md-list-action">
+                            <img :src="'/images/uploads/03.svg'" alt="3" width="15">
+                        </md-button>
+                    </md-list-item>
+
+                </md-list>
+            </div>
         </div>
+
     </div>
 
     <div class="section6">
@@ -153,29 +132,27 @@ import Header from "../../shared/Header"
 export default {
     name: "HomeContent",
     data: () => ({
-        zip: null
+        zip: null,
+        isScrolled: false,
+        scrollPosition: 100,
     }),
     methods: {
-        submit() {
+        getQoute() {
             this.$router.push('/order')
         },
-        handleScroll(event) {
-            // Any code to be executed when the window is scrolled
-            console.log("scrolling", event)
+        onScroll(e) {
+            var currentScrollPosition = e.srcElement.scrollTop;
+            if (currentScrollPosition > 100) {
+                this.isScrolled = true;
+                console.log("val1: ", currentScrollPosition, ' val2: ', this.scrollPosition)
+            } else {
+                this.isScrolled = false;
+            }
+            this.scrollPosition = currentScrollPosition;
         }
 
     },
-    mounted: function () {
-        var vm = this
-        window.addEventListener('scroll', function (e) {
-            var scrollPos = window.scrollY
-            var winHeight = window.innerHeight
-            var docHeight = document.documentElement.scrollHeight
-            var perc = 100 * scrollPos / (docHeight - winHeight)
-            vm.$el.style.width = perc + '%'
-        })
-        console.log("scrrrrrrrrrrrlin")
-    },
+
     components: {
         Header,
         Footer,
@@ -189,14 +166,15 @@ export default {
     src: local("Segoe Script"),
         url('/fonts/Segoe Script.ttf') format("truetype");
 } */
+.bg {
+    background: #000;
+}
 
-.home-content {
-    background-size: 100% 100%;
-
+.container {
     .section1 {
         text-align: left;
         color: #fff;
-        height: calc(100vh - 200px);
+        height: calc(100vh - 48px);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
@@ -204,13 +182,15 @@ export default {
 
         .content {
             .heading {
-                padding: 200px 0 12px 56px;
-                max-width: 541px;
-                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                text-align: center;
+                padding: 226px 0 12px 106px;
+                max-width: 586px;
+
+                /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
 
                 .md-display-1 {
                     line-height: 50px;
-                    font-size: 36px;
+                    font-size: 46px;
                     font-weight: 600;
                     color: #fff;
                     margin-bottom: 0;
@@ -219,53 +199,21 @@ export default {
                 .md-subheading {
                     line-height: 0px;
                 }
-            }
 
-            .order {
-                background: #ffa500;
-                max-width: 556px;
-                height: 200px;
-                display: flex;
-                padding: 26px;
-
-                .col1 {
-                    flex: 80%;
-
-                    .inputs {
-                        background: #fff;
-                        border: 1px solid #000;
-                        display: flex;
-                        justify-content: space-between;
-
-                        .md-icon {
-                            color: #c0c0c0;
-                        }
-
-                        input {
-                            min-height: 30px;
-                            min-width: 78%;
-                            border: none;
-                        }
-
-                        input:focus {
-                            outline: none;
-                        }
-
-                        button {
-                            background: #000;
-                            width: 20% !important;
-
-                            .md-icon {
-                                color: #fff;
-                            }
-                        }
-                    }
-                }
-
-                .col2 {
-                    flex: 20%;
-                    text-align: right;
+                .actions {
+                    display: flex;
+                    justify-content: center;
                     align-items: center;
+                    margin-top: 59px;
+
+                    .md-button {
+                        width: 180px;
+                    }
+
+                    span {
+                        font-size: 11px;
+                        color: #448AFF;
+                    }
                 }
             }
 
@@ -276,7 +224,7 @@ export default {
     .wrapper {
         max-width: 1200px;
         margin: auto;
-        padding-bottom: 56px;
+        padding-bottom: 126px;
 
         .section2 {
             padding: 46px 100px;
@@ -293,7 +241,7 @@ export default {
 
                 img {
                     padding: 10px;
-                    border-radius: 5px;
+                    border-radius: 10px;
                     background: #ffa5001f;
                 }
 
@@ -303,215 +251,88 @@ export default {
                     line-height: 44px;
                 }
             }
+
+            .with-shadow {
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+                border: none;
+            }
+
         }
 
         .section3 {
-            padding: 30px 150px;
+            background:
+                linear-gradient(to left bottom, rgb(255, 255, 255) 0%
+                    /*bottom-right color*/
+                    , rgba(255, 255, 255, 0.5) 50%
+                    /*middle color*/
+                    , rgba(255, 187, 0, 0.13) 100%
+                    /*top-left color*/
+                )
+                /*"faked" black background make sure to add last or it will appear before the transparent/colored layer*/
+            ;
 
-            .row {
-                display: flex;
-                justify-content: space-between;
+            padding: 46px 100px;
+            margin: 30px;
+            min-height: 500px;
+            max-width: 80%;
+            position: relative;
 
-                .text {
-                    flex: 40%;
-
-                    .row1 {
-                        text-align: right;
-
-                        .md-title {
-                            text-align: left;
-                            font-weight: 800;
-                            line-height: 31px;
-                            font-size: 24px;
-                            padding-left: 41px;
-                            max-width: 186px;
-                        }
-                    }
-
-                    .row2 {
-                        display: flex;
-                        padding-left: 41px;
-                        margin-right: -9px;
-                        position: relative;
-
-                        .line {
-                            border-bottom: solid 2px #BFBFBF;
-                            width: 100%;
-                            margin-bottom: 9px;
-                        }
-
-                        .circle {
-                            height: 20px;
-                            width: 20px;
-                            border: solid 2px #BFBFBF;
-                            border-radius: 50%;
-                        }
-                    }
-
-                    .row3 {
-                        display: flex;
-                        justify-content: space-between;
-
-                        img {
-                            flex: 5%;
-                        }
-
-                        .details {
-                            flex: 95%;
-                            padding-left: 13px;
-
-                            .md-body-1 {
-                                max-width: 293px;
-                            }
-                        }
-
-                    }
-
+            .text {
+                .md-display-1 {
+                    margin: 30px 0;
+                    max-width: 309px;
+                    font-weight: 600;
+                    color: #000;
                 }
 
-                img {
-                    flex: 20%;
+                .md-body-1 {
+                    max-width: 353px;
                 }
 
+                .md-button {
+                    margin-top: 98px;
+                    width: 164px !important;
+                    color: #fff;
+                }
             }
-        }
 
-        .section4 {
-            padding: 30px 150px;
+            .steps {
 
-            .row {
-                display: flex;
-                justify-content: space-between;
+                background: #fff;
+                position: absolute;
+                right: -100px;
+                bottom: -50px;
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 
-                .text {
-                    flex: 40%;
-                    display: flex;
-                    justify-content: space-between;
-                    padding-left: 176px;
+                .head {
+                    min-height: 9px;
+                    width: 100%;
+                    background: #ffa500;
+                }
 
-                    .col1 {
-                        flex: 13%;
-                        align-self: flex-end;
-                    }
+                .md-list {
+                    padding: 42px;
+                    width: 100%;
+                    height: 100%;
 
-                    .col2 {
-                        position: relative;
-                        flex: 10%;
-                        padding: 29px 10px 0 10px;
-                        margin-bottom: -50px;
+                    .md-list-item {
+                        padding: 20px;
 
-                        .line {
-                            border-left: solid 2px #BFBFBF;
-                            height: 100%;
-                            margin-left: 9px;
+                        .md-avatar {
+                            width: 72px;
                         }
 
-                        .circle {
-                            height: 20px;
-                            width: 20px;
-                            border: solid 2px #BFBFBF;
-                            border-radius: 50%;
-                        }
-
-                    }
-
-                    .col3 {
-                        flex: 90%;
-                        display: flex;
-                        justify-content: space-between;
-                        flex-direction: column;
-
-                        .md-title {
-                            font-weight: 800;
-                            line-height: 31px;
-                            font-size: 24px;
-                            max-width: 186px;
-                            margin-top: 20px;
+                        .md-headline {
+                            font-size: 18px;
+                            line-height: 1.5;
                         }
 
                         .details {
-                            .md-body-1 {}
-                        }
-
-                    }
-                }
-
-                img {
-                    flex: 20%;
-                }
-
-            }
-        }
-
-        .section5 {
-            padding: 30px 150px;
-
-            .row {
-                display: flex;
-                justify-content: space-between;
-
-                .text {
-                    flex: 40%;
-                    display: flex;
-                    justify-content: space-between;
-
-                    .col1 {
-                        flex: 8%;
-                        align-self: flex-end;
-
-                        img {
-                            width: 100%;
+                            max-width: 284px;
                         }
                     }
 
-                    .col2 {
-                        position: relative;
-                        flex: 5%;
-                        padding: 0 10px 22px 10px;
-                        margin-top: -70px;
-
-                        .line {
-                            border-left: solid 2px #BFBFBF;
-                            height: 100%;
-                            margin-left: 9px;
-                        }
-
-                        .circle {
-                            height: 20px;
-                            width: 20px;
-                            border: solid 2px #BFBFBF;
-                            border-radius: 50%;
-                        }
-
-                    }
-
-                    .col3 {
-                        flex: 90%;
-                        display: flex;
-                        justify-content: space-between;
-                        flex-direction: column;
-
-                        .md-title {
-                            font-weight: 800;
-                            line-height: 31px;
-                            font-size: 24px;
-                            max-width: 186px;
-                            margin-top: 20px;
-                        }
-
-                        .details {
-                            .md-body-1 {
-                                max-width: 280px;
-                            }
-                        }
-
-                    }
                 }
-
-                img {
-                    flex: 20%;
-                }
-
             }
         }
     }

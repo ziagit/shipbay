@@ -44,9 +44,9 @@ export default {
 
     .content {
         width: 100%;
-        height: calc(100vh - 50px);
+        height: calc(100vh - 15px);
         margin: auto;
-        padding: 50px 20px 0 20px !important;
+        padding: 109px 20px 0 20px !important;
         text-align: center;
 
         .progress-container {
