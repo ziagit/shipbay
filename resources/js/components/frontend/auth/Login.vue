@@ -134,12 +134,8 @@ export default {
     width: 100%;
 
     .header {
-        color: #000 !important;
         border-bottom: solid 1px #fff;
 
-        .md-icon {
-            color: #000 !important;
-        }
     }
 
     .content {

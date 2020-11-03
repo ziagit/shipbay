@@ -38,16 +38,16 @@ export default {
 <style lang="scss" scoped>
 .container {
     .header {
-        color: #000 !important;
         border-bottom: solid 1px #fff;
     }
 
     .content {
         width: 100%;
-        height: calc(100vh - 15px);
+        min-height: calc(100vh - 15px);
         margin: auto;
         padding: 109px 20px 0 20px !important;
         text-align: center;
+        margin-bottom: 46px;
 
         .progress-container {
             max-width: 800px;

@@ -112,7 +112,6 @@ export default {
     width: 100%;
 
     .header {
-        color: #000;
         border-bottom: solid 1px #fff;
     }
 

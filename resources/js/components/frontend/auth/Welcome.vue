@@ -47,9 +47,7 @@ export default {
 .container {
     width: 100%;
 
-    .header {
-        color: #000;
-    }
+    .header {}
 
     .content {
         height: calc(100vh - 3px);
