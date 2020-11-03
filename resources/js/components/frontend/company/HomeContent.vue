@@ -53,7 +53,7 @@
         </div>
         <div class="section3">
             <div class="text">
-                <div class="md-display-1">Transfer a freight in 3 easy steps</div>
+                <div class="md-display-1">Book your shipment in 3 teps</div>
                 <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
                 <button class="md-button md-raised">Start Quoting</button>
             </div>

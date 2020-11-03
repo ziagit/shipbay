@@ -153,9 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.md-app-content {
-    max-height: 100vh;
-}
+.md-app-content {}
 
 .md-menu-content {
     border-radius: 7px;
