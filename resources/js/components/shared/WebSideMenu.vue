@@ -9,15 +9,19 @@
             <md-icon>business</md-icon>
             <span class="md-list-item-text">About Us</span>
         </md-list-item>
+        <md-list-item to="/contact" @click="hideMenu()">
+            <md-icon>phone</md-icon>
+            <span class="md-list-item-text">Contact Us</span>
+        </md-list-item>
         <md-list-item to="/help" @click="hideMenu()">
             <md-icon>help</md-icon>
             <span class="md-list-item-text">How It Works</span>
         </md-list-item>
-        <md-list-item to="/help" @click="hideMenu()">
+        <md-list-item to="/shippers" @click="hideMenu()">
             <md-icon>store_mall_directory</md-icon>
             <span class="md-list-item-text">Shippers</span>
         </md-list-item>
-        <md-list-item to="/help" @click="hideMenu()">
+        <md-list-item to="/carriers" @click="hideMenu()">
             <md-icon>send</md-icon>
             <span class="md-list-item-text">Carriers</span>
         </md-list-item>

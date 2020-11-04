@@ -153,8 +153,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.md-app-content {}
-
 .md-menu-content {
     border-radius: 7px;
 
@@ -172,7 +170,6 @@ export default {
 
     .md-app {
         height: 100%;
-        border: 1px solid rgba(#000, 0.12);
 
         /*         .md-app-toolbar {
             background: #fff;

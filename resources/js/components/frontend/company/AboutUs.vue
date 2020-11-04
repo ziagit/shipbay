@@ -4,7 +4,7 @@
         <Header v-on:togal-menu="$emit('togal-menu')" />
         <div class="content">
             <div class="md-display-1">About Us</div>
-            <div class="md-body-1">Meet the amazing team behind this project and find out more about how we work.</div>
+            <div class="md-body-1">Let’s book your shipment in a few taps.</div>
         </div>
     </div>
     <md-card>

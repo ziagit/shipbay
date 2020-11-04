@@ -7,7 +7,7 @@
     </div>
     <md-card>
         <div class="column1">
-            <div class="md-headline">Drop us a line</div>
+            <div class="md-display-1">Drop us a line</div>
             <form action="">
                 <md-field>
                     <label>Name</label>
@@ -27,17 +27,22 @@
             </form>
         </div>
         <div class="column2">
-            <div class="col1">
-                <div class="md-headline">Find us at the office</div>
-                <div class="md-body-1">bola bala boal</div>
+            <div class="row1">
+                <div class="md-headline"> <img :src="'/images/uploads/location.svg'" alt="2" width="20"> Find us at the office</div>
+                <div class="md-caption">Sheer Pur Main Road,</div>
+                <div class="md-caption">1001, Kabul</div>
+                <div class="md-caption">Afghanistan</div>
             </div>
-            <div class="col2">
-                <div class="md-headline">Give us a ring</div>
-                <div class="md-body-1">bola bala boal</div>
+            <div class="row2">
+                <div class="md-headline"> <img :src="'/images/uploads/phone.svg'" alt="2" width="20"> Give us a ring</div>
+                <div class="md-caption">Michael Jordan</div>
+                <div class="md-caption">+93 775 059 616</div>
+                <div class="md-caption">Mon - Fri, 8:00-22:00</div>
             </div>
-            <div class="col3">
-                <div class="md-headline">Legal information</div>
-                <div class="md-body-1">bola bala boal</div>
+            <div class="row3">
+                <div class="md-headline"> <img :src="'/images/uploads/bag.svg'" alt="2" width="20"> Legal information</div>
+                <div class="md-caption">Shipping TAP</div>
+                <div class="md-caption">Fast Delivery Agency</div>
             </div>
         </div>
 
@@ -73,11 +78,8 @@ export default {
 }
 
 .container {
-    height: 100vh;
-
     .header {
         background: #48494A;
-
         color: #fff;
     }
 
@@ -105,6 +107,7 @@ export default {
         width: 95%;
         margin: auto;
         margin-top: -50px;
+        margin-bottom: 30px;
         padding: 100px;
         display: flex;
         justify-content: space-between;
@@ -114,38 +117,31 @@ export default {
             flex: 70%;
             padding: 50px;
 
+            .md-display-1 {
+                color: #000;
+            }
+
             .md-button {
                 float: right;
             }
+
         }
 
         .column2 {
             flex: 30%;
             padding: 50px;
 
-            .col1,
-            .col2,
-            .col3 {
+            .row1,
+            .row2,
+            .row3 {
                 margin-bottom: 36px;
-            }
-        }
 
-        .md-card-content {
-            .md-display-1 {
-                font-size: 24px;
-            }
-
-            form {
-                display: flex;
-                justify-content: flex-end;
-                flex-wrap: wrap;
-
-                :nth-child(1) {
-                    flex: 40%;
+                .md-headline {
+                    font-size: 18px;
                 }
 
-                :nth-child(2) {
-                    flex: 60%;
+                .md-caption {
+                    margin-left: 25px;
                 }
             }
         }
