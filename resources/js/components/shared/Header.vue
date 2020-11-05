@@ -46,7 +46,7 @@ export default {
     left: 0;
 
     .md-icon {
-        color: #fff;
+        color: #000;
     }
 
     .left {
@@ -54,6 +54,8 @@ export default {
         align-items: center;
 
         h3 {
+            color: #000;
+
             span {
                 font-family: "Segoe Script", Helvetica, Arial;
                 font-size: 20px;
@@ -69,6 +71,11 @@ export default {
 
         .md-button {
             margin: 0;
+            color: #000;
+        }
+
+        span {
+            color: #000;
         }
     }
 

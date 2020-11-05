@@ -18,107 +18,97 @@
         </div>
     </div>
     <div class="wrapper">
+        <div class="section0">
+            <div class="col1">
+                <div class="md-display-1">4.8</div>
+                <div class="md-subheading">Customer Review</div>
+                <div>
+                    <router-link to="#">See All Reviews...</router-link>
+                </div>
+            </div>
+            <div class="col2">
+                <div class="md-display-1">76</div>
+                <div class="md-subheading">Business Product</div>
+                <div>
+                    <router-link to="#">See All Product...</router-link>
+                </div>
+            </div>
+            <div class="col3">
+                <div class="md-display-1">Trusted by over 250+ business partner around the world</div>
+            </div>
+        </div>
         <div class="section2">
-
-            <div class="row">
-                <img :src="'/images/uploads/transparent.svg'" width="50" alt="">
-                <div>
-                    <div class="md-title">Transparent </div>
-                    <div class="md-body-1">Upfront pricing and free quotes from
-                        hundreds of Carriers. know your
-                        shipment cost before you ship.</div>
-                </div>
+            <div class="heading">
+                <div class="md-display-1">Get ready for your business</div>
+                <div class="md-subheading">Get ready for your business</div>
             </div>
-            <div class="row with-shadow">
-                <img :src="'/images/uploads/nosignup.svg'" width="50" alt="">
-                <div>
-                    <div class="md-title">No Sign up </div>
-                    <div class="md-body-1">Get free quotes and book your
-                        shipment in a few taps. No sign up
-                        or membership required.</div>
-
-                </div>
-            </div>
-            <div class="row">
-                <img :src="'/images/uploads/inssured.svg'" width="50" alt="">
-                <div>
-                    <div class="md-title">Insured </div>
-                    <div class="md-body-1">All the shipments happening here
-                        are insured through our vetted
-                        Carriers insurance policy.
+            <div class="rows">
+                <div class="row">
+                    <img :src="'/images/uploads/transparent.svg'" width="35" alt="">
+                    <div>
+                        <div class="md-title">Transparent </div>
+                        <div class="md-body-1">Upfront pricing and free quotes from
+                            hundreds of Carriers. know your
+                            shipment cost before you ship.</div>
                     </div>
+                </div>
+                <div class="row with-shadow">
+                    <img :src="'/images/uploads/nosignup.svg'" width="35" alt="">
+                    <div>
+                        <div class="md-title">No Sign up </div>
+                        <div class="md-body-1">Get free quotes and book your
+                            shipment in a few taps. No sign up
+                            or membership required.</div>
 
+                    </div>
+                </div>
+                <div class="row">
+                    <img :src="'/images/uploads/inssured.svg'" width="35" alt="">
+                    <div>
+                        <div class="md-title">Insured </div>
+                        <div class="md-body-1">All the shipments happening here
+                            are insured through our vetted
+                            Carriers insurance policy.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="section3">
             <div class="text">
-                <div class="md-display-1">Book your shipment in 3 teps</div>
+                <div class="md-display-1">Tap The Specifications</div>
                 <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
                 <button class="md-button md-raised">Start Quoting</button>
             </div>
-            <div class="steps">
+            <div class="image">
                 <div class="head"></div>
-                <md-list class="md-double-line">
+                <img :src="'/images/uploads/dw.svg'" width="35" alt="">
+            </div>
+        </div>
+        <div class="section4">
+            <div class="image">
+                <div class="head"></div>
+                <img :src="'/images/uploads/select-carrier.svg'" width="35" alt="">
+            </div>
+            <div class="text">
+                <div class="md-display-1">Select The Carrier</div>
+                <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
+                <button class="md-button md-raised">Start Quoting</button>
+            </div>
 
-                    <md-list-item>
-                        <md-avatar>
-                            <img :src="'/images/uploads/dw.svg'" alt="People">
-                        </md-avatar>
-
-                        <div class="md-list-item-text">
-                            <span class="md-headline">Tap The Specifications</span>
-                            <span class="details">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations.</span>
-                        </div>
-
-                        <md-button class="md-icon-button md-list-action">
-                            <img :src="'/images/uploads/01.svg'" alt="1" width="12">
-                        </md-button>
-                    </md-list-item>
-                    <md-divider></md-divider>
-
-                    <md-list-item>
-                        <md-avatar>
-                            <img :src="'/images/uploads/select-carrier.svg'" alt="People">
-                        </md-avatar>
-                        <div class="md-list-item-text">
-                            <span class="md-headline">Select The Carrier</span>
-                            <span class="details">Tap on carrier of your choice based on their competitive price, review and customer ratings.</span>
-                        </div>
-
-                        <md-button class="md-icon-button md-list-action">
-                            <img :src="'/images/uploads/02.svg'" alt="2" width="15">
-                        </md-button>
-                    </md-list-item>
-                    <md-divider></md-divider>
-
-                    <md-list-item>
-                        <md-avatar>
-                            <img :src="'/images/uploads/tracking.svg'" alt="People">
-                        </md-avatar>
-                        <div class="md-list-item-text">
-                            <span class="md-headline">Track The Shipment</span>
-                            <span class="details">Tap on carrier of your Relax! we will notify you on every step taken on the shipment. Also, you can track your shipment 3live.</span>
-                        </div>
-
-                        <md-button class="md-icon-button md-list-action">
-                            <img :src="'/images/uploads/03.svg'" alt="3" width="15">
-                        </md-button>
-                    </md-list-item>
-
-                </md-list>
+        </div>
+        <div class="section5">
+            <div class="text">
+                <div class="md-display-1">Track The Shipment</div>
+                <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
+                <button class="md-button md-raised">Start Quoting</button>
+            </div>
+            <div class="image">
+                <div class="head"></div>
+                <img :src="'/images/uploads/tracking.svg'" width="35" alt="">
             </div>
         </div>
 
-    </div>
-
-    <div class="section6">
-        <div class="md-title">LET’S GET YOU A FREE QUOTE.</div>
-        <div class="md-body-1">What are you shipping today?</div>
-        <div>
-            <md-button class="md-default">freight</md-button>
-            <md-button class="md-default">moving</md-button>
-        </div>
     </div>
 
     <Footer />
@@ -166,43 +156,38 @@ export default {
     src: local("Segoe Script"),
         url('/fonts/Segoe Script.ttf') format("truetype");
 } */
-.bg {
-    background: #000;
-}
 
 .container {
     .section1 {
         text-align: left;
-        color: #fff;
         height: calc(100vh - 48px);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-        margin-bottom: 83px;
 
         .content {
             .heading {
-                text-align: center;
-                padding: 226px 0 12px 106px;
-                max-width: 586px;
+                text-align: left;
+                padding: 122px 0 12px 106px;
+                max-width: 665px;
 
                 /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
 
                 .md-display-1 {
-                    line-height: 50px;
-                    font-size: 46px;
+                    line-height: 60px;
+                    font-size: 53px;
                     font-weight: 600;
-                    color: #fff;
-                    margin-bottom: 0;
+                    color: #000;
                 }
 
                 .md-subheading {
                     line-height: 0px;
+                    color: #6D6E73;
                 }
 
                 .actions {
                     display: flex;
-                    justify-content: center;
+                    justify-content: left;
                     align-items: center;
                     margin-top: 59px;
 
@@ -222,46 +207,98 @@ export default {
     }
 
     .wrapper {
+        background: #fff;
         max-width: 1200px;
         margin: auto;
         padding-bottom: 126px;
 
-        .section2 {
-            padding: 46px 100px;
+        .section0 {
+            background: #fff;
+            min-height: 150px;
             display: flex;
             justify-content: space-around;
-            flex-wrap: wrap;
+            align-items: center;
+            padding: 46px 100px;
 
-            .row {
-                flex: 30%;
-                padding: 30px;
-                border: solid 1px #ddd;
-                border-radius: 3px;
-                margin: 10px;
+            .col1 {
+                flex: 25%;
 
-                img {
-                    padding: 10px;
-                    border-radius: 10px;
-                    background: #ffa5001f;
+                .md-display-1 {
+                    color: #F5C82F;
                 }
 
-                .md-title {
-                    line-height: 52px;
-                    font-weight: 600;
-                    line-height: 44px;
+                .md-subheading {
+                    color: #000;
                 }
             }
 
-            .with-shadow {
-                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-                border: none;
+            .col2 {
+                flex: 25%;
+
+                .md-display-1 {
+                    color: #F97D4B;
+                }
+
+                .md-subheading {
+                    color: #000;
+                }
+            }
+
+            .col3 {
+                flex: 50%;
+
+                .md-display-1 {
+                    color: #000;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .section2 {
+            padding: 46px 100px;
+            background: #fff;
+
+            .heading {
+                padding: 20px 20px 20px 0;
+
+                .md-display-1 {
+                    color: #000;
+                    font-weight: 500;
+                }
+            }
+
+            .rows {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+
+                .row {
+                    flex: 30%;
+                    padding: 30px;
+                    border: solid 1px #ddd;
+                    border-radius: 3px;
+                    margin: 10px;
+
+                    img {}
+
+                    .md-title {
+                        line-height: 52px;
+                        font-weight: 600;
+                        line-height: 44px;
+                    }
+                }
+
+                .with-shadow {
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+                    border: none;
+                }
             }
 
         }
 
         .section3 {
             background:
-                linear-gradient(to left bottom, rgb(255, 255, 255) 0%
+                linear-gradient(to left bottom, rgb(250, 250, 250) 0%
                     /*bottom-right color*/
                     , rgba(255, 255, 255, 0.5) 50%
                     /*middle color*/
@@ -275,6 +312,86 @@ export default {
             margin: 30px;
             min-height: 500px;
             max-width: 80%;
+            position: relative;
+
+            .text {
+
+                .md-display-1 {
+                    margin: 30px 0;
+                    max-width: 309px;
+                    font-weight: 600;
+                    color: #000;
+                }
+
+                .md-body-1 {
+                    max-width: 353px;
+                }
+
+                .md-button {
+                    margin-top: 98px;
+                    width: 164px !important;
+                    color: #fff;
+                }
+            }
+
+            .image {
+                min-width: 386px;
+                min-height: 350px;
+                background: #fff;
+                position: absolute;
+                right: -100px;
+                bottom: -50px;
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+
+                .head {
+                    min-height: 9px;
+                    width: 100%;
+                    background: #ffa500;
+                }
+
+                img {
+                    width: 100%;
+                    padding: 20px;
+                }
+
+            }
+        }
+
+        .section4 {
+            display: flex;
+            justify-content: space-between;
+            padding: 46px 100px;
+            margin: 30px;
+            min-height: 500px;
+
+            .image {
+                min-width: 386px;
+                padding: 30px;
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .text {
+                padding: 62px;
+
+                .md-display-1 {
+                    margin: 30px 0;
+                    max-width: 309px;
+                    font-weight: 600;
+                    color: #000;
+                }
+
+            }
+        }
+
+        .section5 {
+            display: flex;
+            justify-content: space-between;
+            padding: 46px 100px;
+            margin: 30px;
             position: relative;
 
             .text {
@@ -296,12 +413,9 @@ export default {
                 }
             }
 
-            .steps {
-
+            .image {
+                min-width: 386px;
                 background: #fff;
-                position: absolute;
-                right: -100px;
-                bottom: -50px;
                 box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 
                 .head {
@@ -310,57 +424,15 @@ export default {
                     background: #ffa500;
                 }
 
-                .md-list {
-                    padding: 42px;
+                img {
                     width: 100%;
-                    height: 100%;
-
-                    .md-list-item {
-                        padding: 20px;
-
-                        .md-avatar {
-                            width: 72px;
-                        }
-
-                        .md-headline {
-                            font-size: 18px;
-                            line-height: 1.5;
-                        }
-
-                        .details {
-                            max-width: 284px;
-                        }
-                    }
-
+                    padding: 20px;
                 }
+
             }
         }
     }
 
-    .section6 {
-        padding: 2.25em 1.6875em;
-        background-image: -webkit-repeating-radial-gradient(center center, rgba(255, 165, 0, 0.2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        background-image: -moz-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        background-image: -ms-repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        background-image: repeating-radial-gradient(center center, rgba(255, 165, 0, .2), rgba(255, 165, 0, .2) 1px, transparent 1px, transparent 100%);
-        -webkit-background-size: 3px 3px;
-        -moz-background-size: 3px 3px;
-        background-size: 3px 3px;
-        text-align: center;
-
-        :nth-child(3) {
-            margin-top: 20px;
-
-            .md-button {
-                border: solid 1px #333;
-            }
-        }
-    }
-
-}
-
-.md-body-1 {
-    width: 100% !important;
 }
 
 @media only screen and (max-width: 600px) {
