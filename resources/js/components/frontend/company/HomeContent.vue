@@ -78,7 +78,7 @@
         </div>
         <div class="section3" v-bind:style="{'background-image': 'url(/images/uploads/section3.svg)'}">
             <div class="text">
-                <div class="md-display-1">Tap The Specifications</div>
+                <div class="md-display-1">Tap the Specifications</div>
                 <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
                 <button class="md-button md-raised">Get New Quote</button>
             </div>
@@ -93,7 +93,7 @@
                 <img :src="'/images/uploads/select-carrier.svg'" width="35" alt="">
             </div>
             <div class="text">
-                <div class="md-display-1">Select The Carrier</div>
+                <div class="md-display-1">Select the Carrier</div>
                 <div class="md-body-1">Tap on carrier of your choice based on their competitive price, review and customer ratings.</div>
                 <button class="md-button md-raised">Select Carrier</button>
             </div>
@@ -101,7 +101,7 @@
         </div>
         <div class="section5">
             <div class="text">
-                <div class="md-display-1">Track The Shipment</div>
+                <div class="md-display-1">Track the Shipment</div>
                 <div class="md-body-1">Relax! we will notify you on every step taken on the shipment. Also, you can track your shipment live.</div>
                 <button class="md-button md-raised">Track Now</button>
             </div>
