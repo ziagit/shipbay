@@ -6,7 +6,7 @@
             <span class="md-list-item-text">Home</span>
         </md-list-item>
         <md-list-item to="/about" @click="hideMenu()">
-            <md-icon>business</md-icon>
+            <md-icon>info</md-icon>
             <span class="md-list-item-text">About Us</span>
         </md-list-item>
         <md-list-item to="/contact" @click="hideMenu()">
@@ -18,16 +18,16 @@
             <span class="md-list-item-text">How It Works</span>
         </md-list-item>
         <md-list-item to="/shippers" @click="hideMenu()">
-            <md-icon>store_mall_directory</md-icon>
+            <md-icon>local_mall</md-icon>
             <span class="md-list-item-text">Shippers</span>
         </md-list-item>
         <md-list-item to="/carriers" @click="hideMenu()">
-            <md-icon>send</md-icon>
+            <md-icon>local_shipping</md-icon>
             <span class="md-list-item-text">Carriers</span>
         </md-list-item>
 
         <!-- <md-list-item to="/contact" @click="hideMenu()">
-            <md-icon>call</md-icon>
+            <md-icon>contact_page</md-icon>
             <span class="md-list-item-text">Contact Us</span>
         </md-list-item> -->
         <md-divider></md-divider>
@@ -37,7 +37,7 @@
             <span class="md-list-item-text">Sign In</span>
         </md-list-item>
         <md-list-item to="/register" @click="hideMenu()">
-            <md-icon>add</md-icon>
+            <md-icon>supervised_user_circle</md-icon>
             <span class="md-list-item-text">Sign Up</span>
         </md-list-item>
         <!--
@@ -77,4 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.md-icon {
+    color: #000 !important;
+}
 </style>

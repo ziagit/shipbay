@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/bg.svg)'}">
+    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/bg.svg)'}">
         <Header v-on:togal-menu="$emit('togal-menu')" :class="{bg: isScrolled}" />
         <div class="content">
             <div class="heading">
@@ -18,19 +18,21 @@
         </div>
     </div>
     <div class="wrapper">
-        <div class="section0">
+        <div class="section1">
             <div class="col1">
-                <div class="md-display-1">4.8</div>
-                <div class="md-subheading">Customer Review</div>
+                <div class="md-display-1">8.8</div>
+                <div class="md-subheading">Carrier Review</div>
                 <div>
-                    <router-link to="#">See All Reviews...</router-link>
+                    <router-link to="#">See All Reviews <md-icon>keyboard_arrow_right</md-icon>
+                    </router-link>
                 </div>
             </div>
             <div class="col2">
-                <div class="md-display-1">76</div>
-                <div class="md-subheading">Business Product</div>
+                <div class="md-display-1">9.2</div>
+                <div class="md-subheading">Shipper Review</div>
                 <div>
-                    <router-link to="#">See All Product...</router-link>
+                    <router-link to="#">See All Reviews <md-icon>keyboard_arrow_right</md-icon>
+                    </router-link>
                 </div>
             </div>
             <div class="col3">
@@ -39,8 +41,8 @@
         </div>
         <div class="section2">
             <div class="heading">
-                <div class="md-display-1">Get ready for your business</div>
-                <div class="md-subheading">Get ready for your business</div>
+                <div class="md-display-1">Safe and no hassle shipping</div>
+                <div class="md-subheading">Get your freight safely shipped by a few taps.</div>
             </div>
             <div class="rows">
                 <div class="row">
@@ -74,11 +76,11 @@
                 </div>
             </div>
         </div>
-        <div class="section3">
+        <div class="section3" v-bind:style="{'background-image': 'url(/images/uploads/section3.svg)'}">
             <div class="text">
                 <div class="md-display-1">Tap The Specifications</div>
                 <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
-                <button class="md-button md-raised">Start Quoting</button>
+                <button class="md-button md-raised">Get New Quote</button>
             </div>
             <div class="image">
                 <div class="head"></div>
@@ -92,19 +94,18 @@
             </div>
             <div class="text">
                 <div class="md-display-1">Select The Carrier</div>
-                <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
-                <button class="md-button md-raised">Start Quoting</button>
+                <div class="md-body-1">Tap on carrier of your choice based on their competitive price, review and customer ratings.</div>
+                <button class="md-button md-raised">Select Carrier</button>
             </div>
 
         </div>
         <div class="section5">
             <div class="text">
                 <div class="md-display-1">Track The Shipment</div>
-                <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
-                <button class="md-button md-raised">Start Quoting</button>
+                <div class="md-body-1">Relax! we will notify you on every step taken on the shipment. Also, you can track your shipment live.</div>
+                <button class="md-button md-raised">Track Now</button>
             </div>
             <div class="image">
-                <div class="head"></div>
                 <img :src="'/images/uploads/tracking.svg'" width="35" alt="">
             </div>
         </div>
@@ -158,7 +159,7 @@ export default {
 } */
 
 .container {
-    .section1 {
+    .section0 {
         text-align: left;
         height: calc(100vh - 48px);
         background-repeat: no-repeat;
@@ -212,7 +213,7 @@ export default {
         margin: auto;
         padding-bottom: 126px;
 
-        .section0 {
+        .section1 {
             background: #fff;
             min-height: 150px;
             display: flex;
@@ -225,6 +226,7 @@ export default {
 
                 .md-display-1 {
                     color: #F5C82F;
+                    font-weight: 500;
                 }
 
                 .md-subheading {
@@ -237,6 +239,7 @@ export default {
 
                 .md-display-1 {
                     color: #F97D4B;
+                    font-weight: 500;
                 }
 
                 .md-subheading {
@@ -249,7 +252,9 @@ export default {
 
                 .md-display-1 {
                     color: #000;
-                    font-weight: 400;
+                    font-size: 24px;
+                    font-weight: 500;
+                    max-width: 310px;
                 }
             }
         }
@@ -297,19 +302,11 @@ export default {
         }
 
         .section3 {
-            background:
-                linear-gradient(to left bottom, rgb(250, 250, 250) 0%
-                    /*bottom-right color*/
-                    , rgba(255, 255, 255, 0.5) 50%
-                    /*middle color*/
-                    , rgba(255, 187, 0, 0.13) 100%
-                    /*top-left color*/
-                )
-                /*"faked" black background make sure to add last or it will appear before the transparent/colored layer*/
-            ;
-
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
             padding: 46px 100px;
-            margin: 30px;
+            margin: 30px 30px 88px 30px;
             min-height: 500px;
             max-width: 80%;
             position: relative;
@@ -366,7 +363,7 @@ export default {
 
             .image {
                 min-width: 386px;
-                padding: 30px;
+                padding: 12px;
                 box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 
                 img {
@@ -375,13 +372,18 @@ export default {
             }
 
             .text {
-                padding: 62px;
+                padding: 18px 60px;
 
                 .md-display-1 {
                     margin: 30px 0;
                     max-width: 309px;
                     font-weight: 600;
                     color: #000;
+                }
+
+                .md-button {
+                    margin-top: 98px;
+                    width: 164px !important;
                 }
 
             }
@@ -391,7 +393,7 @@ export default {
             display: flex;
             justify-content: space-between;
             padding: 46px 100px;
-            margin: 30px;
+            margin: 0 30px;
             position: relative;
 
             .text {
@@ -415,18 +417,10 @@ export default {
 
             .image {
                 min-width: 386px;
-                background: #fff;
                 box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-
-                .head {
-                    min-height: 9px;
-                    width: 100%;
-                    background: #ffa500;
-                }
 
                 img {
                     width: 100%;
-                    padding: 20px;
                 }
 
             }

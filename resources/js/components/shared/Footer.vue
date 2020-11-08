@@ -82,12 +82,12 @@ export default {
 }
 
 .footer {
+    background: #ffa50014;
+    min-height: 150px;
+
     .md-body-1 {
         width: 100% !important;
     }
-
-    background: #EDF3FF;
-    min-height: 150px;
 
     .cols {
         max-width: 1200px;

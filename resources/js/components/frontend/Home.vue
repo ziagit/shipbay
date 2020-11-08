@@ -3,7 +3,7 @@
     <md-app md-mode="reveal">
 
         <md-app-drawer :md-active.sync="menuVisible">
-            <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
+            <md-toolbar class="md-transparent" md-elevation="0"><span class="logo">Shipping </span> TAP</md-toolbar>
 
             <AdminSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-if="authenticated && user.role[0].name === 'admin'" />
             <WebSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-else />
@@ -171,6 +171,14 @@ export default {
     .md-app {
         height: 100%;
 
+        .md-toolbar {
+            span {
+                font-family: "Segoe Script", Helvetica, Arial;
+                margin-right: 10px;
+                font-size: 18px;
+            }
+        }
+
         /*         .md-app-toolbar {
             background: #fff;
             box-shadow: 0 2px 4px -3px rgba(0, 0, 0, 0.2),
@@ -194,6 +202,7 @@ export default {
             .md-icon {
                 color: #fff;
             }
+
         }
 
     }
