@@ -142,6 +142,18 @@ export default new VueRouter({
             children: [
                 { path: '', redirect: 'home' },
                 { name: 'home', path: 'home', component: HomeContent },
+                { name: 'about', path: 'about', component: AboutUs },
+                { name: 'contact', path: 'contact', component: ContactUs },
+                { name: 'services', path: 'services', component: OurServices },
+                { name: 'services-details', path: 'service-details', component: ServiceDetails },
+                { name: 'help', path: 'help', component: Help },
+                { name: 'signin', path: '/login', component: Login },
+                { name: 'signup', path: '/register', component: Register },
+                { name: 'welcome', path: '/welcome', component: Welcome },
+                { name: 'checkout', path: '/checkout', component: Card },
+                { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },
+                { name: 'privacy', path: '/privacy-policies', component: Privacy},
+                { name: 'terms', path: '/terms-and-conditions', component: Terms},
                 {
                     name: 'order',
                     path: 'order',
@@ -251,18 +263,7 @@ export default new VueRouter({
                     ],
                     beforeEnter: webGuard
                 },
-                { name: 'about', path: 'about', component: AboutUs },
-                { name: 'contact', path: 'contact', component: ContactUs },
-                { name: 'services', path: 'services', component: OurServices },
-                { name: 'services-details', path: 'service-details', component: ServiceDetails },
-                { name: 'help', path: 'help', component: Help },
-                { name: 'signin', path: '/login', component: Login },
-                { name: 'signup', path: '/register', component: Register },
-                { name: 'welcome', path: '/welcome', component: Welcome },
-                { name: 'checkout', path: '/checkout', component: Card },
-                { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },
-                { name: 'privacy', path: '/privacy-policies', component: Privacy},
-                { name: 'terms', path: '/terms-and-conditions', component: Terms},
+               
 
                 {
                     name: 'admin',

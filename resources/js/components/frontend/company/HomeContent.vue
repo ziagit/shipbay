@@ -9,7 +9,7 @@
                 <h3 @click="$router.push('/')"><span>Shipping </span> TAP</h3>
             </div>
             <div class="right">
-                <md-button class="md-icon-button" @click="menuTogal()">
+                <md-button class="md-icon-button" @click="track()">
                     <md-icon>location_on</md-icon>
                 </md-button>
                 <span @click="$router.push('/')">Track</span>
@@ -26,7 +26,7 @@
                     <form action="">
                         <div class="inputs">
                             <md-icon>location_on</md-icon>
-                            <md-input v-model="initial" placeholder="Postal code"></md-input>
+                            <input v-model="zip" placeholder="Postal code" />
                             <button type="submit">
                                 <md-icon>east</md-icon>
                             </button>
@@ -161,9 +161,15 @@
 import Footer from "../shared/Footer"
 
 export default {
-    name: "HomeContainer",
-    data: () => ({}),
-    methods: {},
+    name: "HomeContent",
+    data: () => ({
+        zip: null
+    }),
+    methods: {
+        menuTogal() {
+            this.$emit('menu-togal');
+        }
+    },
     components: {
         Footer,
     },

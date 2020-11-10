@@ -10,7 +10,7 @@
         </md-app-drawer>
 
         <md-app-content>
-            <router-view></router-view>
+            <router-view v-on:menu-togal="menuTogal"></router-view>
         </md-app-content>
     </md-app>
 
@@ -127,6 +127,10 @@ export default {
                 });
             }
         },
+        menuTogal() {
+            this.menuVisible = !this.menuVisible
+            console.log("ohk. working event")
+        }
     },
     created() {
         this.getNotifications();
