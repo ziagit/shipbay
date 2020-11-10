@@ -78,37 +78,54 @@
         </div>
         <div class="section3" v-bind:style="{'background-image': 'url(/images/uploads/section3.svg)'}">
             <div class="text">
-                <div class="md-display-1">Tap the Specifications</div>
-                <div class="md-body-1">Specify your shipment and schedule the date. Tap on different services you may need in the pick-up and drop-off 1locations</div>
-                <button class="md-button md-raised">Get New Quote</button>
+                <div class="md-display-1">Shipment On Tap</div>
+                <div class="md-body-1">Now, you can get your free quotes
+                    and book your shipments in a few
+                    taps.</div>
             </div>
-            <div class="image">
+            <div class="steps">
                 <div class="head"></div>
-                <img :src="'/images/uploads/dw.svg'" width="35" alt="">
-            </div>
-        </div>
-        <div class="section4">
-            <div class="image">
-                <div class="head"></div>
-                <img :src="'/images/uploads/select-carrier.svg'" width="35" alt="">
-            </div>
-            <div class="text">
-                <div class="md-display-1">Select the Carrier</div>
-                <div class="md-body-1">Tap on carrier of your choice based on their competitive price, review and customer ratings.</div>
-                <button class="md-button md-raised">Select Carrier</button>
-            </div>
+                <ul>
+                    <li>
+                        <div class="avatar">
+                            <img :src="'/images/uploads/dw.svg'" alt="People">
+                        </div>
+                        <div class="text">
+                            <div class="md-headline">List your items</div>
+                            <div class="details">Specify the shipment and schedule a date.</div>
+                        </div>
+                    </li>
 
-        </div>
-        <div class="section5">
-            <div class="text">
-                <div class="md-display-1">Track the Shipment</div>
-                <div class="md-body-1">Relax! we will notify you on every step taken on the shipment. Also, you can track your shipment live.</div>
-                <button class="md-button md-raised">Track Now</button>
+                    <md-divider></md-divider>
+
+                    <li>
+                        <div class="avatar">
+                            <img :src="'/images/uploads/select-carrier.svg'" alt="People">
+                        </div>
+                        <div class="text">
+                            <div class="md-headline">Select a Carrier</div>
+                            <div class="details">Chose a service provider with the lowest price and best customer ratings.</div>
+                        </div>
+                    </li>
+                    <md-divider></md-divider>
+                    <li>
+                        <div class="avatar">
+                            <img :src="'/images/uploads/tracking.svg'" alt="People">
+                        </div>
+                        <div class="text">
+                            <div class="md-headline">Track your order</div>
+                            <div class="details">Relax! we will notify you on every step taken. Also, you can track the shipment live.</div>
+                        </div>
+                    </li>
+
+                </ul>
             </div>
-            <div class="image">
-                <img :src="'/images/uploads/tracking.svg'" width="35" alt="">
-            </div>
         </div>
+    </div>
+    <div class="section4">
+
+    </div>
+    <div class="section5">
 
     </div>
 
@@ -306,13 +323,12 @@ export default {
             background-size: cover;
             background-position: center center;
             padding: 46px 100px;
-            margin: 30px 30px 88px 30px;
+            margin: 30px;
             min-height: 500px;
             max-width: 80%;
             position: relative;
 
             .text {
-
                 .md-display-1 {
                     margin: 30px 0;
                     max-width: 309px;
@@ -331,9 +347,8 @@ export default {
                 }
             }
 
-            .image {
-                min-width: 386px;
-                min-height: 350px;
+            .steps {
+                max-width: 500px;
                 background: #fff;
                 position: absolute;
                 right: -100px;
@@ -346,212 +361,89 @@ export default {
                     background: #ffa500;
                 }
 
-                img {
-                    width: 100%;
-                    padding: 20px;
-                }
+                ul {
+                    padding: 0;
+                    margin: 0;
 
+                    li {
+                        padding: 20px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        .avatar {
+                            display: flex;
+                            flex: 25%;
+                            padding: 10px;
+                        }
+
+                        .text {
+                            flex: 75%;
+                            padding: 10px;
+                        }
+                    }
+                }
             }
         }
 
-        .section4 {
-            display: flex;
-            justify-content: space-between;
-            padding: 46px 100px;
-            margin: 30px;
-            min-height: 500px;
+        .section4 {}
 
-            .image {
-                min-width: 386px;
-                padding: 12px;
-                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+        .section5 {}
 
-                img {
-                    width: 100%;
-                }
-            }
-
-            .text {
-                padding: 18px 60px;
-
-                .md-display-1 {
-                    margin: 30px 0;
-                    max-width: 309px;
-                    font-weight: 600;
-                    color: #000;
-                }
-
-                .md-button {
-                    margin-top: 98px;
-                    width: 164px !important;
-                }
-
-            }
-        }
-
-        .section5 {
-            display: flex;
-            justify-content: space-between;
-            padding: 46px 100px;
-            margin: 0 30px;
-            position: relative;
-
-            .text {
-                .md-display-1 {
-                    margin: 30px 0;
-                    max-width: 309px;
-                    font-weight: 600;
-                    color: #000;
-                }
-
-                .md-body-1 {
-                    max-width: 353px;
-                }
-
-                .md-button {
-                    margin-top: 98px;
-                    width: 164px !important;
-                    color: #fff;
-                }
-            }
-
-            .image {
-                min-width: 386px;
-                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-
-                img {
-                    width: 100%;
-                }
-
-            }
-        }
     }
 
-}
+    @media only screen and (max-width: 600px) {
+        .section1 {
+            background-position: right !important;
 
-@media only screen and (max-width: 600px) {
-    .section1 {
-        background-position: right !important;
+            .content {
+                .heading {
+                    padding: 94px 20px !important;
 
-        .content {
-            .heading {
-                padding: 94px 20px !important;
-
-                .md-display-1 {
-                    font-size: 36px !important;
+                    .md-display-1 {
+                        font-size: 36px !important;
+                    }
                 }
             }
         }
-    }
 
-    .section2 {
-        padding: 0px 20px 20px 20px !important;
+        .section2 {
+            padding: 0px 20px 20px 20px !important;
 
-        .row {
-            flex: 100% !important;
+            .row {
+                flex: 100% !important;
+            }
         }
-    }
 
-    .section3 {
-        margin: 0 !important;
-        max-width: 100% !important;
-        padding: 20px !important;
-        text-align: center;
+        .section3 {
+            margin: 0 !important;
+            max-width: 100% !important;
+            padding: 20px !important;
+            text-align: center;
 
-        .steps {
-            position: relative !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            margin-top: 44px !important;
+            .steps {
+                position: relative !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                margin-top: 44px !important;
 
-            .md-list {
-                padding: 0 !important;
-
-                .md-list-item-content {
+                .md-list {
                     padding: 0 !important;
 
-                    .md-headline {
-                        font-size: 14px !important;
-                    }
+                    .md-list-item-content {
+                        padding: 0 !important;
 
-                    .details {
-                        font-size: 10px !important;
+                        .md-headline {
+                            font-size: 14px !important;
+                        }
+
+                        .details {
+                            font-size: 10px !important;
+                        }
                     }
                 }
             }
         }
     }
+
 }
-
-/* @media only screen and (min-width: 1179px) {
-    .section3 {
-        .row {
-            .text {
-                .row1 {
-                    .md-title {
-                        margin-left: 74px !important;
-                    }
-                }
-
-                .row2 {
-                    padding-left: 73px !important;
-                }
-            }
-        }
-    }
-
-    .section4 {
-        padding: 0 20px;
-
-        .row {
-            display: flex;
-            justify-content: space-between;
-
-            .text {
-                flex: 40%;
-                display: flex;
-                justify-content: space-between;
-                padding: 20px 0 20px 72px;
-
-                .col1 {
-                    flex: 18%;
-                    align-self: flex-end;
-
-                    img {
-                        width: 100%;
-                    }
-                }
-
-                .col2 {
-
-                    padding: 84px 10px 0 10px !important;
-                    margin-bottom: -10px;
-                }
-
-                .col3 {
-
-                    padding-top: 76px !important;
-
-                }
-            }
-
-        }
-    }
-
-    .section5 {
-
-        .row {
-
-            .text {
-
-                .col3 {
-
-                    padding-top: 56px !important;
-
-                }
-            }
-
-        }
-    }
-} */
 </style>

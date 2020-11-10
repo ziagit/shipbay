@@ -3,39 +3,66 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 84 80" style="enable-background:new 0 0 84 80;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:none;stroke:#448AFF;stroke-miterlimit:10;}
-	.st1{fill:none;stroke:#67ACEF;stroke-miterlimit:10;}
-	.st2{fill:none;stroke:#87BDF4;stroke-miterlimit:10;}
-	.st3{fill:none;stroke:#FFA500;stroke-width:0.25;stroke-miterlimit:10;}
-	.st4{fill:none;stroke:#050505;stroke-width:0.25;stroke-miterlimit:10;}
-	.st5{font-family:'Calibri-Light';}
-	.st6{font-size:2.5033px;}
+	.st0{fill:none;stroke:#C17805;stroke-width:0.25;stroke-miterlimit:10;}
+	.st1{stroke:#C17805;stroke-miterlimit:10;}
+	.st2{font-family:'Calibri-Light';}
+	.st3{font-size:4.231px;}
+	.st4{fill:#C17805;stroke:#C17805;stroke-miterlimit:10;}
+	.st5{font-size:6.1714px;}
+	.st6{font-size:4.7455px;}
+	.st7{fill:#FEFEFE;}
+	.st8{fill:#FFA500;}
+	.st9{fill:#F49806;}
+	.st10{fill:#DD8903;}
 </style>
-<path class="st0" d="M19.2,29.6h43v36.6h-43L19.2,29.6z"/>
-<path class="st1" d="M20.9,27.4c2.1-1.9,3.7-3.4,5.3-4.9c3.8-3.3,7.7-6.6,11.6-9.9c0.6-0.5,1.3-0.8,2.1-0.9c12.7-0.1,25.4,0,38.4,0
-	c-0.3,0.5-0.7,1-1.1,1.4c-4.3,4.3-8.7,8.7-13,13c-0.6,0.7-1.5,1.1-2.4,1.2C48.4,27.5,35,27.4,20.9,27.4z"/>
-<path class="st2" d="M64.5,64.2c0-11.4,0-22.4,0-33.3c0-0.6,0.2-1.2,0.6-1.7c4.8-4.9,9.7-9.7,14.8-14.8c0.1,1,0.2,1.6,0.2,2.1
-	c0,8-0.1,16,0.1,24c0,3.3-0.3,6.1-2.8,8.8c-4.1,4.3-7.6,9.1-11.4,13.7C65.4,63.4,65,63.8,64.5,64.2z"/>
-<line class="st3" x1="10.7" y1="29" x2="10.7" y2="66.2"/>
-<line class="st3" x1="10.7" y1="29" x2="9.5" y2="30.3"/>
-<line class="st3" x1="10.7" y1="29" x2="12" y2="30.3"/>
-<line class="st3" x1="10.7" y1="66.8" x2="9.5" y2="65.4"/>
-<line class="st3" x1="10.7" y1="66.8" x2="12" y2="65.4"/>
-<line class="st3" x1="18.9" y1="73.1" x2="61.4" y2="73.4"/>
-<line class="st3" x1="18.9" y1="73.1" x2="20.8" y2="74.4"/>
-<line class="st3" x1="18.9" y1="73.1" x2="20.8" y2="71.9"/>
-<line class="st3" x1="62.1" y1="73.3" x2="60.2" y2="74.6"/>
-<line class="st3" x1="62.1" y1="73.3" x2="60.2" y2="72.1"/>
-<line class="st3" x1="68.1" y1="69.3" x2="83.3" y2="49.9"/>
-<line class="st3" x1="68.1" y1="69.3" x2="69.7" y2="69.5"/>
-<line class="st3" x1="68.1" y1="69.3" x2="68.3" y2="67.7"/>
-<line class="st3" x1="83.5" y1="49.6" x2="83.3" y2="51.3"/>
-<line class="st3" x1="83.5" y1="49.6" x2="81.9" y2="50.5"/>
-<line class="st4" x1="12.6" y1="3.7" x2="35.1" y2="3.7"/>
-<text transform="matrix(1 0 0 1 0.48 4.4217)" class="st5 st6">Dim weight</text>
-<text transform="matrix(1 0 0 1 17.0804 3.0253)" class="st5 st6">H  x  W  x  L</text>
-<text transform="matrix(1 0 0 1 21.0804 6.0253)" class="st5 st6">166</text>
-<text transform="matrix(1 0 0 1 8.0804 49.0253)" class="st5 st6">H</text>
-<text transform="matrix(1 0 0 1 39.0804 76.0253)" class="st5 st6">L</text>
-<text transform="matrix(1 0 0 1 75.0804 63.0253)" class="st5 st6">W</text>
+<line class="st0" x1="3.7" y1="18.7" x2="3.7" y2="50.3"/>
+<g>
+	<line class="st0" x1="3.7" y1="19" x2="2.5" y2="20.3"/>
+	<line class="st0" x1="3.7" y1="19" x2="5" y2="20.3"/>
+</g>
+<g>
+	<line class="st0" x1="3.7" y1="50.5" x2="2.5" y2="49.3"/>
+	<line class="st0" x1="3.7" y1="50.5" x2="5" y2="49.3"/>
+</g>
+<text transform="matrix(1 0 0 1 8.056641e-02 37.4355)" class="st1 st2 st3">H</text>
+<g>
+	<g>
+		<g>
+			<line class="st0" x1="4.2" y1="55.8" x2="40" y2="78.7"/>
+			<line class="st0" x1="4.2" y1="55.8" x2="5.1" y2="57.9"/>
+			<line class="st0" x1="4.2" y1="55.8" x2="6.4" y2="55.8"/>
+		</g>
+		<g>
+			<line class="st0" x1="40.4" y1="78.9" x2="38.1" y2="78.6"/>
+			<line class="st0" x1="40.4" y1="78.9" x2="39.8" y2="76.8"/>
+		</g>
+	</g>
+	<text transform="matrix(0.743 0 0 1 20.5054 72.1289)" class="st4 st2 st5">L</text>
+</g>
+<g>
+	<g>
+		<line class="st0" x1="47.3" y1="79.3" x2="49.1" y2="79.4"/>
+		<line class="st0" x1="47.3" y1="79.3" x2="47.8" y2="77.4"/>
+		<g>
+			<line class="st0" x1="47.3" y1="79.3" x2="83" y2="56.7"/>
+			<line class="st0" x1="83.5" y1="56.4" x2="82.9" y2="58.4"/>
+			<line class="st0" x1="83.5" y1="56.4" x2="81.2" y2="56.4"/>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 68.0801 69.8555)" class="st1 st2 st6">W</text>
+</g>
+<path class="st7" d="M12.4,7C12.3,7,12.3,7,12.4,7C12.3,7,12.3,7,12.4,7z"/>
+<path class="st7" d="M74.9,7.1C74.9,7,74.8,7,74.9,7.1C74.8,7,74.9,7,74.9,7.1z"/>
+<path class="st7" d="M12.3,60.7C12.3,60.7,12.3,60.8,12.3,60.7C12.3,60.8,12.3,60.7,12.3,60.7z"/>
+<g>
+	<path class="st8" d="M15.4,18.2c1-0.6,2-1.2,3-1.8C26.4,11.6,34.3,8,42.3,3.2c0.3-0.2,0.5-0.2,0.8,0c8.8,5.2,17.6,9.4,26.3,14.6
+		c0.2,0.1,0.3,0.2,0.5,0.3c-1.3,0.8-2.5,1.5-3.8,2.2c-7.7,4.6-15.4,9.1-23.1,13.7c-0.3,0.2-0.4,0.2-0.7,0
+		c-8.8-5.2-17.7-10.5-26.5-15.7C15.7,18.4,15.6,18.3,15.4,18.2z"/>
+	<path class="st9" d="M45.3,67.9c0-0.2,0-0.4,0-0.5c0-9.7,0-19.3,0-29c0-0.4,0.1-0.6,0.5-0.8c8.7-5.1,17.3-10.2,25.9-15.3
+		c0.1-0.1,0.3-0.1,0.5-0.3c0,0.3,0,0.4,0,0.6c0,9.8,0,19.5,0,29.3c0,0.4-0.1,0.6-0.5,0.9c-8.6,4.9-17.2,9.8-25.8,14.8
+		C45.7,67.7,45.5,67.8,45.3,67.9z"/>
+	<path class="st10" d="M13.3,22c1.9,1.1,3.7,2.2,5.5,3.2c7,4.1,13.9,8.2,20.9,12.3c0.3,0.2,0.4,0.3,0.4,0.6c0,9.8,0,19.5,0,29.3
+		c0,0.1,0,0.2,0,0.3c-0.2-0.1-0.3-0.1-0.4-0.2c-8.7-5-17.4-9.9-26-14.9c-0.3-0.1-0.4-0.3-0.4-0.6c0-9.9,0-19.8,0-29.7
+		C13.3,22.4,13.3,22.3,13.3,22z"/>
+</g>
 </svg>
