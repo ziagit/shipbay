@@ -87,7 +87,7 @@
 
 <script>
 import axios from "axios";
-import Spinner from "../../shared/Spinner";
+import Spinner from "../../../shared/Spinner";
 import functions from "../../services/functions";
 export default {
     name: "orderDetails",

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import Footer from '../shared/Footer';
+import Footer from '../../shared/Footer';
 export default {
     name: "CarrierProfile",
     data: () => ({

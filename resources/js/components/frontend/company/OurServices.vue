@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import Footer from "../shared/Footer"
+import Footer from "../../shared/Footer"
 import axio from "axios";
 export default {
     name: "services",

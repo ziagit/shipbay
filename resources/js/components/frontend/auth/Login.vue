@@ -1,28 +1,32 @@
 <template>
-<div class="login">
-    <md-card mode="ios">
-        <md-card-header>
-            <div class="md-title">Login</div>
-        </md-card-header>
-        <md-card-content>
-            <Spinner v-if="dataLoading" />
-            <form @submit.prevent="submit">
-                <md-field>
-                    <label>Username</label>
-                    <md-input type="email" v-model="form.email" required></md-input>
-                </md-field>
-                <md-field>
-                    <label>Password</label>
-                    <md-input type="password" v-model="form.password" required></md-input>
-                </md-field>
-                <md-button type="submit" class="md-primary">Login</md-button>
-            </form>
-            <md-button to="/register" class="md-primary">Register</md-button>
-        </md-card-content>
-        <div class="login-througth">
-            <md-button to="/order/additional-details" class="primary" v-if="orderExist">Continue as guest</md-button>
-        </div>
-    </md-card>
+<div class="container">
+    <Header v-on:togal-menu="$emit('togal-menu')" />
+    <div class="content">
+        <md-card mode="ios">
+            <md-card-header>
+                <div class="md-title">Login</div>
+            </md-card-header>
+            <md-card-content>
+                <Spinner v-if="dataLoading" />
+                <form @submit.prevent="submit">
+                    <md-field>
+                        <label>Username</label>
+                        <md-input type="email" v-model="form.email" required></md-input>
+                    </md-field>
+                    <md-field>
+                        <label>Password</label>
+                        <md-input type="password" v-model="form.password" required></md-input>
+                    </md-field>
+                    <md-button type="submit" class="md-primary">Login</md-button>
+                </form>
+                <md-button to="/register" class="md-primary">Register</md-button>
+            </md-card-content>
+            <div class="login-througth">
+                <md-button to="/order/additional-details" class="primary" v-if="orderExist">Continue as guest</md-button>
+            </div>
+        </md-card>
+    </div>
+    <Footer />
     <Snackbar :data="snackbar" />
 </div>
 </template>
@@ -33,8 +37,10 @@ import {
     mapActions,
     mapGetters
 } from "vuex";
-import Spinner from "../shared/Spinner";
-import Snackbar from "../shared/Snackbar";
+import Spinner from "../../shared/Spinner";
+import Snackbar from "../../shared/Snackbar";
+import Header from "../../shared/Header";
+import Footer from "../../shared/Footer";
 export default {
     name: "Login",
     data: () => ({
@@ -117,51 +123,62 @@ export default {
     components: {
         Spinner,
         Snackbar,
+        Header,
+        Footer,
     },
 };
 </script>
 
 <style lang="scss" scoped>
-.login {
+.container {
     width: 100%;
-    height: calc(100vh - 200px);
-    padding: 20px;
 
-    .md-card {
-        margin: auto;
-        text-align: center;
-        background: #fff;
+    .header {
+        border-bottom: solid 1px #fff;
 
-        .md-card-content {
-            padding: 20px;
-        }
+    }
 
-        .login-througth {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
+    .content {
+        padding: 108px 20px;
+        height: calc(100vh - 3px);
 
-            .md-button {
-                font-size: 8px;
+        .md-card {
+            margin: auto;
+            text-align: center;
+            background: #fff;
+            max-width: 500px;
+
+            .md-card-content {
+                padding: 20px;
             }
 
-            ion-label {
-                font-size: 12px;
-            }
-        }
+            .login-througth {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
 
-        .md-display-1 {
-            font-size: 24px;
+                .md-button {
+                    font-size: 8px;
+                }
+
+                ion-label {
+                    font-size: 12px;
+                }
+            }
+
+            .md-display-1 {
+                font-size: 24px;
+            }
         }
     }
+
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 600px) {
     .login {
         padding-top: 3em;
 
         .md-card {
-            max-width: 500px;
 
             .login-througth {
                 .md-button {

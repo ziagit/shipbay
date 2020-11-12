@@ -1,11 +1,13 @@
 <template>
 <div class="container">
     <div class="section1">
+        <Header v-on:togal-menu="$emit('togal-menu')" />
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31958839.600046597!2d-128.4053053!3d60.7318475!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537a66c7aa6b6aaf%3A0x881b41e937e7f1f9!2sBritish%20Columbia%2C%20Canada!5e0!3m2!1sen!2s!4v1603098152028!5m2!1sen!2s" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <div class="mask"></div>
     </div>
     <md-card>
         <div class="column1">
-            <div class="md-headline">Drop us a line</div>
+            <div class="md-display-1">Drop us a line</div>
             <form action="">
                 <md-field>
                     <label>Name</label>
@@ -25,17 +27,22 @@
             </form>
         </div>
         <div class="column2">
-            <div class="col1">
-                <div class="md-headline">Find us at the office</div>
-                <div class="md-body-1">bola bala boal</div>
+            <div class="row1">
+                <div class="md-headline"> <img :src="'/images/uploads/location.svg'" alt="2" width="20"> Find us at the office</div>
+                <div class="md-caption">Sheer Pur Main Road,</div>
+                <div class="md-caption">1001, Kabul</div>
+                <div class="md-caption">Afghanistan</div>
             </div>
-            <div class="col2">
-                <div class="md-headline">Give us a ring</div>
-                <div class="md-body-1">bola bala boal</div>
+            <div class="row2">
+                <div class="md-headline"> <img :src="'/images/uploads/phone.svg'" alt="2" width="20"> Give us a ring</div>
+                <div class="md-caption">Michael Jordan</div>
+                <div class="md-caption">+93 775 059 616</div>
+                <div class="md-caption">Mon - Fri, 8:00-22:00</div>
             </div>
-            <div class="col3">
-                <div class="md-headline">Legal information</div>
-                <div class="md-body-1">bola bala boal</div>
+            <div class="row3">
+                <div class="md-headline"> <img :src="'/images/uploads/bag.svg'" alt="2" width="20"> Legal information</div>
+                <div class="md-caption">Shipping TAP</div>
+                <div class="md-caption">Fast Delivery Agency</div>
             </div>
         </div>
 
@@ -45,7 +52,8 @@
 </template>
 
 <script>
-import Footer from "../shared/Footer"
+import Footer from "../../shared/Footer"
+import Header from "../../shared/Header"
 import axio from "axios";
 export default {
     name: "ContactUs",
@@ -58,14 +66,26 @@ export default {
     }),
     methods: {},
     components: {
-        Footer
+        Footer,
+        Header,
     }
 };
 </script>
 
 <style lang="scss" scoped>
+.header .md-icon {
+    color: #000 !important;
+}
+
 .container {
-    height: 100vh;
+    .header {
+        background: #48494A;
+        color: #fff;
+    }
+
+    .header .md-icon {
+        color: #000 !important;
+    }
 
     iframe {
         left: 0;
@@ -74,9 +94,20 @@ export default {
         width: 100%;
     }
 
+    /*     .mask {
+        position: absolute;
+        top: 50px;
+        height: 305px;
+        width: 100%;
+        background: #000;
+        opacity: 0.7;
+    } */
+
     .md-card {
         width: 95%;
+        margin: auto;
         margin-top: -50px;
+        margin-bottom: 30px;
         padding: 100px;
         display: flex;
         justify-content: space-between;
@@ -86,38 +117,31 @@ export default {
             flex: 70%;
             padding: 50px;
 
+            .md-display-1 {
+                color: #000;
+            }
+
             .md-button {
                 float: right;
             }
+
         }
 
         .column2 {
             flex: 30%;
             padding: 50px;
 
-            .col1,
-            .col2,
-            .col3 {
+            .row1,
+            .row2,
+            .row3 {
                 margin-bottom: 36px;
-            }
-        }
 
-        .md-card-content {
-            .md-display-1 {
-                font-size: 24px;
-            }
-
-            form {
-                display: flex;
-                justify-content: flex-end;
-                flex-wrap: wrap;
-
-                :nth-child(1) {
-                    flex: 40%;
+                .md-headline {
+                    font-size: 18px;
                 }
 
-                :nth-child(2) {
-                    flex: 60%;
+                .md-caption {
+                    margin-left: 25px;
                 }
             }
         }

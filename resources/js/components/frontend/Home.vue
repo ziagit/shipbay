@@ -3,23 +3,24 @@
     <md-app md-mode="reveal">
 
         <md-app-drawer :md-active.sync="menuVisible">
-            <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
+            <md-toolbar class="md-transparent" md-elevation="0"><span class="logo">Shipping </span> TAP</md-toolbar>
 
-            <AdminSideMenu v-on:hideSideMenu="toggleSideMenu" v-if="authenticated && user.role[0].name === 'admin'" />
-            <WebSideMenu v-on:hideSideMenu="toggleSideMenu" v-else />
+            <AdminSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-if="authenticated && user.role[0].name === 'admin'" />
+            <WebSideMenu v-on:hideSideMenu="menuVisible=!menuVisible" v-else />
         </md-app-drawer>
-
         <md-app-content>
-            <router-view v-on:menu-togal="menuTogal"></router-view>
+            <router-view v-on:togal-menu="menuVisible=!menuVisible"></router-view>
         </md-app-content>
+
     </md-app>
 
 </div>
 </template>
 
 <script>
-import AdminSideMenu from "../components/AdminSideMenu";
-import WebSideMenu from "../components/WebSideMenu";
+import AdminSideMenu from "../shared/AdminSideMenu";
+import WebSideMenu from "../shared/WebSideMenu";
+import Footer from "../shared/Footer";
 import axios from "axios";
 import {
     mapGetters,
@@ -36,6 +37,7 @@ export default {
         closeOnClick: false,
         closeOnSelect: true,
         windowWidth: window.innerWidth,
+
     }),
     watch: {
         /*         '$route'() {
@@ -55,6 +57,18 @@ export default {
     },
 
     methods: {
+        /*         onScroll(e) {
+                    console.log("scrolling ", e)
+                    var currentScrollPosition = e.srcElement.scrollTop;
+                    if (currentScrollPosition > 100) {
+                        this.isScrolled = true;
+                        console.log("val1: ", currentScrollPosition, ' val2: ', this.scrollPosition)
+                    } else {
+                        this.isScrolled = false;
+                    }
+                    this.scrollPosition = currentScrollPosition;
+                }, */
+
         ...mapActions({
             signOutAction: "auth/signOut",
             setNotification: "shared/setNotification",
@@ -63,12 +77,6 @@ export default {
             this.signOutAction().then(() => {
                 this.$router.push("/");
             });
-        },
-        toggleMenu() {
-            this.menuVisible = !this.menuVisible;
-        },
-        toggleSideMenu() {
-            this.menuVisible = !this.menuVisible;
         },
 
         notificationDetails(notification) {
@@ -127,10 +135,7 @@ export default {
                 });
             }
         },
-        menuTogal() {
-            this.menuVisible = !this.menuVisible
-            console.log("ohk. working event")
-        }
+
     },
     created() {
         this.getNotifications();
@@ -139,9 +144,9 @@ export default {
     components: {
         AdminSideMenu,
         WebSideMenu,
+        Footer,
     },
-
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -162,7 +167,14 @@ export default {
 
     .md-app {
         height: 100%;
-        border: 1px solid rgba(#000, 0.12);
+
+        .md-toolbar {
+            span {
+                font-family: "Segoe Script", Helvetica, Arial;
+                margin-right: 10px;
+                font-size: 18px;
+            }
+        }
 
         /*         .md-app-toolbar {
             background: #fff;
@@ -187,17 +199,20 @@ export default {
             .md-icon {
                 color: #fff;
             }
+
         }
+
     }
 
     // Demo purposes only
     .md-drawer {
         width: 230px;
         max-width: calc(100vw - 125px);
+        z-index: 10;
     }
 
     .md-app-content {
-        background: #f0f2f5;
+        /* background: #f0f2f5; */
         padding: 0;
         /* background-image: linear-gradient(#2f2f65, #2a6ab3); */
         /* padding-bottom: 20px; */

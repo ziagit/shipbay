@@ -1,8 +1,11 @@
 <template>
 <div class="services">
-    <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/terms.svg)'}">
-        <div class="md-display-1"> Terms of Use </div>
-        <p class="md-body-1">Update: October 25,2020</p>
+    <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/terms.png)'}">
+        <Header v-on:togal-menu="$emit('togal-menu')" />
+        <div class="content">
+            <div class="md-display-1"> Terms of Use </div>
+            <p class="md-body-1">Update: October 25,2020</p>
+        </div>
     </div>
     <md-card>
 
@@ -264,10 +267,13 @@
             </div>
         </div>
     </md-card>
+    <Footer />
 </div>
 </template>
 
 <script>
+import Header from "../../shared/Header";
+import Footer from "../../shared/Footer";
 import axio from "axios";
 export default {
     name: "services",
@@ -282,7 +288,10 @@ export default {
     methods: {
 
     },
-    components: {},
+    components: {
+        Header,
+        Footer,
+    },
 };
 </script>
 
@@ -291,16 +300,23 @@ export default {
     min-height: 100vh !important;
 
     .section1 {
-        padding: 50px 200px 100px 200px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
         color: #fff;
 
-        .md-display-1 {
+        .header {
             color: #fff;
-            line-height: 66px;
-            font-size: 36px;
+        }
+
+        .content {
+            padding: 50px 200px 100px 200px;
+
+            .md-display-1 {
+                color: #fff;
+                line-height: 66px;
+                font-size: 36px;
+            }
         }
 
     }

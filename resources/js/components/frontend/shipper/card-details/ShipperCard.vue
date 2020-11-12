@@ -53,7 +53,7 @@
 
 <script>
 import axios from "axios";
-import Spinner from "../../shared/Spinner";
+import Spinner from "../../../shared/Spinner";
 import Card from "../../card/Card";
 import isPaid from "../../services/card";
 export default {

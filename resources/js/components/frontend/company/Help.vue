@@ -1,22 +1,25 @@
 <template>
 <div class="services">
     <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/help.svg)'}">
-        <div class="md-display-1"> How It Works? </div>
-        <p class="md-body-1">Our simple shipping tool is the fastest route to getting your freight on the road. Just enter a few shipment details, review quotes and choose a carrier.</p>
-        <md-button class="md-primary md-raised" to="/order">Start a new quote</md-button>
+        <Header v-on:togal-menu="$emit('togal-menu')" />
+        <div class="content">
+            <div class="md-display-1"> How It Works? </div>
+            <p class="md-body-1">Our simple shipping tool is the fastest route to getting your freight on the road. Just enter a few shipment details, review quotes and choose a carrier.</p>
+            <md-button class="md-primary md-raised" to="/order">Start a new quote</md-button>
+        </div>
     </div>
     <md-card>
         <div class="section2">
             <img :src="'/images/uploads/guid.gif'" alt="">
         </div>
     </md-card>
-
     <Footer />
 </div>
 </template>
 
 <script>
-import Footer from "../shared/Footer"
+import Footer from "../../shared/Footer"
+import Header from "../../shared/Header"
 import axio from "axios";
 export default {
     name: "services",
@@ -28,6 +31,7 @@ export default {
     },
     components: {
         Footer,
+        Header,
     },
 };
 </script>
@@ -37,16 +41,19 @@ export default {
     min-height: 100vh !important;
 
     .section1 {
-        padding: 50px 200px 100px 200px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
         color: #fff;
 
-        .md-display-1 {
-            color: #fff;
-            line-height: 66px;
-            font-size: 36px;
+        .content {
+            padding: 50px 200px 100px 200px;
+
+            .md-display-1 {
+                color: #fff;
+                line-height: 66px;
+                font-size: 36px;
+            }
         }
 
     }

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import Snackbar from "../../../frontend/shared/Snackbar";
-import Spinner from "../../../frontend/shared/Spinner";
+import Snackbar from "../../../shared/Snackbar";
+import Spinner from "../../../shared/Spinner";
 import Vue from "vue";
 import axios from "axios";
 

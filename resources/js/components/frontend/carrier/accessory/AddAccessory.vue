@@ -63,7 +63,7 @@ import axios from "axios";
 import {
     mapGetters
 } from "vuex";
-import Snackbar from "../../../frontend/shared/Snackbar"
+import Snackbar from "../../../shared/Snackbar"
 export default {
     name: "AddAccessory",
     data: () => ({

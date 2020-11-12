@@ -11,6 +11,12 @@ export default {
 </script>
 
 <style lang="scss">
+.md-app-container {
+    transform: none !important;
+    /* max-height: 100vh;
+    overflow: scroll; */
+}
+
 .app {
     height: 100% !important;
 }
@@ -24,6 +30,10 @@ export default {
     /* box-shadow: 0 4px 16px rgba(0,0,0,.12); */
     box-shadow: 0 1px 2px #11111142;
     border: none;
+}
+
+.md-app .md-app-side-drawer .md-layout-row .md-reveal .md-theme-default {
+    border: none !important;
 }
 
 .md-checkbox .md-checkbox-container {
@@ -41,7 +51,7 @@ export default {
 }
 
 .md-radio.md-theme-default.md-checked .md-radio-container:after {
-    background-color: #666;
+    background-color: #ef9c03;
 }
 
 .md-dialog-container,
@@ -154,7 +164,7 @@ export default {
     border-radius: 30px;
     padding: 0 10px;
     background: #FFA500 !important;
-    color: #333 !important;
+    color: #fff !important;
 }
 
 .md-progress-bar-fill {
@@ -167,12 +177,31 @@ export default {
         font-size: 30px;
     }
 
-    .md-body-1 {
-        width: 50% !important;
-    }
-
     label {
         font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .section3 {
+
+        .steps {
+
+            .md-list {
+                .md-list-item-content {
+                    padding: 0 !important;
+
+                    .md-headline {
+                        font-size: 14px !important;
+                    }
+
+                    .details {
+                        font-size: 10px !important;
+                    }
+                }
+            }
+        }
     }
 }
 </style>
