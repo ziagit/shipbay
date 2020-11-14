@@ -171,18 +171,10 @@ export default {
         .md-toolbar {
             span {
                 font-family: "Segoe Script", Helvetica, Arial;
-                margin-right: 10px;
+                margin-right: 5px;
                 font-size: 18px;
             }
         }
-
-        /*         .md-app-toolbar {
-            background: #fff;
-            box-shadow: 0 2px 4px -3px rgba(0, 0, 0, 0.2),
-                0 0px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-            box-shadow: 0 1px 2px #11111142;
-
-        } */
 
         .md-app-toolbar {
             background: #2D2E2E;
@@ -212,7 +204,7 @@ export default {
     }
 
     .md-app-content {
-        /* background: #f0f2f5; */
+        background-image: linear-gradient(#fff, #F0F2F5);
         padding: 0;
         /* background-image: linear-gradient(#2f2f65, #2a6ab3); */
         /* padding-bottom: 20px; */

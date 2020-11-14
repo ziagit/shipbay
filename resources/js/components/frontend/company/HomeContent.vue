@@ -7,7 +7,7 @@
                 <h1 class="md-display-1">Let’s book your shipment in a few taps.</h1>
                 <p class="md-subheading">The way you book your travel tickets.</p>
                 <div class="actions">
-                    <button class="md-button md-raised">Frieght</button>
+                    <md-button class="md-button md-raised" to="/order">Frieght</md-button>
                     <button class="md-button md-raised">Moving</button>
                 </div>
             </div>
@@ -40,7 +40,7 @@
         <div class="section2">
             <div class="heading">
                 <div class="md-display-1">Safe and no hassle shipping</div>
-                <div class="md-subheading">Get your freight safely shipped by a few taps.</div>
+                <div class="md-body-1">Get your freight safely shipped by a few taps.</div>
             </div>
             <div class="rows">
                 <div class="row">
@@ -119,12 +119,50 @@
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="section4">
-
-    </div>
-    <div class="section5">
-
+        <div class="section4">
+            <div class="row">
+                <div class="md-display-1">Business Freight</div>
+                <div class="md-body-1">
+                    Whether you have a one
+                    time freight to be shipped
+                    or everyday shipment, we
+                    got you covered with the
+                    competitive advantages...
+                </div>
+                <button class="md-button md-raised">Get Freight Quote</button>
+            </div>
+            <div class="row">
+                <ul>
+                    <li>No contract required.</li>
+                    <li>Instant quote.</li>
+                    <li>Lowest price guaranteed.</li>
+                    <li>Cargo Insurance.</li>
+                    <li>Live tracking.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="section5">
+            <div class="row">
+                <div class="md-display-1">Household Moving</div>
+                <div class="md-body-1">
+                    We are the only platform
+                    where you can get
+                    upfront quote for your
+                    big day moving in a
+                    matter of seconds.
+                </div>
+                <button class="md-button md-raised">Get Moving Quote</button>
+            </div>
+            <div class="row">
+                <ul>
+                    <li>No sign up required.</li>
+                    <li>upfront instant quote.</li>
+                    <li>Lowest price guaranteed.</li>
+                    <li>Live chat with service provider.</li>
+                    <li>▪ All through our Apps.</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <Footer />
@@ -170,12 +208,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* @font-face {
-    font-family: "Segoe Script";
-    src: local("Segoe Script"),
-        url('/fonts/Segoe Script.ttf') format("truetype");
-} */
-
 .container {
     .section0 {
         text-align: left;
@@ -189,8 +221,6 @@ export default {
                 text-align: left;
                 padding: 122px 0 12px 106px;
                 max-width: 665px;
-
-                /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
 
                 .md-display-1 {
                     line-height: 60px;
@@ -242,148 +272,179 @@ export default {
             .row3 {
                 .md-display-1 {
                     color: #000;
-                    font-size: 24px;
+                    font-size: 22px;
                     line-height: 28px;
                 }
             }
         }
 
-        /*          .col2 {
-                flex: 25%;
+        .section2 {
+            padding: 46px 100px;
+
+            .heading {
+                padding: 20px 20px 20px 0;
 
                 .md-display-1 {
-                    color: #F97D4B;
-                    font-weight: 500;
-                }
-
-                .md-subheading {
                     color: #000;
+                    font-weight: 500;
                 }
             }
 
-            .col3 {
-                flex: 50%;
+            .rows {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
 
-                .md-display-1 {
-                    color: #000;
-                    font-size: 24px;
-                    font-weight: 500;
-                    max-width: 310px;
+                .row {
+                    flex: 30%;
+                    padding: 30px;
+                    border: solid 1px #ddd;
+                    border-radius: 3px;
+                    margin: 10px;
+
+                    .md-title {
+                        line-height: 52px;
+                        font-weight: 600;
+                        line-height: 44px;
+                    }
                 }
-            } */
-    }
 
-    .section2 {
-        padding: 46px 100px;
-        background: #fff;
+                .with-shadow {
+                    background: #fff;
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+                    border: none;
+                }
+            }
 
-        .heading {
-            padding: 20px 20px 20px 0;
+        }
 
-            .md-display-1 {
-                color: #000;
-                font-weight: 500;
+        .section3 {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            padding: 46px 76px;
+            margin: 30px 30px 60px 30px;
+            min-height: 500px;
+            max-width: 80%;
+            position: relative;
+
+            .text {
+                .md-display-1 {
+                    margin: 3px 0;
+                    max-width: 309px;
+                    color: #000;
+                    font-weight: 500;
+                }
+
+                .md-body-1 {
+                    max-width: 353px;
+                }
+
+            }
+
+            .steps {
+                max-width: 460px;
+                background: #fff;
+                position: absolute;
+                right: -100px;
+                bottom: -50px;
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+
+                .head {
+                    min-height: 9px;
+                    width: 100%;
+                    background: #ffa500;
+                }
+
+                ul {
+                    padding: 0;
+                    margin: 0;
+
+                    li {
+                        padding: 20px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        .avatar {
+                            display: flex;
+                            flex: 25%;
+                            padding: 10px;
+                        }
+
+                        .text {
+                            flex: 75%;
+                            padding: 10px;
+                        }
+                    }
+                }
             }
         }
 
-        .rows {
+        .section4,
+        .section5 {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
+            padding: 46px 100px;
 
             .row {
-                flex: 30%;
-                padding: 30px;
-                border: solid 1px #ddd;
-                border-radius: 3px;
-                margin: 10px;
+                flex: 50%;
 
-                .md-title {
-                    line-height: 52px;
-                    font-weight: 600;
-                    line-height: 44px;
+                .md-display-1 {
+                    max-width: 52%;
+                    font-weight: 500;
+                    font-size: 30px;
+                    line-height: 40px;
+                    color: #000;
                 }
-            }
 
-            .with-shadow {
-                box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-                border: none;
+                .md-body-1 {
+                    max-width: 50%;
+                    margin: 3px 0 86px 0;
+                }
+
+                .md-button {
+                    width: 179px;
+                }
+
+                ul {
+                    padding: 20px 20px 20px 40px;
+                    border: solid 1px #fff;
+
+                    li {
+                        padding: 10px;
+                    }
+                }
+
             }
         }
-
     }
 
+}
+
+@media only screen and (max-width: 769px) {
     .section3 {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-        padding: 46px 100px;
-        margin: 30px;
-        min-height: 500px;
-        max-width: 80%;
-        position: relative;
-
-        .text {
-            .md-display-1 {
-                margin: 30px 0;
-                max-width: 309px;
-                font-weight: 600;
-                color: #000;
-            }
-
-            .md-body-1 {
-                max-width: 353px;
-            }
-
-            .md-button {
-                margin-top: 98px;
-                width: 164px !important;
-                color: #fff;
-            }
-        }
-
         .steps {
-            max-width: 500px;
-            background: #fff;
-            position: absolute;
-            right: -100px;
-            bottom: -50px;
-            box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-
-            .head {
-                min-height: 9px;
-                width: 100%;
-                background: #ffa500;
-            }
+            max-width: 360px !important;
 
             ul {
-                padding: 0;
-                margin: 0;
-
                 li {
-                    padding: 20px;
-                    display: flex;
-                    justify-content: space-between;
-
-                    .avatar {
-                        display: flex;
-                        flex: 25%;
-                        padding: 10px;
-                    }
-
-                    .text {
-                        flex: 75%;
-                        padding: 10px;
-                    }
+                    padding: 12px !important;
                 }
             }
         }
     }
 
-    .section4 {}
+    .section4,
+    .section5 {
+        .row {
 
-    .section5 {}
-
+            .md-display-1,
+            .md-body-1 {
+                max-width: 80% !important;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -393,11 +454,16 @@ export default {
         .content {
             .heading {
                 padding: 372px 20px !important;
-                text-align: center;
+                text-align: center !important;
 
                 .md-display-1 {
-                    line-height: 39px;
+                    line-height: 39px !important;
+                    margin: 0 !important;
                     font-size: 28px !important;
+                }
+
+                .md-body-1 {
+                    margin: 0 !important;
                 }
 
                 .actions {
@@ -445,6 +511,24 @@ export default {
             bottom: 0 !important;
             margin-top: 44px !important;
 
+        }
+    }
+
+    .section4,
+    .section5 {
+        padding: 46px 22px !important;
+
+        .row {
+            .md-display-1 {
+                line-height: 24px !important;
+                font-size: 23px !important;
+                font-weight: 500 !important;
+                margin-bottom: 12px;
+            }
+
+            .md-body-1 {
+                margin: 3px 0 52px 0 !important;
+            }
         }
     }
 }
