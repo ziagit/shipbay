@@ -1,64 +1,132 @@
 <template>
 <div class="container">
-    <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/about.svg)'}">
+    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/about.jpg)'}">
         <Header v-on:togal-menu="$emit('togal-menu')" />
         <div class="content">
             <div class="md-display-1">About Us</div>
-            <div class="md-body-1">Let’s book your shipment in a few taps.</div>
+            <div class="md-subheading">From the start, everything we've done has centered on solving customer problems through technology.</div>
         </div>
     </div>
-    <md-card>
-        <md-card-header>
-            <div class="row">
-                <div class="md-headline heading">Shipping TAP</div>
-                <div class="md-body-1">Shipping TAB was founded to create a better way for
-                    people and businesses to ship freight. There were countless carriers to choose from,
-                    but there was no way to compare them side by side.
-                    That meant you had to either spend hours o
-                    nline or on the phone, comparing rates and carriers, or just book with one carrier and hope you
-                    chose the best possible option.</div>
+
+    <div class="section1">
+        <div class="rows">
+            <div class="left">
+                <div>
+                    <div class="md-headline">Shipping TAP Mission</div>
+
+                    <img :src="'/images/uploads/mission1.jpg'" alt="">
+                    <div class="md-body-1">
+                        Shipping TAB was founded to create a better way for people and businesses to ship freight.
+                        There were countless carriers to choose from, but there was no way to compare them side by side.
+                        That meant you had to either spend hours online or on the phone, comparing rates and carriers, or
+                        just book with one carrier and hope you chose the best possible option.
+                        <br><br>
+                        We were the first to solve this dilemma by developing our own patented technology.
+                        It disrupted the freight industry and forever changed how people and businesses ship freight.
+                        <br><br>
+                        Today, we’ve quoted more than 50 million shipments, delivering to virtually every corner of North America.
+                        <br><br>
+                        We can serve multitudes of customers and still maintain the highest standards of service because we’ve committed,
+                        from the start, to integrating technology and powerful data analytics into everything we do. From the backend that
+                        gathers and organizes quotes to the self-service online tools that give you all the information you need to manage
+                        freight like a pro, our business is designed to serve yours.
+                        <br><br>
+                        Watch below to see how our online self-serve shipping experience streamlines processes.
+                        This technology is built with small business customers in mind, making shipping even easier.
+                        <br><br>
+                    </div>
+                </div>
+                <div>
+                    <div class="md-headline">Services That We Provide</div>
+                    <img :src="'/images/uploads/mission1.jpg'" alt="">
+                    <div class="md-body-1">
+                        Technology alone can’t solve every problem. That’s why we also have highly trained shipping experts
+                        who are ready to answer any question, at any time – this experienced team is the primary reason we are able
+                        to maintain our A+ Better Business Bureau rating year after year.
+                        <br><br>
+                        So whether you’re an experienced or novice shipper, we have the tools and experts to help you plan and
+                        execute complex or simple shipping solutions. The service our technology and people make possible gained the attention
+                        of global 3PL powerhouse, C.H. Robinson. Since that relationship began, the combination of C.H. Robinson’s experience and
+                        network has been a perfect fit with Freightquote’s nimble, technology-driven culture.
+                        <br><br>
+                    </div>
+                </div>
+                <div>
+                    <div class="md-headline">Our Team</div>
+                    <img :src="'/images/uploads/mission1.jpg'" alt="">
+                    <div class="md-body-1">
+                        Technology alone can’t solve every problem. That’s why we also have highly trained shipping experts
+                        who are ready to answer any question, at any time – this experienced team is the primary reason we are able
+                        to maintain our A+ Better Business Bureau rating year after year.
+                        <br><br>
+                        So whether you’re an experienced or novice shipper, we have the tools and experts to help you plan and
+                        execute complex or simple shipping solutions. The service our technology and people make possible gained the attention
+                        of global 3PL powerhouse, C.H. Robinson. Since that relationship began, the combination of C.H. Robinson’s experience and
+                        network has been a perfect fit with Freightquote’s nimble, technology-driven culture.
+                        <br><br>
+                    </div>
+                </div>
+
             </div>
-        </md-card-header>
-        <div class="section2">
-            <div class="md-headline heading">Our Partners</div>
-            <div class="rows">
-                <div class="row">
-                    <div>
-                        <img :src="'/images/uploads/actech.png'" width="80" alt="">
-                        <div class="md-headline">Amu Cloud Tech Services</div>
-                        <div class="md-body-1">Choose from hundreds of contract carriers with our self-service online tools or work directly with a freight expert.</div>
+            <div class="right">
+                <div class="qoute">
+                    <div class="md-headline">Get a Free Shipping Qoute</div>
+                    <form action="">
+                        <md-field>
+                            <label>City/Zip code</label>
+                            <md-input type="text" v-model="form.city" required></md-input>
+                        </md-field>
 
+                        <div class="action">
+                            <md-button class="md-primary md-raised" to="/order">Start</md-button>
+                        </div>
+                    </form>
+                </div>
+                <div class="faq">
+                    <div class="md-headline">FAQ</div>
+                    <div class="md-body-1">Access knowledge from experts willing to share.</div>
+                    <div>
+                        <router-link to="/faq">Answers</router-link>
+                        <md-icon>keyboard_arrow_right</md-icon>
                     </div>
                 </div>
-                <div class="row">
+                <div class="terms">
+                    <div class="md-headline">Terms and Conditions</div>
+                    <div class="md-body-1">Read our terms and conditions</div>
                     <div>
-                        <img :src="'/images/uploads/eg.svg'" width="80" alt="">
-                        <div class="md-headline">EG Logistics Inc.</div>
-                        <div class="md-body-1">Easily ship your refrigerated, flatbed and dry van freight with our large network of contract carriers and the guidance of our freight professionals.</div>
-
+                        <router-link to="/terms-and-conditions">More</router-link>
+                        <md-icon>keyboard_arrow_right</md-icon>
                     </div>
                 </div>
-                <div class="row">
+                <div class="privacy">
+                    <div class="md-headline">Privacy Policies</div>
+                    <div class="md-body-1">Do you want to know about our privacies?</div>
                     <div>
-                        <img :src="'/images/uploads/item-dw.svg'" width="100" alt="">
-                        <div class="md-headline">X Company</div>
-                        <div class="md-body-1">We offer real-time intermodal rates and an in-house team of experts to make your rail shipments easy.</div>
-
+                        <router-link to="/privacy-policies">More</router-link>
+                        <md-icon>keyboard_arrow_right</md-icon>
                     </div>
                 </div>
-                <div class="row">
+                <div class="get-qoute">
+                    <div class="md-headline">Contact us</div>
+                    <div class="md-body-1">If you want to know more about us, drop us an email.</div>
                     <div>
-                        <img :src="'/images/uploads/item-dw.svg'" width="100" alt="">
-                        <div class="md-headline">Y Company</div>
-                        <div class="md-body-1">Find a partial truckload option that fits based on your budget, transit or handling requirements.</div>
-
+                        <router-link to="/contact">Contact us</router-link>
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </div>
+                </div>
+                <div class="download-app">
+                    <div class="md-headline">Download Our Application</div>
+                    <div class="md-body-1">By downloading our application the task will be much easier.</div>
+                    <div>
+                        <md-button class="md-raised" to="https://play.google.com">Download</md-button>
                     </div>
                 </div>
             </div>
 
         </div>
 
-    </md-card>
+    </div>
+
     <Footer />
 </div>
 </template>
@@ -86,74 +154,97 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    .section1 {
+    .section0 {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-        text-align: center;
         align-items: center;
 
         .content {
-            padding: 85px 200px 130px 200px;
+            padding: 85px 200px 130px 106px;
 
             .md-display-1 {
+                line-height: 60px;
+                font-size: 53px;
+                font-weight: 600;
                 color: #fff;
-                line-height: 66px;
-                font-size: 36px;
             }
 
-            .md-body-1 {
+            .md-subheading {
                 color: #fff;
+                max-width: 70%;
             }
         }
     }
 
-    .md-card {
-        width: 95%;
+    .section1 {
+        max-width: 1200px;
         margin: auto;
-        margin-top: -50px;
-        margin-bottom: 30px;
-        overflow: hidden;
-        padding: 50px;
+        padding: 30px;
 
-        .heading {
-            font-weight: 600;
-            font-size: 30px;
-            line-height: 60px;
-        }
+        .rows {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
 
-        .md-card-header {
-            max-width: 60%;
-            margin: auto;
-            text-align: center;
-            margin-bottom: 50px;
-        }
+            .left {
+                flex: 70%;
+                padding: 20px;
 
-        .section2 {
-            text-align: center;
+                .md-display-1 {
+                    line-height: 80px;
+                }
 
-            .rows {
-                display: flex;
-                justify-content: space-around;
-                flex-wrap: wrap;
-
-                .row {
-                    text-align: center;
-                    flex: 25%;
-                    padding: 20px;
+                img {
+                    margin: 10px 0;
                 }
             }
 
-        }
-    }
-}
+            .right {
+                flex: 25%;
+                padding: 20px;
 
-.md-body-1 {
-    width: 100% !important;
+                .md-headline {
+                    font-size: 18px;
+                }
+
+                .md-icon {
+                    color: #66A9FB;
+                }
+
+                .qoute {
+                    background: #fff;
+                    padding: 10px;
+                    border-radius: 8px;
+                    box-shadow: 0 1px 2px #11111142;
+                    margin-bottom: 20px;
+
+                    .action {
+                        text-align: right;
+                    }
+                }
+
+                .get-qoute,
+                .download-app,
+                .privacy,
+                .terms {
+                    margin-bottom: 20px;
+                }
+
+                .app {
+                    .md-button {
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+
+    }
+
 }
 
 @media only screen and (max-width: 600px) {
-    .section1 {
+    .section0 {
         padding: 50px 10px 100px 10px !important;
     }
 
@@ -165,7 +256,7 @@ export default {
             max-width: 78% !important;
         }
 
-        .section2 {
+        .section1 {
             padding: 0 !important;
 
             .rows {

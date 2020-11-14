@@ -45,7 +45,7 @@ export default {
         width: 100%;
         min-height: calc(100vh - 15px);
         margin: auto;
-        padding: 109px 20px 0 20px !important;
+        padding: 51px 20px 0 20px !important;
         text-align: center;
         margin-bottom: 46px;
 

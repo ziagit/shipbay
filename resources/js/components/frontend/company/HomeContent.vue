@@ -129,7 +129,7 @@
                     got you covered with the
                     competitive advantages...
                 </div>
-                <button class="md-button md-raised">Get Freight Quote</button>
+                <md-button class="md-button md-raised" to="/order">Get Freight Quote</md-button>
             </div>
             <div class="row">
                 <ul>
