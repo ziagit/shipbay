@@ -89,7 +89,7 @@
                             <img :src="'/images/uploads/dw.svg'" alt="People">
                         </div>
                         <div class="text">
-                            <div class="md-headline">List your items</div>
+                            <div class="md-title">List your items</div>
                             <div class="details">Specify the shipment and schedule a date.</div>
                         </div>
                     </li>
@@ -101,7 +101,7 @@
                             <img :src="'/images/uploads/select-carrier.svg'" alt="People">
                         </div>
                         <div class="text">
-                            <div class="md-headline">Select a Carrier</div>
+                            <div class="md-title">Select a Carrier</div>
                             <div class="details">Chose a service provider with the lowest price and best customer ratings.</div>
                         </div>
                     </li>
@@ -111,7 +111,7 @@
                             <img :src="'/images/uploads/tracking.svg'" alt="People">
                         </div>
                         <div class="text">
-                            <div class="md-headline">Track your order</div>
+                            <div class="md-title">Track your order</div>
                             <div class="details">Relax! we will notify you on every step taken. Also, you can track the shipment live.</div>
                         </div>
                     </li>
@@ -209,6 +209,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+    background: #fff;
+
     .section0 {
         text-align: left;
         height: calc(100vh - 48px);
@@ -240,6 +242,7 @@ export default {
     }
 
     .wrapper {
+        background: #fff;
         max-width: 1200px;
         margin: auto;
         padding-bottom: 126px;
@@ -286,7 +289,13 @@ export default {
 
                 .md-display-1 {
                     color: #000;
+                    line-height: 49px;
                     font-weight: 500;
+                }
+
+                .md-body-1 {
+                    font-size: 16px;
+                    line-height: 24px;
                 }
             }
 
@@ -330,7 +339,7 @@ export default {
 
             .text {
                 .md-display-1 {
-                    margin: 3px 0;
+                    line-height: 49px;
                     max-width: 309px;
                     color: #000;
                     font-weight: 500;
@@ -338,6 +347,8 @@ export default {
 
                 .md-body-1 {
                     max-width: 353px;
+                    font-size: 16px;
+                    line-height: 24px;
                 }
 
             }
@@ -374,6 +385,12 @@ export default {
                         .text {
                             flex: 75%;
                             padding: 10px;
+
+                            .md-title {
+                                line-height: 52px;
+                                font-weight: 600;
+                                line-height: 44px;
+                            }
                         }
                     }
                 }
@@ -394,13 +411,15 @@ export default {
                     max-width: 52%;
                     font-weight: 500;
                     font-size: 30px;
-                    line-height: 40px;
+                    line-height: 49px;
                     color: #000;
                 }
 
                 .md-body-1 {
-                    max-width: 50%;
+                    max-width: 70%;
                     margin: 3px 0 86px 0;
+                    font-size: 16px;
+                    line-height: 24px;
                 }
 
                 .md-button {

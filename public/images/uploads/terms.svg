@@ -1,1 +1,17 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920.18 801.96"><defs><style>.cls-1,.cls-2{isolation:isolate;}.cls-2{opacity:0.7;}</style></defs><image class="cls-1" width="753" height="492" transform="scale(2.55 1.63)" xlink:href="../../../../shipbay%20files/images/terms.jpg"/><rect class="cls-2" width="1920.18" height="800"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1920.2 802" style="enable-background:new 0 0 1920.2 802;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.7;fill:url(#SVGID_1_);enable-background:new    ;}
+</style>
+<image style="overflow:visible;enable-background:new    ;" width="753" height="492" xlink:href="../../../../shipbay files/images/terms.jpg"  transform="matrix(2.55 0 0 1.63 0 0)">
+</image>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="0" y1="400" x2="1920.1801" y2="400">
+	<stop  offset="0" style="stop-color:#FFA500"/>
+	<stop  offset="0.3935" style="stop-color:#FBC163;stop-opacity:0.6065"/>
+	<stop  offset="0.8119" style="stop-color:#F8DDC6;stop-opacity:0.1881"/>
+	<stop  offset="1" style="stop-color:#F6E8EE;stop-opacity:0"/>
+</linearGradient>
+<rect class="st0" width="1920.2" height="800"/>
+</svg>

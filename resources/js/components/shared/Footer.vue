@@ -17,10 +17,10 @@
                     <router-link to="/about">About</router-link>
                 </li>
                 <li>
-                    <router-link to="/">Shipper</router-link>
+                    <router-link to="/shippers">Shipper</router-link>
                 </li>
                 <li>
-                    <router-link to="/">Carrier</router-link>
+                    <router-link to="/carriers">Carrier</router-link>
                 </li>
 
             </ul>

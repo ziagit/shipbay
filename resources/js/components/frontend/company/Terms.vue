@@ -1,16 +1,16 @@
 <template>
 <div class="services">
-    <div class="section1" v-bind:style="{'background-image': 'url(/images/uploads/terms.png)'}">
+    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/terms.jpg)'}">
         <Header v-on:togal-menu="$emit('togal-menu')" />
         <div class="content">
             <div class="md-display-1"> Terms of Use </div>
             <p class="md-body-1">Update: October 25,2020</p>
         </div>
     </div>
-    <md-card>
+    <div class="wrapper">
 
         <div class="section2">
-            <div class="text">
+            <div class="left">
                 <div class="md-body-1">
                     These Terms and Conditions (“Terms”) constitute a legal Agreement between you and, Shipping Tap and its parent company EG Logistics Inc. (collectively, “The Company”), (“We”, “Us”, or “Our”).
                     The access to our website and mobile applications (collectively, the ”Platform”) is subject to the following Terms of this agreement, which may be modified from time to time with or without prior notice. By accessing and using our Services (the ”Services”) you acknowledge that you have read, understood and agree to be lawfully bound by these Terms and Conditions and our Privacy Policy.
@@ -242,31 +242,39 @@
                 </div>
 
             </div>
-            <div class="qoute">
-                <div class="card">
+            <div class="right">
+                <div class="qoute">
                     <div class="md-headline">Get a Free Shipping Qoute</div>
                     <form action="">
                         <md-field>
                             <label>City/Zip code</label>
                             <md-input type="text" v-model="form.city" required></md-input>
                         </md-field>
-                        <div>
-                            <div class="title">Location Type</div>
-                            <div class="options">
-                                <md-radio v-model="form.option" :value="business">Business</md-radio>
-                            </div>
-                            <div class="options">
-                                <md-radio v-model="form.option" :value="residential">Residential</md-radio>
-                            </div>
-                        </div>
+
                         <div class="action">
                             <md-button class="md-primary md-raised" to="/order">Start</md-button>
                         </div>
                     </form>
                 </div>
+                <div class="faq">
+                    <div class="md-headline">FAQ</div>
+                    <div class="md-body-1">Access to the most asked questions</div>
+                    <div>
+                        <router-link to="/faq">More</router-link>
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </div>
+                </div>
+
+                <div class="download-app">
+                    <div class="md-headline">Download our Application</div>
+                    <div class="md-body-1">By downloading our application the task will be much easier.</div>
+                    <div>
+                        <md-button class="md-raised" to="https://play.google.com">Download</md-button>
+                    </div>
+                </div>
             </div>
         </div>
-    </md-card>
+    </div>
     <Footer />
 </div>
 </template>
@@ -299,32 +307,28 @@ export default {
 .services {
     min-height: 100vh !important;
 
-    .section1 {
+    .section0 {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
         color: #fff;
 
-        .header {
-            color: #fff;
-        }
-
         .content {
-            padding: 50px 200px 100px 200px;
+            padding: 85px 200px 130px 106px;
 
             .md-display-1 {
+                line-height: 60px;
+                font-size: 53px;
+                font-weight: 600;
                 color: #fff;
-                line-height: 66px;
-                font-size: 36px;
             }
         }
 
     }
 
-    .md-card {
-        width: 95%;
+    .wrapper {
+        max-width: 1200px;
         margin: auto;
-        margin-top: -50px;
         margin-bottom: 30px;
         overflow: hidden;
         padding: 50px;
@@ -343,43 +347,46 @@ export default {
                 margin: 12px 0 6px 0;
             }
 
-            .text {
-                flex: 50%;
+            .left {
+                flex: 70%;
                 margin: 25px;
             }
 
-            .qoute {
-                margin: 25px;
-                flex: 30%;
+            .right {
+                flex: 25%;
+                padding: 20px;
 
-                .card {
-                    background: #3C3D3D;
-                    padding: 30px;
+                .md-headline {
+                    font-size: 18px;
+                }
+
+                .md-icon {
+                    color: #66A9FB;
+                }
+
+                .qoute {
+                    background: #fff;
+                    padding: 10px;
                     border-radius: 8px;
-                    color: #fff !important;
-
-                    .md-headline {
-                        font-size: 21px;
-                    }
-
-                    .md-field {
-                        color: #fff !important;
-                        border-bottom: solid 1px #fff;
-
-                        label {
-                            color: #fff;
-                            font-size: 12px;
-                        }
-
-                        input[type=text] {
-                            color: #fff !important;
-                        }
-                    }
+                    box-shadow: 0 1px 2px #11111142;
+                    margin-bottom: 20px;
 
                     .action {
                         text-align: right;
                     }
+                }
 
+                .get-qoute,
+                .download-app,
+                .privacy,
+                .terms {
+                    margin-bottom: 20px;
+                }
+
+                .download-app {
+                    .md-button {
+                        margin-top: 20px;
+                    }
                 }
             }
 
@@ -393,7 +400,7 @@ export default {
 
 @media only screen and (max-width: 600px) {
     .services {
-        .section1 {
+        .section0 {
             text-align: center;
 
             .md-display-1 {
@@ -403,7 +410,7 @@ export default {
 
         }
 
-        .md-card {
+        .div {
             padding: 10px !important;
 
             .md-display-1 {
@@ -418,7 +425,7 @@ export default {
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 767.98px) {
     .services {
-        .section1 {
+        .section0 {
             padding: 64px !important;
 
         }
@@ -431,7 +438,7 @@ export default {
 
 // Medium devices (tablets, less than 992px)
 @media (max-width: 991.98px) {
-    .section1 {
+    .section0 {
         .section2 {}
 
         .md-display-1 {

@@ -16,6 +16,9 @@ import OurServices from './components/frontend/company/OurServices'
 import ServiceDetails from './components/frontend/company/ServiceDetails'
 import Privacy from './components/frontend/company/Privacy'
 import Terms from './components/frontend/company/Terms'
+import FAQ from './components/frontend/company/FAQ'
+import OurCarriers from './components/frontend/company/OurCarriers'
+import OurShippers from './components/frontend/company/OurShippers'
 
 import CarrierProfile from './components/frontend/carrier/CarrierProfile';
 import CarrierDetails from './components/frontend/carrier/general-details/CarrierDetails';
@@ -154,6 +157,9 @@ export default new VueRouter({
                 { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },
                 { name: 'privacy', path: '/privacy-policies', component: Privacy},
                 { name: 'terms', path: '/terms-and-conditions', component: Terms},
+                { name: 'faq', path: '/faq', component: FAQ},
+                {name: 'our-carriers',path: '/carriers', component: OurCarriers},
+                {name: 'our-shippers',path: '/shippers', component: OurShippers},
                 {
                     name: 'order',
                     path: 'order',

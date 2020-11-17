@@ -139,7 +139,7 @@ export default {
     }
 
     .content {
-        padding: 108px 20px;
+        padding: 60px 20px;
         height: calc(100vh - 3px);
 
         .md-card {

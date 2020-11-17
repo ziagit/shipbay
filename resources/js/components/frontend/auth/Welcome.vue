@@ -51,7 +51,7 @@ export default {
 
     .content {
         height: calc(100vh - 3px);
-        padding: 108px 30px;
+        padding: 60px 30px;
 
         .main-card {
             width: 90%;

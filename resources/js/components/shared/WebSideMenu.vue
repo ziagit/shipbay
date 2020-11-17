@@ -14,6 +14,17 @@
             <md-icon v-bind:class="{active: $route.name == 'shippers'}">local_mall</md-icon>
             <span class="md-list-item-text" v-bind:class="{active: $route.name == 'shippers'}">Shippers</span>
         </md-list-item>
+
+        <!--     <md-list-item md-expand :md-expanded.sync="expandShippers">
+            <md-icon>local_mall</md-icon>
+            <span class="md-list-item-text">Shippers</span>
+            <md-list slot="md-expand">
+                <md-list-item class="md-inset" to="/admin/carriers" @click="hideMenu()">Get Free Quotes</md-list-item>
+                <md-list-item class="md-inset" to="/admin/rates" @click="hideMenu()">Shipper FAQ</md-list-item>
+                <md-list-item class="md-inset" to="/admin/carrier/accessories" @click="hideMenu()">Help Center</md-list-item>
+            </md-list>
+        </md-list-item>-->
+
         <md-list-item to="/carriers" @click="hideMenu()">
             <md-icon v-bind:class="{active: $route.name == 'carriers'}">local_shipping</md-icon>
             <span class="md-list-item-text" v-bind:class="{active: $route.name == 'carriers'}">Carriers</span>
@@ -45,6 +56,8 @@ export default {
         expandSingle: false,
         menuVisible: false,
         windowWidth: window.innerWidth,
+        expandCarriers: false,
+        expandShippers: false,
     }),
     methods: {
         hideMenu() {
