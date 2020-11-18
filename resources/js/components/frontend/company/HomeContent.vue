@@ -428,7 +428,7 @@ export default {
 
                 ul {
                     padding: 20px 20px 20px 40px;
-                    border: solid 1px #fff;
+                    border: solid 1px #ddd;
 
                     li {
                         padding: 10px;
