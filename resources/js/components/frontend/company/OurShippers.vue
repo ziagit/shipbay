@@ -20,7 +20,7 @@
           <div>
             <div class="md-display-1">Important info about your quote</div>
             <div class="md-body-1">
-              1. All freight rates quoted on Shipping TAP platform are provided
+              1. All freight rates quoted on ShippingTAP platform are provided
               according to the description of goods and declared by the shipper
               and may be subject to additional charges in the case of
               misdeclaration.
@@ -48,9 +48,9 @@
           </div>
           <br />
           <div>
-            <div class="md-display-1">How Does Shipping TAP Works?</div>
+            <div class="md-display-1">How Does ShippingTAP Works?</div>
             <div class="md-body-1">
-              Shipping TAP is like the Expedia of shipping freight. Just type in
+              ShippingTAP is like the Expedia of shipping freight. Just type in
               your origin and destination, dates and quantity you’re shipping.
               Instantly see all available trucks and rates. You book the deal
               you want! <br />
@@ -223,7 +223,7 @@ export default {
 
       .right {
         flex: 30%;
-        padding: 60px;
+        padding: 82px 60px;
 
         .md-headline {
           font-size: 22px;

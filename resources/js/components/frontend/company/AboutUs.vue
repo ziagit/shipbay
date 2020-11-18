@@ -31,7 +31,7 @@
                     </div>
                 </div><br>
                 <div>
-                    <div class="md-display-1">Services That We Provide</div>
+                    <div class="md-display-1">Services that we Provide</div>
                     <div class="md-body-1">
                         <div class="md-title">Freight Transport</div>
                         Are you a business shipping goods within Canada ?
@@ -209,7 +209,7 @@ export default {
         align-items: center;
 
         .content {
-            padding: 85px 200px 130px 106px;
+            padding: 85px 200px 85px 106px;
 
             .md-display-1 {
                 line-height: 60px;
@@ -258,11 +258,7 @@ export default {
 
             .right {
                 flex: 30%;
-                padding: 60px;
-
-                .md-headline {
-                    font-size: 22px;
-                }
+                padding: 82px 60px;
 
                 .md-icon {
                     color: #66A9FB;

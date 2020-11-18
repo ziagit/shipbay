@@ -348,7 +348,7 @@ export default {
 
       .right {
         flex: 30%;
-        padding: 60px;
+        padding: 80px 60px;
 
         .md-headline {
           font-size: 22px;
