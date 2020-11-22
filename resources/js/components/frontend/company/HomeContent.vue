@@ -149,6 +149,25 @@
       </div>
       <div class="section4">
         <div class="row">
+          <ul>
+            <li>
+              <span><md-icon>check</md-icon></span> No contract required.
+            </li>
+            <li>
+              <span><md-icon>check</md-icon></span> Instant quote.
+            </li>
+            <li>
+              <span><md-icon>check</md-icon></span> Lowest price guaranteed.
+            </li>
+            <li>
+              <span><md-icon>check</md-icon></span> Cargo Insurance.
+            </li>
+            <li>
+              <span><md-icon>check</md-icon></span> Live tracking.
+            </li>
+          </ul>
+        </div>
+        <div class="row right">
           <div class="md-display-1">Business Freight</div>
           <div class="md-body-1">
             Whether you have a one time freight to be shipped or everyday
@@ -157,16 +176,6 @@
           <md-button class="md-button custom-button" to="/order"
             >Get Freight Quote</md-button
           >
-        </div>
-        <div class="row">
-
-          <ul>
-            <li><span><md-icon>check</md-icon></span> No contract required.</li>
-            <li><span><md-icon>check</md-icon></span> Instant quote.</li>
-            <li><span><md-icon>check</md-icon></span> Lowest price guaranteed.</li>
-            <li><span><md-icon>check</md-icon></span> Cargo Insurance.</li>
-            <li><span><md-icon>check</md-icon></span> Live tracking.</li>
-          </ul>
         </div>
       </div>
       <div class="section5">
@@ -178,13 +187,28 @@
           </div>
           <md-button class="custom-button">Get Moving Quote</md-button>
         </div>
-        <div class="row">
+        <div class="row right">
           <ul>
-            <li><span><md-icon class="md-size-0.5x">check</md-icon></span> No sign up required.</li>
-            <li><span><md-icon>check</md-icon></span> upfront instant quote.</li>
-            <li><span><md-icon>check</md-icon></span> Lowest price guaranteed.</li>
-            <li><span><md-icon>check</md-icon></span>Live chat with service provider.</li>
-            <li><span><md-icon>check</md-icon></span> All through our Apps.</li>
+            <li>
+              <span><md-icon>keyboard_arrow_right</md-icon></span> No sign up
+              required.
+            </li>
+            <li>
+              <span><md-icon>keyboard_arrow_right</md-icon></span> upfront
+              instant quote.
+            </li>
+            <li>
+              <span><md-icon>keyboard_arrow_right</md-icon></span> Lowest price
+              guaranteed.
+            </li>
+            <li>
+              <span><md-icon>keyboard_arrow_right</md-icon></span
+              >Live chat with service provider.
+            </li>
+            <li>
+              <span><md-icon>keyboard_arrow_right</md-icon></span> All through
+              our Apps.
+            </li>
           </ul>
         </div>
       </div>
@@ -417,6 +441,14 @@ export default {
         }
       }
     }
+    .section4 {
+      .right {
+        padding-left: 50px;
+      }
+      li:nth-child(2) {
+        background-image: linear-gradient(to right, #36a56375, #18a61c00);
+      }
+    }
 
     .section4,
     .section5 {
@@ -445,23 +477,34 @@ export default {
 
         ul {
           padding: 20px 20px 20px 40px;
-          border: solid 1px #ddd;
+          //border: solid 1px #ddd;
+          box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 
           li {
             display: flex;
             align-items: center;
             list-style-type: none;
             padding: 10px;
-            span{
-              background: #36A563;
+            span {
               margin-right: 10px;
               border-radius: 100%;
-              .md-icon{
-                color: #fff;
+              .md-icon {
+                color: #36a563;
               }
             }
           }
         }
+      }
+    }
+    .section5 .right {
+      span {
+        background: #36a563;
+        .md-icon {
+          color: #fff !important;
+        }
+      }
+      li:nth-child(1) {
+        background-image: linear-gradient(to right, #36a56375, #18a61c00);
       }
     }
   }
