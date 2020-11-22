@@ -20,8 +20,6 @@ export default {
 }
 .md-app-container {
   transform: none !important;
-  /* max-height: 100vh;
-    overflow: scroll; */
 }
 
 .app {
@@ -174,6 +172,31 @@ export default {
   margin: 0;
   background: #FFA500 !important;
   color: #fff !important;
+}
+.md-button {
+  text-transform: none !important; /*For Lower case use lowercase*/
+}
+.custom-button {
+  border-radius: 30px;
+  padding: 0 16px !important;
+  margin: 0;
+  background: #F97D4A;
+  color: #fff !important;
+  font-weight: 300 !important;
+  font-size: 12px !important;
+}
+
+.custom-button-outline {
+  border-radius: 30px;
+  padding: 0 16px !important;
+  margin: 0;
+  border: #FFA500 solid 1px !important;
+  color: #000 !important;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+}
+.custom-button-outline:hover{
+  background: #ffbc57 !important;
 }
 
 .md-progress-bar-fill {

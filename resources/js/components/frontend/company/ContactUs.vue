@@ -33,7 +33,7 @@
               <md-textarea v-model="message"></md-textarea>
             </md-field>
 
-            <md-button type="submit" slot="right" class="md-raised md-primary"
+            <md-button type="submit" slot="right" class="custom-button"
               >Send</md-button
             >
           </form>

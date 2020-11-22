@@ -4,7 +4,7 @@
       class="section0"
       v-bind:style="{ 'background-image': 'url(/images/uploads/about.jpg)' }"
     >
-      <Header v-on:togal-menu="$emit('togal-menu')" />
+      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
       <div class="content">
         <div class="md-display-1">Our Shippers</div>
         <div class="md-subheading">
@@ -82,7 +82,7 @@
           <div>
             <div class="md-title">Start a New Quote</div>
             <div class="break"></div>
-            <md-button class="md-raised">Get Quote</md-button>
+            <md-button class="custom-button">Get Quote</md-button>
           </div>
         </div>
         <div class="right">
@@ -95,7 +95,7 @@
               </md-field>
 
               <div class="action">
-                <md-button class="md-primary md-raised" to="/order"
+                <md-button class="custom-button" to="/order"
                   >Start</md-button
                 >
               </div>
@@ -117,7 +117,7 @@
               By downloading our application the task will be much easier.
             </div>
             <div>
-              <md-button class="md-raised" to="https://play.google.com"
+              <md-button class="custom-button" to="https://play.google.com"
                 >Download</md-button
               >
             </div>
@@ -136,6 +136,7 @@ import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
 export default {
   name: "ContactUs",
+  props: ['scrollValue'],
   data: () => ({
     form: {
       name: null,

@@ -1,17 +1,22 @@
 <template>
-<div class="container">
-    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/help.jpg)'}">
-        <Header v-on:togal-menu="$emit('togal-menu')" />
-        <div class="content">
-            <div class="md-display-1">How it Works?</div>
-            <div class="md-subheading">Our simple shipping tool is the fastest route to getting your freight on the road. Just enter a few shipment details, review quotes and choose a carrier</div>
-        <md-button class="md-raised">Get Quote</md-button>
-        
+  <div class="container">
+    <div
+      class="section0"
+      v-bind:style="{ 'background-image': 'url(/images/uploads/help.jpg)' }"
+    >
+      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
+      <div class="content">
+        <div class="md-display-1">Our Help Center</div>
+        <div class="md-subheading">
+          Our simple shipping tool is the fastest route to getting your freight
+          on the road. Just enter a few shipment details, review quotes and
+          choose a carrier
         </div>
-
+        <md-button class="custom-button">Get Quote</md-button>
+      </div>
     </div>
 
-<div class="section1">
+    <div class="section1">
       <div class="wrapper">
         <div class="left">
           <div class="md-display-1">We're happy to help</div>
@@ -30,7 +35,9 @@
             >
               <div class="md-body-1">
                 Call us at 800.323.5441 or
-                <router-link to="/register">set up your account online</router-link>.
+                <router-link to="/register"
+                  >set up your account online</router-link
+                >.
               </div>
             </md-step>
             <md-step
@@ -115,7 +122,8 @@
                 </ul>
               </div>
             </md-step>
-          </md-steppers>
+          </md-steppers><br><br>
+          <div class="md-body-1 contact-us"><span>Do you still having question?</span> <md-button class="custom-button-outline">Contact Us</md-button></div>
         </div>
         <div class="right">
           <div class="qoute">
@@ -127,7 +135,7 @@
               </md-field>
 
               <div class="action">
-                <md-button class="md-primary md-raised" to="/order"
+                <md-button class="md-primary custom-button" to="/order"
                   >Start</md-button
                 >
               </div>
@@ -150,7 +158,7 @@
               By downloading our application the task will be much easier.
             </div>
             <div>
-              <md-button class="md-raised" to="https://play.google.com"
+              <md-button class="custom-button" to="https://play.google.com"
                 >Download</md-button
               >
             </div>
@@ -160,163 +168,168 @@
     </div>
 
     <Footer />
-</div>
+  </div>
 </template>
 
 <script>
 import axio from "axios";
-import Footer from "../../shared/Footer"
-import Header from "../../shared/Header"
+import Footer from "../../shared/Footer";
+import Header from "../../shared/Header";
 export default {
-    name: "ContactUs",
-    data: () => ({
-        form: {
-            name: null,
-            email: null,
-            message: null,
-        }
-    }),
-    methods: {},
-    components: {
-        Footer,
-        Header,
-    }
+  name: "ContactUs",
+  props: ['scrollValue'],
+  data: () => ({
+    form: {
+      name: null,
+      email: null,
+      message: null,
+    },
+  }),
+  methods: {},
+  components: {
+    Footer,
+    Header,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-    background: #fff;
+  background: #fff;
 
-    .section0 {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-        align-items: center;
+  .section0 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    align-items: center;
 
-        .content {
-            padding: 85px 200px 40px 106px;
+    .content {
+      padding: 85px 200px 40px 106px;
 
-            .md-display-1 {
-                line-height: 60px;
-                font-size: 53px;
-                font-weight: 600;
-                color: #fff;
-            }
+      .md-display-1 {
+        line-height: 60px;
+        font-size: 53px;
+        font-weight: 600;
+        color: #fff;
+      }
 
-            .md-subheading {
-                color: #fff;
-                max-width: 70%;
-            }
-            .md-button{
-                margin-top: 30px;
-            }
-        }
+      .md-subheading {
+        color: #fff;
+        max-width: 70%;
+      }
+      .md-button {
+        margin-top: 30px;
+      }
     }
+  }
 
-    .section1 {
-        max-width: 1200px;
-        margin: auto;
-        padding: 30px;
+  .section1 {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
 
-        .wrapper {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
+    .wrapper {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
 
-            .left {
-                flex: 60%;
-                padding: 60px;
+      .left {
+        flex: 60%;
+        padding: 60px;
 
-                .md-display-1 {
-                    font-weight: 500;
-                    line-height: 70px;
-                    color: #000;
-                }
-
-                img {
-                    width: 100%;
-                    //box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-                }
-
-                .md-body-1 {
-                    font-size: 16px;
-                    line-height: 24px;
-                }
-            }
-
-            .right {
-                flex: 30%;
-                padding: 80px 60px;
-
-                .md-headline {
-                    font-size: 22px;
-                }
-
-                .md-icon {
-                    color: #66A9FB;
-                }
-
-                .qoute {
-
-                    .md-field {
-                        margin: 4px 0 8px;
-                    }
-
-                    .action {
-                        text-align: right;
-
-                        .md-button {
-                            margin: 0;
-                        }
-                    }
-                }
-
-                .qoute,
-                .faq,
-                .download-app,
-                .privacy,
-                .terms,
-                .contact {
-                    margin-bottom: 30px;
-                }
-
-                .download-app {
-                    .md-button {
-                        margin-top: 20px;
-                    }
-                }
-            }
+        .md-display-1 {
+          font-weight: 500;
+          line-height: 70px;
+          color: #000;
         }
 
-    }
+        img {
+          width: 100%;
+          //box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+        }
 
+        .md-body-1 {
+          font-size: 16px;
+          line-height: 24px;
+        }
+        .contact-us{
+          display: flex;
+          align-items: center;
+          span{
+            margin-right: 20px;
+          }
+        }
+      }
+
+      .right {
+        flex: 30%;
+        padding: 80px 60px;
+
+        .md-headline {
+          font-size: 22px;
+        }
+
+        .md-icon {
+          color: #66a9fb;
+        }
+
+        .qoute {
+          .md-field {
+            margin: 4px 0 8px;
+          }
+
+          .action {
+            text-align: right;
+
+            .md-button {
+              margin: 0;
+            }
+          }
+        }
+
+        .qoute,
+        .faq,
+        .download-app,
+        .privacy,
+        .terms,
+        .contact {
+          margin-bottom: 30px;
+        }
+
+        .download-app {
+          .md-button {
+            margin-top: 20px;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    .section0 {
-        padding: 50px 10px 100px 10px !important;
+  .section0 {
+    padding: 50px 10px 100px 10px !important;
+  }
+
+  .md-card {
+    padding: 0 !important;
+
+    .md-card-header {
+      padding: 50px 0 0 0 !important;
+      max-width: 78% !important;
     }
 
-    .md-card {
-        padding: 0 !important;
+    .section1 {
+      padding: 0 !important;
 
-        .md-card-header {
-            padding: 50px 0 0 0 !important;
-            max-width: 78% !important;
+      .wrapper {
+        flex-direction: column;
+
+        .md-button {
+          margin: 30px 0 0 0;
         }
-
-        .section1 {
-            padding: 0 !important;
-
-            .wrapper {
-                flex-direction: column;
-
-                .md-button {
-                    margin: 30px 0 0 0;
-                }
-            }
-        }
+      }
     }
+  }
 }
 </style>

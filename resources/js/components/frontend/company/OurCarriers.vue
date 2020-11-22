@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/ship1.png)'}">
-        <Header v-on:togal-menu="$emit('togal-menu')" />
+        <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
         <div class="content">
             <div class="md-display-1">Our Carriers</div>
             <div class="md-subheading">Join our carrier networks.</div>
@@ -29,7 +29,7 @@
                             <li>Build a relationship with your single point of contact</li>
                             <li>Keep your business moving with technology created for carriers</li>
                         </ul>
-                        <md-button class="md-raised">Create Account</md-button>
+                        <md-button class="custom-button">Create Account</md-button>
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
                     <div class="md-title">Download our Application</div>
                     <div class="md-body-1">By downloading our application the task will be much easier.</div>
                     <div>
-                        <md-button class="md-raised" to="https://play.google.com">Download</md-button>
+                        <md-button class="custom-button" to="https://play.google.com">Download</md-button>
                     </div>
                 </div>
             </div>
@@ -82,6 +82,7 @@ import Footer from "../../shared/Footer"
 import Header from "../../shared/Header"
 export default {
     name: "ContactUs",
+    props: ['scrollValue'],
     data: () => ({
         form: {
             name: null,
