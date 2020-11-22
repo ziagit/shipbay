@@ -1,10 +1,11 @@
 <template>
 <div class="container">
-    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/ship1.png)'}">
+    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/carrier-bg.svg)'}">
         <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
         <div class="content">
             <div class="md-display-1">Our Carriers</div>
             <div class="md-subheading">Join our carrier networks.</div>
+            <md-button class="custom-button" to="/register">Sign Up</md-button>
         </div>
     </div>
 
@@ -108,31 +109,20 @@ export default {
         background-position: center center;
         align-items: center;
 
-        .header {
-            color: #fff;
-
-            h3 {
-                color: #fff !important;
-            }
-
-            .md-icon {
-                color: #fff !important;
-            }
-        }
-
         .content {
-            padding: 85px 200px 130px 106px;
+            padding: 85px 200px 68px 106px;
 
             .md-display-1 {
                 line-height: 60px;
                 font-size: 53px;
                 font-weight: 600;
-                color: #fff;
+                color: #000;
             }
 
             .md-subheading {
-                color: #fff;
+                color: #000;
                 max-width: 70%;
+                margin-bottom: 30px;
             }
         }
     }

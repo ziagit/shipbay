@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/ship2.jpg)'}">
+    <div class="section0" v-bind:style="{'background-image': 'url(/images/uploads/about.svg)'}">
         <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
         <div class="content">
             <div class="md-display-1">About Us</div>
@@ -216,11 +216,11 @@ export default {
                 line-height: 60px;
                 font-size: 53px;
                 font-weight: 600;
-                color: #fff;
+                color: #000;
             }
 
             .md-subheading {
-                color: #fff;
+                color: #000;
                 max-width: 70%;
             }
         }

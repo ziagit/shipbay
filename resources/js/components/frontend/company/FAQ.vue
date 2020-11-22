@@ -2,7 +2,6 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/about.jpg)' }"
     >
       <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
       <div class="content">
@@ -311,17 +310,17 @@ export default {
     align-items: center;
 
     .content {
-      padding: 85px 200px 130px 106px;
+      padding: 69px 200px 0 106px;
 
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;
         font-weight: 600;
-        color: #fff;
+        color: #000;
       }
 
       .md-subheading {
-        color: #fff;
+        color: #000;
         max-width: 70%;
       }
     }

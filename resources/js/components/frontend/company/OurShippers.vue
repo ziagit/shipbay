@@ -2,7 +2,7 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/about.jpg)' }"
+      v-bind:style="{ 'background-image': 'url(/images/uploads/shipper-bg.svg)' }"
     >
       <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
       <div class="content">
@@ -11,6 +11,7 @@
           From the start, everything we've done has centered on solving customer
           problems through technology.
         </div>
+        <md-button class="custom-button">Start a Quote</md-button>
       </div>
     </div>
 
@@ -162,31 +163,20 @@ export default {
     background-position: center center;
     align-items: center;
 
-    .header {
-      color: #fff;
-
-      h3 {
-        color: #fff !important;
-      }
-
-      .md-icon {
-        color: #fff !important;
-      }
-    }
-
     .content {
-      padding: 85px 200px 130px 106px;
+       padding: 85px 200px 34px 106px;
 
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;
         font-weight: 600;
-        color: #fff;
+        color: #000;
       }
 
       .md-subheading {
-        color: #fff;
+        color: #000;
         max-width: 70%;
+          margin-bottom: 30px;
       }
     }
   }

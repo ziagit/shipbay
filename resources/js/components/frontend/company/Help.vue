@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div
-      class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/help.jpg)' }"
-    >
-      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
+    <div class="section0">
+      <Header
+        v-on:togal-menu="$emit('togal-menu')"
+        :scrollValue="scrollValue"
+      />
       <div class="content">
         <div class="md-display-1">Our Help Center</div>
         <div class="md-subheading">
@@ -12,7 +12,6 @@
           on the road. Just enter a few shipment details, review quotes and
           choose a carrier
         </div>
-        <md-button class="custom-button">Get Quote</md-button>
       </div>
     </div>
 
@@ -121,9 +120,12 @@
                   <li>Pick up date and location</li>
                 </ul>
               </div>
-            </md-step>
-          </md-steppers><br><br>
-          <div class="md-body-1 contact-us"><span>Do you still having question?</span> <md-button class="custom-button-outline">Contact Us</md-button></div>
+            </md-step> </md-steppers
+          ><br /><br />
+          <div class="md-body-1 contact-us">
+            <span>Do you still having question?</span>
+            <md-button class="custom-button-outline">Contact Us</md-button>
+          </div>
         </div>
         <div class="right">
           <div class="qoute">
@@ -177,7 +179,7 @@ import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
 export default {
   name: "ContactUs",
-  props: ['scrollValue'],
+  props: ["scrollValue"],
   data: () => ({
     form: {
       name: null,
@@ -204,17 +206,17 @@ export default {
     align-items: center;
 
     .content {
-      padding: 85px 200px 40px 106px;
+      padding: 69px 200px 0 106px;
 
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;
         font-weight: 600;
-        color: #fff;
+        color: #000;
       }
 
       .md-subheading {
-        color: #fff;
+        color: #000;
         max-width: 70%;
       }
       .md-button {
@@ -252,10 +254,10 @@ export default {
           font-size: 16px;
           line-height: 24px;
         }
-        .contact-us{
+        .contact-us {
           display: flex;
           align-items: center;
-          span{
+          span {
             margin-right: 20px;
           }
         }

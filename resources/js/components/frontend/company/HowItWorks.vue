@@ -2,7 +2,7 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/help.jpg)' }"
+      v-bind:style="{ 'background-image': 'url(/images/uploads/help.svg)' }"
     >
       <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
       <div class="content">
@@ -12,7 +12,6 @@
           on the road. Just enter a few shipment details, review quotes and
           choose a carrier
         </div>
-        <md-button class="md-raised">Get Quote</md-button>
       </div>
     </div>
 
@@ -208,11 +207,11 @@ export default {
         line-height: 60px;
         font-size: 53px;
         font-weight: 600;
-        color: #fff;
+        color: #000;
       }
 
       .md-subheading {
-        color: #fff;
+        color: #000;
         max-width: 70%;
       }
       .md-button {

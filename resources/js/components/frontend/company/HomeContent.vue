@@ -441,14 +441,6 @@ export default {
         }
       }
     }
-    .section4 {
-      .right {
-        padding-left: 50px;
-      }
-      li:nth-child(2) {
-        background-image: linear-gradient(to right, #36a56375, #18a61c00);
-      }
-    }
 
     .section4,
     .section5 {
@@ -489,22 +481,33 @@ export default {
               margin-right: 10px;
               border-radius: 100%;
               .md-icon {
-                color: #36a563;
+                color: #76c6ed;
               }
             }
           }
         }
       }
     }
+    .section4 {
+      .right {
+        padding-left: 50px;
+      }
+      li:nth-child(2) {
+        background-image: linear-gradient(to right, #76c6ed, #18a61c00);
+        .md-icon{
+          color: #fff !important;
+        }
+      }
+    }
     .section5 .right {
       span {
-        background: #36a563;
+        background: #76c6ed;
         .md-icon {
           color: #fff !important;
         }
       }
       li:nth-child(1) {
-        background-image: linear-gradient(to right, #36a56375, #18a61c00);
+        background-image: linear-gradient(to right, #76c6ed, #18a61c00);
       }
     }
   }
