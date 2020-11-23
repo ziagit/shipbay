@@ -431,6 +431,7 @@ export default {
     align-items: center;
 
     .content {
+      min-height: 278px;
       padding: 85px 200px 130px 106px;
 
       .md-display-1 {

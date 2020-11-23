@@ -2,9 +2,14 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/shipper-bg.svg)' }"
+      v-bind:style="{
+        'background-image': 'url(/images/uploads/shipper-bg.svg)',
+      }"
     >
-      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
+      <Header
+        v-on:togal-menu="$emit('togal-menu')"
+        :scrollValue="scrollValue"
+      />
       <div class="content">
         <div class="md-display-1">Our Shippers</div>
         <div class="md-subheading">
@@ -96,9 +101,7 @@
               </md-field>
 
               <div class="action">
-                <md-button class="custom-button" to="/order"
-                  >Start</md-button
-                >
+                <md-button class="custom-button" to="/order">Start</md-button>
               </div>
             </form>
           </div>
@@ -137,7 +140,7 @@ import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
 export default {
   name: "ContactUs",
-  props: ['scrollValue'],
+  props: ["scrollValue"],
   data: () => ({
     form: {
       name: null,
@@ -162,9 +165,10 @@ export default {
     background-size: cover;
     background-position: center center;
     align-items: center;
-
+    border-bottom: #ddd 1px solid;
     .content {
-       padding: 85px 200px 34px 106px;
+      min-height: 278px;
+      padding: 70px 200px 34px 106px;
 
       .md-display-1 {
         line-height: 60px;
@@ -176,7 +180,7 @@ export default {
       .md-subheading {
         color: #000;
         max-width: 70%;
-          margin-bottom: 30px;
+        margin-bottom: 30px;
       }
     }
   }
@@ -221,7 +225,7 @@ export default {
         }
 
         .md-icon {
-          color: #66A9FB;
+          color: #66a9fb;
         }
 
         .qoute {

@@ -29,13 +29,18 @@ export default {
 .padding-20 {
   padding: 20px !important;
 }
-
+.md-tabs-navigation {
+  padding-left: 60px !important;
+}
 .md-card {
   border-radius: 8px !important;
   /* box-shadow: 0 4px 16px rgba(0,0,0,.12); */
   box-shadow: 0 1px 2px #11111142;
   //box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
   border: none;
+}
+.md-tabs.md-theme-default .md-tabs-navigation .md-button.md-active {
+  background: #448aff24 !important;
 }
 
 .md-app .md-app-side-drawer .md-layout-row .md-reveal .md-theme-default {
@@ -47,13 +52,13 @@ export default {
 }
 
 .md-checkbox.md-theme-default.md-checked .md-checkbox-container {
-  background-color: #FFA500;
-  border-color: #FFA500;
+  background-color: #ffa500;
+  border-color: #ffa500;
 }
 
 .md-radio.md-theme-default.md-checked .md-radio-container {
-  background-color: #FFA500;
-  border-color: #FFA500;
+  background-color: #ffa500;
+  border-color: #ffa500;
 }
 
 .md-radio.md-theme-default.md-checked .md-radio-container:after {
@@ -114,7 +119,7 @@ export default {
 }
 
 .active {
-  color: #FFA500 !important;
+  color: #ffa500 !important;
 }
 
 .md-accent {
@@ -147,7 +152,7 @@ export default {
 }
 
 .md-primary {
-  color: #FFA500 !important;
+  color: #ffa500 !important;
 }
 
 .md-seconday {
@@ -155,11 +160,11 @@ export default {
 }
 
 .md-button.md-theme-default.md-raised:not([disabled]).md-primary {
-  background-color: #FFA500;
+  background-color: #ffa500;
 }
 
 .md-switch.md-theme-default.md-checked.md-primary .md-switch-thumb {
-  background-color: #FFA500 !important;
+  background-color: #ffa500 !important;
 }
 
 .md-switch.md-theme-default.md-checked.md-primary .md-switch-container {
@@ -170,7 +175,7 @@ export default {
   border-radius: 30px;
   padding: 0 10px;
   margin: 0;
-  background: #FFA500 !important;
+  background: #ffa500 !important;
   color: #fff !important;
 }
 .md-button {
@@ -180,7 +185,7 @@ export default {
   border-radius: 30px;
   padding: 0 16px !important;
   margin: 0;
-  background: #F97D4A;
+  background: #f97d4a;
   color: #fff !important;
   font-weight: 300 !important;
   font-size: 12px !important;
@@ -190,17 +195,17 @@ export default {
   border-radius: 30px;
   padding: 0 16px !important;
   margin: 0;
-  border: #FFA500 solid 1px !important;
+  border: #ffa500 solid 1px !important;
   color: #000 !important;
   font-weight: 400 !important;
   font-size: 12px !important;
 }
-.custom-button-outline:hover{
+.custom-button-outline:hover {
   background: #ffbc57 !important;
 }
 
 .md-progress-bar-fill {
-  background: #FFA500 !important;
+  background: #ffa500 !important;
 }
 
 @media only screen and (min-width: 600px) {

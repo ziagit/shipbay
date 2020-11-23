@@ -1,9 +1,10 @@
 <template>
   <div class="container">
-    <div
-      class="section0"
-    >
-      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
+    <div class="section0">
+      <Header
+        v-on:togal-menu="$emit('togal-menu')"
+        :scrollValue="scrollValue"
+      />
       <div class="content">
         <div class="md-display-1">FAQ</div>
         <div class="md-subheading">Most Frequently Asked Questions</div>
@@ -242,13 +243,11 @@
               </md-field>
 
               <div class="action">
-                <md-button class="custom-button" to="/order"
-                  >Start</md-button
-                >
+                <md-button class="custom-button" to="/order">Start</md-button>
               </div>
             </form>
           </div>
-  
+
           <div class="contact">
             <div class="md-title">Contact us</div>
             <div class="md-body-1">
@@ -284,7 +283,7 @@ import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
 export default {
   name: "ContactUs",
-  props: ['scrollValue'],
+  props: ["scrollValue"],
   data: () => ({
     form: {
       name: null,
@@ -308,8 +307,9 @@ export default {
     background-size: cover;
     background-position: center center;
     align-items: center;
-
+    border-bottom: #ddd 1px solid;
     .content {
+      min-height: 278px;
       padding: 69px 200px 0 106px;
 
       .md-display-1 {
@@ -355,7 +355,7 @@ export default {
         }
 
         .md-icon {
-          color: #66A9FB;
+          color: #66a9fb;
         }
 
         .qoute {
