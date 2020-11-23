@@ -1,176 +1,33 @@
 <template>
-  <div class="container">
+<div class="container">
     <div class="section0">
-      <Header
-        v-on:togal-menu="$emit('togal-menu')"
-        :scrollValue="scrollValue"
-      />
-      <div class="content">
-        <div class="md-display-1">Our Help Center</div>
-        <div class="md-subheading">
-          Our simple shipping tool is the fastest route to getting your freight
-          on the road. Just enter a few shipment details, review quotes and
-          choose a carrier
+        <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue" />
+        <div class="content">
+            <div class="text">
+                <div class="md-display-1">Welcome to our Help Center</div>
+                <div class="md-subheading">
+                    Select a user type to begin
+                </div>
+            </div>
+            <div class="user-type">
+                <div class="shipper" @click="shipper()">
+                    <div>
+                        <md-icon>home</md-icon>
+                        <span>Shipper</span>
+                    </div>
+                </div>
+                <div class="carrier" @click="carrier()">
+                    <div>
+                        <md-icon>home</md-icon>
+                        <span>Carrier</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-    <div class="section1">
-      <div class="wrapper">
-        <div class="left">
-          <div class="md-display-1">We're happy to help</div>
-          <div class="md-body-1">
-            Ask us anything! When you need assistance, our knowledgeable experts
-            are ready. We want your freight shipping to be easy. Here are some
-            common situations along with guidance we’re pleased to share with
-            you.
-          </div>
-          <br />
-          <md-steppers md-vertical :md-active-step.sync="active">
-            <md-step
-              id="first"
-              md-label="I want to set up an account."
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                Call us at 800.323.5441 or
-                <router-link to="/register"
-                  >set up your account online</router-link
-                >.
-              </div>
-            </md-step>
-            <md-step
-              id="second"
-              md-label="What if I need help after regular business hours?"
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                When you create a ShippingTAP account, you will have access to
-                all your information, whenever you need it. You can quote, book,
-                track, pay invoices, access your address book, view prior
-                shipments and more within your account page.
-              </div>
-            </md-step>
-            <md-step
-              id="third"
-              md-label="I’m a carrier wanting to become a ShippingTAP contract carrier."
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                You can learn more about our carriers
-                <router-link to="/carriers">here</router-link> or call us at
-                877.667.0035 to learn more about becoming a ShippingTAP contract
-                carrier.
-              </div>
-            </md-step>
-            <md-step
-              id="fifth"
-              md-label="My shipment was late and I paid for guaranteed service."
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                Contact ShippingTAP customer service, 800.323.5441, to file a
-                claim with the contract carrier.
-              </div>
-            </md-step>
-            <md-step
-              id="sixth"
-              md-label="Can customer service reps book freight on the phone?"
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                Customer service reps can quote and track your freight, but can
-                only book LTL shipments over the phone. Contact your account
-                manager or log in to your account for other tools and services.
-              </div>
-            </md-step>
-            <md-step
-              id="seventh"
-              md-label="I need to know how to pack my items, do you have any advice?"
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                We have lots of tips and suggestions about packing, crating and
-                pallets to help you with the safety and security of your
-                shipment. You may also call us any time with questions at
-                800.323.5441.
-              </div>
-            </md-step>
-            <md-step
-              id="eighth"
-              md-label="I want to change or cancel my pick up date."
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                Sign into your ShippingTAP account to cancel or rebook. You can
-                also call to change or cancel the pickup date.
-              </div>
-            </md-step>
-            <md-step
-              id="nineth"
-              md-label="Calling Customer service, we can often solve issues faster if you provide:"
-              md-description="Click to read more"
-            >
-              <div class="md-body-1">
-                <ul>
-                  <li>Bill of Lading number</li>
-                  <li>Account phone number</li>
-                  <li>Account email address</li>
-                  <li>Zip code pairings on your shipment</li>
-                  <li>Pick up date and location</li>
-                </ul>
-              </div>
-            </md-step> </md-steppers
-          ><br /><br />
-          <div class="md-body-1 contact-us">
-            <span>Do you still having question?</span>
-            <md-button class="custom-button-outline">Contact Us</md-button>
-          </div>
-        </div>
-        <div class="right">
-          <div class="qoute">
-            <div class="md-title">Get a Free Shipping Qoute</div>
-            <form action="">
-              <md-field>
-                <label>City/Zip code</label>
-                <md-input type="text" v-model="form.city" required></md-input>
-              </md-field>
-
-              <div class="action">
-                <md-button class="md-primary custom-button" to="/order"
-                  >Start</md-button
-                >
-              </div>
-            </form>
-          </div>
-
-          <div class="contact">
-            <div class="md-title">Contact us</div>
-            <div class="md-body-1">
-              If you want to know more about us, drop us an email.
-            </div>
-            <div>
-              <router-link to="/contact">Contact us</router-link>
-              <md-icon>keyboard_arrow_right</md-icon>
-            </div>
-          </div>
-          <div class="download-app">
-            <div class="md-title">Download our Application</div>
-            <div class="md-body-1">
-              By downloading our application the task will be much easier.
-            </div>
-            <div>
-              <md-button class="custom-button" to="https://play.google.com"
-                >Download</md-button
-              >
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <Footer />
-  </div>
+</div>
 </template>
 
 <script>
@@ -178,160 +35,95 @@ import axio from "axios";
 import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
 export default {
-  name: "ContactUs",
-  props: ["scrollValue"],
-  data: () => ({
-    form: {
-      name: null,
-      email: null,
-      message: null,
+    name: "ContactUs",
+    props: ["scrollValue"],
+    data: () => ({
+        form: {
+            name: null,
+            email: null,
+            message: null,
+        },
+    }),
+    methods: {
+        shipper() {
+            $router.push('/shipper-help-center')
+        },
+        carrier() {
+            $router.push('/carrier-help-center')
+        }
     },
-  }),
-  methods: {},
-  components: {
-    Footer,
-    Header,
-  },
+    components: {
+        Footer,
+        Header,
+    },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-  background: #fff;
+    background: #fff;
 
-  .section0 {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    align-items: center;
+    .section0 {
+        min-height: 100vh;
 
-    .content {
-      padding: 69px 200px 0 106px;
+        .content {
+            text-align: center;
+            align-items: center;
+            padding-top: 110px;
 
-      .md-display-1 {
-        line-height: 60px;
-        font-size: 53px;
-        font-weight: 600;
-        color: #000;
-      }
+            .text {
+                max-width: 530px;
+                margin: auto;
 
-      .md-subheading {
-        color: #000;
-        max-width: 70%;
-      }
-      .md-button {
-        margin-top: 30px;
-      }
-    }
-  }
+                .md-display-1 {
+                    line-height: 60px;
+                    font-size: 53px;
+                    font-weight: 600;
+                    color: #000;
+                }
 
-  .section1 {
-    max-width: 1200px;
-    margin: auto;
-    padding: 30px;
+                .md-subheading {
+                    color: #000;
+                    margin: 30px 0;
+                }
 
-    .wrapper {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-
-      .left {
-        flex: 60%;
-        padding: 60px;
-
-        .md-display-1 {
-          font-weight: 500;
-          line-height: 70px;
-          color: #000;
-        }
-
-        img {
-          width: 100%;
-          //box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-        }
-
-        .md-body-1 {
-          font-size: 16px;
-          line-height: 24px;
-        }
-        .contact-us {
-          display: flex;
-          align-items: center;
-          span {
-            margin-right: 20px;
-          }
-        }
-      }
-
-      .right {
-        flex: 30%;
-        padding: 80px 60px;
-
-        .md-headline {
-          font-size: 22px;
-        }
-
-        .md-icon {
-          color: #66a9fb;
-        }
-
-        .qoute {
-          .md-field {
-            margin: 4px 0 8px;
-          }
-
-          .action {
-            text-align: right;
-
-            .md-button {
-              margin: 0;
             }
-          }
-        }
 
-        .qoute,
-        .faq,
-        .download-app,
-        .privacy,
-        .terms,
-        .contact {
-          margin-bottom: 30px;
-        }
+            .user-type {
+                display: flex;
+                justify-content: space-around;
+                max-width: 300px;
+                margin: auto;
 
-        .download-app {
-          .md-button {
-            margin-top: 20px;
-          }
+                .shipper,
+                .carrier {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    min-width: 100px;
+                    min-height: 100px;
+
+                    padding: 10px;
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+
+                    div {}
+                }
+
+                .shipper:hover,
+                .carrier:hover {
+                    cursor: pointer;
+                    background: #ddd;
+                }
+            }
+
         }
-      }
     }
-  }
+
 }
 
 @media only screen and (max-width: 600px) {
-  .section0 {
-    padding: 50px 10px 100px 10px !important;
-  }
-
-  .md-card {
-    padding: 0 !important;
-
-    .md-card-header {
-      padding: 50px 0 0 0 !important;
-      max-width: 78% !important;
+    .section0 {
+        padding: 50px 10px 100px 10px !important;
     }
-
-    .section1 {
-      padding: 0 !important;
-
-      .wrapper {
-        flex-direction: column;
-
-        .md-button {
-          margin: 30px 0 0 0;
-        }
-      }
-    }
-  }
 }
 </style>
