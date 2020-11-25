@@ -14,10 +14,10 @@
         <div class="md-title">What are you shipping today?</div>
         <div class="actions">
           <md-button class="custom-button" to="/order"
-            >Get Freight Quote</md-button
+            >Freight</md-button
           >
           <md-button class="md-button custom-button-outline"
-            >Get Moving Quote</md-button
+            >Moving</md-button
           >
         </div>
       </div>
@@ -51,7 +51,7 @@
       </div>
       <div class="section2">
         <div class="heading">
-          <div class="md-display-1">Safe and no hassle shipping</div>
+          <div class="md-display-1">Safe and hassle-free shipping</div>
           <div class="md-body-1">
             Get your freight safely shipped by a few taps.
           </div>
@@ -96,14 +96,12 @@
         }"
       >
         <div class="text">
-          <div class="md-display-1">Shipment On Tap</div>
+          <div class="md-display-1">Shipment</div>
           <div class="md-body-1">
-            Now, you can get your free quotes and book your shipments in a few
-            taps.
+            We make your freight at your fingertips
           </div>
         </div>
         <div class="steps">
-          <div class="head"></div>
           <ul>
             <li>
               <div class="avatar">
@@ -117,7 +115,7 @@
               </div>
             </li>
 
-            <md-divider></md-divider>
+            <!--<md-divider></md-divider>-->
 
             <li>
               <div class="avatar">
@@ -131,7 +129,7 @@
                 </div>
               </div>
             </li>
-            <md-divider></md-divider>
+            <!--<md-divider></md-divider>-->
             <li>
               <div class="avatar">
                 <img :src="'/images/uploads/track-order.svg'" alt="People" />
@@ -147,71 +145,7 @@
           </ul>
         </div>
       </div>
-      <div class="section4">
-        <div class="row">
-          <ul>
-            <li>
-              <span><md-icon>check</md-icon></span> No contract required.
-            </li>
-            <li>
-              <span><md-icon>check</md-icon></span> Instant quote.
-            </li>
-            <li>
-              <span><md-icon>check</md-icon></span> Lowest price guaranteed.
-            </li>
-            <li>
-              <span><md-icon>check</md-icon></span> Cargo Insurance.
-            </li>
-            <li>
-              <span><md-icon>check</md-icon></span> Live tracking.
-            </li>
-          </ul>
-        </div>
-        <div class="row right">
-          <div class="md-display-1">Business Freight</div>
-          <div class="md-body-1">
-            Whether you have a one time freight to be shipped or everyday
-            shipment, we got you covered with the competitive advantages...
-          </div>
-          <md-button class="md-button custom-button" to="/order"
-            >Get Freight Quote</md-button
-          >
-        </div>
-      </div>
-      <div class="section5">
-        <div class="row">
-          <div class="md-display-1">Household Moving</div>
-          <div class="md-body-1">
-            We are the only platform where you can get upfront quote for your
-            big day moving in a matter of seconds.
-          </div>
-          <md-button class="custom-button">Get Moving Quote</md-button>
-        </div>
-        <div class="row right">
-          <ul>
-            <li>
-              <span><md-icon>keyboard_arrow_right</md-icon></span> No sign up
-              required.
-            </li>
-            <li>
-              <span><md-icon>keyboard_arrow_right</md-icon></span> upfront
-              instant quote.
-            </li>
-            <li>
-              <span><md-icon>keyboard_arrow_right</md-icon></span> Lowest price
-              guaranteed.
-            </li>
-            <li>
-              <span><md-icon>keyboard_arrow_right</md-icon></span
-              >Live chat with service provider.
-            </li>
-            <li>
-              <span><md-icon>keyboard_arrow_right</md-icon></span> All through
-              our Apps.
-            </li>
-          </ul>
-        </div>
-      </div>
+   
     </div>
 
     <Footer />
@@ -269,6 +203,7 @@ export default {
         margin-top: 0;
         color: #848484;
         margin-bottom: 42px;
+        font-size: 18px;
       }
       .md-title {
         margin-bottom: 16px;
@@ -400,14 +335,8 @@ export default {
         bottom: -50px;
         box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 
-        .head {
-          min-height: 9px;
-          width: 100%;
-          background: #f07947;
-        }
-
         ul {
-          padding: 0 36px;
+          padding: 36px;
           margin: 0;
 
           li {
@@ -417,7 +346,7 @@ export default {
 
             .avatar {
               display: flex;
-              flex: 5%;
+              flex: 13%;
               padding: 10px;
             }
             .text {
@@ -439,75 +368,6 @@ export default {
             height: 0.1px !important;
           }
         }
-      }
-    }
-
-    .section4,
-    .section5 {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      padding: 46px 100px;
-
-      .row {
-        flex: 50%;
-
-        .md-display-1 {
-          max-width: 52%;
-          font-weight: 500;
-          font-size: 30px;
-          line-height: 49px;
-          color: #000;
-        }
-
-        .md-body-1 {
-          max-width: 70%;
-          margin: 3px 0 86px 0;
-          font-size: 16px;
-          line-height: 24px;
-        }
-
-        ul {
-          padding: 20px 20px 20px 40px;
-          //border: solid 1px #ddd;
-          box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-
-          li {
-            display: flex;
-            align-items: center;
-            list-style-type: none;
-            padding: 10px;
-            span {
-              margin-right: 10px;
-              border-radius: 100%;
-              .md-icon {
-                color: #76c6ed;
-              }
-            }
-          }
-        }
-      }
-    }
-    .section4 {
-      .right {
-        padding-left: 50px;
-      }
-      li:nth-child(2) {
-        background-image: linear-gradient(to right, #76c6ed, #18a61c00);
-        .md-icon{
-          color: #fff !important;
-        }
-      }
-    }
-    .section5 .right {
-      span {
-        background: #76c6ed;
-        .md-icon {
-          color: #fff !important;
-        }
-      }
-      li:nth-child(1) {
-        background-image: linear-gradient(to right, #76c6ed, #18a61c00);
       }
     }
   }

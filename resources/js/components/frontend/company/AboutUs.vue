@@ -327,11 +327,6 @@ export default {
           color: #000;
         }
 
-        img {
-          width: 100%;
-          //box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-        }
-
         .md-body-1 {
           font-size: 16px;
           line-height: 24px;
