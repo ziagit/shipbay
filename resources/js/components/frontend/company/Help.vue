@@ -16,11 +16,17 @@
 
     <div class="section1">
       <md-tabs>
-        <md-tab id="tab-home" md-label="Carrier" md-icon="directions_boat">
+        <md-tab id="tab-carrier" md-label="Carrier" md-icon="directions_boat">
           <CarrierHelp />
         </md-tab>
-        <md-tab id="tab-pages" md-label="Shipper" md-icon="local_mall">
+        <md-tab id="tab-shipper" md-label="Shipper" md-icon="local_mall">
           <ShipperHelp />
+        </md-tab>
+        <md-tab id="tab-how-works" md-label="How it Works" md-icon="help">
+          <HowItWorks />
+        </md-tab>
+        <md-tab id="faq" md-label="FAQ" md-icon="notes">
+          <FAQ />
         </md-tab>
       </md-tabs>
     </div>
@@ -35,6 +41,8 @@ import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
 import CarrierHelp from "./CarrierHelp";
 import ShipperHelp from "./ShipperHelp";
+import HowItWorks from "./HowItWorks";
+import FAQ from "./FAQ";
 export default {
   name: "ContactUs",
   data: () => ({
@@ -50,6 +58,8 @@ export default {
     Header,
     CarrierHelp,
     ShipperHelp,
+    HowItWorks,
+    FAQ
   },
 };
 </script>

@@ -33,10 +33,7 @@
             <!--<md-icon v-bind:class="{active: $route.name == 'help'}">help</md-icon>-->
             <span class="md-list-item-text" v-bind:class="{active: $route.name == 'help'}">Help Center</span>
         </md-list-item>
-        <md-list-item to="/how-it-works" @click="hideMenu()">
-            <!--<md-icon v-bind:class="{active: $route.name == 'help'}">help</md-icon>-->
-            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'how-it-works'}">How it Works</span>
-        </md-list-item>
+   
         <md-divider></md-divider>
 
         <md-list-item to="/login" @click="hideMenu()">
@@ -78,5 +75,8 @@ export default {
 
 .active {
     color: #ffa500 !important;
+}
+.md-list-item-text{
+    font-size: 16px;
 }
 </style>

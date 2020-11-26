@@ -11,6 +11,9 @@ export default {
 </script>
 
 <style lang="scss">
+.section0 {
+  box-shadow: 0 2px 13px -7px grey;
+}
 .md-stepper-label {
   color: #000 !important;
   font-weight: 600;

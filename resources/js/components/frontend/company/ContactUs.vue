@@ -39,31 +39,13 @@
           </form>
         </div>
         <div class="right">
-          <div class="row1">
-            <div class="md-title">
-              <img :src="'/images/uploads/location.svg'" alt="2" width="20" />
-              Find us at the office
-            </div>
+          <div class="content">
+            <img :src="'/images/uploads/location.svg'" alt="2" width="50" />
             <div class="md-caption">Sheer Pur Main Road,</div>
             <div class="md-caption">1001, Kabul</div>
             <div class="md-caption">Afghanistan</div>
-          </div>
-          <div class="row2">
-            <div class="md-title">
-              <img :src="'/images/uploads/phone.svg'" alt="2" width="20" /> Give
-              us a ring
-            </div>
-            <div class="md-caption">Michael Jordan</div>
-            <div class="md-caption">+93 775 059 616</div>
-            <div class="md-caption">Mon - Fri, 8:00-22:00</div>
-          </div>
-          <div class="row3">
-            <div class="md-title">
-              <img :src="'/images/uploads/bag.svg'" alt="2" width="20" /> Legal
-              information
-            </div>
-            <div class="md-caption">Shipping TAP</div>
-            <div class="md-caption">Fast Delivery Agency</div>
+            <div class="break"></div>
+            <div class="md-caption">+1 (604) 358-6261</div>
           </div>
         </div>
       </div>
@@ -117,9 +99,9 @@ export default {
         padding: 60px;
 
         .md-display-1 {
-            font-weight: 500;
-            line-height: 70px;
-            color: #000;
+          font-weight: 500;
+          line-height: 70px;
+          color: #000;
         }
 
         .md-button {
@@ -131,17 +113,16 @@ export default {
         flex: 30%;
         padding: 82px 60px;
 
-        .row1,
-        .row2,
-        .row3 {
-          margin-bottom: 30px;
+        .content {
+          text-align: center;
 
           .md-headline {
             font-size: 18px;
           }
-
+          img{
+            margin: 30px;
+          }
           .md-caption {
-            margin-left: 25px;
           }
         }
       }

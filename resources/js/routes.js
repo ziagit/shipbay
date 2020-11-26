@@ -10,7 +10,6 @@ import Card from './components/frontend/card/Card';
 
 import HomeContent from './components/frontend/company/HomeContent';
 import Help from './components/frontend/company/Help';
-import HowItWorks from './components/frontend/company/HowItWorks';
 import AboutUs from './components/frontend/company/AboutUs'
 import ContactUs from './components/frontend/company/ContactUs'
 import OurServices from './components/frontend/company/OurServices'
@@ -151,7 +150,6 @@ export default new VueRouter({
                 { name: 'services', path: 'services', component: OurServices },
                 { name: 'services-details', path: 'service-details', component: ServiceDetails },
                 { name: 'help', path: 'help', component: Help },
-                { name: 'how-it-works', path: 'how-it-works', component: HowItWorks },
                 { name: 'signin', path: '/login', component: Login },
                 { name: 'signup', path: '/register', component: Register },
                 { name: 'welcome', path: '/welcome', component: Welcome },
