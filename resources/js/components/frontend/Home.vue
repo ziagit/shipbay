@@ -134,10 +134,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scrollbar {
+/* .scrollbar {
   max-height: 100vh;
   overflow-y: auto;
-}
+} */
 .md-menu-content {
   border-radius: 7px;
 

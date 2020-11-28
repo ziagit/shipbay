@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-
+    <div class="line"></div>
     <div class="bottom">
       <span class="col0">© 2020 EG Logistics Inc. All rights reserved.</span>
       <span class="col1"
@@ -139,7 +139,9 @@ export default {
       }
     }
   }
-
+  .line {
+    border-top: solid 0.5px #fff;
+  }
   .bottom {
     max-width: 1200px;
     margin: auto;
@@ -147,7 +149,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 10px 92px;
-    border-top: solid 0.5px #fff;
+
     color: rgb(121, 120, 120);
 
     span {

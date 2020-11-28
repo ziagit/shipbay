@@ -185,7 +185,6 @@
               possible gained the attentions globally.
               <br />
             </div>
-            <img :src="'/images/uploads/team.png'" alt="" />
           </div>
         </div>
         <div class="right">
@@ -290,7 +289,7 @@ export default {
     align-items: center;
     border-bottom: #ddd 1px solid;
     .content {
-      min-height: 278px;
+      min-height: 285px;
       padding: 85px 200px 85px 106px;
 
       .md-display-1 {
@@ -325,11 +324,6 @@ export default {
           font-weight: 500;
           line-height: 70px;
           color: #000;
-        }
-
-        img {
-          width: 100%;
-          //box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
         }
 
         .md-body-1 {

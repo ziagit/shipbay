@@ -11,6 +11,9 @@ export default {
 </script>
 
 <style lang="scss">
+.section0 {
+  box-shadow: 0 2px 13px -7px grey;
+}
 .md-stepper-label {
   color: #000 !important;
   font-weight: 600;
@@ -201,7 +204,7 @@ export default {
   font-size: 12px !important;
 }
 .custom-button-outline:hover {
-  background: #ffbc57 !important;
+  background: #e4852b !important;
 }
 
 .md-progress-bar-fill {

@@ -139,7 +139,7 @@ export default {
     align-items: center;
     border-bottom: #ddd 1px solid;
     .content {
-      min-height: 278px;
+      min-height: 285px;
       padding: 70px 200px 68px 106px;
 
       .md-display-1 {

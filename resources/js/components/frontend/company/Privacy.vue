@@ -1,13 +1,15 @@
 <template>
   <div class="services">
-    <div
-      class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/policy.svg)' }"
-    >
-      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue"/>
+    <div class="section0">
+      <Header
+        v-on:togal-menu="$emit('togal-menu')"
+        :scrollValue="scrollValue"
+      />
       <div class="content">
         <div class="md-display-1">Privacy Notice</div>
-        <p class="md-body-1">Update: October 25,2020</p>
+        <div class="md-body-1">Read our privacy policy</div>
+        <div class="break"></div>
+        <div class="md-body-1 update">Update: October 25,2020</div>
       </div>
     </div>
     <div class="section1">
@@ -29,7 +31,8 @@
             it will help you make informed decisions about sharing your personal
             information with us. By using our Services, you accept the Terms and
             our privacy practices described in this Policy.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">About Us</div>
           <div class="md-body-1">
             Shipping Tap is an online shipping platform connects and matches
@@ -37,7 +40,8 @@
             interpretation of written or oral remarks in any agreement or
             document shall be construed to imply Shipping Tap is a motor
             carrier.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">What information do we collect?</div>
           <div class="title">Personal Information:</div>
           <div class="md-body-1">
@@ -101,7 +105,8 @@
             and email address will be shared with our newsletter provider. This
             is to keep you updated with information and offers for marketing
             purposes.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">How do we use your information?</div>
           <div class="md-body-1">
             We use your personal information for these purposes in reliance on
@@ -150,7 +155,8 @@
                 services, marketing, and your experience.
               </li>
             </ul>
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">
             Will your information be shared with anyone?
           </div>
@@ -225,7 +231,8 @@
                 perpetuity.
               </li>
             </ul>
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">
             Do we use cookies and other tracking technologies?
           </div>
@@ -234,7 +241,8 @@
             beacons and pixels) to access or store information. Specific
             information about how we use such technologies and how you can
             refuse certain cookies is set out in our Cookies Policy.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">Cookies Policy</div>
           <div class="md-body-1">
             By continuing to use our Services, you are agreeing to the use of
@@ -274,7 +282,8 @@
             computer through your browser settings, and you can set most
             browsers to prevent them from being added to your computer. However,
             this may prevent you from using certain features of the Services.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">
             What is our stance on third party websites?
           </div>
@@ -289,7 +298,8 @@
             or applications that may be linked to or from the Services. You
             should review the policies of such third parties and contact them
             directly to respond to your questions.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">How long do we keep your information?</div>
           <div class="md-body-1">
             We will only keep your personal information for as long as it is
@@ -302,7 +312,8 @@
             been stored in backup archives), then we will securely store your
             personal information and isolate it from any further processing
             until deletion is possible.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">How do we keep your information safe?</div>
           <div class="md-body-1">
             We have implemented appropriate technical and organizational
@@ -313,7 +324,8 @@
             of personal information to and from our platform is at your own
             risk. You should only access the services within a secure
             environment.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">What are your privacy rights?</div>
           <div class="md-body-1">
             You may at any time review or change the information in your account
@@ -324,7 +336,8 @@
             in our files to prevent fraud, troubleshoot problems, assist with
             any investigations, enforce our Terms, and/or comply with legal
             requirements.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">Do we make updates to this Policy?</div>
           <div class="md-body-1">
             We may update this Privacy Policy from time to time. The updated
@@ -335,7 +348,8 @@
             directly sending you a notification. We encourage you to review this
             Policy frequently to be informed of how we are protecting your
             information.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">Where Do we Keep and Process Information?</div>
           <div class="md-body-1">
             Regardless of where you use the Services, the information collected
@@ -346,7 +360,8 @@
             country of residence. By using our Services, you consent to this
             collection, transfer, storage, and processing of information to and
             in the United States.
-          </div><br>
+          </div>
+          <br />
           <div class="md-title">How can you contact us about this Policy?</div>
           <div class="md-body-1">
             If you have questions or comments about this Policy, please email us
@@ -363,9 +378,7 @@
               </md-field>
 
               <div class="action">
-                <md-button class="custom-button" to="/order"
-                  >Start</md-button
-                >
+                <md-button class="custom-button" to="/order">Start</md-button>
               </div>
             </form>
           </div>
@@ -402,7 +415,7 @@ import Header from "../../shared/Header";
 import axio from "axios";
 export default {
   name: "services",
-  props: ['scrollValue'],
+  props: ["scrollValue"],
   data: () => ({
     form: {
       city: null,
@@ -425,20 +438,18 @@ export default {
   background: #fff;
 
   .section0 {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    align-items: center;
-
     .content {
-      min-height: 278px;
-      padding: 85px 200px 130px 106px;
+      text-align: center;
+      padding: 38px;
 
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;
         font-weight: 600;
-        color: #fff;
+        color: #000;
+      }
+      .update {
+        color: #c3c0c0;
       }
     }
   }
