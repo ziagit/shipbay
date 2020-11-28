@@ -2,7 +2,7 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/bg.svg)' }"
+      v-bind:style="{ 'background-image': 'url(/images/uploads/home-bg.svg)' }"
     >
       <Header
         v-on:togal-menu="$emit('togal-menu')"
@@ -186,6 +186,7 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    box-shadow: none !important;
 
     .content {
       text-align: left;

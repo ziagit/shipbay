@@ -9,24 +9,73 @@
         :scrollValue="scrollValue"
       />
       <div class="content">
-        <div class="md-display-1">We're happy to help</div>
-        <div class="md-subheading">Select from bellow options to begin</div>
+        <div class="md-display-1">{{ header }}</div>
+        <div class="md-subheading">
+          {{ subheader }}
+          <div class="break"></div>
+          <md-button class="custom-button" to="/register" v-if="carrierToggal"
+            >Signup now</md-button
+          >
+          <md-button class="custom-button" to="/order" v-if="shipperToggal"
+            >Start new quote</md-button
+          >
+        </div>
       </div>
     </div>
 
     <div class="section1">
       <md-tabs>
-        <md-tab id="tab-carrier" md-label="Carrier" md-icon="directions_boat">
-          <CarrierHelp />
-        </md-tab>
-        <md-tab id="tab-shipper" md-label="Shipper" md-icon="local_mall">
-          <ShipperHelp />
-        </md-tab>
-        <md-tab id="tab-how-works" md-label="How it Works" md-icon="help">
+        <md-tab
+          id="tab-how-works"
+          md-label="How it Works"
+          md-icon="help"
+          @click="
+            passData(
+              (header = 'How it Works?'),
+              (subheader = 'We are happy to help')
+            )
+          "
+        >
           <HowItWorks />
         </md-tab>
-        <md-tab id="faq" md-label="FAQ" md-icon="notes">
+        <md-tab
+          id="faq"
+          md-label="FAQ"
+          md-icon="notes"
+          @click="
+            passData(
+              (header = 'FAQ'),
+              (subheader = 'Frequently asked questions')
+            )
+          "
+        >
           <FAQ />
+        </md-tab>
+        <md-tab
+          id="tab-carrier"
+          md-label="Carrier"
+          md-icon="directions_boat"
+          @click="
+            passData(
+              (header = 'Carrier'),
+              (subheader = 'Join our carrier networks')
+            )
+          "
+        >
+          <CarrierHelp />
+        </md-tab>
+        <md-tab
+          id="tab-shipper"
+          md-label="Shipper"
+          md-icon="local_mall"
+          @click="
+            passData(
+              (header = 'Shipper'),
+              (subheader = 'Sign up for free and start shipping today')
+            )
+          "
+        >
+          <ShipperHelp />
         </md-tab>
       </md-tabs>
     </div>
@@ -51,15 +100,26 @@ export default {
       email: null,
       message: null,
     },
+    header: "How it Works?",
+    subheader: "We are happy to help",
+    carrierToggal: false,
+    shipperToggal: false,
   }),
-  methods: {},
+  methods: {
+    passData(header, subheader) {
+      this.header = header;
+      this.subheader = subheader;
+      this.carrierToggal = (header == "Carrier") ? true : false;
+      this.shipperToggal = (header == "Shipper") ? true : false;
+    },
+  },
   components: {
     Footer,
     Header,
     CarrierHelp,
     ShipperHelp,
     HowItWorks,
-    FAQ
+    FAQ,
   },
 };
 </script>
@@ -75,7 +135,7 @@ export default {
     align-items: center;
     border-bottom: #ddd 1px solid;
     .content {
-      min-height: 278px;
+      min-height: 285px;
       padding: 85px 200px 40px 106px;
       .md-display-1 {
         line-height: 60px;

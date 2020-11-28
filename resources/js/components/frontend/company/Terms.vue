@@ -1,16 +1,15 @@
 <template>
   <div class="services">
-    <div
-      class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/terms.jpg)' }"
-    >
+    <div class="section0">
       <Header
         v-on:togal-menu="$emit('togal-menu')"
         :scrollValue="scrollValue"
       />
       <div class="content">
         <div class="md-display-1">Terms of Use</div>
-        <p class="md-body-1">Update: October 25,2020</p>
+        <div class="md-body-1">Read our terms and conditions</div>
+        <div class="break"></div>
+        <div class="md-body-1 update">Update: October 25,2020</div>
       </div>
     </div>
 
@@ -583,9 +582,7 @@
               </md-field>
 
               <div class="action">
-                <md-button class="custom-button" to="/order"
-                  >Start</md-button
-                >
+                <md-button class="custom-button" to="/order">Start</md-button>
               </div>
             </form>
           </div>
@@ -672,19 +669,17 @@ export default {
   background: #fff;
 
   .section0 {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    color: #fff;
-
     .content {
-      min-height: 278px;
-      padding: 85px 200px 130px 106px;
+      text-align: center;
+      padding: 38px;
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;
         font-weight: 600;
-        color: #fff;
+        color: #000;
+      }
+      .update {
+        color: #c3c0c0;
       }
     }
   }

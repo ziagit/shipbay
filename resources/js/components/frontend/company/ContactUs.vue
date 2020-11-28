@@ -81,7 +81,7 @@ export default {
   iframe {
     left: 0;
     top: 0;
-    min-height: 278px !important;
+    min-height: 285px !important;
     width: 100%;
   }
 
