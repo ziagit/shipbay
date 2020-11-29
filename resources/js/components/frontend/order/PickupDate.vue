@@ -1,9 +1,5 @@
 <template>
 <div class="pickup-date">
-    <div class="icon">
-        <img :src="'/images/date.svg'" width="100" />
-    </div>
-    <span class="md-display-1">When to pick-up? *</span>
     <form @submit.prevent="nextStep()">
         <div>
             <md-field>
@@ -18,11 +14,9 @@
             </md-field>
         </div>
         <div class="action">
-            <md-button to="pickup-services" class="md-icon-button md-raised">
-                <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-            <md-button class="md-icon-button md-raised md-primary" type="submit">
-                <md-icon>keyboard_arrow_right</md-icon>
+         
+            <md-button class="custom-button" type="submit">
+                Continue
             </md-button>
         </div>
     </form>
@@ -61,8 +55,8 @@ export default {
                     }
                     storage.src.appointmentTime = null;
                 }
+                this.$emit("progress", 'thirth', 'fourth','delivery', 3);
                 localStorage.setItem("order", JSON.stringify(storage));
-                this.$router.push("delivery");
             }
         },
 
