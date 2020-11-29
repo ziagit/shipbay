@@ -38,7 +38,7 @@
         >
           <HowItWorks />
         </md-tab>
-        <md-tab
+<!--        <md-tab
           id="faq"
           md-label="FAQ"
           md-icon="notes"
@@ -50,7 +50,7 @@
           "
         >
           <FAQ />
-        </md-tab>
+        </md-tab>-->
         <md-tab
           id="tab-carrier"
           md-label="Carrier"
