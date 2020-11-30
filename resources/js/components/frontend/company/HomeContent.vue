@@ -94,7 +94,10 @@
         <div class="text">
           <div class="md-display-1">Customer competitive advantage</div>
           <div class="break"></div>
-          <div class="md-body-1">You are granted free access to the qualified services provided pricing with customer rating and reviews </div>
+          <div class="md-body-1">
+            You are granted free access to the qualified services provided
+            pricing with customer rating and reviews
+          </div>
         </div>
         <div class="steps">
           <div class="head"></div>
@@ -104,10 +107,8 @@
                 <img :src="'/images/uploads/item-list.svg'" alt="People" />
               </div>
               <div class="text">
-                <div class="md-title">List your items</div>
-                <div class="details">
-                  Specify the shipment and schedule a date.
-                </div>
+                <div class="md-title">Effortless</div>
+                <div class="details">Your freight at your fingertips</div>
               </div>
             </li>
 
@@ -118,11 +119,8 @@
                 <img :src="'/images/uploads/select-carrier.svg'" alt="People" />
               </div>
               <div class="text">
-                <div class="md-title">Select a Carrier</div>
-                <div class="details">
-                  Chose a service provider with the lowest price and best
-                  customer ratings.
-                </div>
+                <div class="md-title">Moderate</div>
+                <div class="details">Competative price is guaranteed</div>
               </div>
             </li>
             <md-divider></md-divider>
@@ -131,11 +129,8 @@
                 <img :src="'/images/uploads/track-order.svg'" alt="People" />
               </div>
               <div class="text">
-                <div class="md-title">Track your order</div>
-                <div class="details">
-                  Relax! we will notify you on every step taken. Also, you can
-                  track the shipment live.
-                </div>
+                <div class="md-title">Real-time</div>
+                <div class="details">Track your frieght where goes</div>
               </div>
             </li>
           </ul>
@@ -143,30 +138,27 @@
       </div>
       <div class="section4">
         <div class="row">
-          <img :src="'/images/uploads/about.svg'" alt="" />
+          <img :src="'/images/uploads/callendar.svg'" alt="" />
         </div>
-        <div class="row">
-          <div class="md-display-1">Business Freight</div>
+        <div class="row right">
+          <div class="md-display-1">Book your big moving days in advance</div>
           <div class="md-body-1">
-            Whether you have a one time freight to be shipped or everyday
-            shipment, we got you covered with the competitive advantages...
+            You can book your preferred date ahead to make sure one-time moving.
           </div>
-          <md-button class="md-button md-raised" to="/order"
-            >Get Freight Quote</md-button
-          >
+          <md-button class="custom-button" to="/order">Start moving</md-button>
         </div>
       </div>
       <div class="section5">
         <div class="row">
-          <div class="md-display-1">Household Moving</div>
+          <div class="md-display-1">Here is what our customers says</div>
           <div class="md-body-1">
-            We are the only platform where you can get upfront quote for your
-            big day moving in a matter of seconds.
+            "As a small business owner I found Shipbay more reliable, easy and
+            compatetive pricing which has decreased my shipment cost by 20%"
           </div>
-          <button class="md-button md-raised">Get Moving Quote</button>
+          <md-button class="custom-button">Start quotation</md-button>
         </div>
         <div class="row">
-          <img :src="'/images/uploads/about.svg'" alt="" />
+          <img :src="'/images/uploads/callendar.svg'" alt="" />
         </div>
       </div>
     </div>
@@ -347,12 +339,12 @@ export default {
         .md-body-1 {
           max-width: 353px;
           font-size: 14px;
-          line-height: 24px;
+          line-height: 20px;
         }
       }
 
       .steps {
-        max-width: 460px;
+        min-width: 390px;
         background: #fff;
         position: absolute;
         right: -100px;
@@ -361,10 +353,10 @@ export default {
         .head {
           min-height: 9px;
           width: 100%;
-          background: #ffa500;
+          background: #f17947;
         }
         ul {
-          padding: 36px;
+          padding: 16px 36px;
           margin: 0;
 
           li {
@@ -374,7 +366,7 @@ export default {
 
             .avatar {
               display: flex;
-              flex: 13%;
+              flex: 24%;
               padding: 10px;
             }
             .text {
@@ -412,7 +404,7 @@ export default {
           max-width: 52%;
           font-weight: 500;
           font-size: 30px;
-          line-height: 49px;
+          line-height: 38px;
           color: #000;
         }
 
@@ -422,19 +414,15 @@ export default {
           font-size: 16px;
           line-height: 24px;
         }
-
-        .md-button {
-          width: 179px;
+        img {
+          padding: 50px;
+          box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
         }
-
-        ul {
-          padding: 20px 20px 20px 40px;
-          border: solid 1px #ddd;
-
-          li {
-            padding: 10px;
-          }
-        }
+      }
+    }
+    .section4{
+      .right{
+        padding-left: 30px;
       }
     }
   }
