@@ -1,9 +1,5 @@
 <template>
 <div class="destination">
-    <div class="icon">
-        <img :src="'/images/b-a.svg'" width="100" />
-    </div>
-    <span class="md-display-1">Where are you shipping to?</span>
     <form @submit.prevent="nextStep()">
         <div class="search-container">
             <md-field v-if="!isSelected">
@@ -46,11 +42,8 @@
             </md-card-content>
         </md-card>
         <div class="action">
-            <md-button to="pickup-date" class="md-icon-button md-raised">
-                <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-            <md-button class="md-icon-button md-raised md-primary" type="submit">
-                <md-icon>keyboard_arrow_right</md-icon>
+            <md-button class="custom-button" type="submit">
+                Continue
             </md-button>
         </div>
     </form>
@@ -179,9 +172,11 @@ export default {
                     }
                 }
             }
+
             storage.des = this.des;
             localStorage.setItem("order", JSON.stringify(storage));
-            this.$router.push("delivery-services");
+
+            this.$emit("progress", 'fourth', 'fifth','delivery-services', 4);
         },
 
         init() {
@@ -219,8 +214,6 @@ export default {
         this.$refs.focusable.$el.focus();
     },
     created() {
-        this.$emit("progress", 42);
-        console.log("in destination: ", JSON.parse(localStorage.getItem("order")));
         this.init();
         this.getAccessories();
         this.getCountries();

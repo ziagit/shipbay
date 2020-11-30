@@ -2,15 +2,21 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/about.jpg)' }"
+      v-bind:style="{
+        'background-image': 'url(/images/uploads/shipper-bg.svg)',
+      }"
     >
-      <Header v-on:togal-menu="$emit('togal-menu')" />
+      <Header
+        v-on:togal-menu="$emit('togal-menu')"
+        :scrollValue="scrollValue"
+      />
       <div class="content">
         <div class="md-display-1">Our Shippers</div>
         <div class="md-subheading">
           From the start, everything we've done has centered on solving customer
           problems through technology.
         </div>
+        <md-button class="custom-button">Start a Quote</md-button>
       </div>
     </div>
 
@@ -82,7 +88,7 @@
           <div>
             <div class="md-title">Start a New Quote</div>
             <div class="break"></div>
-            <md-button class="md-raised">Get Quote</md-button>
+            <md-button class="custom-button">Get Quote</md-button>
           </div>
         </div>
         <div class="right">
@@ -95,9 +101,7 @@
               </md-field>
 
               <div class="action">
-                <md-button class="md-primary md-raised" to="/order"
-                  >Start</md-button
-                >
+                <md-button class="custom-button" to="/order">Start</md-button>
               </div>
             </form>
           </div>
@@ -117,7 +121,7 @@
               By downloading our application the task will be much easier.
             </div>
             <div>
-              <md-button class="md-raised" to="https://play.google.com"
+              <md-button class="custom-button" to="https://play.google.com"
                 >Download</md-button
               >
             </div>
@@ -136,6 +140,7 @@ import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
 export default {
   name: "ContactUs",
+  props: ["scrollValue"],
   data: () => ({
     form: {
       name: null,
@@ -160,32 +165,22 @@ export default {
     background-size: cover;
     background-position: center center;
     align-items: center;
-
-    .header {
-      color: #fff;
-
-      h3 {
-        color: #fff !important;
-      }
-
-      .md-icon {
-        color: #fff !important;
-      }
-    }
-
+    border-bottom: #ddd 1px solid;
     .content {
-      padding: 85px 200px 130px 106px;
+      min-height: 285px;
+      padding: 70px 200px 34px 106px;
 
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;
         font-weight: 600;
-        color: #fff;
+        color: #000;
       }
 
       .md-subheading {
-        color: #fff;
+        color: #000;
         max-width: 70%;
+        margin-bottom: 30px;
       }
     }
   }
@@ -230,7 +225,7 @@ export default {
         }
 
         .md-icon {
-          color: #66A9FB;
+          color: #66a9fb;
         }
 
         .qoute {

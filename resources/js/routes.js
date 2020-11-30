@@ -12,11 +12,9 @@ import HomeContent from './components/frontend/company/HomeContent';
 import Help from './components/frontend/company/Help';
 import AboutUs from './components/frontend/company/AboutUs'
 import ContactUs from './components/frontend/company/ContactUs'
-import OurServices from './components/frontend/company/OurServices'
-import ServiceDetails from './components/frontend/company/ServiceDetails'
+
 import Privacy from './components/frontend/company/Privacy'
 import Terms from './components/frontend/company/Terms'
-import FAQ from './components/frontend/company/FAQ'
 import OurCarriers from './components/frontend/company/OurCarriers'
 import OurShippers from './components/frontend/company/OurShippers'
 
@@ -147,8 +145,6 @@ export default new VueRouter({
                 { name: 'home', path: 'home', component: HomeContent },
                 { name: 'about', path: 'about', component: AboutUs },
                 { name: 'contact', path: 'contact', component: ContactUs },
-                { name: 'services', path: 'services', component: OurServices },
-                { name: 'services-details', path: 'service-details', component: ServiceDetails },
                 { name: 'help', path: 'help', component: Help },
                 { name: 'signin', path: '/login', component: Login },
                 { name: 'signup', path: '/register', component: Register },
@@ -157,7 +153,6 @@ export default new VueRouter({
                 { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },
                 { name: 'privacy', path: '/privacy-policies', component: Privacy},
                 { name: 'terms', path: '/terms-and-conditions', component: Terms},
-                { name: 'faq', path: '/faq', component: FAQ},
                 {name: 'our-carriers',path: '/carriers', component: OurCarriers},
                 {name: 'our-shippers',path: '/shippers', component: OurShippers},
                 {

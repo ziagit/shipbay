@@ -2,17 +2,17 @@
 <div class="web-menu">
     <md-list :md-expand-single="expandSingle">
         <md-list-item to="/home" @click="hideMenu()">
-            <md-icon v-bind:class="{active: $route.name == 'home'}">home</md-icon>
+            <!--<md-icon v-bind:class="{active: $route.name == 'home'}">home</md-icon>-->
             <span class="md-list-item-text" v-bind:class="{active: $route.name == 'home'}">Home</span>
         </md-list-item>
         <md-list-item to="/about" @click="hideMenu()">
-            <md-icon v-bind:class="{active: $route.name == 'about'}">info</md-icon>
+            <!--<md-icon v-bind:class="{active: $route.name == 'about'}">info</md-icon>-->
             <span class="md-list-item-text" v-bind:class="{active: $route.name == 'about'}">About</span>
         </md-list-item>
 
         <md-list-item to="/shippers" @click="hideMenu()">
-            <md-icon v-bind:class="{active: $route.name == 'shippers'}">local_mall</md-icon>
-            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'shippers'}">Shippers</span>
+            <!--<md-icon v-bind:class="{active: $route.name == 'shippers'}">local_mall</md-icon>-->
+            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'our-shippers'}">Shippers</span>
         </md-list-item>
 
         <!--     <md-list-item md-expand :md-expanded.sync="expandShippers">
@@ -26,22 +26,23 @@
         </md-list-item>-->
 
         <md-list-item to="/carriers" @click="hideMenu()">
-            <md-icon v-bind:class="{active: $route.name == 'carriers'}">local_shipping</md-icon>
-            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'carriers'}">Carriers</span>
+            <!--<md-icon v-bind:class="{active: $route.name == 'carriers'}">local_shipping</md-icon>-->
+            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'our-carriers'}">Carriers</span>
         </md-list-item>
         <md-list-item to="/help" @click="hideMenu()">
-            <md-icon v-bind:class="{active: $route.name == 'help'}">help</md-icon>
-            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'help'}">How It Works</span>
+            <!--<md-icon v-bind:class="{active: $route.name == 'help'}">help</md-icon>-->
+            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'help'}">Help Center</span>
         </md-list-item>
+   
         <md-divider></md-divider>
 
         <md-list-item to="/login" @click="hideMenu()">
-            <md-icon v-bind:class="{active: $route.name == 'login'}">login</md-icon>
-            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'login'}">Sign In</span>
+            <!--<md-icon v-bind:class="{active: $route.name == 'login'}">login</md-icon>-->
+            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'signin'}">Sign In</span>
         </md-list-item>
         <md-list-item to="/register" @click="hideMenu()">
-            <md-icon v-bind:class="{active: $route.name == 'register'}">supervised_user_circle</md-icon>
-            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'register'}">Sign Up</span>
+            <!--<md-icon v-bind:class="{active: $route.name == 'register'}">supervised_user_circle</md-icon>-->
+            <span class="md-list-item-text" v-bind:class="{active: $route.name == 'signup'}">Sign Up</span>
         </md-list-item>
 
     </md-list>
@@ -74,5 +75,8 @@ export default {
 
 .active {
     color: #ffa500 !important;
+}
+.md-list-item-text{
+    font-size: 16px;
 }
 </style>

@@ -6,10 +6,6 @@
         <div class="md-display-body">We trying to find topest carriers to fit your requirments. please wait</div>
     </div>
     <div v-show="!dataLoading">
-        <div class="icon">
-            <img :src="'/images/carrier.svg'" width="100" />
-        </div>
-        <span class="md-display-1">Select the carrier of your choice</span>
         <md-card class="items">
             <md-card-content>
                 <md-button class="md-icon-button edit-item" @click="editItem()">
@@ -161,7 +157,6 @@ export default {
     },
 
     created() {
-        this.$emit("progress", 100);
         this.getCarriers();
         this.order = JSON.parse(localStorage.getItem("order"));
         localStorage.setItem('cRoute', this.$router.currentRoute.path);
