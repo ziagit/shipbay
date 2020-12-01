@@ -137,10 +137,10 @@
         </div>
       </div>
       <div class="section4">
-        <div class="row">
+        <div class="row img">
           <img :src="'/images/uploads/callendar.svg'" alt="" />
         </div>
-        <div class="row right">
+        <div class="row txt">
           <div class="md-display-1">Book your big moving days in advance</div>
           <div class="md-body-1">
             You can book your preferred date ahead to make sure one-time moving.
@@ -149,7 +149,7 @@
         </div>
       </div>
       <div class="section5">
-        <div class="row">
+        <div class="row txt">
           <div class="md-display-1">Here is what our customers says</div>
           <div class="md-body-1">
             "As a small business owner I found Shipbay more reliable, easy and
@@ -157,8 +157,8 @@
           </div>
           <md-button class="custom-button">Start quotation</md-button>
         </div>
-        <div class="row">
-          <img :src="'/images/uploads/callendar.svg'" alt="" />
+        <div class="row img">
+          <img :src="'/images/uploads/home-graph.svg'" alt="" />
         </div>
       </div>
     </div>
@@ -401,7 +401,6 @@ export default {
         flex: 50%;
 
         .md-display-1 {
-          max-width: 52%;
           font-weight: 500;
           font-size: 30px;
           line-height: 38px;
@@ -409,20 +408,24 @@ export default {
         }
 
         .md-body-1 {
-          max-width: 70%;
-          margin: 3px 0 86px 0;
-          font-size: 16px;
+          margin: 3px 0 68px 0;
+          font-size: 14px;
           line-height: 24px;
         }
         img {
-          padding: 50px;
-          box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+          padding: 15px;
         }
       }
     }
-    .section4{
-      .right{
-        padding-left: 30px;
+    .section4 {
+      .img {
+        padding: 30px;
+        img {
+          box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+        }
+      }
+      .txt {
+        padding: 30px 0 0 30px;
       }
     }
   }
