@@ -13,12 +13,8 @@
         <div class="md-subheading">The way you book your travel tickets.</div>
         <div class="md-title">What are you shipping today?</div>
         <div class="actions">
-          <md-button class="custom-button" to="/order"
-            >Freight</md-button
-          >
-          <md-button class="md-button custom-button-outline"
-            >Moving</md-button
-          >
+          <md-button class="custom-button" to="/order">Freight</md-button>
+          <md-button class="md-button custom-button-outline">Moving</md-button>
         </div>
       </div>
     </div>
@@ -96,56 +92,75 @@
         }"
       >
         <div class="text">
-          <div class="md-display-1">Shipment</div>
+          <div class="md-display-1">Customer competitive advantage</div>
+          <div class="break"></div>
           <div class="md-body-1">
-            We make your freight at your fingertips
+            You are granted free access to the qualified services provided
+            pricing with customer rating and reviews
           </div>
         </div>
         <div class="steps">
+          <div class="head"></div>
           <ul>
             <li>
               <div class="avatar">
                 <img :src="'/images/uploads/item-list.svg'" alt="People" />
               </div>
               <div class="text">
-                <div class="md-title">List your items</div>
-                <div class="details">
-                  Specify the shipment and schedule a date.
-                </div>
+                <div class="md-title">Effortless</div>
+                <div class="details">Your freight at your fingertips</div>
               </div>
             </li>
 
-            <!--<md-divider></md-divider>-->
+            <md-divider></md-divider>
 
             <li>
               <div class="avatar">
                 <img :src="'/images/uploads/select-carrier.svg'" alt="People" />
               </div>
               <div class="text">
-                <div class="md-title">Select a Carrier</div>
-                <div class="details">
-                  Chose a service provider with the lowest price and best
-                  customer ratings.
-                </div>
+                <div class="md-title">Moderate</div>
+                <div class="details">Competative price is guaranteed</div>
               </div>
             </li>
-            <!--<md-divider></md-divider>-->
+            <md-divider></md-divider>
             <li>
               <div class="avatar">
                 <img :src="'/images/uploads/track-order.svg'" alt="People" />
               </div>
               <div class="text">
-                <div class="md-title">Track your order</div>
-                <div class="details">
-                  Relax! we will notify you on every step taken. Also, you can
-                  track the shipment live.
-                </div>
+                <div class="md-title">Real-time</div>
+                <div class="details">Track your frieght where goes</div>
               </div>
             </li>
           </ul>
         </div>
       </div>
-   
+      <div class="section4">
+        <div class="row img">
+          <img :src="'/images/uploads/callendar.svg'" alt="" />
+        </div>
+        <div class="row txt">
+          <div class="md-display-1">Book your big moving days in advance</div>
+          <div class="md-body-1">
+            You can book your preferred date ahead to make sure one-time moving.
+          </div>
+          <md-button class="custom-button" to="/order">Start moving</md-button>
+        </div>
+      </div>
+      <div class="section5">
+        <div class="row txt">
+          <div class="md-display-1">Here is what our customers says</div>
+          <div class="md-body-1">
+            "As a small business owner I found Shipbay more reliable, easy and
+            compatetive pricing which has decreased my shipment cost by 20%"
+          </div>
+          <md-button class="custom-button">Start quotation</md-button>
+        </div>
+        <div class="row img">
+          <img :src="'/images/uploads/home-graph.svg'" alt="" />
+        </div>
+      </div>
     </div>
 
     <Footer />
@@ -266,7 +281,7 @@ export default {
 
         .md-display-1 {
           color: #000;
-          line-height: 49px;
+          line-height: 38px;
           font-weight: 500;
         }
 
@@ -307,7 +322,7 @@ export default {
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center center;
-      padding: 46px 76px;
+      padding: 76px;
       margin: 30px 30px 60px 30px;
       min-height: 500px;
       max-width: 80%;
@@ -315,7 +330,7 @@ export default {
 
       .text {
         .md-display-1 {
-          line-height: 49px;
+          line-height: 38px;
           max-width: 309px;
           color: #000;
           font-weight: 500;
@@ -323,21 +338,25 @@ export default {
 
         .md-body-1 {
           max-width: 353px;
-          font-size: 16px;
-          line-height: 24px;
+          font-size: 14px;
+          line-height: 20px;
         }
       }
 
       .steps {
-        max-width: 460px;
+        min-width: 390px;
         background: #fff;
         position: absolute;
         right: -100px;
         bottom: -50px;
         box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-
+        .head {
+          min-height: 9px;
+          width: 100%;
+          background: #f17947;
+        }
         ul {
-          padding: 36px;
+          padding: 16px 36px;
           margin: 0;
 
           li {
@@ -347,7 +366,7 @@ export default {
 
             .avatar {
               display: flex;
-              flex: 13%;
+              flex: 24%;
               padding: 10px;
             }
             .text {
@@ -369,6 +388,44 @@ export default {
             height: 0.1px !important;
           }
         }
+      }
+    }
+    .section4,
+    .section5 {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 46px 100px;
+
+      .row {
+        flex: 50%;
+
+        .md-display-1 {
+          font-weight: 500;
+          font-size: 30px;
+          line-height: 38px;
+          color: #000;
+        }
+
+        .md-body-1 {
+          margin: 3px 0 68px 0;
+          font-size: 14px;
+          line-height: 24px;
+        }
+        img {
+          padding: 15px;
+        }
+      }
+    }
+    .section4 {
+      .img {
+        padding: 30px;
+        img {
+          box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+        }
+      }
+      .txt {
+        padding: 30px 0 0 30px;
       }
     }
   }

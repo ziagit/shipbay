@@ -18,6 +18,9 @@ export default {
   color: #000 !important;
   font-weight: 600;
 }
+.md-steppers{
+  background: none !important;
+}
 .break {
   min-height: 10px;
 }

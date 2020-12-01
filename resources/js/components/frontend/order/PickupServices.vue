@@ -1,20 +1,13 @@
 <template>
 <div class="pickup-services">
-    <div class="icon">
-        <img :src="'/images/service.svg'" width="100" />
-    </div>
-    <span class="md-display-1">Do you need additional services at the pick-up?</span>
     <form @submit.prevent="nextStep()">
         <div class="options">
             <md-checkbox v-for="service in accessories" :key="service.id" v-model="services" :value="service.code">{{service.name}}</md-checkbox>
         </div>
 
         <div class="action">
-            <md-button to="/order" class="md-icon-button md-raised">
-                <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-            <md-button type="submit" class="md-icon-button md-raised md-primary">
-                <md-icon>keyboard_arrow_right</md-icon>
+            <md-button type="submit" class="custom-button">
+                Contintue
             </md-button>
         </div>
     </form>
@@ -47,7 +40,8 @@ export default {
             }
             storage.src.accessories = this.services;
             localStorage.setItem("order", JSON.stringify(storage));
-            this.$router.push("pickup-date");
+
+            this.$emit("progress", 'second', 'third','pickup-date', 2);
         },
 
         init() {
@@ -59,8 +53,6 @@ export default {
     },
 
     created() {
-        this.$emit("progress", 14);
-        console.log("in pik serc: ", JSON.parse(localStorage.getItem("order")));
         this.init();
         this.getAccessories();
         localStorage.setItem("cRoute", this.$router.currentRoute.path);

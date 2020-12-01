@@ -202,10 +202,10 @@
             </form>
           </div>
           <div class="faq">
-            <div class="md-title">FAQ</div>
+            <div class="md-title">Help Center</div>
             <div class="md-body-1">Access to the most asked questions</div>
             <div>
-              <router-link to="/faq">Answers</router-link>
+              <router-link to="/help">Answers</router-link>
               <md-icon>keyboard_arrow_right</md-icon>
             </div>
           </div>

@@ -37,7 +37,6 @@ export default {
   },
   methods: {},
   created() {
-    this.checkScroll();
   },
 };
 </script>
