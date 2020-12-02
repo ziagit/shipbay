@@ -25,7 +25,6 @@
             exact
             md-label="Where are you shipping from?"
             md-description="Required"
-            v-if="activatedSteps"
           >
             <Pickup v-on:progress="progress" />
           </md-step>
