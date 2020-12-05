@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <img :src="'/images/uploads/order-steps.svg'" alt="" />
-
     <div class="content">
       <div class="md-display-1">3 Steps to Place Your Order</div>
       <div class="md-body-1">

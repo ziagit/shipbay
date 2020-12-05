@@ -81,7 +81,7 @@ export default {
   iframe {
     left: 0;
     top: 0;
-    min-height: 285px !important;
+    height: 268px;
     width: 100%;
   }
 
@@ -119,7 +119,7 @@ export default {
           .md-headline {
             font-size: 18px;
           }
-          img{
+          img {
             margin: 30px;
           }
           .md-caption {

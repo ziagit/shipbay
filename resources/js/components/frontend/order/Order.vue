@@ -2,82 +2,80 @@
   <div class="container">
     <Header v-on:togal-menu="$emit('togal-menu')" />
     <div class="content">
-      <div class="input-container">
-        <div class="progress-container">
-          <radial-progress-bar
-            :diameter="100"
-            :completed-steps="completedSteps"
-            :total-steps="totalSteps"
-            innerStrokeColor="#fff"
-            startColor="#f97d4a"
-            stopColor="#ffa500"
-          >
-          </radial-progress-bar>
-          <!--      <md-progress-bar class="md-primary" md-mode="determinate" :md-value="amount"></md-progress-bar>-->
-        </div>
-        <md-steppers
-          md-vertical
-          md-dynamic-height
-          :md-active-step.sync="active"
+      <div class="row progress-bar">
+        <radial-progress-bar
+          :diameter="150"
+          :completed-steps="completedSteps"
+          :total-steps="totalSteps"
+          innerStrokeColor="#fff"
+          startColor="#f97d4a"
+          stopColor="#ffa500"
         >
+        </radial-progress-bar>
+        <!--      <md-progress-bar class="md-primary" md-mode="determinate" :md-value="amount"></md-progress-bar>-->
+      </div>
+      <div class="row inputs">
+        <md-steppers :md-active-step.sync="active" md-vertical md-linear>
           <md-step
+            v-if="watchStep(1)"
             id="first"
-            exact
             md-label="Where are you shipping from?"
             md-description="Required"
+            :md-done.sync="first"
           >
-            <Pickup v-on:progress="progress" />
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+              doloribus eveniet quaerat modi cumque quos sed, temporibus nemo
+              eius amet aliquid, illo minus blanditiis tempore, dolores voluptas
+              dolore placeat nulla.
+            </p>
+            <md-button
+              class="md-raised md-primary"
+              @click="setDone('first', 'second', 1)"
+              >Continue</md-button
+            >
           </md-step>
 
           <md-step
+            v-if="watchStep(2)"
             id="second"
-            md-label="Do you need additional services at the pick-up?"
-            md-description="Required"
-            exact
+            md-label="Do you need additional services at the pickup?"
+            :md-error="secondStepError"
+            :md-done.sync="second"
           >
-            <PickupServices v-on:progress="progress" />
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+              doloribus eveniet quaerat modi cumque quos sed, temporibus nemo
+              eius amet aliquid, illo minus blanditiis tempore, dolores voluptas
+              dolore placeat nulla.
+            </p>
+
+            <md-button
+              class="md-raised md-primary"
+              @click="setDone('second', 'third', 2)"
+              >Continue</md-button
+            >
+            <md-button class="md-raised md-primary" @click="setError()"
+              >Set error!</md-button
+            >
           </md-step>
 
           <md-step
+            v-if="watchStep(3)"
             id="third"
-            md-label="When to pick-up?"
-            md-description="Required"
-            exact
+            md-label="Third Step"
+            :md-done.sync="third"
           >
-            <PickupDate v-on:progress="progress" />
-          </md-step>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+              doloribus eveniet quaerat modi cumque quos sed, temporibus nemo
+              eius amet aliquid, illo minus blanditiis tempore, dolores voluptas
+              dolore placeat nulla.
+            </p>
 
-          <md-step
-            id="fourth"
-            md-label="Where are you shipping to?"
-            md-description="Required"
-            exact
-          >
-            <Delivery v-on:progress="progress" />
-          </md-step>
-          <md-step
-            id="fifth"
-            md-label="Do you need additional services at the delivery?"
-            md-description="Required"
-            exact
-          >
-            <DeliveryServices v-on:progress="progress" />
-          </md-step>
-          <md-step
-            id="sixth"
-            md-label="What items are you shipping?"
-            md-description="Required"
-            exact
-          >
-            <Items v-on:progress="progress" />
-          </md-step>
-          <md-step
-            id="seventh"
-            md-label="Select the carrier of your choice"
-            md-description="Required"
-            exact
-          >
-            <Carriers v-on:progress="progress" />
+            <md-button class="md-raised md-primary" @click="setDone('third', 3)"
+              >Done</md-button
+            >
           </md-step>
         </md-steppers>
       </div>
@@ -102,47 +100,41 @@ import axios from "axios";
 export default {
   name: "StepperLinear",
   data: () => ({
-    amount: 0,
-    completedSteps: 0,
+    completedSteps: 1,
     totalSteps: 8,
-
+    steps: [1],
+    amount: 0,
     active: "first",
-    activatedRoutes:['first'],
     first: false,
     second: false,
     third: false,
-    fourth: false,
-    fifth: false,
-    sixth: false,
-    seventh: false,
+    secondStepError: null,
   }),
 
   methods: {
-    progress(id, index, nextRoute, value) {
-      this.completedSteps = value;
+    setDone(id, index, stepId) {
       this[id] = true;
+      if (!this.steps.includes(stepId)) {
+        this.steps.push(stepId);
+        this.watchStep(stepId);
+        console.log("step id ", this.steps);
+      }
+
       if (index) {
         this.active = index;
-        localStorage.setItem("completedSteps", this.completedSteps);
-        localStorage.setItem("active", this.active);
-        this.activatedRoutes.push(nextRoute);
-        console.log("activated routes: ", this.activatedRoutes)
-        this.$router.push(nextRoute);
       }
     },
-    init() {
-      console.log("active: ", localStorage.getItem("active"));
-      if (localStorage.getItem("active")) {
-        this.active = localStorage.getItem("active");
+    setError() {
+      this.secondStepError = "There is an error!";
+    },
+    watchStep(index) {
+      if (this.steps.includes(index)) {
+        return true;
       }
-      if (localStorage.getItem("completedSteps")) {
-        this.completedSteps = JSON.parse(localStorage.getItem("completedSteps"));
-      }
+      return false;
     },
   },
-  created() {
-    this.init();
-  },
+  created() {},
   components: {
     RadialProgressBar,
     Pickup,
@@ -165,19 +157,24 @@ export default {
   }
 
   .content {
+    display: flex;
+    justify-content: center;
     width: 100%;
     min-height: calc(100vh - 15px);
-    margin: auto;
-    padding: 51px 20px 0 20px !important;
-    text-align: center;
-    margin-bottom: 46px;
-
-    .input-container {
-      position: relative;
+    //margin: auto;
+    //padding: 51px 20px 0 20px !important;
+    //text-align: center;
+    //margin-bottom: 46px;
+    .progress-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .inputs {
       padding: 10px;
-      max-width: 710px;
-      margin: auto;
-      .progress-container {
+      //max-width: 710px;
+      //margin: auto;
+      /*   .progress-bar {
         background: #f0f2f5;
         position: absolute;
         box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
@@ -201,7 +198,7 @@ export default {
             background: #e7eaed;
           }
         }
-      }
+      } */
     }
   }
 }

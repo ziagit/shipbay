@@ -13,8 +13,7 @@
       <div class="content">
         <div class="md-display-1">Our Shippers</div>
         <div class="md-subheading">
-          From the start, everything we've done has centered on solving customer
-          problems through technology.
+          We are committed to our customer satisfaction.
         </div>
         <md-button class="custom-button">Start a Quote</md-button>
       </div>
@@ -93,7 +92,7 @@
         </div>
         <div class="right">
           <div class="qoute">
-            <div class="md-title">Get a Free Shipping Qoute</div>
+            <div class="md-title">Get a Free Shipping Quote</div>
             <form action="">
               <md-field>
                 <label>City/Zip code</label>
@@ -167,8 +166,8 @@ export default {
     align-items: center;
     border-bottom: #ddd 1px solid;
     .content {
-      min-height: 285px;
-      padding: 70px 200px 34px 106px;
+      height: 268px;
+      padding: 85px 200px 85px 106px;
 
       .md-display-1 {
         line-height: 60px;
