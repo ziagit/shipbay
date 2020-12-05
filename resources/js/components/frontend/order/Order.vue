@@ -17,65 +17,74 @@
       <div class="row inputs">
         <md-steppers :md-active-step.sync="active" md-vertical md-linear>
           <md-step
-            v-if="watchStep(1)"
             id="first"
             md-label="Where are you shipping from?"
             md-description="Required"
             :md-done.sync="first"
+            @click="unsetDone('first', 0)"
           >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              doloribus eveniet quaerat modi cumque quos sed, temporibus nemo
-              eius amet aliquid, illo minus blanditiis tempore, dolores voluptas
-              dolore placeat nulla.
-            </p>
-            <md-button
-              class="md-raised md-primary"
-              @click="setDone('first', 'second', 1)"
-              >Continue</md-button
-            >
+          <Pickup v-on:progress="setDone"/>
           </md-step>
 
           <md-step
-            v-if="watchStep(2)"
+            v-if="watchStep(1)"
             id="second"
-            md-label="Do you need additional services at the pickup?"
+            md-label="Do you need additional services at pickup?"
             :md-error="secondStepError"
             :md-done.sync="second"
+            @click="unsetDone('second', 1)"
           >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              doloribus eveniet quaerat modi cumque quos sed, temporibus nemo
-              eius amet aliquid, illo minus blanditiis tempore, dolores voluptas
-              dolore placeat nulla.
-            </p>
-
-            <md-button
-              class="md-raised md-primary"
-              @click="setDone('second', 'third', 2)"
-              >Continue</md-button
-            >
+          <PickupServices v-on:progress="setDone"/>
             <md-button class="md-raised md-primary" @click="setError()"
               >Set error!</md-button
             >
           </md-step>
 
           <md-step
-            v-if="watchStep(3)"
+            v-if="watchStep(2)"
             id="third"
-            md-label="Third Step"
+            md-label="When to pickup?"
             :md-done.sync="third"
+            @click="unsetDone('third', 2)"
           >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              doloribus eveniet quaerat modi cumque quos sed, temporibus nemo
-              eius amet aliquid, illo minus blanditiis tempore, dolores voluptas
-              dolore placeat nulla.
-            </p>
-
-            <md-button class="md-raised md-primary" @click="setDone('third', 3)"
-              >Done</md-button
-            >
+          <PickupDate v-on:progress="setDone"/>
+          </md-step>
+          <md-step
+            v-if="watchStep(3)"
+            id="fourth"
+            md-label="Where are you shipping to?"
+            :md-done.sync="fourth"
+            @click="unsetDone('fourth', 3)"
+          >
+          <Delivery v-on:progress="setDone"/>
+          </md-step>
+          <md-step
+            v-if="watchStep(4)"
+            id="fifth"
+            md-label="Do you need additional services at delivery?"
+            :md-done.sync="fifth"
+            @click="unsetDone('fifth', 4)"
+          >
+          <DeliveryServices v-on:progress="setDone"/>
+          </md-step>
+          <md-step
+            v-if="watchStep(5)"
+            id="sixth"
+            md-label="What item are you shipping?"
+            :md-done.sync="sixth"
+            @click="unsetDone('sixth', 5)"
+          >
+         <Items v-on:progress="setDone"/>
+          </md-step>
+          <md-step
+            v-if="watchStep(6)"
+            id="seventh"
+            md-label="Select the carrier of your choice"
+            :md-done.sync="seventh"
+            @click="unsetDone('seventh', 6)"
+          >
+          select carriers
+           <!--<Carriers  v-on:progress="setDone">-->
           </md-step>
         </md-steppers>
       </div>
@@ -100,35 +109,44 @@ import axios from "axios";
 export default {
   name: "StepperLinear",
   data: () => ({
-    completedSteps: 1,
+    completedSteps: 0,
     totalSteps: 8,
-    steps: [1],
+    steps: [0],
     amount: 0,
     active: "first",
     first: false,
     second: false,
     third: false,
+    fourth: false,
+    fifth: false,
+    sixth: false,
+    seventh: false,
+    eighth: false,
     secondStepError: null,
   }),
 
   methods: {
     setDone(id, index, stepId) {
-      this[id] = true;
+      this.completedSteps = stepId
       if (!this.steps.includes(stepId)) {
         this.steps.push(stepId);
-        this.watchStep(stepId);
-        console.log("step id ", this.steps);
       }
-
+      this[id] = true;
       if (index) {
         this.active = index;
       }
     },
+    unsetDone(step, stepId) {
+      this.completedSteps = stepId
+      this.steps.splice(stepId + 1, 6);
+      this.active = step;
+      console.log("step back id", stepId);
+    },
     setError() {
       this.secondStepError = "There is an error!";
     },
-    watchStep(index) {
-      if (this.steps.includes(index)) {
+    watchStep(stepId) {
+      if (this.steps.includes(stepId)) {
         return true;
       }
       return false;
@@ -159,9 +177,9 @@ export default {
   .content {
     display: flex;
     justify-content: center;
-    width: 100%;
+    max-width: 800px;
     min-height: calc(100vh - 15px);
-    //margin: auto;
+    margin: auto;
     //padding: 51px 20px 0 20px !important;
     //text-align: center;
     //margin-bottom: 46px;

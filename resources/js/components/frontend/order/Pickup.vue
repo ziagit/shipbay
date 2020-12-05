@@ -209,7 +209,7 @@ export default {
       }
     },
     nextStep() {
-      this.$emit("progress", 'first', 'second', 'pickup-services', 1);
+      this.$emit("progress", 'first', 'second', 1);
       localStorage.setItem("order", JSON.stringify(this.order));
     },
     edit() {
@@ -265,8 +265,6 @@ export default {
 .origin {
   .search-container {
     position: relative;
-    text-align: center;
-
     .md-field {
       margin-bottom: 0;
 
@@ -327,7 +325,7 @@ export default {
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 600px) {
   .origin {
     .options {
       text-align: center;

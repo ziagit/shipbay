@@ -180,7 +180,7 @@ export default {
           storage.myItem = this.myItem;
           localStorage.setItem("order", JSON.stringify(storage));
 
-          this.$emit("progress", "sixth", "seventh", "carriers", 6);
+          this.$emit("progress", "sixth", "seventh", 6);
         } else {
           this.itemExistError = !this.itemExistError;
         }
@@ -330,8 +330,6 @@ export default {
 
 <style lang="scss" scoped>
 .item {
-  text-align: center;
-
   .row {
     display: flex;
     justify-content: space-between;

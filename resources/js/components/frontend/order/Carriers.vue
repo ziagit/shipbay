@@ -157,10 +157,10 @@ export default {
     },
 
     created() {
+        console.log("working")
         this.getCarriers();
         this.order = JSON.parse(localStorage.getItem("order"));
         localStorage.setItem('cRoute', this.$router.currentRoute.path);
-        console.log("in carrier: ", this.order)
     },
     components: {
         CarrierRateInfo,
@@ -173,11 +173,7 @@ export default {
 
 <style lang="scss" scoped>
 .select-carrier {
-    text-align: center;
-
     .list-action {
-        text-align: center;
-
         .md-button {
             border: 1px solid #ffa500;
             padding: 5px;

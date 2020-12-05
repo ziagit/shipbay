@@ -47,7 +47,7 @@ export default {
       storage.des.appointmentTime = this.appointmentTime;
       localStorage.setItem("order", JSON.stringify(storage));
 
-      this.$emit("progress", "fifth", "sixth",'items', 5);
+      this.$emit("progress", "fifth", "sixth", 5);
 
     },
 
@@ -89,8 +89,6 @@ export default {
 
 <style lang="scss" scoped>
 .delivery-services {
-  text-align: center;
-
   .icon,
   .options,
   .action {
