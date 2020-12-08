@@ -46,9 +46,6 @@ export default {
 <style lang="scss" scoped>
 .container {
     width: 100%;
-
-    .header {}
-
     .content {
         height: calc(100vh - 3px);
         padding: 60px 30px;

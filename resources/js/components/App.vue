@@ -230,7 +230,9 @@ export default {
 .md-progress-bar-fill {
   background: #ffa500 !important;
 }
-
+.activeStep .md-stepper-label {
+    font-size: 20px !important;
+}
 @media only screen and (min-width: 600px) {
   .md-display-1 {
     font-size: 30px;

@@ -47,7 +47,7 @@ export default {
       storage.des.appointmentTime = this.appointmentTime;
       localStorage.setItem("order", JSON.stringify(storage));
 
-      this.$emit("progress", "fifth", "sixth", 5);
+      this.$emit("progress", "fifth", "sixth", 5, '/items');
 
     },
 
@@ -93,6 +93,9 @@ export default {
   .options,
   .action {
     margin: 20px auto;
+  }
+    .action{
+    text-align: right;
   }
 }
 </style>

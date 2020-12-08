@@ -180,7 +180,7 @@ export default {
           storage.myItem = this.myItem;
           localStorage.setItem("order", JSON.stringify(storage));
 
-          this.$emit("progress", "sixth", "seventh", 6);
+          this.$emit("progress", "sixth", "seventh", 6, '/order/additional-details');
         } else {
           this.itemExistError = !this.itemExistError;
         }
@@ -350,6 +350,9 @@ export default {
   .action {
     margin: 20px 0;
   }
+    .action{
+    text-align: right;
+  }
 
   .btn-close {
     position: relative;
@@ -357,6 +360,7 @@ export default {
   }
 
   .md-card {
+    margin: 0;
     ul {
       padding: 0;
 

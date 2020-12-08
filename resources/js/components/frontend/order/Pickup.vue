@@ -209,7 +209,7 @@ export default {
       }
     },
     nextStep() {
-      this.$emit("progress", 'first', 'second', 1);
+      this.$emit("progress", 'first', 'second', 1, '/order/pickup-services');
       localStorage.setItem("order", JSON.stringify(this.order));
     },
     edit() {
@@ -315,8 +315,12 @@ export default {
       margin: 8px 16px 8px 0;
     }
   }
+  .action{
+    text-align: right;
+  }
 
   .md-card {
+    margin: 0 !important;
     .edit {
       position: absolute;
       top: 0;

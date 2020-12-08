@@ -64,7 +64,7 @@ export default {
         }
 
         localStorage.setItem("order", JSON.stringify(storage));
-        this.$emit("progress", "third", "fourth", 3);
+        this.$emit("progress", "third", "fourth", 3, '/order/delivery');
       }
     },
 
@@ -116,7 +116,9 @@ export default {
   .action {
     margin: 20px auto;
   }
-
+  .action{
+    text-align: right;
+  }
   .md-display-1 {
     font-size: 24px;
   }

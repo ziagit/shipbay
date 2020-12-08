@@ -79,7 +79,7 @@ import Accessories from './components/backend/lookups/accessories/Accessories'
 import RateRanges from './components/backend/lookups/rate-ranges/RateRanges'
 
 import CarrierList from './components/backend/carrier/CarrierList'
-import CustomerAddress from './components/backend/address/CustomerAddress' 
+import CustomerAddress from './components/backend/address/CustomerAddress'
 import CarrierAccessories from './components/backend/carrier/accessories/CarrierAccessories'
 import Rates from './components/backend/carrier/rates/Rates'
 import Orders from './components/backend/shippers/orders/Orders'
@@ -102,10 +102,10 @@ function webGuard(to, from, next) {
         next()
     }
 }
-function orderGuard(to, from, next){
-    if(from.name === 'pickup-services'){
+function orderGuard(to, from, next) {
+    if (from.name === 'pickup-services') {
         next();
-    }else{
+    } else {
         if (localStorage.getItem("order")) {
             localStorage.removeItem("order");
         }
@@ -151,17 +151,17 @@ export default new VueRouter({
                 { name: 'welcome', path: '/welcome', component: Welcome },
                 { name: 'checkout', path: '/checkout', component: Card },
                 { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },
-                { name: 'privacy', path: '/privacy-policies', component: Privacy},
-                { name: 'terms', path: '/terms-and-conditions', component: Terms},
-                {name: 'our-carriers',path: '/carriers', component: OurCarriers},
-                {name: 'our-shippers',path: '/shippers', component: OurShippers},
+                { name: 'privacy', path: '/privacy-policies', component: Privacy },
+                { name: 'terms', path: '/terms-and-conditions', component: Terms },
+                { name: 'our-carriers', path: '/carriers', component: OurCarriers },
+                { name: 'our-shippers', path: '/shippers', component: OurShippers },
                 {
                     name: 'order',
                     path: 'order',
                     component: Order,
                     children: [
                         { path: '', redirect: 'pickup' },
-                        { name: 'pickup', path: 'pickup', component: Pickup,beforeEnter: orderGuard},
+                        { name: 'pickup', path: 'pickup', component: Pickup, /* beforeEnter: orderGuard */ },
                         { name: 'pickup-services', path: 'pickup-services', component: PickupServices },
                         { name: 'pickup-date', path: 'pickup-date', component: PickupDate },
                         { name: 'delivery', path: 'delivery', component: Delivery },
@@ -169,12 +169,13 @@ export default new VueRouter({
                         { name: 'items', path: 'items', component: Items },
                         { name: 'carriers', path: 'carriers', component: Carriers },
                         { name: 'additional-details', path: 'additional-details', component: AdditionalDetails },
-                        { name: 'payment-details', path: 'payment-details', component: PaymentDetails },
-                        { name: 'confirmation', path: 'confirmation', component: Confirmation },
-                        { name: 'completion', path: 'completion', component: Completion },
-                        { name: 'shipment-details', path: 'shipment-details/:id', component: ShipmentDetails },
+
                     ]
                 },
+                { name: 'payment-details', path: 'payment-details', component: PaymentDetails },
+                { name: 'confirmation', path: 'confirmation', component: Confirmation },
+                { name: 'completion', path: 'completion', component: Completion },
+                { name: 'shipment-details', path: 'shipment-details/:id', component: ShipmentDetails },
                 {
                     name: 'carrier',
                     path: 'carrier',
@@ -264,7 +265,7 @@ export default new VueRouter({
                     ],
                     beforeEnter: webGuard
                 },
-               
+
 
                 {
                     name: 'admin',
@@ -299,6 +300,6 @@ export default new VueRouter({
                 }
             ],
         },
-          { path: '*', redirect: '/' }
+        { path: '*', redirect: '/' }
     ],
 })

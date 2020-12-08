@@ -59,12 +59,6 @@
             </md-list-item>
         </md-list>
         <div v-else style="color:red">there is no carrier available with this source & distination</div>
-        <div class="action">
-            <md-button to="/order" class="md-icon-button md-raised md-primary">
-                <md-icon>edit</md-icon>
-                <md-tooltip>Reset!</md-tooltip>
-            </md-button>
-        </div>
     </div>
     <Snackbar :data="snackbar" />
 </div>
@@ -214,8 +208,11 @@ export default {
     .action {
         margin: 20px auto;
     }
-
+  .action{
+    text-align: right;
+  }
     .items {
+        margin: 0;
         padding: 15px;
         text-align: left;
         background: #fff;
