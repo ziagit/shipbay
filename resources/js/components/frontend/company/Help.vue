@@ -32,25 +32,12 @@
           @click="
             passData(
               (header = 'How it Works?'),
-              (subheader = 'We are happy to help')
+              (subheader = 'Beginnerٌs guide to shipping from home on Shipbay')
             )
           "
         >
           <HowItWorks />
         </md-tab>
-<!--        <md-tab
-          id="faq"
-          md-label="FAQ"
-          md-icon="notes"
-          @click="
-            passData(
-              (header = 'FAQ'),
-              (subheader = 'Frequently asked questions')
-            )
-          "
-        >
-          <FAQ />
-        </md-tab>-->
         <md-tab
           id="tab-carrier"
           md-label="Carrier"
@@ -58,7 +45,7 @@
           @click="
             passData(
               (header = 'Carrier'),
-              (subheader = 'Join our carrier networks')
+              (subheader = 'Most common questoins about our carriers')
             )
           "
         >
@@ -71,7 +58,7 @@
           @click="
             passData(
               (header = 'Shipper'),
-              (subheader = 'Sign up for free and start shipping today')
+              (subheader = 'Top common questions about our shippers')
             )
           "
         >
@@ -101,7 +88,7 @@ export default {
       message: null,
     },
     header: "How it Works?",
-    subheader: "We are happy to help",
+    subheader: "Beginnerٌs guide to shipping from home on Shipbay",
     carrierToggal: false,
     shipperToggal: false,
   }),
@@ -135,8 +122,8 @@ export default {
     align-items: center;
     border-bottom: #ddd 1px solid;
     .content {
-      min-height: 285px;
-      padding: 85px 200px 40px 106px;
+      height: 268px;
+       padding: 85px 200px 85px 106px;
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;

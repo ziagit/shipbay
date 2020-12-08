@@ -59,12 +59,6 @@
             </md-list-item>
         </md-list>
         <div v-else style="color:red">there is no carrier available with this source & distination</div>
-        <div class="action">
-            <md-button to="/order" class="md-icon-button md-raised md-primary">
-                <md-icon>edit</md-icon>
-                <md-tooltip>Reset!</md-tooltip>
-            </md-button>
-        </div>
     </div>
     <Snackbar :data="snackbar" />
 </div>
@@ -157,10 +151,10 @@ export default {
     },
 
     created() {
+        console.log("working")
         this.getCarriers();
         this.order = JSON.parse(localStorage.getItem("order"));
         localStorage.setItem('cRoute', this.$router.currentRoute.path);
-        console.log("in carrier: ", this.order)
     },
     components: {
         CarrierRateInfo,
@@ -173,11 +167,7 @@ export default {
 
 <style lang="scss" scoped>
 .select-carrier {
-    text-align: center;
-
     .list-action {
-        text-align: center;
-
         .md-button {
             border: 1px solid #ffa500;
             padding: 5px;
@@ -218,8 +208,11 @@ export default {
     .action {
         margin: 20px auto;
     }
-
+  .action{
+    text-align: right;
+  }
     .items {
+        margin: 0;
         padding: 15px;
         text-align: left;
         background: #fff;

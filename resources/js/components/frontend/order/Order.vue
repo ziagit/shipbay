@@ -2,83 +2,98 @@
   <div class="container">
     <Header v-on:togal-menu="$emit('togal-menu')" />
     <div class="content">
-      <div class="input-container">
-        <div class="progress-container">
-          <radial-progress-bar
-            :diameter="100"
-            :completed-steps="completedSteps"
-            :total-steps="totalSteps"
-            innerStrokeColor="#fff"
-            startColor="#f97d4a"
-            stopColor="#ffa500"
-          >
-          </radial-progress-bar>
-          <!--      <md-progress-bar class="md-primary" md-mode="determinate" :md-value="amount"></md-progress-bar>-->
-        </div>
-        <md-steppers
-          md-vertical
-          md-dynamic-height
-          :md-active-step.sync="active"
+      <div class="row progress-bar">
+        <radial-progress-bar
+          :diameter="150"
+          :completed-steps="completedSteps"
+          :total-steps="totalSteps"
+          innerStrokeColor="#fff"
+          startColor="#f97d4a"
+          stopColor="#ffa500"
         >
+        </radial-progress-bar>
+      </div>
+      <div class="row inputs">
+        <md-steppers :md-active-step.sync="active" md-vertical>
           <md-step
+            :class="{ activeStep: active === 'first' }"
             id="first"
-            exact
             md-label="Where are you shipping from?"
             md-description="Required"
-            v-if="activatedSteps"
+            :md-done.sync="first"
+            @click="unsetDone('first', 0)"
           >
-            <Pickup v-on:progress="progress" />
+            <Pickup v-on:progress="setDone" />
           </md-step>
-
           <md-step
+            :class="{ activeStep: active === 'second' }"
+            v-if="watchStep(1)"
             id="second"
-            md-label="Do you need additional services at the pick-up?"
-            md-description="Required"
-            exact
+            md-label="Do you need additional services at pickup?"
+            :md-done.sync="second"
+            @click="unsetDone('second', 1)"
           >
-            <PickupServices v-on:progress="progress" />
+            <PickupServices v-on:progress="setDone" />
           </md-step>
-
           <md-step
+            :class="{ activeStep: active === 'third' }"
+            v-if="watchStep(2)"
             id="third"
-            md-label="When to pick-up?"
-            md-description="Required"
-            exact
+            md-label="When to pickup?"
+            :md-done.sync="third"
+            @click="unsetDone('third', 2)"
           >
-            <PickupDate v-on:progress="progress" />
+            <PickupDate v-on:progress="setDone" />
           </md-step>
-
           <md-step
+            :class="{ activeStep: active === 'fourth' }"
+            v-if="watchStep(3)"
             id="fourth"
             md-label="Where are you shipping to?"
-            md-description="Required"
-            exact
+            :md-done.sync="fourth"
+            @click="unsetDone('fourth', 3)"
           >
-            <Delivery v-on:progress="progress" />
+            <Delivery v-on:progress="setDone" />
           </md-step>
           <md-step
+            :class="{ activeStep: active === 'fifth' }"
+            v-if="watchStep(4)"
             id="fifth"
-            md-label="Do you need additional services at the delivery?"
-            md-description="Required"
-            exact
+            md-label="Do you need additional services at delivery?"
+            :md-done.sync="fifth"
+            @click="unsetDone('fifth', 4)"
           >
-            <DeliveryServices v-on:progress="progress" />
+            <DeliveryServices v-on:progress="setDone" />
           </md-step>
           <md-step
+            :class="{ activeStep: active === 'sixth' }"
+            v-if="watchStep(5)"
             id="sixth"
-            md-label="What items are you shipping?"
-            md-description="Required"
-            exact
+            md-label="What item are you shipping?"
+            :md-done.sync="sixth"
+            @click="unsetDone('sixth', 5)"
           >
-            <Items v-on:progress="progress" />
+            <Items v-on:progress="setDone" />
           </md-step>
           <md-step
+            :class="{ activeStep: active === 'seventh' }"
+            v-if="watchStep(6)"
             id="seventh"
-            md-label="Select the carrier of your choice"
-            md-description="Required"
-            exact
+            md-label="Additional information"
+            :md-done.sync="seventh"
+            @click="unsetDone('seventh', 6)"
           >
-            <Carriers v-on:progress="progress" />
+            <AdditionalDetails v-on:progress="setDone" />
+          </md-step>
+          <md-step
+            :class="{ activeStep: active === 'eighth' }"
+            v-if="watchStep(7)"
+            id="eighth"
+            md-label="Select the carrier of your choice"
+            :md-done.sync="eighth"
+            @click="unsetDone('eighth', 7)"
+          >
+            <Carriers v-on:progress="setDone" />
           </md-step>
         </md-steppers>
       </div>
@@ -96,6 +111,7 @@ import Delivery from "./Delivery";
 import DeliveryServices from "./DeliveryServices";
 import Items from "./Items";
 import Carriers from "./Carriers";
+import AdditionalDetails from "./AdditionalDetails";
 
 import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
@@ -103,12 +119,11 @@ import axios from "axios";
 export default {
   name: "StepperLinear",
   data: () => ({
-    amount: 0,
     completedSteps: 0,
     totalSteps: 8,
+    steps: [0],
 
     active: "first",
-    activatedRoutes:['first'],
     first: false,
     second: false,
     third: false,
@@ -116,27 +131,57 @@ export default {
     fifth: false,
     sixth: false,
     seventh: false,
+    eighth: false,
   }),
 
   methods: {
-    progress(id, index, nextRoute, value) {
-      this.completedSteps = value;
-      this[id] = true;
-      if (index) {
-        this.active = index;
-        localStorage.setItem("completedSteps", this.completedSteps);
-        localStorage.setItem("active", this.active);
-        this.activatedRoutes.push(nextRoute);
-        console.log("activated routes: ", this.activatedRoutes)
-        this.$router.push(nextRoute);
+    setDone(prev, next, index) {
+      this.completedSteps = index;
+      if (!this.steps.includes(index)) {
+        this.steps.push(index);
+        console.log("sssssteps: ", this.steps);
+        localStorage.setItem("steps", JSON.stringify(this.steps));
       }
+      this[prev] = true;
+      if (next) {
+        this.active = next;
+        localStorage.setItem("aStep", JSON.stringify(this.active));
+      }
+      localStorage.setItem(
+        "completedSteps",
+        JSON.stringify(this.completedSteps)
+      );
+    },
+    unsetDone(step, index) {
+      this.active = step;
+      localStorage.setItem("aStep", JSON.stringify(this.active));
+
+      this.completedSteps = index;
+      localStorage.setItem(
+        "completedSteps",
+        JSON.stringify(this.completedSteps)
+      );
+      
+      this.steps.splice(index + 1, 8);
+      localStorage.setItem("steps", JSON.stringify(this.steps));
+    },
+
+    watchStep(index) {
+      if (this.steps.includes(index)) {
+        return true;
+      }
+      return false;
     },
     init() {
-      console.log("active: ", localStorage.getItem("active"));
-      if (localStorage.getItem("active")) {
-        this.active = localStorage.getItem("active");
+      if (localStorage.getItem("steps")) {
+        this.steps = JSON.parse(localStorage.getItem("steps"));
+        console.log("steps: ", this.steps);
       }
-      if (localStorage.getItem("completedSteps")) {
+      if (localStorage.getItem("aStep")) {
+        this.active = JSON.parse(localStorage.getItem("aStep"));
+        console.log("active step: ", this.active);
+      }
+      if(localStorage.getItem("completedSteps")){
         this.completedSteps = JSON.parse(localStorage.getItem("completedSteps"));
       }
     },
@@ -153,6 +198,7 @@ export default {
     DeliveryServices,
     Items,
     Carriers,
+    AdditionalDetails,
     Header,
     Footer,
   },
@@ -161,61 +207,32 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  .header {
-    border-bottom: solid 1px #fff;
-  }
-
   .content {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
     min-height: calc(100vh - 15px);
     margin: auto;
-    padding: 51px 20px 0 20px !important;
-    text-align: center;
-    margin-bottom: 46px;
-
-    .input-container {
-      position: relative;
+    padding-top: 30px;
+    .progress-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .inputs {
+      flex: 70%;
       padding: 10px;
-      max-width: 710px;
-      margin: auto;
-      .progress-container {
-        background: #f0f2f5;
-        position: absolute;
-        box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-        padding: 6px;
-        border-radius: 50%;
-        z-index: 90 !important;
-        right: 0;
-        top: 0;
-        .radial-progress-container {
-          margin: auto;
-        }
-        .md-progress-bar {
-          border-radius: 20px;
-          background-color: #fff;
-
-          .md-progress-bar-fill {
-            background: #ffa500 !important;
-          }
-
-          .md-progress-bar-buffer {
-            background: #e7eaed;
-          }
-        }
-      }
     }
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 600px) {
   .order {
     .content {
       padding: 30px;
-
       .progress-container {
         max-width: 800px;
       }
-
       .input-container {
         padding: 10px;
         max-width: 600px;

@@ -11,8 +11,8 @@
       <div class="content">
         <div class="md-display-1">About Us</div>
         <div class="md-subheading">
-          From the start, everything we've done has centered on solving customer
-          problems through technology.
+          Everything we trying to do is to solve customer problems through
+          technology.
         </div>
       </div>
     </div>
@@ -289,9 +289,8 @@ export default {
     align-items: center;
     border-bottom: #ddd 1px solid;
     .content {
-      min-height: 285px;
+      height: 268px;
       padding: 85px 200px 85px 106px;
-
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;

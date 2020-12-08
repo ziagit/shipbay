@@ -12,7 +12,7 @@
       />
       <div class="content">
         <div class="md-display-1">Our Carriers</div>
-        <div class="md-subheading">Join our carrier networks.</div>
+        <div class="md-subheading">Join our carrier networks by creating an account with us.</div>
         <md-button class="custom-button" to="/register">Sign Up</md-button>
       </div>
     </div>
@@ -139,8 +139,8 @@ export default {
     align-items: center;
     border-bottom: #ddd 1px solid;
     .content {
-      min-height: 285px;
-      padding: 70px 200px 68px 106px;
+      height: 268px;
+      padding: 85px 200px 85px 106px;
 
       .md-display-1 {
         line-height: 60px;

@@ -41,7 +41,7 @@ export default {
             storage.src.accessories = this.services;
             localStorage.setItem("order", JSON.stringify(storage));
 
-            this.$emit("progress", 'second', 'third','pickup-date', 2);
+            this.$emit("progress", 'second', 'third', 2, '/order/pickup-date');
         },
 
         init() {
@@ -62,12 +62,13 @@ export default {
 
 <style lang="scss" scoped>
 .pickup-services {
-    text-align: center;
-
     .icon,
     .options,
     .action {
         margin: 20px auto;
     }
+      .action{
+    text-align: right;
+  }
 }
 </style>

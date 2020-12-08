@@ -176,7 +176,7 @@ export default {
             storage.des = this.des;
             localStorage.setItem("order", JSON.stringify(storage));
 
-            this.$emit("progress", 'fourth', 'fifth','delivery-services', 4);
+            this.$emit("progress", 'fourth', 'fifth', 4, '/order/delivery-services');
         },
 
         init() {
@@ -224,8 +224,6 @@ export default {
 
 <style lang="scss" scoped>
 .destination {
-    text-align: center;
-
     .search-container {
         position: relative;
 
@@ -267,8 +265,12 @@ export default {
     .action {
         margin: 20px auto;
     }
+      .action{
+    text-align: right;
+  }
 
     .md-card {
+        margin: 0 !important;
         .edit {
             position: absolute;
             top: 0;

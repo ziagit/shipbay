@@ -19,32 +19,6 @@
       </div>
     </div>
     <div class="wrapper">
-      <div class="section1">
-        <div class="row">
-          <div class="md-display-1">8.8</div>
-          <div class="md-subheading">Carrier Review</div>
-          <div>
-            <router-link to="#"
-              >See All Reviews <md-icon>keyboard_arrow_right</md-icon>
-            </router-link>
-          </div>
-        </div>
-        <div class="row row2">
-          <div class="md-display-1">9.2</div>
-          <div class="md-subheading">Shipper Review</div>
-          <div>
-            <router-link to="#"
-              >See All Reviews <md-icon>keyboard_arrow_right</md-icon>
-            </router-link>
-          </div>
-        </div>
-        <div class="row row3">
-          <div class="md-display-1">
-            Trusted by over 250+ business partner around the world
-          </div>
-        </div>
-        <div class="row"></div>
-      </div>
       <div class="section2">
         <div class="heading">
           <div class="md-display-1">Safe and hassle-free shipping</div>
@@ -92,11 +66,15 @@
         }"
       >
         <div class="text">
-          <div class="md-display-1">Customer competitive advantage</div>
+          <div class="md-display-1">
+            How can small businesses and individuals benefit from ShipBay
+          </div>
           <div class="break"></div>
           <div class="md-body-1">
-            You are granted free access to the qualified services provided
-            pricing with customer rating and reviews
+            You are granted a free access to 100s of qualified carriers’ pricing
+            along with customer review and ratings. ShipBay is a marketplace
+            where Service Providers compete for your business so that you
+            benefit with best services and lowest price.
           </div>
         </div>
         <div class="steps">
@@ -108,29 +86,36 @@
               </div>
               <div class="text">
                 <div class="md-title">Effortless</div>
-                <div class="details">Your freight at your fingertips</div>
+                <div class="details">
+                  Easy booking; list your items, compare and select your carrier
+                  of choice.
+                </div>
               </div>
             </li>
 
             <md-divider></md-divider>
 
-            <li>
-              <div class="avatar">
-                <img :src="'/images/uploads/select-carrier.svg'" alt="People" />
-              </div>
-              <div class="text">
-                <div class="md-title">Moderate</div>
-                <div class="details">Competative price is guaranteed</div>
-              </div>
-            </li>
-            <md-divider></md-divider>
             <li>
               <div class="avatar">
                 <img :src="'/images/uploads/track-order.svg'" alt="People" />
               </div>
               <div class="text">
-                <div class="md-title">Real-time</div>
-                <div class="details">Track your frieght where goes</div>
+                <div class="md-title">Manage and Track</div>
+                <div class="details">
+                  Our tools let you manage and track the shipment live.
+                </div>
+              </div>
+            </li>
+            <md-divider></md-divider>
+            <li>
+              <div class="avatar">
+                <img :src="'/images/uploads/select-carrier.svg'" alt="People" />
+              </div>
+              <div class="text">
+                <div class="md-title">Mobile App</div>
+                <div class="details">
+                  All of this in your fingertips through our App.
+                </div>
               </div>
             </li>
           </ul>
@@ -141,25 +126,61 @@
           <img :src="'/images/uploads/callendar.svg'" alt="" />
         </div>
         <div class="row txt">
-          <div class="md-display-1">Book your big moving days in advance</div>
+          <div class="md-display-1">Book your big moving day in advance</div>
           <div class="md-body-1">
-            You can book your preferred date ahead to make sure one-time moving.
+            We know moving is stressful, to make sure the availability and
+            on-time service book your moving day ahead. Relax! we will notify
+            you when the date arrives.
           </div>
-          <md-button class="custom-button" to="/order">Start moving</md-button>
+          <md-button class="custom-button" to="/order">Get Quote</md-button>
         </div>
       </div>
       <div class="section5">
         <div class="row txt">
-          <div class="md-display-1">Here is what our customers says</div>
+          <div class="md-display-1">Here is what our customers say</div>
           <div class="md-body-1">
-            "As a small business owner I found Shipbay more reliable, easy and
-            compatetive pricing which has decreased my shipment cost by 20%"
+            <div class="customer-comment">
+              "As a small business I found ShipBay more reliable, easy and
+              competitive pricing which has decreased my shipment cost and has
+              brought efficiency in my workforce"
+              <div class="break"></div>
+              <div class="customer"><span> Tim Forde</span></div>
+            </div>
+
+            <div class="break"></div>
+            Based on this customer’s review we have pulled his account profile.
           </div>
-          <md-button class="custom-button">Start quotation</md-button>
+          <md-button class="custom-button">Get quote</md-button>
         </div>
         <div class="row img">
           <img :src="'/images/uploads/home-graph.svg'" alt="" />
         </div>
+      </div>
+            <div class="section1">
+        <div class="row">
+          <div class="md-display-1">8.8</div>
+          <div class="md-subheading">Carrier Review</div>
+          <div>
+            <router-link to="#"
+              >See All Reviews <md-icon>keyboard_arrow_right</md-icon>
+            </router-link>
+          </div>
+        </div>
+        <div class="row row2">
+          <div class="md-display-1">9.2</div>
+          <div class="md-subheading">Shipper Review</div>
+          <div>
+            <router-link to="#"
+              >See All Reviews <md-icon>keyboard_arrow_right</md-icon>
+            </router-link>
+          </div>
+        </div>
+        <div class="row row3">
+          <div class="md-display-1">
+            Trusted by over 250+ business partner around the world
+          </div>
+        </div>
+        <div class="row"></div>
       </div>
     </div>
 
@@ -331,20 +352,20 @@ export default {
       .text {
         .md-display-1 {
           line-height: 38px;
-          max-width: 309px;
+          max-width: 367px;
           color: #000;
           font-weight: 500;
         }
 
         .md-body-1 {
-          max-width: 353px;
+          max-width: 380px;
           font-size: 14px;
           line-height: 20px;
         }
       }
 
       .steps {
-        min-width: 390px;
+        max-width: 436px;
         background: #fff;
         position: absolute;
         right: -100px;
@@ -356,7 +377,7 @@ export default {
           background: #f17947;
         }
         ul {
-          padding: 16px 36px;
+          padding: 0 36px;
           margin: 0;
 
           li {
@@ -367,7 +388,7 @@ export default {
             .avatar {
               display: flex;
               flex: 24%;
-              padding: 10px;
+              padding: 16px;
             }
             .text {
               flex: 75%;
@@ -415,6 +436,17 @@ export default {
         img {
           padding: 15px;
         }
+      }
+      .customer-comment {
+        border-left: 8px solid #3aa96f;
+        padding: 5px;
+        color: #6f6b6b;
+        font-style: italic;
+        margin: 10px;
+        .customer{
+          text-align: right;
+        }
+
       }
     }
     .section4 {

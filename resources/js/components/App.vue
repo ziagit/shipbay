@@ -11,6 +11,19 @@ export default {
 </script>
 
 <style lang="scss">
+.md-steppers.md-theme-default .md-stepper-header.md-active .md-stepper-number,
+.md-steppers.md-theme-default .md-stepper-header.md-done .md-stepper-number {
+  background-color: #f0f2f5 !important;
+  border: solid 1px #22a92d;
+  color: #f0f2f5 !important;
+}
+
+.md-steppers.md-theme-default .md-stepper-number,
+.md-steppers.md-theme-default .md-stepper-header.md-done .md-stepper-number {
+  background-color: #22a92d !important;
+  color: #f0f2f5 !important;
+}
+
 .section0 {
   box-shadow: 0 2px 13px -7px grey;
 }
@@ -18,7 +31,7 @@ export default {
   color: #000 !important;
   font-weight: 600;
 }
-.md-steppers{
+.md-steppers {
   background: none !important;
 }
 .break {
@@ -195,6 +208,8 @@ export default {
   color: #fff !important;
   font-weight: 300 !important;
   font-size: 12px !important;
+  min-height: 40px !important;
+  height: 40px !important;
 }
 
 .custom-button-outline {
@@ -205,6 +220,8 @@ export default {
   color: #000 !important;
   font-weight: 400 !important;
   font-size: 12px !important;
+  min-height: 40px !important;
+  height: 40px !important;
 }
 .custom-button-outline:hover {
   background: #e4852b !important;
@@ -213,7 +230,9 @@ export default {
 .md-progress-bar-fill {
   background: #ffa500 !important;
 }
-
+.activeStep .md-stepper-label {
+    font-size: 20px !important;
+}
 @media only screen and (min-width: 600px) {
   .md-display-1 {
     font-size: 30px;
