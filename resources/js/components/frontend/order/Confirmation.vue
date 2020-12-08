@@ -227,6 +227,9 @@ export default {
           if (localStorage.getItem("steps")) {
             localStorage.removeItem("steps");
           }
+          if (localStorage.getItem("completedSteps")) {
+            localStorage.removeItem("completedSteps");
+          }
           this.$router.push("completion");
           console.log("data: ", res.data);
           this.dataLoading = false;

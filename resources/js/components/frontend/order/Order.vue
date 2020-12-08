@@ -120,7 +120,7 @@ export default {
   name: "StepperLinear",
   data: () => ({
     completedSteps: 0,
-    totalSteps: 8,
+    totalSteps: 7,
     steps: [0],
 
     active: "first",
@@ -139,7 +139,6 @@ export default {
       this.completedSteps = index;
       if (!this.steps.includes(index)) {
         this.steps.push(index);
-        console.log("sssssteps: ", this.steps);
         localStorage.setItem("steps", JSON.stringify(this.steps));
       }
       this[prev] = true;
@@ -161,7 +160,7 @@ export default {
         "completedSteps",
         JSON.stringify(this.completedSteps)
       );
-      
+
       this.steps.splice(index + 1, 8);
       localStorage.setItem("steps", JSON.stringify(this.steps));
     },
@@ -175,11 +174,9 @@ export default {
     init() {
       if (localStorage.getItem("steps")) {
         this.steps = JSON.parse(localStorage.getItem("steps"));
-        console.log("steps: ", this.steps);
       }
       if (localStorage.getItem("aStep")) {
         this.active = JSON.parse(localStorage.getItem("aStep"));
-        console.log("active step: ", this.active);
       }
       if(localStorage.getItem("completedSteps")){
         this.completedSteps = JSON.parse(localStorage.getItem("completedSteps"));
