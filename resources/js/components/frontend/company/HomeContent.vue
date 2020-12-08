@@ -2,7 +2,7 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/home-bg.svg)' }"
+      v-bind:style="{ 'background-image': 'url(/images/uploads/home-bg2.svg)' }"
     >
       <Header
         v-on:togal-menu="$emit('togal-menu')"
