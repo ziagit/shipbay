@@ -9,12 +9,15 @@ class Functions
 {
     public function calculateCost($request)
     {
+    
         //find total dimentional_weight & source & destination cities in order table
         $selectedCarriers = array();
         $i = 0;
         $ranges = Raterange::all();
-        $order_src = $request->src['address']['id'];
-        $order_des = $request->des['address']['id'];
+        
+        $order_src = $request->src['city'];
+        $order_des = $request->des['city'];
+
         $dimentional_weight = $this->calcDW($request->myItem['items']) ;
         // search src & des zips in rate table
 

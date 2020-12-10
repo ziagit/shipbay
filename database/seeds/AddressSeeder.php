@@ -17,7 +17,7 @@ class AddressSeeder extends Seeder
             [
                 'address' => "Rattles Road",
                 'zip' => 'A0A4G0',
-                'city' => 'Victoria',
+                'city' => 'Vancouver',
                 'state' => 'BC',
                 'locationtype_id' => 1,
                 'country_id' => 1,
@@ -25,7 +25,7 @@ class AddressSeeder extends Seeder
             [
                 'address' => "PO BOX 1392 GREENWOOD NS",
                 'zip' => 'B0P1N0',
-                'city' => 'Greenwood',
+                'city' => 'Vancouver',
                 'state' => 'BC',
                 'locationtype_id'=> 2,
                 'country_id' => 1,

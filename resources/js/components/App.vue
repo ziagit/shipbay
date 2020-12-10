@@ -11,6 +11,20 @@ export default {
 </script>
 
 <style lang="scss">
+.pac-icon{
+  display: none !important;
+}
+.pac-item{
+  padding: 8px 8px 8px 12px !important;
+  font-size: 16px !important;
+  cursor: pointer;
+}
+.pac-item:hover{
+  background: #ececec;
+}
+.pac-item-query{
+  font-size: 16px !important;
+}
 .md-steppers.md-theme-default .md-stepper-header.md-active .md-stepper-number,
 .md-steppers.md-theme-default .md-stepper-header.md-done .md-stepper-number {
   background-color: #f0f2f5 !important;
