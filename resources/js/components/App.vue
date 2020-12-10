@@ -11,19 +11,19 @@ export default {
 </script>
 
 <style lang="scss">
-.pac-icon{
+.pac-icon {
   display: none !important;
 }
-.pac-item{
+.pac-item {
   padding: 8px 8px 8px 12px !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
   cursor: pointer;
 }
-.pac-item:hover{
+.pac-item:hover {
   background: #ececec;
 }
-.pac-item-query{
-  font-size: 16px !important;
+.pac-item-query {
+  font-size: 14px !important;
 }
 .md-steppers.md-theme-default .md-stepper-header.md-active .md-stepper-number,
 .md-steppers.md-theme-default .md-stepper-header.md-done .md-stepper-number {
@@ -245,7 +245,7 @@ export default {
   background: #ffa500 !important;
 }
 .activeStep .md-stepper-label {
-    font-size: 20px !important;
+  font-size: 20px !important;
 }
 @media only screen and (min-width: 600px) {
   .md-display-1 {
