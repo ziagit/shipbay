@@ -15,74 +15,46 @@
           <div>
             <div class="item-head">Source</div>
             <div class="item">
+              <div class="md-body-1">Country: {{ shipment.src.country }}</div>
+              <div class="md-body-1">State: {{ shipment.src.state }}</div>
               <div class="md-body-1">
-                Country: {{ shipment.src.countryName }}
+                City: {{ shipment.src.city }} -
+                {{ shipment.src.zip }}
               </div>
-              <div class="md-body-1">
-                State: {{ shipment.src.address.state }}
-              </div>
-              <div class="md-body-1">
-                City: {{ shipment.src.address.city }},
-                {{ shipment.src.address.zip }}
-              </div>
-              <div class="md-body-1">
-                Address: {{ shipment.src.address.address }}
-              </div>
-              <div class="md-body-1">
-                Contact name: {{ shipment.shipper.pickupName }}
-              </div>
-              <div class="md-body-1">
-                Phone: {{ shipment.shipper.pickupPhone }}
-              </div>
-              <div class="md-body-1">
-                Email: {{ shipment.shipper.pickupEmail }}
-              </div>
+              <div class="md-body-1">Full address: {{ shipment.src.address }}</div>
+              <div class="md-body-1">Contact name: {{ shipment.shipper.pickupName }}</div>
+              <div class="md-body-1">Phone: {{ shipment.shipper.pickupPhone }}</div>
+              <div class="md-body-1">Email: {{ shipment.shipper.pickupEmail }}</div>
             </div>
           </div>
           <md-divider class="md-inset"></md-divider>
           <div>
             <div class="item-head">Destination</div>
             <div class="item">
+              <div class="md-body-1">Country: {{ shipment.des.country }}</div>
+              <div class="md-body-1">State: {{ shipment.des.state }}</div>
               <div class="md-body-1">
-                Country: {{ shipment.des.countryName }}
+                City: {{ shipment.des.city }} -
+                {{ shipment.des.zip }}
               </div>
-              <div class="md-body-1">
-                State: {{ shipment.des.address.state }}
-              </div>
-              <div class="md-body-1">
-                City: {{ shipment.des.address.city }},
-                {{ shipment.des.address.zip }}
-              </div>
-              <div class="md-body-1">
-                Address: {{ shipment.des.address.address }}
-              </div>
+              <div class="md-body-1">Full address: {{ shipment.des.address }}</div>
               <div class="md-body-1">
                 Contact name: {{ shipment.shipper.deliveryName }}
               </div>
-              <div class="md-body-1">
-                Phone: {{ shipment.shipper.deliveryPhone }}
-              </div>
-              <div class="md-body-1">
-                Email: {{ shipment.shipper.deliveryEmail }}
-              </div>
+              <div class="md-body-1">Phone: {{ shipment.shipper.deliveryPhone }}</div>
+              <div class="md-body-1">Email: {{ shipment.shipper.deliveryEmail }}</div>
             </div>
           </div>
           <md-divider class="md-inset"></md-divider>
           <div>
             <div class="item-head">Item(s)</div>
             <div class="item">
-              <div
-                class="md-body-1"
-                v-for="item in shipment.myItem.items"
-                :key="item.id"
-              >
+              <div class="md-body-1" v-for="item in shipment.myItem.items" :key="item.id">
                 <div class="md-body-1">
                   Name: {{ item.description }}, {{ item.weight }} Pounds
                 </div>
               </div>
-              <div class="md-body-1">
-                Totoal weight: {{ totalWeight() }} Pounds
-              </div>
+              <div class="md-body-1">Totoal weight: {{ totalWeight() }} Pounds</div>
             </div>
           </div>
           <md-divider class="md-inset"></md-divider>
@@ -99,17 +71,13 @@
               <div class="md-body-1">Phone: {{ shipment.carrier.phone }}</div>
               <div class="md-body-1">
                 Cost:
-                <span class="green"
-                  >${{ Math.round(shipment.carrier.price) }}</span
-                >
+                <span class="green">${{ Math.round(shipment.carrier.price) }}</span>
               </div>
             </div>
           </div>
           <div>
             <div class="md-title">Billing details</div>
-            <div class="item-head">
-              The following email is attached to your card
-            </div>
+            <div class="item-head">The following email is attached to your card</div>
             <div class="item">
               <div class="md-body-1">{{ shipment.billing.email }}</div>
               <div class="md-body-1" v-if="shipment.billing.status">
@@ -123,14 +91,14 @@
             <p>Important notice</p>
             <ul>
               <li>
-                All rates quoted are provided according to the Description of
-                Goods declared by the Shipper and may be subject to additional
-                charges in the case of misdeclaration.
+                All rates quoted are provided according to the Description of Goods
+                declared by the Shipper and may be subject to additional charges in the
+                case of misdeclaration.
               </li>
               <li>
-                If your load needs Special Handling, please select it for an
-                accurate quote. Carriers charge for Special Handling if needed,
-                and this will affect your final invoice.
+                If your load needs Special Handling, please select it for an accurate
+                quote. Carriers charge for Special Handling if needed, and this will
+                affect your final invoice.
               </li>
               <li>
                 The pickup date and transit time vary by the carrier and are not
@@ -139,9 +107,7 @@
               <li>
                 <md-menu md-direction="top-start" :md-active.sync="toggle">
                   Here is our
-                  <span class="term-link" md-menu-trigger
-                    >Terms & Conditions</span
-                  >
+                  <span class="term-link" md-menu-trigger>Terms & Conditions</span>
                   for further details
                   <md-menu-content>
                     <TermsAndConditions />
@@ -153,10 +119,7 @@
               <p>By clicking on Confirm you accept our Terms & Conditions</p>
               <div v-if="paymentStatus">
                 <Spinner v-if="dataLoading" />
-                <md-button
-                  v-if="!dataLoading"
-                  @click="confirm()"
-                  class="md-primary"
+                <md-button v-if="!dataLoading" @click="confirm()" class="md-primary"
                   >Confirm</md-button
                 >
               </div>
@@ -250,8 +213,7 @@ export default {
           } else {
             this.dataLoading = false;
             this.snackbar.show = true;
-            this.snackbar.message =
-              "Add your card informations to process your order";
+            this.snackbar.message = "Add your card informations to process your order";
             this.snackbar.statusCode = 0;
             this.$router.push("/shipment/payment-details");
           }

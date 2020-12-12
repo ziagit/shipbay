@@ -31,8 +31,8 @@ class Functions
         foreach ($carriers as $carrier) {
         
             foreach ($carrier->rateaddress as $rate) {
-                $rate_src = $rate->addresses[0]->id;
-                $rate_des = $rate->addresses[1]->id;
+                $rate_src = $rate->addresses[0]->city;
+                $rate_des = $rate->addresses[1]->city;
                 $carrier_accessories = $carrier->accessories;
                 $cost = 0;
                 if (($rate_src === $order_src) && ($rate_des === $order_des)) {

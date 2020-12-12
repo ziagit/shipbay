@@ -91,6 +91,7 @@ class AddressController extends Controller
         $keywords = $request->keywords;
         $results = Address::where('country_id', $country)
         ->where('state', 'like', '%' . $keywords . '%')
+        ->groupBy('state')
         ->paginate(5);
         return $results;
     }

@@ -10,7 +10,7 @@ use App\Accessory;
 use App\Carrier;
 use App\Job;
 use App\Notifications\JobCreated;
-use App\Customeraddress;
+use App\Address;
 use App\Contact;
 use App\User;
 use Illuminate\Http\Request;
@@ -51,6 +51,7 @@ class ShipmentController extends Controller
         $shipperId = $this->storeShipper($request->shipper);
         if ($shipperId) {
             $orderId = $this->storeOrder($request, $shipperId);
+            
             $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
 
             $user  = Carrier::with('user')->find($request->carrier['id'])->user;
@@ -64,7 +65,9 @@ class ShipmentController extends Controller
     }
     public function storeOrder($request, $shipperId)
     {
-        $contactId = $this->storeContact($request);
+        $contactIds = $this->storeContact($request);
+        $addressIds = $this->findAddress($request);
+    
         $order = Order::where('uniqid', $request->id)->first();
         $order->pickup_date = $request->pickDate;
         $order->src_appointment_time = $request->src['appointmentTime'];
@@ -81,8 +84,8 @@ class ShipmentController extends Controller
         $itemId = $this->storeItem($request);
         $order->items()->attach($itemId);
 
-        $order->contacts()->attach($contactId);
-        $order->addresses()->attach([$request->src['address']['id'], $request->des['address']['id']]);
+        $order->contacts()->attach($contactIds);
+        $order->addresses()->attach($addressIds);
         
         foreach ($request->src['accessories'] as $accessory) {
             if (!empty($accessory)) {
@@ -124,14 +127,14 @@ class ShipmentController extends Controller
     }
 
     public function storeContact($request){
-        $contactId = array();
+        $contactIds = array();
         $srcContact = [
             'name' => $request->shipper['pickupName'],
             'phone' => $request->shipper['pickupPhone'],
             'email' => $request->shipper['pickupEmail']
         ];
         $srcId = Contact::insertGetId($srcContact);
-        array_push($contactId, $srcId);
+        array_push($contactIds, $srcId);
 
         $desContact = [
             'name' => $request->shipper['deliveryName'],
@@ -139,8 +142,18 @@ class ShipmentController extends Controller
             'email' => $request->shipper['deliveryEmail']
         ];
         $desId = Contact::insertGetId($desContact);
-        array_push($contactId, $desId);
-        return $contactId;
+        array_push($contactIds, $desId);
+        return $contactIds;
+    }
+    public function findAddress($request){
+        $addressIds = array();
+        
+        $srcAddress = Address::where('city', $request->src['city'])->first();
+        array_push($addressIds, $srcAddress->id);
+
+        $desAddress = Address::where('city', $request->src['city'])->first();
+        array_push($addressIds, $desAddress->id);
+        return $addressIds;
     }
 
     public function storeShipper($data)
