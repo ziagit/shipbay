@@ -1,13 +1,7 @@
 <?php
-
 use App\PrivacyPage;
-use App\Raterange;
-use App\Role;
-use App\User;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Route;
-use App\Services\Functions;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,8 +114,6 @@ Route::group(['namespace' => 'Order'], function () {
 Route::group(['namespace' => 'Location'], function () {
   Route::get('countries', 'CountryController@index');
   Route::get('addresses', 'AddressController@index');
-
-
   Route::get('search-state/{country}','AddressController@searchState');
   Route::get('search-city/{state}','AddressController@searchCity');
   Route::get('search-zip/{city}','AddressController@searchZip');

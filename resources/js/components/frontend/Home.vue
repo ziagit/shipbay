@@ -13,12 +13,13 @@
         <WebSideMenu v-on:hideSideMenu="menuVisible = !menuVisible" v-else />
       </md-app-drawer>
       <md-app-content>
-        <div class="scrollbar md-scrollbar" @scroll="onScroll">
+        <router-view v-on:togal-menu="menuVisible = !menuVisible"></router-view>
+        <!--  <div class="scrollbar md-scrollbar" @scroll="onScroll">
           <router-view
             v-on:togal-menu="menuVisible = !menuVisible"
             :scrollValue="scrollPosition"
           ></router-view>
-        </div>
+        </div>-->
       </md-app-content>
     </md-app>
   </div>

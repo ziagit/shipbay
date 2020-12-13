@@ -44,11 +44,11 @@
       </md-table-row>
 
       <md-table-row v-for="state in states.data" :key="state.id">
-        <md-table-cell md-numeric>{{state.id}}</md-table-cell>
-        <md-table-cell>{{state.name}}</md-table-cell>
-        <md-table-cell>{{state.country.name}}</md-table-cell>
+        <md-table-cell md-numeric>{{ state.id }}</md-table-cell>
+        <md-table-cell>{{ state.name }}</md-table-cell>
+        <md-table-cell>{{ state.country.name }}</md-table-cell>
         <md-table-cell>
-             <md-button class="md-icon-button" @click="edit(state)">
+          <md-button class="md-icon-button" @click="edit(state)">
             <md-icon class="md-primary">edit</md-icon>
           </md-button>
           <md-button class="md-icon-button md-accent" @click="remove(state.id)">
@@ -57,7 +57,7 @@
         </md-table-cell>
       </md-table-row>
     </md-table>
-     <pagination :limit="4" :data="states" @pagination-change-page="get"></pagination>
+    <pagination :limit="4" :data="states" @pagination-change-page="get"></pagination>
     <md-button class="md-fab md-primary add-btn" @click="add()">
       <md-icon>add</md-icon>
       <md-tooltip>Add new country</md-tooltip>
@@ -99,7 +99,7 @@ export default {
           console.log(err);
         });
     },
-    get(page=1) {
+    get(page = 1) {
       axios
         .get("admin/states?page=" + page)
         .then((res) => {
@@ -127,9 +127,8 @@ export default {
       this.get();
     },
     confirm() {
-      console.log("delete id ;", this.deletedId);
       axios
-        .delete("admin/state/delete/" + this.deletedId)
+        .delete("admin/states/" + this.deletedId)
         .then((res) => {
           console.log("deleted", res.data);
           this.get();
