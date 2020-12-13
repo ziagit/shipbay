@@ -1,35 +1,34 @@
 <template>
-<div class="admin">
-    <router-view></router-view>
-</div>
+  <div class="container">
+    <Header v-on:togal-menu="$emit('togal-menu')" />
+    <div class="admin">
+      <router-view></router-view>
+    </div>
+    <Footer />
+  </div>
 </template>
 
 <script>
+import Footer from "../shared/Footer";
+import Header from "../shared/Header";
 import axios from "axios";
-import {
-    mapGetters,
-    mapActions
-} from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
-    name: 'Admin'
-
-    /*   watch: {
-        $route() {
-          if (this.$route.name == "accessory-list") {
-            this.activeRoute = "accessory-list";
-          } else if (this.$route.name == "rate-list") {
-            this.activeRoute = "rate-liste";
-          }
-          console.log("route: ", this.$route.name);
-        },
-      }, */
+  name: "Admin",
+  components: {
+    Header,
+    Footer,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.admin {
+  min-height: calc(100vh - 50px);
+}
 @media only screen and (min-width: 600px) {
-    .admin {
-        padding-top: 20px;
-    }
+  .admin {
+    padding: 20px;
+  }
 }
 </style>

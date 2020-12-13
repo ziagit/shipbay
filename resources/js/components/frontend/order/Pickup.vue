@@ -147,7 +147,7 @@ export default {
         }
         $vm.order.src.address =
           $vm.order.src.street_number +
-          " " +
+          ", " +
           $vm.order.src.street +
           ", " +
           $vm.order.src.city +

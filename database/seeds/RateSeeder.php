@@ -32,16 +32,16 @@ class RateSeeder extends Seeder
                 'carrier_id' => 1
             ],
             [
-                'min_rate' => 30,
-                '_0k_1k' => 10,
-                '_1k_2k' => 9,
-                '_2k_3k' => 8,
-                '_3k_4k' => 7,
-                '_4k_5k' => 6,
-                '_5k_10k' => 5,
-                'above_10k' => 4,
-                'fsc' => 30,
-                'transit_day' => 2,
+                'min_rate' => 10,
+                '_0k_1k' => 5,
+                '_1k_2k' => 4,
+                '_2k_3k' => 3,
+                '_3k_4k' => 2,
+                '_4k_5k' => 2.8,
+                '_5k_10k' => 2.5,
+                'above_10k' => 2,
+                'fsc' => 15,
+                'transit_day' => 1,
                 'carrier_id' => 1
             ]
         ];
@@ -50,7 +50,7 @@ class RateSeeder extends Seeder
         $rate = Rate::find(1);
         $rate->addresses()->attach([1,2]);
         $rate = Rate::find(2);
-        $rate->addresses()->attach([2,1]);
+        $rate->addresses()->attach([1,1]);
 
     }
 }

@@ -25,7 +25,7 @@ class AddressSeeder extends Seeder
             [
                 'address' => "PO BOX 1392 GREENWOOD NS",
                 'zip' => 'B0P1N0',
-                'city' => 'Vancouver',
+                'city' => 'Victoria',
                 'state' => 'BC',
                 'locationtype_id'=> 2,
                 'country_id' => 1,

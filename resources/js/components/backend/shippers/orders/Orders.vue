@@ -11,7 +11,6 @@
       @md-cancel="cancel"
     />
 
-
     <md-table md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
@@ -39,21 +38,33 @@
       </md-table-row>
       <md-table-row v-for="order in orders.data" :key="order.id">
         <md-table-cell md-numeric>{{ order.id }}</md-table-cell>
-        <md-table-cell>{{ order.full_address[0].city.name }}, {{ order.full_address[0].citycode.postal_code }}</md-table-cell>
-        <md-table-cell>{{ order.full_address[1].city.name }}, {{ order.full_address[1].citycode.postal_code }}</md-table-cell>
-        <md-table-cell><div v-for="item in order.items" :key="item.id">{{item.description}}, </div></md-table-cell>
-        <md-table-cell>{{order.shipper.first_name}}</md-table-cell>
-        <md-table-cell>{{order.job_with_status.jobstatus.title}}</md-table-cell>
+        <md-table-cell
+          >{{ order.full_address[0].city }} -
+          {{ order.full_address[0].zip }}</md-table-cell
+        >
+        <md-table-cell
+          >{{ order.full_address[1].city }} -
+          {{ order.full_address[1].zip }}</md-table-cell
+        >
+        <md-table-cell
+          ><div v-for="item in order.items" :key="item.id">
+            {{ item.description }},
+          </div></md-table-cell
+        >
+        <md-table-cell>{{ order.shipper.first_name }}</md-table-cell>
+        <md-table-cell>{{ order.job_with_status.jobstatus.title }}</md-table-cell>
         <md-table-cell md-label="Actions">
           <md-button class="md-icon-button md-accent" @click="remove(order.id)">
             <md-icon>delete</md-icon>
           </md-button>
-          <md-button class="md-icon-button md-primary" :to="{path: 'order/'+order.id}">
+          <md-button
+            class="md-icon-button md-primary"
+            :to="{ path: 'order/' + order.id }"
+          >
             <md-icon>more_horiz</md-icon>
           </md-button>
         </md-table-cell>
       </md-table-row>
-      
     </md-table>
     <pagination :limit="4" :data="orders" @pagination-change-page="get"></pagination>
   </div>
@@ -86,18 +97,18 @@ export default {
           console.log(err);
         });
     },
-    get(page=1) {
+    get(page = 1) {
       axios
-        .get("admin/orders?page="+page)
+        .get("admin/orders?page=" + page)
         .then((res) => {
           this.orders = res.data;
-          console.log("orders: ", res.data.data)
+          console.log("orders: ", res.data.data);
         })
         .catch((err) => {
           console.log("Error: ", err);
         });
     },
- 
+
     refresh() {
       this.addTogal = false;
       this.editTogal = false;
@@ -136,5 +147,4 @@ export default {
     right: 20px;
   }
 }
-
 </style>

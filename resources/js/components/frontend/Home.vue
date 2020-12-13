@@ -13,12 +13,13 @@
         <WebSideMenu v-on:hideSideMenu="menuVisible = !menuVisible" v-else />
       </md-app-drawer>
       <md-app-content>
-        <div class="scrollbar md-scrollbar" @scroll="onScroll">
+        <router-view v-on:togal-menu="menuVisible = !menuVisible"></router-view>
+        <!--  <div class="scrollbar md-scrollbar" @scroll="onScroll">
           <router-view
             v-on:togal-menu="menuVisible = !menuVisible"
             :scrollValue="scrollPosition"
           ></router-view>
-        </div>
+        </div>-->
       </md-app-content>
     </md-app>
   </div>
@@ -55,76 +56,8 @@ export default {
     onScroll(e) {
       this.scrollPosition = e.srcElement.scrollTop;
     },
-    ...mapActions({
-      signOutAction: "auth/signOut",
-      setNotification: "shared/setNotification",
-    }),
-    signOut() {
-      this.signOutAction().then(() => {
-        this.$router.push("/");
-      });
-    },
+  },
 
-    notificationDetails(notification) {
-      this.setNotification(notification.id).then((res) => {});
-      switch (this.user.role[0].name) {
-        case "shipper":
-          this.$router.push(
-            "/shipper/orders/details/" + notification.data.job.order_id
-          );
-          break;
-        case "carrier":
-          this.$router.push(
-            "/carrier/history/details/" + notification.data.job.id
-          );
-          break;
-        case "admin":
-          this.$router.push("/admin/order/" + notification.data.job.order_id);
-          break;
-        default:
-          this.$router.push("/");
-      }
-    },
-    markAsRead(id) {
-      axios
-        .get("auth/read-notification/" + id)
-        .then((res) => {
-          this.getNotifications();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    profile() {
-      switch (this.user.role[0].name) {
-        case "shipper":
-          this.$router.push("/shipper");
-          this.toggleCard = !this.toggleCard;
-          break;
-        case "carrier":
-          this.$router.push("/carrier");
-          this.toggleCard = !this.toggleCard;
-          break;
-        case "admin":
-          this.$router.push("/admin");
-          this.toggleCard = !this.toggleCard;
-          break;
-        default:
-          this.$router.push("/");
-      }
-    },
-    getNotifications() {
-      if (this.authenticated) {
-        this.notifications = this.user.notifications;
-        Echo.private("App.User." + this.user.id).notification((res) => {
-          this.notifications.push(res.notification);
-        });
-      }
-    },
-  },
-  created() {
-    this.getNotifications();
-  },
   components: {
     AdminSideMenu,
     WebSideMenu,
@@ -165,7 +98,7 @@ export default {
     }
 
     .md-app-toolbar {
-      background: #2D2E2E;
+      background: #2d2e2e;
       box-shadow: none;
       color: #fff !important;
       border-bottom: #6b6b6b3b solid 1px;
@@ -190,7 +123,7 @@ export default {
   }
 
   .md-app-content {
-    background: #F0F2F5;
+    background: #f0f2f5;
     /* background-image: linear-gradient(#fff, #F0F2F5); */
     padding: 0;
     /* background-image: linear-gradient(#2f2f65, #2a6ab3); */

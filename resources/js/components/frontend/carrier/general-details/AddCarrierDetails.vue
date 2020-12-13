@@ -1,339 +1,398 @@
 <template>
-<div>
+  <div>
     <form @submit.prevent="submit" enctype="multipart/form-data">
-        <md-card class="main-card" v-touch:tap="tapHandler">
-            <div class="carrier-logo" v-if="hasCompany">
-                <md-avatar class="md-large">
-                    <md-field>
-                        <md-tooltip>Select logo</md-tooltip>
-                        <md-file v-model="form.logo" name="logo" accept="image/*" ref="logo" @change="onChange" />
-                    </md-field>
-                </md-avatar>
-            </div>
-            <div class="inputs-container">
-                <div class="row">
-                    <md-field>
-                        <label for="">First name</label>
-                        <md-input type="text" v-model="form.first_name" required ref="focusable"></md-input>
-                    </md-field>
-                    <md-field>
-                        <label for="">Last name</label>
-                        <md-input type="text" v-model="form.last_name" required></md-input>
-                    </md-field>
-                    <md-field>
-                        <label for="">Phone</label>
-                        <md-input type="tel" v-model="form.phone" required></md-input>
-                    </md-field>
-                </div>
-                <div class="row">
-                    <md-field>
-                        <label for="">Select country</label>
-                        <md-select v-model="form.country" name="country" id="country">
-                            <md-option v-for="country in countries" :value="country.id" :key="country.id">{{ country.name }}</md-option>
-                        </md-select>
-                        <input class="hidden-input" v-model="form.country" required />
-                    </md-field>
+      <md-card class="main-card" v-touch:tap="tapHandler">
+        <div class="carrier-logo" v-if="hasCompany">
+          <md-avatar class="md-large">
+            <md-field>
+              <md-tooltip>Select logo</md-tooltip>
+              <md-file
+                v-model="form.logo"
+                name="logo"
+                accept="image/*"
+                ref="logo"
+                @change="onChange"
+              />
+            </md-field>
+          </md-avatar>
+        </div>
+        <div class="inputs-container">
+          <div class="row">
+            <md-field>
+              <label for="">First name</label>
+              <md-input
+                type="text"
+                v-model="form.first_name"
+                required
+                ref="focusable"
+              ></md-input>
+            </md-field>
+            <md-field>
+              <label for="">Last name</label>
+              <md-input type="text" v-model="form.last_name" required></md-input>
+            </md-field>
+            <md-field>
+              <label for="">Phone</label>
+              <md-input type="tel" v-model="form.phone" required></md-input>
+            </md-field>
+          </div>
+          <div class="row">
+            <md-field>
+              <label for="">Select country</label>
+              <md-select v-model="form.country" name="country" id="country">
+                <md-option
+                  v-for="country in countries"
+                  :value="country.id"
+                  :key="country.id"
+                  >{{ country.name }}</md-option
+                >
+              </md-select>
+              <input class="hidden-input" v-model="form.country" required />
+            </md-field>
 
-                    <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
-                        <md-field>
-                            <label for="">Search state</label>
-                            <md-input v-model="sk" required v-touch:tap="tapHandler" md-menu-trigger></md-input>
-                        </md-field>
-                        <md-menu-content>
-                            <div v-if="states">
-                                <md-menu-item v-if="states.length === 0">Not found</md-menu-item>
-                            </div>
-                            <div v-else>
-                                <md-menu-item>Type</md-menu-item>
-                            </div>
-                            <md-menu-item v-for="list in states" :key="list.id" @click="selectState(list)">{{ list.state }}</md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                    <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
-                        <md-field>
-                            <label for="">Search city</label>
-                            <md-input v-model="ck" required md-menu-trigger></md-input>
-                        </md-field>
-                        <md-menu-content>
-                            <div v-if="cities">
-                                <md-menu-item v-if="cities.length === 0">Not found</md-menu-item>
-                            </div>
-                            <div v-else>
-                                <md-menu-item>Type</md-menu-item>
-                            </div>
-                            <md-menu-item v-for="list in cities" :key="list.id" @click="selectCity(list)">{{ list.city }}</md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+            <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
+              <md-field>
+                <label for="">Search state</label>
+                <md-input
+                  v-model="sk"
+                  required
+                  v-touch:tap="tapHandler"
+                  md-menu-trigger
+                ></md-input>
+              </md-field>
+              <md-menu-content>
+                <div v-if="states">
+                  <md-menu-item v-if="states.length === 0">Not found</md-menu-item>
                 </div>
-                <div class="row">
-                    <md-menu md-direction="bottom-start" class="zip-address" md-align-trigger md-dense>
-                        <md-field>
-                            <label for="">Search postal code</label>
-                            <md-input v-model="zk" required md-menu-trigger></md-input>
-                        </md-field>
-                        <md-menu-content>
-                            <div v-if="zips">
-                                <md-menu-item v-if="zips.length === 0">Not found</md-menu-item>
-                            </div>
-                            <div v-else>
-                                <md-menu-item>Type</md-menu-item>
-                            </div>
-                            <md-menu-item v-for="list in zips" :key="list.id" @click="selectZip(list)">{{ list.zip }}</md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                    <md-menu md-direction="bottom-start" class="zip-address" md-align-trigger md-dense>
-                        <md-field>
-                            <label for="">Search address</label>
-                            <md-input v-model="ak" required md-menu-trigger></md-input>
-                        </md-field>
-                        <md-menu-content>
-                            <div v-if="addresses">
-                                <md-menu-item v-if="addresses.length === 0">Not found</md-menu-item>
-                            </div>
-                            <div v-else>
-                                <md-menu-item>Type</md-menu-item>
-                            </div>
-                            <md-menu-item v-for="list in addresses" :key="list.id" @click="selectAddress(list)">{{ list.address }}</md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-
+                <div v-else>
+                  <md-menu-item>Type</md-menu-item>
                 </div>
-
-            </div>
-            <md-switch v-model="hasCompany" class="md-primary">Do you have a company?</md-switch>
-            <div class="company" v-if="hasCompany">
-                <div class="row">
-                    <md-field>
-                        <label>Company Name</label>
-                        <md-input v-model="form.company" placeholder="Company name" :required="hasCompany"></md-input>
-                    </md-field>
-                    <md-field>
-                        <label>Website</label>
-                        <md-input type="url" v-model="form.website" placeholder="Website (optional)"></md-input>
-                    </md-field>
+                <md-menu-item
+                  v-for="list in states"
+                  :key="list.id"
+                  @click="selectState(list)"
+                  >{{ list.state }}</md-menu-item
+                >
+              </md-menu-content>
+            </md-menu>
+            <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
+              <md-field>
+                <label for="">Search city</label>
+                <md-input v-model="ck" required md-menu-trigger></md-input>
+              </md-field>
+              <md-menu-content>
+                <div v-if="cities">
+                  <md-menu-item v-if="cities.length === 0">Not found</md-menu-item>
                 </div>
-                <div class="row">
-                    <md-field>
-                        <label>About your company</label>
-                        <md-textarea v-model="form.detail" :required="hasCompany"></md-textarea>
-                    </md-field>
+                <div v-else>
+                  <md-menu-item>Type</md-menu-item>
                 </div>
-            </div>
-            <md-button type="submit" class="md-primary md-small-fab">Save</md-button>
-        </md-card>
+                <md-menu-item
+                  v-for="list in cities"
+                  :key="list.id"
+                  @click="selectCity(list)"
+                  >{{ list.city }}</md-menu-item
+                >
+              </md-menu-content>
+            </md-menu>
+          </div>
+          <div class="row">
+            <md-menu
+              md-direction="bottom-start"
+              class="zip-address"
+              md-align-trigger
+              md-dense
+            >
+              <md-field>
+                <label for="">Search postal code</label>
+                <md-input v-model="zk" required md-menu-trigger></md-input>
+              </md-field>
+              <md-menu-content>
+                <div v-if="zips">
+                  <md-menu-item v-if="zips.length === 0">Not found</md-menu-item>
+                </div>
+                <div v-else>
+                  <md-menu-item>Type</md-menu-item>
+                </div>
+                <md-menu-item
+                  v-for="list in zips"
+                  :key="list.id"
+                  @click="selectZip(list)"
+                  >{{ list.zip }}</md-menu-item
+                >
+              </md-menu-content>
+            </md-menu>
+            <md-menu
+              md-direction="bottom-start"
+              class="zip-address"
+              md-align-trigger
+              md-dense
+            >
+              <md-field>
+                <label for="">Search address</label>
+                <md-input v-model="ak" required md-menu-trigger></md-input>
+              </md-field>
+              <md-menu-content>
+                <div v-if="addresses">
+                  <md-menu-item v-if="addresses.length === 0">Not found</md-menu-item>
+                </div>
+                <div v-else>
+                  <md-menu-item>Type</md-menu-item>
+                </div>
+                <md-menu-item
+                  v-for="list in addresses"
+                  :key="list.id"
+                  @click="selectAddress(list)"
+                  >{{ list.address }}</md-menu-item
+                >
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </div>
+        <md-switch v-model="hasCompany" class="md-primary"
+          >Do you have a company?</md-switch
+        >
+        <div class="company" v-if="hasCompany">
+          <div class="row">
+            <md-field>
+              <label>Company Name</label>
+              <md-input
+                v-model="form.company"
+                placeholder="Company name"
+                :required="hasCompany"
+              ></md-input>
+            </md-field>
+            <md-field>
+              <label>Website</label>
+              <md-input
+                type="url"
+                v-model="form.website"
+                placeholder="Website (optional)"
+              ></md-input>
+            </md-field>
+          </div>
+          <div class="row">
+            <md-field>
+              <label>About your company</label>
+              <md-textarea v-model="form.detail" :required="hasCompany"></md-textarea>
+            </md-field>
+          </div>
+        </div>
+        <md-button type="submit" class="md-primary md-small-fab">Save</md-button>
+      </md-card>
     </form>
     <Snackbar :data="snackbar" />
-</div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 import Snackbar from "../../../shared/Snackbar";
 export default {
-    name: "AddGeneralInfo",
-    data: () => ({
-        form: {
-            first_name: null,
-            last_name: null,
-            addressId: null,
-            country: null,
-            phone: null,
-            website: null,
-            company: null,
-            detail: null,
-        },
-        logo: null,
-        countries: null,
-        states: null,
-        cities: null,
-        zips: null,
-        addresses: null,
-        hasCompany: false,
-        sk: null,
-        ck: null,
-        zk: null,
-        ak: null,
-        snackbar: {
-            show: false,
-            message: null,
-            statusCode: null,
-        },
-    }),
-    watch: {
-        sk(after, before) {
-            this.getState()
-        },
-        ck(after, before) {
-            this.getCity()
-        },
-        zk(after, before) {
-            this.getZip()
-        },
-        ak(after, before) {
-            this.getAddress()
-        },
+  name: "AddGeneralInfo",
+  data: () => ({
+    form: {
+      first_name: null,
+      last_name: null,
+      addressId: null,
+      country: null,
+      phone: null,
+      website: null,
+      company: null,
+      detail: null,
     },
-    methods: {
-        getState() {
-            axios
-                .get("search-state/" + this.form.country, {
-                    params: {
-                        keywords: this.sk,
-                    },
-                })
-                .then((res) => {
-                    console.log("states: ", res.data.data);
-                    this.states = res.data.data;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-        getCity() {
-            axios
-                .get("search-city/" + this.sk, {
-                    params: {
-                        keywords: this.ck,
-                    },
-                })
-                .then((res) => {
-                    console.log("cities: ", res.data.data);
-                    this.cities = res.data.data;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
+    logo: null,
+    countries: null,
+    states: null,
+    cities: null,
+    zips: null,
+    addresses: null,
+    hasCompany: false,
+    sk: null,
+    ck: null,
+    zk: null,
+    ak: null,
+    snackbar: {
+      show: false,
+      message: null,
+      statusCode: null,
+    },
+  }),
+  watch: {
+    sk(after, before) {
+      this.getState();
+    },
+    ck(after, before) {
+      this.getCity();
+    },
+    zk(after, before) {
+      this.getZip();
+    },
+    ak(after, before) {
+      this.getAddress();
+    },
+  },
+  methods: {
+    getState() {
+      axios
+        .get("search-state/" + this.form.country, {
+          params: {
+            keywords: this.sk,
+          },
+        })
+        .then((res) => {
+          console.log("states: ", res.data);
+          this.states = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getCity() {
+      axios
+        .get("search-city/" + this.sk, {
+          params: {
+            keywords: this.ck,
+          },
+        })
+        .then((res) => {
+          console.log("cities: ", res.data.data);
+          this.cities = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
-        getAddress() {
-            axios
-                .get("search-address/" + this.zk, {
-                    params: {
-                        keywords: this.ak,
-                    },
-                })
-                .then((res) => {
-                    console.log("address: ", res.data.data);
-                    this.addresses = res.data.data;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-        getZip() {
-            axios
-                .get("search-zip/" + this.ck, {
-                    params: {
-                        keywords: this.zk,
-                    },
-                })
-                .then((res) => {
-                    console.log("zips: ", res.data.data);
-                    this.zips = res.data.data;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-        selectState(selected) {
-            this.sk = selected.state;
-        },
+    getAddress() {
+      axios
+        .get("search-address/" + this.zk, {
+          params: {
+            keywords: this.ak,
+          },
+        })
+        .then((res) => {
+          console.log("address: ", res.data.data);
+          this.addresses = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getZip() {
+      axios
+        .get("search-zip/" + this.ck, {
+          params: {
+            keywords: this.zk,
+          },
+        })
+        .then((res) => {
+          console.log("zips: ", res.data.data);
+          this.zips = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    selectState(selected) {
+      this.sk = selected.state;
+    },
 
-        selectCity(selected) {
-            this.ck = selected.city
-        },
+    selectCity(selected) {
+      this.ck = selected.city;
+    },
 
-        selectAddress(selected) {
-            this.ak = selected.address;
-            this.form.addressId = selected.id;
-        },
-        selectZip(selected) {
-            this.zk = selected.zip
-        },
-        onChange(e) {
-            this.logo = e.target.files[0];
-        },
-        submit() {
-            let fd = new FormData();
-            fd.append("logo", this.logo);
-            fd.append("first_name", this.form.first_name);
-            fd.append("last_name", this.form.last_name);
-            fd.append("addressId", this.form.addressId);
-            fd.append("country", this.form.country);
-            fd.append("phone", this.form.phone);
-            fd.append("website", this.form.website);
-            fd.append("company", this.form.company);
-            fd.append("detail", this.form.detail);
-            axios
-                .post("carrier/details", fd)
-                .then((res) => {
-                    console.log(">> ", res.data);
-                    this.$router.push("/carrier");
-                })
-                .catch((error) => {
-                    console.log("eerrr: ", error.response);
-                    this.snackbar.message = error.response.data.errors;
-                    this.snackbar.statusCode = error.response.status;
-                    this.snackbar.show = true;
-                });
-        },
+    selectAddress(selected) {
+      this.ak = selected.address;
+      this.form.addressId = selected.id;
+    },
+    selectZip(selected) {
+      this.zk = selected.zip;
+    },
+    onChange(e) {
+      this.logo = e.target.files[0];
+    },
+    submit() {
+      let fd = new FormData();
+      fd.append("logo", this.logo);
+      fd.append("first_name", this.form.first_name);
+      fd.append("last_name", this.form.last_name);
+      fd.append("addressId", this.form.addressId);
+      fd.append("country", this.form.country);
+      fd.append("phone", this.form.phone);
+      fd.append("website", this.form.website);
+      fd.append("company", this.form.company);
+      fd.append("detail", this.form.detail);
+      axios
+        .post("carrier/details", fd)
+        .then((res) => {
+          console.log(">> ", res.data);
+          this.$router.push("/carrier");
+        })
+        .catch((error) => {
+          console.log("eerrr: ", error.response);
+          this.snackbar.message = error.response.data.errors;
+          this.snackbar.statusCode = error.response.status;
+          this.snackbar.show = true;
+        });
+    },
 
-        getCountries() {
-            axios
-                .get("countries")
-                .then((res) => {
-                    this.countries = res.data;
-                })
-                .catch((err) => {
-                    console.log("Error: ", err);
-                });
-        },
-        tapHandler(direction) {
-            console.log("tap: ", direction)
-        },
+    getCountries() {
+      axios
+        .get("countries")
+        .then((res) => {
+          this.countries = res.data;
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
     },
-    mounted() {
-        this.$refs.focusable.$el.focus();
+    tapHandler(direction) {
+      console.log("tap: ", direction);
     },
-    created() {
-        this.getCountries();
-    },
-    components: {
-        Snackbar,
-    },
+  },
+  mounted() {
+    this.$refs.focusable.$el.focus();
+  },
+  created() {
+    this.getCountries();
+  },
+  components: {
+    Snackbar,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .main-card {
-    padding: 30px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: none;
+  border: solid 1px #ddd;
+
+  .carrier-logo {
     text-align: center;
-    box-shadow: none;
-    border: solid 1px #ddd;
+    margin-top: -40px;
 
-    .carrier-logo {
-        text-align: center;
-        margin-top: -40px;
-
-        .md-large {
-            background: #ddd;
-        }
+    .md-large {
+      background: #ddd;
     }
+  }
 
-    .inputs-container {
-        .row {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+  .inputs-container {
+    .row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
 
-            .md-field {
-                flex: 32%;
-            }
+      .md-field {
+        flex: 32%;
+      }
 
-            .zip-address {
-                flex: 50%;
-            }
-        }
+      .zip-address {
+        flex: 50%;
+      }
     }
+  }
 }
 </style>
