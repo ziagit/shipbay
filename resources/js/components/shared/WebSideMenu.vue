@@ -212,7 +212,7 @@ export default {
 
 <style lang="scss" scoped>
 .md-badge-content {
-  width: 100% !important;
+  width: 97% !important;
 }
 .md-icon {
   color: #000 !important;
