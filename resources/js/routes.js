@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 import Home from './components/frontend/Home';
 import Register from './components/frontend/auth/Register';
 import Login from './components/frontend/auth/Login';
+import ResetPassword from './components/frontend/auth/ResetPassword';
+import ForgotPassword from './components/frontend/auth/ForgotPassword';
 import Welcome from './components/frontend/auth/Welcome';
 
 import Card from './components/frontend/card/Card';
@@ -148,6 +150,8 @@ export default new VueRouter({
                 { name: 'help', path: 'help', component: Help },
                 { name: 'signin', path: '/login', component: Login },
                 { name: 'signup', path: '/register', component: Register },
+                { name: 'reset-password', path: '/reset-password/:token', component: ResetPassword },
+                { name: 'forgot-password', path: '/forgot-password', component: ForgotPassword },
                 { name: 'welcome', path: '/welcome', component: Welcome },
                 { name: 'checkout', path: '/checkout', component: Card },
                 { name: 'shipment-details', path: '/shipment-details/:id', component: ShipmentDetails },

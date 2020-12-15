@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('forgot-password', 'Auth\ResetPasswordController@forgot');
+Route::post('reset-password', 'Auth\ResetPasswordController@reset');
+
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
   Route::post('signin', 'SignInController')->name('signin');
   Route::post('signup', 'SignUpController');

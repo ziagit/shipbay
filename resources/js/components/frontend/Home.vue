@@ -3,7 +3,7 @@
     <md-app md-mode="reveal">
       <md-app-drawer :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0"
-          ><span class="logo">Shipping </span> TAP</md-toolbar
+          ><span class="logo">Ship</span>Bay</md-toolbar
         >
 
         <AdminSideMenu
