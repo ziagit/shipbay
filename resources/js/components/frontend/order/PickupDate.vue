@@ -1,5 +1,8 @@
 <template>
   <div class="pickup-date">
+    <span class="md-display-1">When to pick-up? *</span>
+    <div class="break"></div>
+    <div class="break"></div>
     <form @submit.prevent="nextStep()">
       <div>
         <md-field>
@@ -14,7 +17,6 @@
           :value="accessory.code"
           >{{ accessory.name }}?</md-checkbox
         >
-
         <md-field v-if="appointment">
           <md-input
             type="time"
@@ -23,7 +25,12 @@
           ></md-input>
         </md-field>
       </div>
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="action">
+        <md-button class="custom-button-outline" @click="$router.back()">
+          Back
+        </md-button>
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
     </form>
@@ -64,7 +71,7 @@ export default {
         }
 
         localStorage.setItem("order", JSON.stringify(storage));
-        this.$emit("progress", "third", "fourth", 3, '/order/delivery');
+        this.$router.push("delivery");
       }
     },
 
@@ -90,6 +97,7 @@ export default {
     },
   },
   created() {
+    this.$emit("progress", 2);
     this.init();
     this.getAccessories();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
@@ -99,6 +107,7 @@ export default {
 
 <style lang="scss" scoped>
 .pickup-date {
+  text-align: center;
   input {
     width: 100%;
     background: #f0f2f5;
@@ -110,25 +119,8 @@ export default {
   input:focus {
     outline: none;
   }
-
-  .icon,
-  .options,
-  .action {
-    margin: 20px auto;
-  }
-  .action{
-    text-align: right;
-  }
-  .md-display-1 {
-    font-size: 24px;
-  }
 }
 
 @media only screen and (max-width: 600px) {
-  .pickup-date {
-    .md-display-1 {
-      font-size: 30px;
-    }
-  }
 }
 </style>

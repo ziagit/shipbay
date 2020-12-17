@@ -1,9 +1,11 @@
 <template>
-  <div class="origin padding-20">
+  <div class="origin">
+    <span class="md-display-1">Where are you shipping from?</span>
+    <div class="break"></div>
     <form @submit.prevent="nextStep()">
       <div class="search-container">
         <md-field>
-          <label>City/State</label>
+          <label>Postal code</label>
           <md-input
             v-model="order.src.address"
             required
@@ -12,7 +14,8 @@
           ></md-input>
         </md-field>
       </div>
-
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="options">
         <md-radio
           v-for="service in accessoryList"
@@ -34,6 +37,8 @@
           <span>{{ order.src.state }}, {{ order.src.country }}</span>
         </md-card-content>
       </md-card>-->
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="action">
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
@@ -66,13 +71,15 @@ export default {
         email: null,
         status: null,
       },
+      shipper: null,
     },
   }),
 
   methods: {
     nextStep() {
       localStorage.setItem("order", JSON.stringify(this.order));
-      this.$emit("progress", "first", "second", 1, "/order/pickup-services");
+      //this.$emit("progress", "first", "second", 1, "/order/pickup-services");
+      this.$router.push("pickup-services");
     },
     edit() {
       this.$refs.focusable.$el.focus();
@@ -93,6 +100,7 @@ export default {
         this.order.src.appointmentTime = storage.src.appointmentTime;
         this.order.des = storage.des;
         this.order.myItem = storage.myItem;
+        this.order.shipper = storage.shipper;
       }
     },
     getAccessories() {
@@ -161,6 +169,7 @@ export default {
     this.$refs.focusable.$el.focus();
   },
   created() {
+    this.$emit("progress", 0);
     this.init();
     this.getAccessories();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
@@ -170,6 +179,7 @@ export default {
 
 <style lang="scss" scoped>
 .origin {
+  text-align: center;
   .search-container {
     position: relative;
     .md-field {
@@ -181,40 +191,6 @@ export default {
         right: 0;
       }
     }
-
-    ul {
-      background: #fff;
-      margin-top: 0;
-      padding: 0;
-      position: absolute;
-      z-index: 10;
-      box-shadow: 1px 2px 3px #ddd;
-      width: 100%;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
-
-      li {
-        text-align: left;
-        list-style-type: none;
-        padding: 10px;
-      }
-
-      .city-list:hover,
-      .address-list:hover {
-        background: #f0f2f5;
-        cursor: pointer;
-      }
-
-      .not-found {
-        color: red;
-      }
-    }
-  }
-
-  .icon,
-  .options,
-  .action {
-    margin: 20px auto;
   }
 
   .options {
@@ -223,16 +199,8 @@ export default {
     }
   }
   .action {
-    text-align: right;
-  }
-
-  .md-card {
-    margin: 0 !important;
-    .edit {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+    display: flex;
+    justify-content: center;
   }
 }
 

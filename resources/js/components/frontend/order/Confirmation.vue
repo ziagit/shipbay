@@ -1,14 +1,15 @@
 <template>
-  <div class="container">
+  <div class="confirmation">
     <Header v-on:togal-menu="$emit('togal-menu')" />
     <div class="content">
       <div class="header">
         <span class="md-display-1">Confirmation</span>
-        <div class="md-display-body">
+        <div class="md-body-1">
           Please take a look at the details to confirm the shipment.
         </div>
       </div>
-
+      <div class="break"></div>
+      <div class="break"></div>
       <md-card>
         <md-card-content>
           <div class="md-title">Shipment details</div>
@@ -246,68 +247,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  max-width: 600px;
-  margin: auto;
+.confirmation {
+  text-align: center;
+  .content {
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
 
-  .header {
-    margin: 24px auto;
-  }
+    .md-card {
+      text-align: left;
+      margin: auto;
+      .md-card-content {
+        padding: 20px;
 
-  .md-card {
-    margin: 20px auto;
-    text-align: left;
+        .loading {
+          text-align: right;
+        }
+      }
 
-    .md-card-content {
-      padding: 20px;
+      .item {
+        margin: 0 0 10px 10px;
 
-      .loading {
+        .green {
+          color: green;
+        }
+      }
+    }
+
+    .md-body-1 {
+      width: 100% !important;
+    }
+    .confirm {
+      div {
         text-align: right;
       }
     }
 
-    .item {
-      margin: 0 0 10px 10px;
-
-      .green {
-        color: green;
-      }
-    }
-  }
-
-  .md-body-1 {
-    width: 100% !important;
-  }
-
-  .md-display-1 {
-    font-size: 24px;
-  }
-
-  .confirm {
-    div {
-      text-align: right;
-    }
-  }
-
-  .term-link {
-    color: #448aff;
-  }
-
-  .term-link:hover {
-    cursor: pointer;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .confirmation {
-    .md-display-1 {
-      font-size: 30px;
+    .term-link {
+      color: #448aff;
     }
 
-    .confirm {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .term-link:hover {
+      cursor: pointer;
     }
   }
 }

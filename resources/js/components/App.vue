@@ -25,18 +25,6 @@ export default {
 .pac-item-query {
   font-size: 14px !important;
 }
-.md-steppers.md-theme-default .md-stepper-header.md-active .md-stepper-number,
-.md-steppers.md-theme-default .md-stepper-header.md-done .md-stepper-number {
-  background-color: #f0f2f5 !important;
-  border: solid 1px #22a92d;
-  color: #f0f2f5 !important;
-}
-
-.md-steppers.md-theme-default .md-stepper-number,
-.md-steppers.md-theme-default .md-stepper-header.md-done .md-stepper-number {
-  background-color: #22a92d !important;
-  color: #f0f2f5 !important;
-}
 
 .section0 {
   box-shadow: 0 2px 13px -7px grey;
@@ -50,6 +38,9 @@ export default {
 }
 .break {
   min-height: 10px;
+}
+.tab {
+  width: 30px;
 }
 .md-app-container {
   transform: none !important;
@@ -71,6 +62,7 @@ export default {
   box-shadow: 0 1px 2px #11111142;
   //box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
   border: none;
+  background: #fffbf3 !important;
 }
 .md-tabs.md-theme-default .md-tabs-navigation .md-button.md-active {
   background: #448aff24 !important;
@@ -144,7 +136,10 @@ export default {
 }
 
 .md-display-1 {
-  font-size: 24px;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 38px;
+  color: #000 !important;
 }
 
 .md-body-1 {

@@ -171,15 +171,15 @@ export default new VueRouter({
                         { name: 'delivery', path: 'delivery', component: Delivery },
                         { name: 'delivery-service', path: 'delivery-services', component: DeliveryServices },
                         { name: 'items', path: 'items', component: Items },
-                        { name: 'carriers', path: 'carriers', component: Carriers },
                         { name: 'additional-details', path: 'additional-details', component: AdditionalDetails },
-
+                        { name: 'carriers', path: 'carriers', component: Carriers },
+                        { name: 'payment-details', path: 'payment-details', component: PaymentDetails },
+                        { name: 'shipment-details', path: 'shipment-details/:id', component: ShipmentDetails },
                     ]
                 },
-                { name: 'payment-details', path: 'payment-details', component: PaymentDetails },
                 { name: 'confirmation', path: 'confirmation', component: Confirmation },
                 { name: 'completion', path: 'completion', component: Completion },
-                { name: 'shipment-details', path: 'shipment-details/:id', component: ShipmentDetails },
+         
                 {
                     name: 'carrier',
                     path: 'carrier',

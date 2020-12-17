@@ -36,7 +36,7 @@ class ResetPasswordController extends Controller
             'token' => $token
         ]);
         //send email
-        Mail::send('mails.forgot', ['token'=> $token], function(Message $message) use($email) {
+        Mail::send('mails.resetpassword', ['token'=> $token], function(Message $message) use($email) {
             $message->to($email);
             $message->subject('Reset your password');
         });

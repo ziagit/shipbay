@@ -33,14 +33,12 @@
               <md-textarea v-model="message"></md-textarea>
             </md-field>
 
-            <md-button type="submit" slot="right" class="custom-button"
-              >Send</md-button
-            >
+            <md-button type="submit" slot="right" class="custom-button">Send</md-button>
           </form>
         </div>
         <div class="right">
           <div class="content">
-            <img :src="'/images/uploads/location.svg'" alt="2" width="50" />
+            <img :src="'/images/uploads/location.svg'" alt="2" width="80" />
             <div class="md-caption">Sheer Pur Main Road,</div>
             <div class="md-caption">1001, Kabul</div>
             <div class="md-caption">Afghanistan</div>

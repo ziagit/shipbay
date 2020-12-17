@@ -1,5 +1,6 @@
 <template>
   <div class="item">
+    <span class="md-display-1">What items are you shipping?</span>
     <md-card mode="ios" color="light" v-if="items.length > 0">
       <md-card-content>
         <div v-show="itemExistError" style="color: red">
@@ -24,19 +25,10 @@
       <div class="items">
         <md-field>
           <label>Item description</label>
-          <md-input
-            v-model="item.description"
-            ref="focusable"
-            required
-          ></md-input>
+          <md-input v-model="item.description" ref="focusable" required></md-input>
         </md-field>
         <md-field>
-          <md-select
-            v-model="item.type"
-            name="type"
-            id="type"
-            placeholder="Package type"
-          >
+          <md-select v-model="item.type" name="type" id="type" placeholder="Package type">
             <md-option
               v-for="i in itemTypes"
               :key="i.id"
@@ -51,41 +43,21 @@
           <div class="row row1">
             <md-field>
               <label>Length (inches)</label>
-              <md-input
-                type="number"
-                v-model="item.length"
-                required
-                min="1"
-              ></md-input>
+              <md-input type="number" v-model="item.length" required min="1"></md-input>
             </md-field>
             <md-field>
               <label>Width (inches)</label>
-              <md-input
-                type="number"
-                v-model="item.width"
-                required
-                min="1"
-              ></md-input>
+              <md-input type="number" v-model="item.width" required min="1"></md-input>
             </md-field>
             <md-field>
               <label>Height (inches)</label>
-              <md-input
-                type="number"
-                v-model="item.height"
-                required
-                min="1"
-              ></md-input>
+              <md-input type="number" v-model="item.height" required min="1"></md-input>
             </md-field>
           </div>
           <div class="row row2">
             <md-field>
               <label>Weight (pounds)</label>
-              <md-input
-                type="number"
-                v-model="item.weight"
-                required
-                min="1"
-              ></md-input>
+              <md-input type="number" v-model="item.weight" required min="1"></md-input>
             </md-field>
             <md-field>
               <label>Number of items</label>
@@ -124,7 +96,13 @@
           </md-field>
         </div>
       </div>
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="action">
+        <md-button class="custom-button-outline" @click="$router.back()">
+          Back
+        </md-button>
+        <div class="tab"></div>
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
     </form>
@@ -179,8 +157,7 @@ export default {
           this.myItem["items"] = this.items;
           storage.myItem = this.myItem;
           localStorage.setItem("order", JSON.stringify(storage));
-
-          this.$emit("progress", "sixth", "seventh", 6, '/order/additional-details');
+          this.$router.push("additional-details");
         } else {
           this.itemExistError = !this.itemExistError;
         }
@@ -287,8 +264,7 @@ export default {
       if (storage.myItem) {
         if (storage.myItem.items.length > 0) {
           this.items = storage.myItem.items;
-          let lastElement =
-            storage.myItem.items[storage.myItem.items.length - 1];
+          let lastElement = storage.myItem.items[storage.myItem.items.length - 1];
           this.item.description = lastElement.description;
           this.item.type = lastElement.type;
           this.item.length = lastElement.length;
@@ -317,6 +293,7 @@ export default {
     this.$refs.focusable.$el.focus();
   },
   created() {
+    this.$emit("progress", 5);
     this.init();
     this.getItemType();
     this.getAccessories();
@@ -330,6 +307,7 @@ export default {
 
 <style lang="scss" scoped>
 .item {
+  text-align: center;
   .row {
     display: flex;
     justify-content: space-between;
@@ -344,14 +322,9 @@ export default {
       }
     }
   }
-
-  .icon,
-  .options,
   .action {
-    margin: 20px 0;
-  }
-    .action{
-    text-align: right;
+    display: flex;
+    justify-content: center;
   }
 
   .btn-close {

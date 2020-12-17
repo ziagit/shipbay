@@ -4,10 +4,7 @@
       class="section0"
       v-bind:style="{ 'background-image': 'url(/images/uploads/help.svg)' }"
     >
-      <Header
-        v-on:togal-menu="$emit('togal-menu')"
-        :scrollValue="scrollValue"
-      />
+      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue" />
       <div class="content">
         <div class="md-display-1">{{ header }}</div>
         <div class="md-subheading">
@@ -96,8 +93,8 @@ export default {
     passData(header, subheader) {
       this.header = header;
       this.subheader = subheader;
-      this.carrierToggal = (header == "Carrier") ? true : false;
-      this.shipperToggal = (header == "Shipper") ? true : false;
+      this.carrierToggal = header == "Carrier" ? true : false;
+      this.shipperToggal = header == "Shipper" ? true : false;
     },
   },
   components: {
@@ -110,7 +107,6 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" scoped>
 .container {
   background: #fff;
@@ -123,7 +119,7 @@ export default {
     border-bottom: #ddd 1px solid;
     .content {
       height: 268px;
-       padding: 85px 200px 85px 106px;
+      padding: 85px 200px 85px 106px;
       .md-display-1 {
         line-height: 60px;
         font-size: 53px;
@@ -153,29 +149,35 @@ export default {
     }
   }
 }
-
 @media only screen and (max-width: 600px) {
   .section0 {
-    padding: 50px 10px 100px 10px !important;
+    .content {
+      padding: 20px !important;
+      height: 188px !important;
+      .md-display-1 {
+        font-size: 32px !important;
+        line-height: 48px !important;
+      }
+      .md-subheading {
+        font-size: 14px !important;
+      }
+    }
   }
 
-  .md-card {
-    padding: 0 !important;
+  .section1 {
+    padding: 30 !important;
 
-    .md-card-header {
-      padding: 50px 0 0 0 !important;
-      max-width: 78% !important;
-    }
-
-    .section1 {
-      padding: 0 !important;
-
-      .wrapper {
-        flex-direction: column;
-
-        .md-button {
-          margin: 30px 0 0 0;
-        }
+    .wrapper {
+      flex-direction: column;
+      .left,
+      .right {
+        padding: 0 !important;
+      }
+      .left {
+        margin-bottom: 74px !important;
+      }
+      .md-button {
+        margin: 30px 0 0 0;
       }
     }
   }

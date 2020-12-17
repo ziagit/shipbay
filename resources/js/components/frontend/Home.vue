@@ -123,7 +123,8 @@ export default {
   }
 
   .md-app-content {
-    background: #f0f2f5;
+    //background: #f0f2f5;
+    background: #fff;
     /* background-image: linear-gradient(#fff, #F0F2F5); */
     padding: 0;
     /* background-image: linear-gradient(#2f2f65, #2a6ab3); */
