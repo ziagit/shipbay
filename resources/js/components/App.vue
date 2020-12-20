@@ -57,12 +57,13 @@ export default {
   padding-left: 60px !important;
 }
 .md-card {
-  border-radius: 8px !important;
+  border-radius: 3px !important;
   /* box-shadow: 0 4px 16px rgba(0,0,0,.12); */
-  box-shadow: 0 1px 2px #11111142;
+  //box-shadow: 0 1px 2px #11111142;
   //box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
   border: none;
-  background: #fffbf3 !important;
+  background: #fff !important;
 }
 .md-tabs.md-theme-default .md-tabs-navigation .md-button.md-active {
   background: #448aff24 !important;
@@ -215,7 +216,7 @@ export default {
   margin: 0;
   background: #f97d4a;
   color: #fff !important;
-  font-weight: 300 !important;
+  font-weight: 500 !important;
   font-size: 12px !important;
   min-height: 40px !important;
   height: 40px !important;
@@ -225,15 +226,16 @@ export default {
   border-radius: 30px;
   padding: 0 16px !important;
   margin: 0;
-  border: #ffa500 solid 1px !important;
+  border: #f97d4a solid 1px !important;
   color: #000 !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
   font-size: 12px !important;
   min-height: 40px !important;
   height: 40px !important;
 }
 .custom-button-outline:hover {
-  background: #e4852b !important;
+  color: #fff !important;
+  background: #f97d4a !important;
 }
 
 .md-progress-bar-fill {

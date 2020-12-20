@@ -1,6 +1,8 @@
 <template>
   <div class="item">
     <span class="md-display-1">What items are you shipping?</span>
+    <div class="break"></div>
+    <div class="break"></div>
     <md-card mode="ios" color="light" v-if="items.length > 0">
       <md-card-content>
         <div v-show="itemExistError" style="color: red">

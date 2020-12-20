@@ -1,6 +1,6 @@
 <template>
   <div class="delivery-services">
-    <span class="md-display-1">Add additional services at the delivery</span>
+    <span class="md-display-1">Add services at the delivery</span>
     <div class="break"></div>
     <form @submit.prevent="nextStep()">
       <div class="options">

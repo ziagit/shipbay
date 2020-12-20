@@ -205,10 +205,10 @@ export default {
         cursor: pointer;
       }
 
-      box-shadow: 0 1px 2px #11111142;
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
       margin-bottom: 5px;
-      border-radius: 8px;
-      background: #fffbf3;
+      border-radius: 3px;
+      background: #fff;
 
       .button {
         border-radius: 7px;

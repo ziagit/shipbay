@@ -1,6 +1,6 @@
 <template>
   <div class="pickup-services">
-    <span class="md-display-1">Add additional services at the pickup</span>
+    <span class="md-display-1">Add services at the pickup</span>
     <div class="break"></div>
     <div class="break"></div>
     <form @submit.prevent="nextStep()">
