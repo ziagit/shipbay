@@ -36,8 +36,7 @@ export default {
     },
   },
   methods: {},
-  created() {
-  },
+  created() {},
 };
 </script>
 
@@ -85,8 +84,6 @@ export default {
   .right {
     display: flex;
     align-items: center;
-    padding-right: 20px;
-
     .md-button {
       margin: 0;
       color: #000;
@@ -94,6 +91,26 @@ export default {
 
     span {
       color: #000;
+    }
+  }
+  @media only screen and (max-width: 1400px) {
+    .right {
+      padding-right: 650px;
+    }
+  }
+  @media only screen and (max-width: 1200px) {
+    .right {
+      padding-right: 576px;
+    }
+  }
+  @media only screen and (max-width: 992px) {
+    .right {
+      padding-right: 498px;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .right {
+      padding-right: 20px;
     }
   }
 

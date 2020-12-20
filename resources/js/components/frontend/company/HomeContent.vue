@@ -2,16 +2,16 @@
   <div class="container">
     <div
       class="section0"
-      v-bind:style="{ 'background-image': 'url(/images/uploads/home-bg2.svg)' }"
+      v-bind:style="{ 'background-image': 'url(/images/uploads/home-bg.svg)' }"
     >
-      <Header
-        v-on:togal-menu="$emit('togal-menu')"
-        :scrollValue="scrollValue"
-      />
+      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue" />
       <div class="content">
         <div class="md-display-1">Let’s book your shipment in a few taps.</div>
         <div class="md-subheading">The way you book your travel tickets.</div>
+        <div class="break"></div>
+        <div class="break"></div>
         <div class="md-title">What are you shipping today?</div>
+
         <div class="actions">
           <md-button class="custom-button" to="/order">Freight</md-button>
           <md-button class="md-button custom-button-outline">Moving</md-button>
@@ -22,9 +22,8 @@
       <div class="section2">
         <div class="heading">
           <div class="md-display-1">Safe and hassle-free shipping</div>
-          <div class="md-body-1">
-            Get your freight safely shipped by a few taps.
-          </div>
+          <div class="break"></div>
+          <div class="md-body-1">Get your freight safely shipped by a few taps.</div>
         </div>
         <div class="rows">
           <div class="row">
@@ -32,8 +31,8 @@
             <div>
               <div class="md-title">Transparent</div>
               <div class="md-body-1">
-                Upfront pricing and free quotes from hundreds of Carriers. know
-                your shipment cost before you ship.
+                Upfront pricing and free quotes from hundreds of Carriers. know your
+                shipment cost before you ship.
               </div>
             </div>
           </div>
@@ -42,8 +41,8 @@
             <div>
               <div class="md-title">No Sign up</div>
               <div class="md-body-1">
-                Get free quotes and book your shipment in a few taps. No sign up
-                or membership required.
+                Get free quotes and book your shipment in a few taps. No sign up or
+                membership required.
               </div>
             </div>
           </div>
@@ -52,8 +51,8 @@
             <div>
               <div class="md-title">Insured</div>
               <div class="md-body-1">
-                All the shipments happening here are insured through our vetted
-                Carriers insurance policy.
+                All the shipments happening here are insured through our vetted Carriers
+                insurance policy.
               </div>
             </div>
           </div>
@@ -71,10 +70,10 @@
           </div>
           <div class="break"></div>
           <div class="md-body-1">
-            You are granted a free access to 100s of qualified carriers’ pricing
-            along with customer review and ratings. ShipBay is a marketplace
-            where Service Providers compete for your business so that you
-            benefit with best services and lowest price.
+            You are granted a free access to 100s of qualified carriers’ pricing along
+            with customer review and ratings. ShipBay is a marketplace where Service
+            Providers compete for your business so that you benefit with best services and
+            lowest price.
           </div>
         </div>
         <div class="steps">
@@ -87,8 +86,8 @@
               <div class="text">
                 <div class="md-title">Effortless</div>
                 <div class="details">
-                  Easy booking; list your items, compare and select your carrier
-                  of choice.
+                  Easy booking; list your items, compare and select your carrier of
+                  choice.
                 </div>
               </div>
             </li>
@@ -113,9 +112,7 @@
               </div>
               <div class="text">
                 <div class="md-title">Mobile App</div>
-                <div class="details">
-                  All of this in your fingertips through our App.
-                </div>
+                <div class="details">All of this in your fingertips through our App.</div>
               </div>
             </li>
           </ul>
@@ -127,10 +124,10 @@
         </div>
         <div class="row txt">
           <div class="md-display-1">Book your big moving day in advance</div>
+          <div class="break"></div>
           <div class="md-body-1">
-            We know moving is stressful, to make sure the availability and
-            on-time service book your moving day ahead. Relax! we will notify
-            you when the date arrives.
+            We know moving is stressful, to make sure the availability and on-time service
+            book your moving day ahead. Relax! we will notify you when the date arrives.
           </div>
           <md-button class="custom-button" to="/order">Get Quote</md-button>
         </div>
@@ -138,11 +135,12 @@
       <div class="section5">
         <div class="row txt">
           <div class="md-display-1">Here is what our customers say</div>
+          <div class="break"></div>
           <div class="md-body-1">
             <div class="customer-comment">
-              "As a small business I found ShipBay more reliable, easy and
-              competitive pricing which has decreased my shipment cost and has
-              brought efficiency in my workforce"
+              "As a small business I found ShipBay more reliable, easy and competitive
+              pricing which has decreased my shipment cost and has brought efficiency in
+              my workforce"
               <div class="break"></div>
               <div class="customer"><span> Tim Forde</span></div>
             </div>
@@ -156,7 +154,7 @@
           <img :src="'/images/uploads/home-graph.svg'" alt="" />
         </div>
       </div>
-            <div class="section1">
+      <div class="section1">
         <div class="row">
           <div class="md-display-1">8.8</div>
           <div class="md-subheading">Carrier Review</div>
@@ -239,7 +237,6 @@ export default {
       .md-subheading {
         margin-top: 0;
         color: #848484;
-        margin-bottom: 42px;
         font-size: 18px;
       }
       .md-title {
@@ -443,10 +440,9 @@ export default {
         color: #6f6b6b;
         font-style: italic;
         margin: 10px;
-        .customer{
+        .customer {
           text-align: right;
         }
-
       }
     }
     .section4 {
@@ -462,7 +458,13 @@ export default {
     }
   }
 }
-
+@media only screen and (max-width: 992px) {
+  .section0 {
+    .md-display-1 {
+      font-size: 40px !important;
+    }
+  }
+}
 @media only screen and (max-width: 769px) {
   .section3 {
     .steps {
@@ -475,40 +477,22 @@ export default {
       }
     }
   }
-
-  .section4,
-  .section5 {
-    .row {
-      .md-display-1,
-      .md-body-1 {
-        max-width: 80% !important;
-      }
-    }
-  }
 }
 
 @media only screen and (max-width: 600px) {
   .section0 {
-    background-position: right !important;
-
     .content {
-      .heading {
-        padding: 372px 20px !important;
-        text-align: center !important;
-
-        .md-display-1 {
-          line-height: 39px !important;
-          margin: 0 !important;
-          font-size: 28px !important;
-        }
-
-        .md-body-1 {
-          margin: 0 !important;
-        }
-
-        .actions {
-          margin-top: 18px !important;
-        }
+      padding: 112px 10px !important;
+      text-align: center !important;
+      .md-display-1 {
+        font-size: 42px !important;
+        line-height: 48px !important;
+      }
+      .md-subheading {
+        font-size: 14px !important;
+      }
+      .md-title {
+        font-size: 17px !important;
       }
     }
   }
@@ -518,17 +502,7 @@ export default {
   }
 
   .section2 {
-    padding: 112px 20px 20px 20px !important;
-
-    .heading {
-      .md-display-1 {
-        line-height: 24px !important;
-        font-size: 23px;
-        font-weight: 500;
-        margin-bottom: 12px;
-      }
-    }
-
+    padding: 20px !important;
     .row {
       flex: 100% !important;
     }
@@ -539,35 +513,60 @@ export default {
     max-width: 100% !important;
     padding: 20px !important;
 
-    .text {
-      .md-display-1 {
-        margin: 10px 0 !important;
-      }
-    }
-
     .steps {
       position: relative !important;
       right: 0 !important;
       bottom: 0 !important;
       margin-top: 44px !important;
+      .avatar {
+        padding: 3px !important;
+      }
     }
   }
 
+  .section4 {
+    flex-direction: column !important;
+    padding: 20px !important;
+    .img {
+      margin-bottom: 164px !important;
+    }
+    .txt {
+      padding: 0 !important;
+      .md-display-1 {
+        margin: 0 !important;
+      }
+      .md-body-1 {
+        margin: 0 0 20px 0 !important;
+      }
+    }
+  }
+  .section5 {
+    flex-direction: column !important;
+    padding: 20px !important;
+    .img {
+      order: 1;
+      margin-bottom: 196px !important;
+    }
+    .txt {
+      order: 2;
+      .md-body-1 {
+        margin: 0 0 20px 0 !important;
+      }
+    }
+  }
+  .section1,
+  .section2,
+  .section3,
   .section4,
   .section5 {
-    padding: 46px 22px !important;
-
-    .row {
-      .md-display-1 {
-        line-height: 24px !important;
-        font-size: 23px !important;
-        font-weight: 500 !important;
-        margin-bottom: 12px;
-      }
-
-      .md-body-1 {
-        margin: 3px 0 52px 0 !important;
-      }
+    .md-display-1 {
+      line-height: 32px !important;
+      font-size: 24px !important;
+      font-weight: 500 !important;
+      max-width: 100% !important;
+    }
+    .md-body-1 {
+      max-width: 100% !important;
     }
   }
 }

@@ -244,7 +244,7 @@ export default {
 
   .md-card {
     box-shadow: none;
-
+    background: #fff !important;
     .checkbox {
       text-align: left;
 

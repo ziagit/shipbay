@@ -1,9 +1,11 @@
 <template>
-  <div class="origin padding-20">
+  <div class="origin">
+    <span class="md-display-1">Shipment source</span>
+    <div class="break"></div>
     <form @submit.prevent="nextStep()">
       <div class="search-container">
         <md-field>
-          <label>City/State</label>
+          <label>Postal code</label>
           <md-input
             v-model="order.src.address"
             required
@@ -12,7 +14,8 @@
           ></md-input>
         </md-field>
       </div>
-
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="options">
         <md-radio
           v-for="service in accessoryList"
@@ -22,42 +25,47 @@
           >{{ service.name }}</md-radio
         >
       </div>
-      <!--     <md-card v-if="isAddSelected">
-        <md-button @click="edit()" class="md-icon-button md-primary edit">
-          <md-icon class="md-primary">edit</md-icon>
-        </md-button>
-        <md-card-content>
-          <span
-            >{{ order.src.street_number }} {{ order.src.street }},
-            {{ order.src.city }} - {{ order.src.zip }}</span
-          ><br />
-          <span>{{ order.src.state }}, {{ order.src.country }}</span>
-        </md-card-content>
-      </md-card>-->
+      <div v-if="supportedArea">
+        <div class="break"></div>
+        <div class="break"></div>
+        <md-card>
+          <md-card-content>
+            <span style="color: red"
+              >Sorry! <b>"{{ supportedArea }}" </b> is not in our coverage yet.</span
+            >
+          </md-card-content>
+        </md-card>
+      </div>
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="action">
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
     </form>
+    <Snackbar :data="snackbar" />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import Snackbar from "../../shared/Snackbar";
 export default {
   name: "Origin",
   data: () => ({
+    supportedArea: null,
+    supportTogal: false,
     accessoryList: null,
+    invalidAdd: "",
     order: {
       src: {
-        country: null,
-        state: null,
-        city: null,
-        zip: null,
-        street: null,
-        street_number: null,
-        address: null,
+        country: "",
+        state: "",
+        city: "",
+        zip: "",
+        street: "",
+        street_number: "",
+        address: "",
         accessories: ["bs"],
-        appointmentTime: null,
+        appointmentTime: "",
       },
       pickDate: null,
       des: null,
@@ -66,17 +74,76 @@ export default {
         email: null,
         status: null,
       },
+      shipper: null,
+    },
+    snackbar: {
+      show: false,
+      message: null,
+      statusCode: null,
     },
   }),
 
   methods: {
+    validAddress(components) {
+      let $vm = this;
+      this.supportTogal = true;
+      components.forEach(function (component) {
+        let types = component.types;
+        if (types.indexOf("street_number") > -1) {
+          $vm.order.src.street_number = component.long_name;
+        }
+        if (types.indexOf("route") > -1) {
+          $vm.order.src.street = component.long_name;
+        }
+        if (types.indexOf("locality") > -1) {
+          $vm.order.src.city = component.long_name;
+        }
+        if (types.indexOf("administrative_area_level_1") > -1) {
+          $vm.order.src.state = component.short_name;
+        }
+        if (types.indexOf("postal_code") > -1) {
+          $vm.order.src.zip = component.long_name;
+        }
+        if (types.indexOf("country") > -1) {
+          $vm.order.src.country = component.long_name;
+        }
+      });
+      $vm.order.src.address =
+        $vm.order.src.street_number +
+        " " +
+        $vm.order.src.street +
+        ", " +
+        $vm.order.src.city +
+        ", " +
+        $vm.order.src.state +
+        " " +
+        $vm.order.src.zip +
+        ", " +
+        $vm.order.src.country;
+    },
+    invalidAddress(components) {
+      let $vm = this;
+      this.supportTogal = false;
+      components.forEach(function (component) {
+        let types = component.types;
+
+        if (types.indexOf("administrative_area_level_1") > -1) {
+          $vm.supportedArea = component.long_name;
+        }
+      });
+      console.log("XXX ", $vm.supportedArea);
+    },
     nextStep() {
-      localStorage.setItem("order", JSON.stringify(this.order));
-      this.$emit("progress", "first", "second", 1, "/order/pickup-services");
+      if (this.supportTogal) {
+        localStorage.setItem("order", JSON.stringify(this.order));
+        this.$router.push("pickup-services");
+      } else {
+        this.snackbar.show = true;
+        this.snackbar.message = "Please provide a valid address!";
+        this.snackbar.statusCode = 404;
+      }
     },
-    edit() {
-      this.$refs.focusable.$el.focus();
-    },
+
     init() {
       if (localStorage.getItem("order")) {
         let storage = JSON.parse(localStorage.getItem("order"));
@@ -93,6 +160,8 @@ export default {
         this.order.src.appointmentTime = storage.src.appointmentTime;
         this.order.des = storage.des;
         this.order.myItem = storage.myItem;
+        this.order.shipper = storage.shipper;
+        //this.supportTogal = true;
       }
     },
     getAccessories() {
@@ -108,68 +177,47 @@ export default {
   },
   mounted() {
     let $vm = this;
+    this.$refs.focusable.$el.focus();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
       {
+        //types: ["address"],
+        componentRestrictions: { country: "ca" },
         bounds: new google.maps.LatLngBounds(
           new google.maps.LatLng(49.246292, -123.116226)
         ),
+        //strictbounds: true,
       }
     );
 
     google.maps.event.addListener(autocomplete, "place_changed", function () {
       var data = autocomplete.getPlace();
-
-      data.address_components.forEach(function (component) {
-        var types = component.types;
-
-        if (types.indexOf("locality") > -1) {
-          $vm.order.src.city = component.long_name;
+      data.address_components.forEach((component) => {
+        if (component.types.indexOf("administrative_area_level_1") > -1) {
+          if (component.short_name != "BC") {
+            $vm.invalidAddress(data.address_components);
+          } else {
+            $vm.validAddress(data.address_components);
+          }
         }
-
-        if (types.indexOf("administrative_area_level_1") > -1) {
-          $vm.order.src.state = component.short_name;
-        }
-
-        if (types.indexOf("postal_code") > -1) {
-          $vm.order.src.zip = component.long_name;
-        }
-
-        if (types.indexOf("country") > -1) {
-          $vm.order.src.country = component.long_name;
-        }
-
-        if (types.indexOf("street_number") > -1) {
-          $vm.order.src.street_number = component.long_name;
-        }
-        if (types.indexOf("route") > -1) {
-          $vm.order.src.street = component.long_name;
-        }
-        $vm.order.src.address =
-          $vm.order.src.street_number +
-          ", " +
-          $vm.order.src.street +
-          ", " +
-          $vm.order.src.city +
-          ", " +
-          $vm.order.src.state +
-          ", " +
-          $vm.order.src.country;
       });
     });
-
-    this.$refs.focusable.$el.focus();
   },
   created() {
+    this.$emit("progress", 0);
     this.init();
     this.getAccessories();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
+  },
+  components: {
+    Snackbar,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .origin {
+  text-align: center;
   .search-container {
     position: relative;
     .md-field {
@@ -181,40 +229,6 @@ export default {
         right: 0;
       }
     }
-
-    ul {
-      background: #fff;
-      margin-top: 0;
-      padding: 0;
-      position: absolute;
-      z-index: 10;
-      box-shadow: 1px 2px 3px #ddd;
-      width: 100%;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
-
-      li {
-        text-align: left;
-        list-style-type: none;
-        padding: 10px;
-      }
-
-      .city-list:hover,
-      .address-list:hover {
-        background: #f0f2f5;
-        cursor: pointer;
-      }
-
-      .not-found {
-        color: red;
-      }
-    }
-  }
-
-  .icon,
-  .options,
-  .action {
-    margin: 20px auto;
   }
 
   .options {
@@ -223,16 +237,8 @@ export default {
     }
   }
   .action {
-    text-align: right;
-  }
-
-  .md-card {
-    margin: 0 !important;
-    .edit {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+    display: flex;
+    justify-content: center;
   }
 }
 

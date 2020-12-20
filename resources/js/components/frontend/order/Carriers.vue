@@ -3,9 +3,14 @@
     <div v-show="dataLoading" class="loading">
       <Spinner />
       <span class="md-display-1">Calculating...</span>
-      <div class="md-display-body">We trying to find topest carriers to fit your requirments. please wait</div>
+      <div class="md-display-body">
+        We trying to find topest carriers to fit your requirments. please wait
+      </div>
     </div>
     <div v-show="!dataLoading">
+      <span class="md-display-1">Select the carrier of your choice</span>
+      <div class="break"></div>
+      <div class="break"></div>
       <md-card class="items">
         <md-card-content>
           <md-button class="md-icon-button edit-item" @click="editItem()">
@@ -37,9 +42,14 @@
             <span>{{ carrier.first_name }}</span>
             <p>
               <md-menu md-direction="top-start" :md-active.sync="carrier.togal">
-                Read <span class="carrier-info" md-menu-trigger>more</span> about this carrier
+                Read
+                <span class="carrier-info" md-menu-trigger>more</span> about this carrier
                 <md-menu-content>
-                  <CarrierInfo :lastName="carrier.last_name" :company="carrier.company" :detail="carrier.detail" />
+                  <CarrierInfo
+                    :lastName="carrier.last_name"
+                    :company="carrier.company"
+                    :detail="carrier.detail"
+                  />
                 </md-menu-content>
               </md-menu>
             </p>
@@ -58,7 +68,14 @@
           </div>
         </md-list-item>
       </md-list>
-      <div v-else style="color: red">there is no carrier available with this source & distination</div>
+      <div v-else style="color: red">
+        there is no carrier available with this source & distination
+      </div>
+      <div class="break"></div>
+      <div class="break"></div>
+      <div class="action">
+        <md-button to="/order" class="custom-button"> Edit </md-button>
+      </div>
     </div>
     <Snackbar :data="snackbar" />
   </div>
@@ -148,6 +165,7 @@ export default {
   },
 
   created() {
+    this.$emit("progress", 7);
     this.getCarriers();
     this.order = JSON.parse(localStorage.getItem("order"));
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
@@ -163,7 +181,11 @@ export default {
 
 <style lang="scss" scoped>
 .select-carrier {
+  text-align: center;
+
   .list-action {
+    text-align: center;
+
     .md-button {
       border: 1px solid #ffa500;
       padding: 5px;
@@ -183,9 +205,9 @@ export default {
         cursor: pointer;
       }
 
-      box-shadow: 0 1px 2px #11111142;
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
       margin-bottom: 5px;
-      border-radius: 8px;
+      border-radius: 3px;
       background: #fff;
 
       .button {
@@ -193,26 +215,9 @@ export default {
       }
     }
   }
-
-  .md-display-1 {
-    font-size: 24px;
-  }
-
-  .loading,
-  .icon,
-  .carriers,
-  .action {
-    margin: 20px auto;
-  }
-  .action {
-    text-align: right;
-  }
   .items {
-    margin: 0;
     padding: 15px;
     text-align: left;
-    background: #fff;
-
     .edit-item {
       position: absolute;
       top: 0;
@@ -222,10 +227,5 @@ export default {
 }
 
 @media only screen and (min-width: 600px) {
-  .select-carrier {
-    .md-display-1 {
-      font-size: 30px;
-    }
-  }
 }
 </style>

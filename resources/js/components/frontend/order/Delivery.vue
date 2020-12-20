@@ -1,9 +1,10 @@
 <template>
   <div class="destination">
+    <span class="md-display-1">Shipment destination</span>
     <form @submit.prevent="nextStep()">
       <div class="search-container">
         <md-field>
-          <label>City/State</label>
+          <label>Postal code</label>
           <md-input
             v-model="des.address"
             required
@@ -12,7 +13,8 @@
           ></md-input>
         </md-field>
       </div>
-
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="options">
         <md-radio
           v-for="service in accessoryList"
@@ -22,30 +24,38 @@
           >{{ service.name }}</md-radio
         >
       </div>
-      <!--<md-card v-if="isAddSelected">
-        <md-button @click="edit()" class="md-icon-button md-primary edit">
-          <md-icon class="md-primary">edit</md-icon>
-        </md-button>
-        <md-card-content>
-          <span
-            >{{ des.street_number }} {{ des.street }},
-            {{ des.city }} - {{ des.zip }}</span
-          ><br />
-          <span>{{ des.state }}, {{ des.country }}</span>
-        </md-card-content>
-      </md-card>-->
+      <div v-if="supportedArea">
+        <div class="break"></div>
+        <div class="break"></div>
+        <md-card>
+          <md-card-content>
+            <span style="color: red"
+              >Sorry! <b>"{{ supportedArea }}" </b> is not in our coverage yet.</span
+            >
+          </md-card-content>
+        </md-card>
+      </div>
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="action">
+        <md-button class="custom-button-outline" @click="$router.back()">
+          Back
+        </md-button>
+        <div class="tab"></div>
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
     </form>
+    <Snackbar :data="snackbar" />
   </div>
 </template>
 
 <script>
+import Snackbar from "../../shared/Snackbar";
 export default {
   name: "Destination",
   data: () => ({
-    address: null,
+    supportedArea: null,
+    supportTogal: false,
     accessoryList: null,
     des: {
       country: null,
@@ -58,30 +68,74 @@ export default {
       accessories: ["bs"],
       appointmentTime: null,
     },
+    snackbar: {
+      show: false,
+      message: null,
+      statusCode: null,
+    },
   }),
 
   methods: {
-    edit() {
-      this.isSelected = false;
-      this.$refs.focusable.$el.focus();
+    getAddress(components) {
+      let $vm = this;
+      this.supportTogal = true;
+      components.forEach(function (component) {
+        let types = component.types;
+        if (types.indexOf("locality") > -1) {
+          $vm.des.city = component.long_name;
+        }
+        if (types.indexOf("administrative_area_level_1") > -1) {
+          $vm.des.state = component.short_name;
+        }
+        if (types.indexOf("postal_code") > -1) {
+          $vm.des.zip = component.long_name;
+        }
+        if (types.indexOf("country") > -1) {
+          $vm.des.country = component.long_name;
+        }
+        if (types.indexOf("street_number") > -1) {
+          $vm.des.street_number = component.long_name;
+        }
+        if (types.indexOf("route") > -1) {
+          $vm.des.street = component.long_name;
+        }
+        $vm.des.address =
+          $vm.des.street_number +
+          ", " +
+          $vm.des.street +
+          ", " +
+          $vm.des.zip +
+          " " +
+          $vm.des.city +
+          ", " +
+          $vm.des.state +
+          ", " +
+          $vm.des.country;
+      });
     },
     nextStep() {
-      let storage = JSON.parse(localStorage.getItem("order"));
-      if (storage.des) {
-        for (let i = 0; i < storage.des.accessories.length; i++) {
-          if (
-            storage.des.accessories[i] === "bs" ||
-            storage.des.accessories[i] === "rs" ||
-            storage.des.accessories[i] === "sp"
-          ) {
-            storage.des.accessories.splice(i, 1);
+      if (this.supportTogal) {
+        let storage = JSON.parse(localStorage.getItem("order"));
+        if (storage.des) {
+          for (let i = 0; i < storage.des.accessories.length; i++) {
+            if (
+              storage.des.accessories[i] === "bs" ||
+              storage.des.accessories[i] === "rs" ||
+              storage.des.accessories[i] === "sp"
+            ) {
+              storage.des.accessories.splice(i, 1);
+            }
           }
         }
-      }
 
-      storage.des = this.des;
-      localStorage.setItem("order", JSON.stringify(storage));
-      this.$emit("progress", "fourth", "fifth", 4, "/order/delivery-services");
+        storage.des = this.des;
+        localStorage.setItem("order", JSON.stringify(storage));
+        this.$router.push("delivery-services");
+      } else {
+        this.snackbar.show = true;
+        this.snackbar.message = "Please provide a valid address!";
+        this.snackbar.statusCode = 404;
+      }
     },
 
     init() {
@@ -97,6 +151,7 @@ export default {
         this.des.address = storage.des.address;
         this.des.accessories = storage.des.accessories;
         this.des.appointmentTime = storage.des.appointmentTime;
+        //this.supportTogal = true;
       }
     },
     getAccessories() {
@@ -113,9 +168,12 @@ export default {
   },
   mounted() {
     let $vm = this;
+    this.$refs.focusable.$el.focus();
+
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("des-autocomplete"),
       {
+        componentRestrictions: { country: "ca" },
         bounds: new google.maps.LatLngBounds(
           new google.maps.LatLng(49.246292, -123.116226)
         ),
@@ -124,109 +182,43 @@ export default {
 
     google.maps.event.addListener(autocomplete, "place_changed", function () {
       var data = autocomplete.getPlace();
-
-      data.address_components.forEach(function (component) {
-        var types = component.types;
-
-        if (types.indexOf("locality") > -1) {
-          $vm.des.city = component.long_name;
+      data.address_components.forEach((component) => {
+        if (component.types.indexOf("administrative_area_level_1") > -1) {
+          if (component.short_name != "BC") {
+            $vm.supportedArea = component.short_name;
+          } else {
+            $vm.getAddress(data.address_components);
+          }
         }
-
-        if (types.indexOf("administrative_area_level_1") > -1) {
-          $vm.des.state = component.short_name;
-        }
-
-        if (types.indexOf("postal_code") > -1) {
-          $vm.des.zip = component.long_name;
-        }
-
-        if (types.indexOf("country") > -1) {
-          $vm.des.country = component.long_name;
-        }
-
-        if (types.indexOf("street_number") > -1) {
-          $vm.des.street_number = component.long_name;
-        }
-        if (types.indexOf("route") > -1) {
-          $vm.des.street = component.long_name;
-        }
-        $vm.des.address =
-          $vm.des.street_number +
-          " " +
-          $vm.des.street +
-          ", " +
-          $vm.des.city +
-          ", " +
-          $vm.des.state +
-          ", " +
-          $vm.des.country;
       });
     });
-    this.$refs.focusable.$el.focus();
   },
 
   created() {
+    this.$emit("progress", 3);
     this.init();
     this.getAccessories();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
+  },
+  components: {
+    Snackbar,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .destination {
+  text-align: center;
   .search-container {
     position: relative;
 
     .md-field {
       margin-bottom: 0;
     }
-
-    ul {
-      background: #fff;
-      margin-top: 0;
-      padding: 0;
-      position: absolute;
-      z-index: 10;
-      box-shadow: 1px 2px 3px #ddd;
-      width: 100%;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
-
-      li {
-        text-align: left;
-        list-style-type: none;
-        padding: 10px;
-      }
-
-      .city-list:hover,
-      .address-list:hover {
-        background: #f0f2f5;
-        cursor: pointer;
-      }
-
-      .not-found {
-        color: red;
-      }
-    }
-  }
-
-  .icon,
-  .options,
-  .action {
-    margin: 20px auto;
   }
   .action {
-    text-align: right;
-  }
-
-  .md-card {
-    margin: 0 !important;
-    .edit {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Header v-on:togal-menu="$emit('togal-menu')" />
     <div class="content">
       <md-dialog :md-active.sync="cartTogal">
         <md-dialog-title>
@@ -11,9 +10,9 @@
           <Card v-on:payment-succeed="refresh" />
         </md-dialog-content>
       </md-dialog>
-      <div class="header">
-        <span class="md-display-1">Payment details</span>
-      </div>
+      <span class="md-display-1">Payment details</span>
+      <div class="break"></div>
+      <div class="break"></div>
       <md-card>
         <md-card-content>
           <div v-if="dataLoading" class="spinner">
@@ -22,20 +21,20 @@
 
           <div v-else>
             <div v-if="paymentStatus">
-              <p>Thanks! your payment was successful. process your order</p>
+              <p style="color: green">
+                Thanks! your payment was successful. process your order
+              </p>
             </div>
             <div v-else>
               <p>You don't have payment history.</p>
               <!-- <router-link v-if="authenticated" to="/shipper/card">Add your card informations</router-link> -->
-              <a class="payment-card" @click="card()"
-                >Add your card informations</a
-              >
+              <a class="payment-card" @click="card()">Add your card informations</a>
             </div>
             <p>
-              Credit cards can be securely saved for future orders. Payment
-              information that is deleted or not saved to your account will be
-              stored for 90 days in the case of any order refunds or
-              adjustments. For more details, please read the
+              Credit cards can be securely saved for future orders. Payment information
+              that is deleted or not saved to your account will be stored for 90 days in
+              the case of any order refunds or adjustments. For more details, please read
+              the
               <a href="#">Terms and conditions</a>
             </p>
           </div>
@@ -55,21 +54,15 @@
           </div>
         </md-card-actions>
       </md-card>
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="action">
-        <md-button @click="prevStep()" class="custom-button-outline">
-          Back
-        </md-button>
-        <md-button
-          v-if="paymentStatus"
-          class="custom-button"
-          @click="nextStep()"
-        >
+        <md-button v-if="paymentStatus" class="custom-button" @click="nextStep()">
           Continue
         </md-button>
         <Spinner v-if="checkingPayment" />
       </div>
     </div>
-    <Footer />
     <Snackbar :data="snackbar" />
   </div>
 </template>
@@ -80,8 +73,6 @@ import axios from "axios";
 import isPaid from "../services/card";
 import Spinner from "../../shared/Spinner";
 import Snackbar from "../../shared/Snackbar";
-import Header from "../../shared/Header";
-import Footer from "../../shared/Footer";
 
 import Card from "../card/Card";
 export default {
@@ -112,7 +103,7 @@ export default {
   methods: {
     nextStep() {
       this.checkingPayment = false;
-      this.$router.push("confirmation");
+      this.$router.push("/confirmation");
     },
     prevStep() {
       this.$router.back("delivery-details");
@@ -124,11 +115,11 @@ export default {
           if (res.status) {
             this.dataLoading = false;
             this.paymentStatus = res.status;
+            this.$emit("progress", 8);
           } else {
             this.dataLoading = false;
             this.snackbar.show = true;
-            this.snackbar.message =
-              "Add your card informations to process your order";
+            this.snackbar.message = "Add your card informations to process your order";
             this.snackbar.statusCode = 0;
           }
         })
@@ -137,7 +128,6 @@ export default {
           this.snackbar.show = true;
           this.snackbar.message = "Somthing is wrong! refresh your page.";
           this.snackbar.statusCode = 0;
-          console.log("error: ", error.response);
         });
     },
     card() {
@@ -157,14 +147,13 @@ export default {
     },
   },
   created() {
+    this.$emit("progress", 7);
     this.checkPayment();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
   },
   components: {
     Spinner,
     Snackbar,
-    Header,
-    Footer,
     Card,
   },
 };
@@ -172,24 +161,11 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  text-align: center;
   .content {
-    max-width: 600px;
-    margin: auto;
-
-    .content,
-    .action {
-      margin: 20px auto;
-    }
     .action {
       display: flex;
-      justify-content: space-between;
-    }
-    .header {
-      margin: 24px auto;
-
-      .md-display-1 {
-        font-size: 24px;
-      }
+      justify-content: center;
     }
 
     .md-card {
@@ -207,7 +183,7 @@ export default {
       .payment-status {
         .paid {
           background: green;
-          padding: 2px 7px;
+          padding: 2px 14px;
           border-radius: 17px;
           color: #fff;
           font-size: 9px;
@@ -241,16 +217,6 @@ export default {
     top: 0;
     right: 9px;
     width: 2.2em;
-  }
-
-  @media only screen and (min-width: 600px) {
-    .content {
-      .header {
-        .md-display-1 {
-          font-size: 30px;
-        }
-      }
-    }
   }
 }
 </style>

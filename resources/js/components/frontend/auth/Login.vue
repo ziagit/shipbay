@@ -15,20 +15,17 @@
             </md-field>
             <md-field>
               <label>Password</label>
-              <md-input
-                type="password"
-                v-model="form.password"
-                required
-              ></md-input>
+              <md-input type="password" v-model="form.password" required></md-input>
             </md-field>
             <md-button type="submit" class="md-primary">Login</md-button>
           </form>
           <md-button to="/register" class="md-primary">Register</md-button>
         </md-card-content>
         <div class="login-througth">
-          <md-button to="/payment-details" class="primary" v-if="orderExist"
+          <md-button to="/order/payment-details" class="primary" v-if="orderExist"
             >Continue as guest</md-button
           >
+          <md-button to="/forgot-password" class="primary">Reset Password</md-button>
         </div>
       </md-card>
     </div>

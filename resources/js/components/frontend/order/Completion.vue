@@ -1,13 +1,16 @@
 <template>
   <div class="container">
     <Header v-on:togal-menu="$emit('togal-menu')" />
+    <div class="break"></div>
+    <div class="break"></div>
+    <div class="break"></div>
+    <div class="break"></div>
     <div class="content">
       <md-card>
         <p style="font-size: 20px">Perfect! 👌</p>
         <p>The selected carrier recieved a notification</p>
         <p>
-          Stay in touch, they will contact you as soon as arrive to the pickup
-          location
+          Stay in touch, they will contact you as soon as arrive to the pickup location
         </p>
         <md-button to="/" class="md-primary">Back to home</md-button>
         <md-button class="md-primary">Tracking</md-button>
@@ -34,6 +37,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header {
+  .right {
+    background: red !important;
+    padding-right: 20px !important;
+  }
+}
 .content {
   max-width: 600px;
   min-height: calc(100vh - 96px);
@@ -42,7 +51,6 @@ export default {
   .md-card {
     padding: 20px;
     text-align: center;
-    margin: 44px auto;
   }
 }
 </style>

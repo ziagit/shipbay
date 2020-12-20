@@ -3,9 +3,7 @@
     <div class="rows">
       <div class="row social-media">
         <div class="md-headline"><span class="logo">Shipping</span> Tap</div>
-        <div class="md-body-1">
-          Stay in touch & get update from social media
-        </div>
+        <div class="md-body-1">Stay in touch & get update from social media</div>
         <div class="icons">
           <a href="https://facebook.com"
             ><img :src="'/images/uploads/facebook.svg'" alt="" width="30"
@@ -176,6 +174,12 @@ export default {
         font-size: 8px;
       }
     }
+    .app {
+      text-align: left !important;
+    }
+  }
+  .bottom {
+    padding: 10px !important;
   }
 }
 </style>

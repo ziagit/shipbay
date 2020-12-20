@@ -6,15 +6,12 @@
         'background-image': 'url(/images/uploads/shipper-bg.svg)',
       }"
     >
-      <Header
-        v-on:togal-menu="$emit('togal-menu')"
-        :scrollValue="scrollValue"
-      />
+      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue" />
       <div class="content">
         <div class="md-display-1">Our Shippers</div>
-        <div class="md-subheading">
-          We are committed to our customer satisfaction.
-        </div>
+        <div class="md-subheading">We are committed to our customer satisfaction.</div>
+        <div class="break"></div>
+        <div class="break"></div>
         <md-button class="custom-button">Start a Quote</md-button>
       </div>
     </div>
@@ -25,25 +22,24 @@
           <div>
             <div class="md-display-1">Important info about your quote</div>
             <div class="md-body-1">
-              1. All freight rates quoted on ShippingTAP platform are provided
-              according to the description of goods and declared by the shipper
-              and may be subject to additional charges in the case of
-              misdeclaration.
+              1. All freight rates quoted on ShippingTAP platform are provided according
+              to the description of goods and declared by the shipper and may be subject
+              to additional charges in the case of misdeclaration.
               <div class="break"></div>
-              2. If your load needs special handling, please select it for an
-              accurate quote. Carriers charge for special handling if needed,
-              and this will affect your final rate and invoice.
+              2. If your load needs special handling, please select it for an accurate
+              quote. Carriers charge for special handling if needed, and this will affect
+              your final rate and invoice.
               <div class="break"></div>
-              3. The pickup date and transit time vary by the carrier and are
-              not guaranteed unless otherwise stated. Transit time starts with
-              the first business day after pickup and doesn’t include the day of
-              pickup, weekends or holidays.
+              3. The pickup date and transit time vary by the carrier and are not
+              guaranteed unless otherwise stated. Transit time starts with the first
+              business day after pickup and doesn’t include the day of pickup, weekends or
+              holidays.
               <div class="break"></div>
-              4. Be mindful of the truck waiting time. Rates quoted include up
-              to 30 minutes loading and offloading and 1 hour loading and 1 hour
-              offloading unless otherwise specified. There will be additional
-              charges for delays in loading, waiting at facilities for loading
-              or offloading and other unforeseen delays.
+              4. Be mindful of the truck waiting time. Rates quoted include up to 30
+              minutes loading and offloading and 1 hour loading and 1 hour offloading
+              unless otherwise specified. There will be additional charges for delays in
+              loading, waiting at facilities for loading or offloading and other
+              unforeseen delays.
               <div class="break"></div>
               5. By using this site, you agree to be bound by Terms of Use.
               <router-link to="terms-and-conditions"
@@ -55,15 +51,12 @@
           <div>
             <div class="md-display-1">How Does ShippingTAP Works?</div>
             <div class="md-body-1">
-              ShippingTAP is like the Expedia of shipping freight. Just type in
-              your origin and destination, dates and quantity you’re shipping.
-              Instantly see all available trucks and rates. You book the deal
-              you want! <br />
+              ShippingTAP is like the Expedia of shipping freight. Just type in your
+              origin and destination, dates and quantity you’re shipping. Instantly see
+              all available trucks and rates. You book the deal you want! <br />
               <ul>
                 <li>
-                  <router-link to="/order"
-                    >Get a Free Instant Quote</router-link
-                  >
+                  <router-link to="/order">Get a Free Instant Quote</router-link>
                 </li>
                 <li>
                   <router-link to="/terms-and-conditions"
@@ -71,9 +64,7 @@
                   >
                 </li>
                 <li>
-                  <router-link to="/privacy-policy"
-                    >Read Privacy Policy</router-link
-                  >
+                  <router-link to="/privacy-policy">Read Privacy Policy</router-link>
                 </li>
                 <li>
                   <router-link to="/help">Visit our Help Center</router-link>
@@ -108,9 +99,8 @@
           <div class="contact">
             <div class="bunner">
               <div class="md-body-1">
-                Whether you're an experienced or novice shipper, we have the
-                tools and experts to help you plan and execute complex or simple
-                shipping solutions.
+                Whether you're an experienced or novice shipper, we have the tools and
+                experts to help you plan and execute complex or simple shipping solutions.
               </div>
             </div>
           </div>
@@ -179,7 +169,6 @@ export default {
       .md-subheading {
         color: #000;
         max-width: 70%;
-        margin-bottom: 30px;
       }
     }
   }
@@ -260,29 +249,35 @@ export default {
     }
   }
 }
-
 @media only screen and (max-width: 600px) {
   .section0 {
-    padding: 50px 10px 100px 10px !important;
+    .content {
+      padding: 20px !important;
+      height: 188px !important;
+      .md-display-1 {
+        font-size: 32px !important;
+        line-height: 48px !important;
+      }
+      .md-subheading {
+        font-size: 14px !important;
+      }
+    }
   }
 
-  .md-card {
-    padding: 0 !important;
+  .section1 {
+    padding: 30 !important;
 
-    .md-card-header {
-      padding: 50px 0 0 0 !important;
-      max-width: 78% !important;
-    }
-
-    .section1 {
-      padding: 0 !important;
-
-      .rows {
-        flex-direction: column;
-
-        .md-button {
-          margin: 30px 0 0 0;
-        }
+    .wrapper {
+      flex-direction: column;
+      .left,
+      .right {
+        padding: 0 !important;
+      }
+      .left {
+        margin-bottom: 74px !important;
+      }
+      .md-button {
+        margin: 30px 0 0 0;
       }
     }
   }

@@ -1,5 +1,7 @@
 <template>
   <div class="delivery-services">
+    <span class="md-display-1">Add services at the delivery</span>
+    <div class="break"></div>
     <form @submit.prevent="nextStep()">
       <div class="options">
         <md-checkbox
@@ -19,8 +21,13 @@
           ></md-input>
         </md-field>
       </div>
-
+      <div class="break"></div>
+      <div class="break"></div>
       <div class="action">
+        <md-button class="custom-button-outline" @click="$router.back()">
+          Back
+        </md-button>
+        <div class="tab"></div>
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
     </form>
@@ -46,9 +53,7 @@ export default {
       storage.des.accessories = this.services;
       storage.des.appointmentTime = this.appointmentTime;
       localStorage.setItem("order", JSON.stringify(storage));
-
-      this.$emit("progress", "fifth", "sixth", 5, '/items');
-
+      this.$router.push("items");
     },
 
     init() {
@@ -80,6 +85,7 @@ export default {
   },
 
   created() {
+    this.$emit("progress", 4);
     this.init();
     this.getAccessories();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
@@ -89,13 +95,10 @@ export default {
 
 <style lang="scss" scoped>
 .delivery-services {
-  .icon,
-  .options,
+  text-align: center;
   .action {
-    margin: 20px auto;
-  }
-    .action{
-    text-align: right;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

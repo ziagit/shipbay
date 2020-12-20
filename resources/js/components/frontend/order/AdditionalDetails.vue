@@ -1,17 +1,28 @@
 <template>
   <div class="additional-details">
+    <span class="md-display-1">Additional information</span>
     <form @submit.prevent="nextStep()">
       <md-field>
         <label>Estimated shipment value ($)</label>
-        <md-input type="number" v-model="shipper.estimatedValue" min="1" required ref="focusable"></md-input>
+        <md-input
+          type="number"
+          v-model="shipper.estimatedValue"
+          min="1"
+          required
+          ref="focusable"
+        ></md-input>
       </md-field>
       <md-field>
         <label>Special instructions (optional)</label>
         <md-textarea v-model="shipper.instructions"></md-textarea>
       </md-field>
-
-      <md-tabs class="md-transparent" md-alignment="fixed">
-        <md-tab id="tab-pickup" md-label="Pickup Contacts">
+      <md-steppers md-vertical :md-active-step.sync="active">
+        <md-step
+          id="first"
+          md-label="Pickup Contacts"
+          md-description="Required"
+          :md-error="pickupError"
+        >
           <md-field>
             <label>Name</label>
             <md-input type="text" v-model="shipper.pickupName" required></md-input>
@@ -24,10 +35,20 @@
             <md-field>
               <label>Email</label>
               <md-input type="email" v-model="shipper.pickupEmail" required></md-input>
+              <md-icon class="md-primary">
+                info
+                <md-tooltip>Use your account email!</md-tooltip>
+              </md-icon>
             </md-field>
           </div>
-        </md-tab>
-        <md-tab id="tab-delivery" md-label="Delivery Contacts">
+        </md-step>
+
+        <md-step
+          id="second"
+          md-label="Delivery Contacts"
+          md-description="Required"
+          :md-error="deliveryError"
+        >
           <md-field>
             <label>Name</label>
             <md-input type="text" v-model="shipper.deliveryName" required></md-input>
@@ -40,11 +61,19 @@
             <md-field>
               <label>Email</label>
               <md-input type="email" v-model="shipper.deliveryEmail" required></md-input>
+              <md-icon class="md-primary">
+                info
+                <md-tooltip>Use your account email!</md-tooltip>
+              </md-icon>
             </md-field>
           </div>
-        </md-tab>
-      </md-tabs>
+        </md-step>
+      </md-steppers>
       <div class="action">
+        <md-button @click="$router.back()" class="custom-button-outline">
+          Back
+        </md-button>
+        <div class="tab"></div>
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
     </form>
@@ -76,18 +105,30 @@ export default {
   methods: {
     nextStep() {
       if (this.validator()) {
+        console.log("u r going");
         let order = JSON.parse(localStorage.getItem("order"));
         order.shipper = this.shipper;
         localStorage.setItem("order", JSON.stringify(order));
-        this.$emit("progress", "seventh", "eighth", 7, "/order/carriers");
-        //this.$router.push("payment-details");
+        this.$router.push("carriers");
       }
     },
     validator() {
-      if (this.shipper.pickupName == null || this.shipper.pickupPhone == null || !functions.phoneValidator(this.shipper.pickupPhone) || this.shipper.pickupEmail == null || !functions.emailValidator(this.shipper.pickupEmail)) {
+      if (
+        this.shipper.pickupName == null ||
+        this.shipper.pickupPhone == null ||
+        !functions.phoneValidator(this.shipper.pickupPhone) ||
+        this.shipper.pickupEmail == null ||
+        !functions.emailValidator(this.shipper.pickupEmail)
+      ) {
         this.pickupError = "Invalid info!";
         return false;
-      } else if (this.shipper.deliveryName == null || this.shipper.deliveryPhone == null || !functions.phoneValidator(this.shipper.deliveryPhone) || this.shipper.deliveryEmail == null || !functions.emailValidator(this.shipper.deliveryEmail)) {
+      } else if (
+        this.shipper.deliveryName == null ||
+        this.shipper.deliveryPhone == null ||
+        !functions.phoneValidator(this.shipper.deliveryPhone) ||
+        this.shipper.deliveryEmail == null ||
+        !functions.emailValidator(this.shipper.deliveryEmail)
+      ) {
         this.deliveryError = "Invalid info!";
         return false;
       } else {
@@ -98,7 +139,6 @@ export default {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.shipper) {
         this.shipper.estimatedValue = storage.shipper.estimatedValue;
-        this.shipper.instructions = storage.shipper.instructions;
         this.shipper.pickupName = storage.shipper.pickupName;
         this.shipper.pickupPhone = storage.shipper.pickupPhone;
         this.shipper.pickupEmail = storage.shipper.pickupEmail;
@@ -112,6 +152,7 @@ export default {
     this.$refs.focusable.$el.focus();
   },
   created() {
+    this.$emit("progress", 6);
     this.init();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
   },
@@ -120,16 +161,7 @@ export default {
 
 <style lang="scss" scoped>
 .additional-details {
-  max-width: 600px;
-  margin: auto;
-
-  .header {
-    margin-top: 24px;
-
-    .md-display-1 {
-      font-size: 24px;
-    }
-  }
+  text-align: center;
 
   .pick-time {
     display: flex;
@@ -149,18 +181,16 @@ export default {
       flex: 50%;
     }
   }
+
+  .md-vertical {
+    background: none;
+  }
   .action {
-    text-align: right;
+    display: flex;
+    justify-content: center;
   }
 }
 
-@media only screen and (max-width: 600px) {
-  .additional-details {
-    .header {
-      .md-display-1 {
-        font-size: 30px;
-      }
-    }
-  }
+@media only screen and (min-width: 600px) {
 }
 </style>
