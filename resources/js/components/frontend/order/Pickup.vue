@@ -85,6 +85,8 @@ export default {
 
   methods: {
     validAddress(components) {
+      console.log("valide add ", components);
+
       let $vm = this;
       this.supportTogal = true;
       components.forEach(function (component) {
@@ -124,14 +126,27 @@ export default {
     invalidAddress(components) {
       let $vm = this;
       this.supportTogal = false;
+      $vm.invalidAdd = "";
       components.forEach(function (component) {
         let types = component.types;
-
+        if (types.indexOf("street_number") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name + " ";
+        }
+        if (types.indexOf("route") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name + ", ";
+        }
+        if (types.indexOf("locality") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name + ", ";
+        }
         if (types.indexOf("administrative_area_level_1") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.short_name + ", ";
           $vm.supportedArea = component.long_name;
         }
+        if (types.indexOf("country") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name;
+        }
       });
-      console.log("XXX ", $vm.supportedArea);
+      $vm.order.src.address = $vm.invalidAdd;
     },
     nextStep() {
       if (this.supportTogal) {

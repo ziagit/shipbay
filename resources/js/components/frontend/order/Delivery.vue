@@ -57,16 +57,17 @@ export default {
     supportedArea: null,
     supportTogal: false,
     accessoryList: null,
+    invalidAdd: "",
     des: {
-      country: null,
-      state: null,
-      city: null,
-      zip: null,
-      street: null,
-      street_number: null,
-      address: null,
+      country: "",
+      state: "",
+      city: "",
+      zip: "",
+      street: "",
+      street_number: "",
+      address: "",
       accessories: ["bs"],
-      appointmentTime: null,
+      appointmentTime: "",
     },
     snackbar: {
       show: false,
@@ -76,11 +77,18 @@ export default {
   }),
 
   methods: {
-    getAddress(components) {
+    validAddress(components) {
       let $vm = this;
       this.supportTogal = true;
       components.forEach(function (component) {
+        console.log("valid add ", component);
         let types = component.types;
+        if (types.indexOf("street_number") > -1) {
+          $vm.des.street_number = component.long_name;
+        }
+        if (types.indexOf("route") > -1) {
+          $vm.des.street = component.long_name;
+        }
         if (types.indexOf("locality") > -1) {
           $vm.des.city = component.long_name;
         }
@@ -93,25 +101,45 @@ export default {
         if (types.indexOf("country") > -1) {
           $vm.des.country = component.long_name;
         }
+      });
+      $vm.des.address =
+        $vm.des.street_number +
+        " " +
+        $vm.des.street +
+        ", " +
+        $vm.des.city +
+        ", " +
+        $vm.des.state +
+        " " +
+        $vm.des.zip +
+        ", " +
+        $vm.des.country;
+    },
+    invalidAddress(components) {
+      let $vm = this;
+      this.supportTogal = false;
+      $vm.invalidAdd = "";
+      components.forEach(function (component) {
+        console.log("invalid add ", component);
+        let types = component.types;
         if (types.indexOf("street_number") > -1) {
-          $vm.des.street_number = component.long_name;
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name + " ";
         }
         if (types.indexOf("route") > -1) {
-          $vm.des.street = component.long_name;
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name + ", ";
         }
-        $vm.des.address =
-          $vm.des.street_number +
-          ", " +
-          $vm.des.street +
-          ", " +
-          $vm.des.zip +
-          " " +
-          $vm.des.city +
-          ", " +
-          $vm.des.state +
-          ", " +
-          $vm.des.country;
+        if (types.indexOf("locality") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name + ", ";
+        }
+        if (types.indexOf("administrative_area_level_1") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.short_name + ", ";
+          $vm.supportedArea = component.long_name;
+        }
+        if (types.indexOf("country") > -1) {
+          $vm.invalidAdd = $vm.invalidAdd + component.long_name;
+        }
       });
+      $vm.des.address = $vm.invalidAdd;
     },
     nextStep() {
       if (this.supportTogal) {
@@ -169,7 +197,6 @@ export default {
   mounted() {
     let $vm = this;
     this.$refs.focusable.$el.focus();
-
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("des-autocomplete"),
       {
@@ -179,15 +206,14 @@ export default {
         ),
       }
     );
-
     google.maps.event.addListener(autocomplete, "place_changed", function () {
       var data = autocomplete.getPlace();
       data.address_components.forEach((component) => {
         if (component.types.indexOf("administrative_area_level_1") > -1) {
           if (component.short_name != "BC") {
-            $vm.supportedArea = component.short_name;
+            $vm.invalidAddress(data.address_components);
           } else {
-            $vm.getAddress(data.address_components);
+            $vm.validAddress(data.address_components);
           }
         }
       });
