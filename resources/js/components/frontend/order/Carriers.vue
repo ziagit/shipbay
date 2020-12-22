@@ -53,6 +53,27 @@
                 </md-menu-content>
               </md-menu>
             </p>
+            <div class="rating">
+              <star-rating
+                v-model="carrier.rates"
+                :star-size="15"
+                :increment="0.01"
+                :read-only="true"
+                :show-rating="false"
+              />
+              <div class="rate">
+                <md-menu
+                  md-direction="top-start"
+                  :md-active.sync="carrier.togal"
+                  :mdCloseOnClick="closeOnClick"
+                >
+                  <span md-menu-trigger class="carrier-info">Rate</span>
+                  <md-menu-content>
+                    <Rate :carrier="carrier.id" :rated="rated" />
+                  </md-menu-content>
+                </md-menu>
+              </div>
+            </div>
           </div>
           <div class="list-action">
             <div>
@@ -82,8 +103,10 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 import CarrierRateInfo from "./menu/CarrierRateInfo";
 import CarrierInfo from "./menu/CarrierInfo";
+import Rate from "../pages/review/Rate";
 import { mapActions, mapGetters } from "vuex";
 import Axios from "axios";
 import Spinner from "../../shared/Spinner";
@@ -93,6 +116,8 @@ export default {
   name: "CarrierList",
   data: () => ({
     carriers: null,
+    rating: 0,
+    closeOnClick: true,
     order: null,
     dataLoading: true,
     carriersExist: true,
@@ -146,12 +171,12 @@ export default {
         localStorage.setItem("order", JSON.stringify(order));
       }
       if (this.authenticated && this.user.role[0].name === "shipper") {
-        this.$router.push("/shipment/additional-details");
+        this.$router.push("/order/payment-details");
       } else {
         this.$router.push({
           name: "signin",
           query: {
-            redirect: "/shipment/additional-details",
+            redirect: "/order/payment-details",
           },
         });
       }
@@ -162,6 +187,9 @@ export default {
     totalWeight() {
       return functions.totalWeight(this.order.myItem.items);
     },
+    rated(data) {
+      this.getCarriers();
+    },
   },
 
   created() {
@@ -171,8 +199,10 @@ export default {
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
   },
   components: {
+    StarRating,
     CarrierRateInfo,
     CarrierInfo,
+    Rate,
     Spinner,
     Snackbar,
   },
@@ -197,6 +227,7 @@ export default {
     background: none;
 
     li {
+      padding: 15px 0;
       .carrier-info {
         color: #448aff;
       }
@@ -212,6 +243,14 @@ export default {
 
       .button {
         border-radius: 7px;
+      }
+      .rating {
+        display: flex;
+        justify-content: space-between;
+        max-width: 100px;
+        .rate {
+          text-align: right;
+        }
       }
     }
   }

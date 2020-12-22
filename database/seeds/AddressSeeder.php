@@ -19,7 +19,6 @@ class AddressSeeder extends Seeder
                 'zip' => 'A0A4G0',
                 'city' => 'Vancouver',
                 'state' => 'BC',
-                'locationtype_id' => 1,
                 'country_id' => 1,
             ],
             [
@@ -27,7 +26,6 @@ class AddressSeeder extends Seeder
                 'zip' => 'B0P1N0',
                 'city' => 'Victoria',
                 'state' => 'BC',
-                'locationtype_id'=> 2,
                 'country_id' => 1,
             ],
             [
@@ -35,7 +33,6 @@ class AddressSeeder extends Seeder
                 'zip' => 'B0P1N0',
                 'city' => 'Midway',
                 'state' => 'BC',
-                'locationtype_id'=> 2,
                 'country_id' => 1,
             ],
             [
@@ -43,7 +40,6 @@ class AddressSeeder extends Seeder
                 'zip' => 'B0P1N0',
                 'city' => 'Regional District of Kootenay Boundary',
                 'state' => 'BC',
-                'locationtype_id'=> 2,
                 'country_id' => 1,
             ],
             [
@@ -51,7 +47,6 @@ class AddressSeeder extends Seeder
                 'zip' => 'B4R2G5',
                 'city' => 'Maple Ridge',
                 'state' => 'BC',
-                'locationtype_id'=> 2,
                 'country_id' => 1,
             ],
             [
@@ -59,7 +54,6 @@ class AddressSeeder extends Seeder
                 'zip' => 'B8B0S8',
                 'city' => 'Squamish',
                 'state' => 'BC',
-                'locationtype_id'=> 2,
                 'country_id' => 1,
             ],
             [
@@ -67,7 +61,6 @@ class AddressSeeder extends Seeder
                 'zip' => 'C0A2B0',
                 'city' => 'SOURIS',
                 'state' => 'BC',
-                'locationtype_id'=> 2,
                 'country_id' => 1,
             ]
         ];

@@ -155,6 +155,7 @@ export default {
     this.$emit("progress", 6);
     this.init();
     localStorage.setItem("cRoute", this.$router.currentRoute.path);
+    console.log("order", JSON.parse(localStorage.getItem("order")));
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <span class="md-display-1">What items are you shipping?</span>
+    <span class="md-display-1">Shipment items</span>
     <div class="break"></div>
     <div class="break"></div>
     <md-card mode="ios" color="light" v-if="items.length > 0">
@@ -10,7 +10,7 @@
         </div>
         <ul>
           <li v-for="(item, index) in items" :key="index">
-            <div>{{ item.description }}, {{ Math.round(item.dw) }} Pounds</div>
+            <div>{{ item.description }}, {{ Math.round(item.weight) }} Pounds</div>
             <div>
               <md-button class="md-icon-button" @click="editItem(item)">
                 <md-icon>edit</md-icon>
