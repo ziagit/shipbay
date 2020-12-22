@@ -10,15 +10,15 @@ import Welcome from './components/frontend/auth/Welcome';
 
 import Card from './components/frontend/card/Card';
 
-import HomeContent from './components/frontend/company/HomeContent';
-import Help from './components/frontend/company/Help';
-import AboutUs from './components/frontend/company/AboutUs'
-import ContactUs from './components/frontend/company/ContactUs'
-
-import Privacy from './components/frontend/company/Privacy'
-import Terms from './components/frontend/company/Terms'
-import OurCarriers from './components/frontend/company/OurCarriers'
-import OurShippers from './components/frontend/company/OurShippers'
+import HomeContent from './components/frontend/pages/HomeContent';
+import Help from './components/frontend/pages/Help';
+import AboutUs from './components/frontend/pages/AboutUs'
+import ContactUs from './components/frontend/pages/ContactUs'
+import Privacy from './components/frontend/pages/Privacy'
+import Terms from './components/frontend/pages/Terms'
+import OurCarriers from './components/frontend/pages/OurCarriers'
+import OurShippers from './components/frontend/pages/OurShippers'
+import Rating from './components/frontend/pages/review/Rating'
 
 import CarrierProfile from './components/frontend/carrier/CarrierProfile';
 import CarrierDetails from './components/frontend/carrier/general-details/CarrierDetails';
@@ -159,6 +159,7 @@ export default new VueRouter({
                 { name: 'terms', path: '/terms-and-conditions', component: Terms },
                 { name: 'our-carriers', path: '/carriers', component: OurCarriers },
                 { name: 'our-shippers', path: '/shippers', component: OurShippers },
+                { name: 'rating', path: '/rating', component: Rating },
                 {
                     name: 'order',
                     path: 'order',
@@ -179,7 +180,7 @@ export default new VueRouter({
                 },
                 { name: 'confirmation', path: 'confirmation', component: Confirmation },
                 { name: 'completion', path: 'completion', component: Completion },
-         
+
                 {
                     name: 'carrier',
                     path: 'carrier',

@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('jobs', 'JobController');
     Route::get('job-status', 'JobController@jobStatus');
 
+    Route::post('rate-carrier','CarrierDetailsController@rate');
+
   });
   Route::group(['namespace' => 'Shipper', 'prefix' => 'shipper'], function () {
     Route::resource('details', 'ShipperDetailsController');
@@ -124,6 +126,8 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('search-state-city/{country}','AddressController@searchStateCity');
   Route::get('search-zip-address/{city}','AddressController@searchZipAddress');
 });
+Route::resource('rating', 'Carrier\RatingController');
+
 Route::get("unauthorized", function () {
   return response()->json(['message' => 'You are unauthorized!'], 401);
 })->name('unauthorized');

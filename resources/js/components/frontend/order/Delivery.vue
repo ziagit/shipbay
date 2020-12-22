@@ -3,15 +3,11 @@
     <span class="md-display-1">Shipment destination</span>
     <form @submit.prevent="nextStep()">
       <div class="search-container">
-        <md-field>
-          <label>Postal code</label>
-          <md-input
-            v-model="des.address"
-            required
-            ref="focusable"
-            id="des-autocomplete"
-          ></md-input>
-        </md-field>
+        <GoogleAddress
+          v-on:google-valid-address="googleValidAddress"
+          v-on:google-invalid-address="googleInvalidAddress"
+          :initialData="initialData"
+        />
       </div>
       <div class="break"></div>
       <div class="break"></div>
@@ -30,7 +26,7 @@
         <md-card>
           <md-card-content>
             <span style="color: red"
-              >Sorry! <b>"{{ supportedArea }}" </b> is not in our coverage yet.</span
+              >Sorry! <b>"{{ supportedArea }}" </b> is not in our coverage area yet.</span
             >
           </md-card-content>
         </md-card>
@@ -51,13 +47,13 @@
 
 <script>
 import Snackbar from "../../shared/Snackbar";
+import GoogleAddress from "../../shared/GoogleAddress";
 export default {
   name: "Destination",
   data: () => ({
     supportedArea: null,
-    supportTogal: false,
+    initialData: null,
     accessoryList: null,
-    invalidAdd: "",
     des: {
       country: "",
       state: "",
@@ -65,7 +61,6 @@ export default {
       zip: "",
       street: "",
       street_number: "",
-      address: "",
       accessories: ["bs"],
       appointmentTime: "",
     },
@@ -77,72 +72,12 @@ export default {
   }),
 
   methods: {
-    validAddress(components) {
-      let $vm = this;
-      this.supportTogal = true;
-      components.forEach(function (component) {
-        console.log("valid add ", component);
-        let types = component.types;
-        if (types.indexOf("street_number") > -1) {
-          $vm.des.street_number = component.long_name;
-        }
-        if (types.indexOf("route") > -1) {
-          $vm.des.street = component.long_name;
-        }
-        if (types.indexOf("locality") > -1) {
-          $vm.des.city = component.long_name;
-        }
-        if (types.indexOf("administrative_area_level_1") > -1) {
-          $vm.des.state = component.short_name;
-        }
-        if (types.indexOf("postal_code") > -1) {
-          $vm.des.zip = component.long_name;
-        }
-        if (types.indexOf("country") > -1) {
-          $vm.des.country = component.long_name;
-        }
-      });
-      $vm.des.address =
-        $vm.des.street_number +
-        " " +
-        $vm.des.street +
-        ", " +
-        $vm.des.city +
-        ", " +
-        $vm.des.state +
-        " " +
-        $vm.des.zip +
-        ", " +
-        $vm.des.country;
-    },
-    invalidAddress(components) {
-      let $vm = this;
-      this.supportTogal = false;
-      $vm.invalidAdd = "";
-      components.forEach(function (component) {
-        console.log("invalid add ", component);
-        let types = component.types;
-        if (types.indexOf("street_number") > -1) {
-          $vm.invalidAdd = $vm.invalidAdd + component.long_name + " ";
-        }
-        if (types.indexOf("route") > -1) {
-          $vm.invalidAdd = $vm.invalidAdd + component.long_name + ", ";
-        }
-        if (types.indexOf("locality") > -1) {
-          $vm.invalidAdd = $vm.invalidAdd + component.long_name + ", ";
-        }
-        if (types.indexOf("administrative_area_level_1") > -1) {
-          $vm.invalidAdd = $vm.invalidAdd + component.short_name + ", ";
-          $vm.supportedArea = component.long_name;
-        }
-        if (types.indexOf("country") > -1) {
-          $vm.invalidAdd = $vm.invalidAdd + component.long_name;
-        }
-      });
-      $vm.des.address = $vm.invalidAdd;
-    },
     nextStep() {
-      if (this.supportTogal) {
+      if (this.des.country === "" || this.des.state === "" || this.des.city === "") {
+        this.snackbar.show = true;
+        this.snackbar.message = "Please provide a valid address!";
+        this.snackbar.statusCode = 404;
+      } else {
         let storage = JSON.parse(localStorage.getItem("order"));
         if (storage.des) {
           for (let i = 0; i < storage.des.accessories.length; i++) {
@@ -155,21 +90,36 @@ export default {
             }
           }
         }
-
         storage.des = this.des;
         localStorage.setItem("order", JSON.stringify(storage));
         this.$router.push("delivery-services");
-      } else {
-        this.snackbar.show = true;
-        this.snackbar.message = "Please provide a valid address!";
-        this.snackbar.statusCode = 404;
       }
+    },
+    googleValidAddress(address) {
+      this.supportedArea = "";
+      this.des.country = address.country;
+      this.des.state = address.state;
+      this.des.city = address.city;
+      this.des.zip = address.zip;
+      this.des.street = address.street;
+      this.des.street_number = address.street_number;
+      console.log("valid add", address);
+    },
+    googleInvalidAddress(address) {
+      this.supportedArea = address.state;
+      this.des.country = null;
+      this.des.state = null;
+      this.des.city = null;
+      this.des.zip = null;
+      this.des.street = null;
+      this.des.street_number = null;
+      console.log("invalid add", address);
     },
 
     init() {
       let storage = JSON.parse(localStorage.getItem("order"));
       if (storage.des) {
-        this.isAddSelected = localStorage.getItem("adflug");
+        this.initialData = storage.des;
         this.des.country = storage.des.country;
         this.des.state = storage.des.state;
         this.des.city = storage.des.city;
@@ -179,7 +129,6 @@ export default {
         this.des.address = storage.des.address;
         this.des.accessories = storage.des.accessories;
         this.des.appointmentTime = storage.des.appointmentTime;
-        //this.supportTogal = true;
       }
     },
     getAccessories() {
@@ -194,31 +143,6 @@ export default {
         });
     },
   },
-  mounted() {
-    let $vm = this;
-    this.$refs.focusable.$el.focus();
-    var autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("des-autocomplete"),
-      {
-        componentRestrictions: { country: "ca" },
-        bounds: new google.maps.LatLngBounds(
-          new google.maps.LatLng(49.246292, -123.116226)
-        ),
-      }
-    );
-    google.maps.event.addListener(autocomplete, "place_changed", function () {
-      var data = autocomplete.getPlace();
-      data.address_components.forEach((component) => {
-        if (component.types.indexOf("administrative_area_level_1") > -1) {
-          if (component.short_name != "BC") {
-            $vm.invalidAddress(data.address_components);
-          } else {
-            $vm.validAddress(data.address_components);
-          }
-        }
-      });
-    });
-  },
 
   created() {
     this.$emit("progress", 3);
@@ -228,6 +152,7 @@ export default {
   },
   components: {
     Snackbar,
+    GoogleAddress,
   },
 };
 </script>

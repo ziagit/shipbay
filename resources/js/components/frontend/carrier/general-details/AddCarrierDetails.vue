@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="submit" enctype="multipart/form-data">
-      <md-card class="main-card" v-touch:tap="tapHandler">
+      <md-card class="main-card">
         <div class="carrier-logo" v-if="hasCompany">
           <md-avatar class="md-large">
             <md-field>
@@ -50,103 +50,26 @@
               <input class="hidden-input" v-model="form.country" required />
             </md-field>
 
-            <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
-              <md-field>
-                <label for="">Search state</label>
-                <md-input
-                  v-model="sk"
-                  required
-                  v-touch:tap="tapHandler"
-                  md-menu-trigger
-                ></md-input>
-              </md-field>
-              <md-menu-content>
-                <div v-if="states">
-                  <md-menu-item v-if="states.length === 0">Not found</md-menu-item>
-                </div>
-                <div v-else>
-                  <md-menu-item>Type</md-menu-item>
-                </div>
-                <md-menu-item
-                  v-for="list in states"
-                  :key="list.id"
-                  @click="selectState(list)"
-                  >{{ list.state }}</md-menu-item
-                >
-              </md-menu-content>
-            </md-menu>
-            <md-menu md-direction="bottom-start" class="" md-align-trigger md-dense>
-              <md-field>
-                <label for="">Search city</label>
-                <md-input v-model="ck" required md-menu-trigger></md-input>
-              </md-field>
-              <md-menu-content>
-                <div v-if="cities">
-                  <md-menu-item v-if="cities.length === 0">Not found</md-menu-item>
-                </div>
-                <div v-else>
-                  <md-menu-item>Type</md-menu-item>
-                </div>
-                <md-menu-item
-                  v-for="list in cities"
-                  :key="list.id"
-                  @click="selectCity(list)"
-                  >{{ list.city }}</md-menu-item
-                >
-              </md-menu-content>
-            </md-menu>
+            <md-field>
+              <label for="">State</label>
+              <md-input v-model="form.state" required></md-input>
+            </md-field>
+
+            <md-field>
+              <label for="">City</label>
+              <md-input v-model="form.city" required></md-input>
+            </md-field>
           </div>
           <div class="row">
-            <md-menu
-              md-direction="bottom-start"
-              class="zip-address"
-              md-align-trigger
-              md-dense
-            >
-              <md-field>
-                <label for="">Search postal code</label>
-                <md-input v-model="zk" required md-menu-trigger></md-input>
-              </md-field>
-              <md-menu-content>
-                <div v-if="zips">
-                  <md-menu-item v-if="zips.length === 0">Not found</md-menu-item>
-                </div>
-                <div v-else>
-                  <md-menu-item>Type</md-menu-item>
-                </div>
-                <md-menu-item
-                  v-for="list in zips"
-                  :key="list.id"
-                  @click="selectZip(list)"
-                  >{{ list.zip }}</md-menu-item
-                >
-              </md-menu-content>
-            </md-menu>
-            <md-menu
-              md-direction="bottom-start"
-              class="zip-address"
-              md-align-trigger
-              md-dense
-            >
-              <md-field>
-                <label for="">Search address</label>
-                <md-input v-model="ak" required md-menu-trigger></md-input>
-              </md-field>
-              <md-menu-content>
-                <div v-if="addresses">
-                  <md-menu-item v-if="addresses.length === 0">Not found</md-menu-item>
-                </div>
-                <div v-else>
-                  <md-menu-item>Type</md-menu-item>
-                </div>
-                <md-menu-item
-                  v-for="list in addresses"
-                  :key="list.id"
-                  @click="selectAddress(list)"
-                  >{{ list.address }}</md-menu-item
-                >
-              </md-menu-content>
-            </md-menu>
+            <md-field>
+              <label for="">Postal code</label>
+              <md-input v-model="form.zip" required></md-input>
+            </md-field>
+
+            <md-field>
+              <label for="">Address</label>
+              <md-input v-model="form.address" required></md-input>
+            </md-field>
           </div>
         </div>
         <md-switch v-model="hasCompany" class="md-primary"
@@ -196,6 +119,10 @@ export default {
       last_name: null,
       addressId: null,
       country: null,
+      state: null,
+      city: null,
+      zip: null,
+      address: null,
       phone: null,
       website: null,
       company: null,
@@ -203,112 +130,15 @@ export default {
     },
     logo: null,
     countries: null,
-    states: null,
-    cities: null,
-    zips: null,
-    addresses: null,
     hasCompany: false,
-    sk: null,
-    ck: null,
-    zk: null,
-    ak: null,
+
     snackbar: {
       show: false,
       message: null,
       statusCode: null,
     },
   }),
-  watch: {
-    sk(after, before) {
-      this.getState();
-    },
-    ck(after, before) {
-      this.getCity();
-    },
-    zk(after, before) {
-      this.getZip();
-    },
-    ak(after, before) {
-      this.getAddress();
-    },
-  },
   methods: {
-    getState() {
-      axios
-        .get("search-state/" + this.form.country, {
-          params: {
-            keywords: this.sk,
-          },
-        })
-        .then((res) => {
-          console.log("states: ", res.data);
-          this.states = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getCity() {
-      axios
-        .get("search-city/" + this.sk, {
-          params: {
-            keywords: this.ck,
-          },
-        })
-        .then((res) => {
-          console.log("cities: ", res.data.data);
-          this.cities = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
-    getAddress() {
-      axios
-        .get("search-address/" + this.zk, {
-          params: {
-            keywords: this.ak,
-          },
-        })
-        .then((res) => {
-          console.log("address: ", res.data.data);
-          this.addresses = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getZip() {
-      axios
-        .get("search-zip/" + this.ck, {
-          params: {
-            keywords: this.zk,
-          },
-        })
-        .then((res) => {
-          console.log("zips: ", res.data.data);
-          this.zips = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    selectState(selected) {
-      this.sk = selected.state;
-    },
-
-    selectCity(selected) {
-      this.ck = selected.city;
-    },
-
-    selectAddress(selected) {
-      this.ak = selected.address;
-      this.form.addressId = selected.id;
-    },
-    selectZip(selected) {
-      this.zk = selected.zip;
-    },
     onChange(e) {
       this.logo = e.target.files[0];
     },
@@ -319,6 +149,10 @@ export default {
       fd.append("last_name", this.form.last_name);
       fd.append("addressId", this.form.addressId);
       fd.append("country", this.form.country);
+      fd.append("state", this.form.state);
+      fd.append("city", this.form.city);
+      fd.append("zip", this.form.zip);
+      fd.append("address", this.form.address);
       fd.append("phone", this.form.phone);
       fd.append("website", this.form.website);
       fd.append("company", this.form.company);
@@ -326,7 +160,7 @@ export default {
       axios
         .post("carrier/details", fd)
         .then((res) => {
-          console.log(">> ", res.data);
+          console.log("response ", res.data);
           this.$router.push("/carrier");
         })
         .catch((error) => {
@@ -346,9 +180,6 @@ export default {
         .catch((err) => {
           console.log("Error: ", err);
         });
-    },
-    tapHandler(direction) {
-      console.log("tap: ", direction);
     },
   },
   mounted() {

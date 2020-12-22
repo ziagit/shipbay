@@ -47,14 +47,17 @@ class ShipperDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required|unique:contacts',
             'country' => 'required',
-            'addressId' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'address' => 'required',
         ]);
         $contactId = $this->storeContact($request);
-
+        $addressId = $this->storeAddress($request);
         $shipper = new Shipper();
         $shipper->first_name = $request->first_name;
         $shipper->last_name = $request->last_name;
-        $shipper->address_id = $request->addressId;
+        $shipper->address_id = $addressId;
         $shipper->contact_id = $contactId;
         $shipper->user_id = JWTAuth::user()->id;
         $shipper->save();
@@ -69,7 +72,16 @@ class ShipperDetailsController extends Controller
         $contact->save();
         return $contact->id;
     }
-
+    public function storeAddress($request){
+        $address = new Address();
+        $address->country_id = $request->country;
+        $address->state = $request->state;
+        $address->city = $request->city;
+        $address->zip = $request->zip;
+        $address->address = $request->address;
+        $address->save();
+        return $address->id;
+    }
     /**
      * Display the specified resource.
      *
@@ -107,14 +119,18 @@ class ShipperDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required',
             'country' => 'required',
-            'addressId' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'address' => 'required',
         ]);
         $contactId = $this->updateContact($request);
+        $addressId = $this->updateAddress($request);
         $shipper = Shipper::find($id);
 
         $shipper->first_name = $request->first_name;
         $shipper->last_name = $request->last_name;
-        $shipper->address_id = $request->addressId;
+        $shipper->address_id = $addressId;
         $shipper->contact_id = $contactId;
         $shipper->user_id = JWTAuth::user()->id;
         $shipper->update();
@@ -130,7 +146,16 @@ class ShipperDetailsController extends Controller
         $contact->update();
         return $contact->id;
     }
-
+    public function updateAddress($request){
+        $address = Address::find($request->addressId);
+        $address->country_id = $request->country;
+        $address->state = $request->state;
+        $address->city = $request->city;
+        $address->zip = $request->zip;
+        $address->address = $request->address;
+        $address->update();
+        return $address->id;
+    }
     /**
      * Remove the specified resource from storage.
      *

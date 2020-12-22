@@ -19,7 +19,6 @@ class CreateAddressesTable extends Migration
             $table->string('zip');
             $table->string('city');
             $table->string('state');
-            $table->unsignedInteger('locationtype_id');
             $table->unsignedInteger('country_id');
             $table->timestamps();
         });

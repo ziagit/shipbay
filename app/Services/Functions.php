@@ -71,6 +71,7 @@ class Functions
                     $selectedCarriers[$i]['last_name'] = $carrier->last_name;
                     $selectedCarriers[$i]['company'] = $carrier->company;
                     $selectedCarriers[$i]['detail'] = $carrier->detail;
+                    $selectedCarriers[$i]['rates'] = $carrier->rates;
                     $selectedCarriers[$i]['phone'] = $carrier->contact->phone;
                     $selectedCarriers[$i]['website'] = $carrier->website;
                     $selectedCarriers[$i]['logo'] = $carrier->logo;

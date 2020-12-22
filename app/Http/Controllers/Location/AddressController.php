@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Address;
 use App\City;
+use App\State;
 
 class AddressController extends Controller
 {
@@ -88,18 +89,19 @@ class AddressController extends Controller
 
     public function searchState(Request $request, $country)
     {
+        return $request;
+
         $keywords = $request->keywords;
-        $results = Address::where('country_id', $country)
-        ->where('state', 'like', '%' . $keywords . '%')
-        ->groupBy('state')
+        $results = State::where('country_id', $country)
+        ->where('name', 'like', '%' . $keywords . '%')
         ->paginate(5);
         return $results;
     }
     public function searchCity(Request $request, $state)
     {
         $keywords = $request->keywords;
-        $results = Address::where('state', $state)
-        ->where('city', 'like', '%' . $keywords . '%')
+        $results = City::where('state', $state)
+        ->where('name', 'like', '%' . $keywords . '%')
         ->paginate(5);
         return $results;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Carrier;
 
+use App\Address;
 use App\Http\Controllers\Controller;
 use App\Carrier;
 use App\Contact;
@@ -47,9 +48,13 @@ class CarrierDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required|unique:contacts',
             'country' => 'required',
-            'addressId' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'address' => 'required',
         ]);
         $contactId = $this->storeContact($request);
+        $addressId = $this->storeAddress($request);
         try {
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
@@ -69,7 +74,7 @@ class CarrierDetailsController extends Controller
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
         $carrier->logo = $logo_name;
-        $carrier->address_id = $request->addressId;
+        $carrier->address_id = $addressId;
         $carrier->contact_id = $contactId;
         $carrier->user_id = JWTAuth::user()->id;
 
@@ -85,6 +90,16 @@ class CarrierDetailsController extends Controller
         $contact->email = JWTAuth::user()->email;
         $contact->save();
         return $contact->id;
+    }
+    public function storeAddress($request){
+        $address = new Address();
+        $address->country_id = $request->country;
+        $address->state = $request->state;
+        $address->city = $request->city;
+        $address->zip = $request->zip;
+        $address->address = $request->address;
+        $address->save();
+        return $address->id;
     }
     /**
      * Display the specified resource.
@@ -123,9 +138,13 @@ class CarrierDetailsController extends Controller
             'last_name' => 'required',
             'phone' => 'required',
             'country' => 'required',
-            'addressId' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'address' => 'required',
         ]);
         $contactId = $this->updateContact($request);
+        $addressId = $this->updateAddress($request);
         $carrier = Carrier::find($id);
 
             if ($request->hasFile('logo')) {
@@ -148,7 +167,7 @@ class CarrierDetailsController extends Controller
         $carrier->company = $request->company;
         $carrier->detail = $request->detail;
         $carrier->logo = $logo_name;
-        $carrier->address_id = $request->addressId;
+        $carrier->address_id = $addressId;
         $carrier->contact_id = $contactId;
         $carrier->user_id = JWTAuth::user()->id;
         $carrier->update();
@@ -164,6 +183,16 @@ class CarrierDetailsController extends Controller
         $contact->update();
         return $contact->id;
     }
+    public function updateAddress($request){
+        $address = Address::find($request->addressId);
+        $address->country_id = $request->country;
+        $address->state = $request->state;
+        $address->city = $request->city;
+        $address->zip = $request->zip;
+        $address->address = $request->address;
+        $address->update();
+        return $address->id;
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -174,4 +203,5 @@ class CarrierDetailsController extends Controller
     {
         // 
     }
+
 }
