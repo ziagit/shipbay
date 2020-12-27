@@ -198,6 +198,7 @@ export default {
         Echo.private("App.User." + this.user.id).notification((res) => {
           this.notifications.push(res.notification);
         });
+        console.log("notifications: ", this.notifications);
       }
     },
     hideMenu() {

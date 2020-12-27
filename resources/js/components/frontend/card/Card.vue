@@ -79,7 +79,7 @@ import Snackbar from "../../shared/Snackbar";
 import Spinner from "../../shared/Spinner";
 
 import { mapGetters, mapActions } from "vuex";
-var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
+var stripe = Stripe(process.env.MIX_STRIPE_KEY);
 var elements = stripe.elements();
 
 var style = {
@@ -215,6 +215,7 @@ export default {
     },
   },
   created() {
+    console.log(".env ", process.env.MIX_STRIPE_KEY);
     this.order = JSON.parse(localStorage.getItem("order"));
   },
   components: {

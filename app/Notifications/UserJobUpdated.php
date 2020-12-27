@@ -43,7 +43,7 @@ class UserJobUpdated extends Notification
     public function toMail($notifiable)
     {
         $jobstatus = Jobstatus::find($this->job->jobstatus_id);
-        $url = url('/#/shipment-details/'.$this->job->id);
+        $url = url('/#/carrier/history/details/'.$this->job->id);
         return (new MailMessage)
         ->subject('Shipment Status')
         ->greeting('Dear Customer')

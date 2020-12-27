@@ -41,7 +41,7 @@ class JobCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/#/carrier/history/job-details/'.$this->job->id);
+        $url = url('/#/carrier/history/details/'.$this->job->id);
         return (new MailMessage)
             ->subject('New Job Created')
             ->greeting('Dear Currier')

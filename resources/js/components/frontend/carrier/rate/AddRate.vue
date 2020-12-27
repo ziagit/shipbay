@@ -267,8 +267,8 @@ export default {
     sck: null, //srcCityKeywords
     dck: null, //desCityKeywords
     form: {
-      src_address: null,
-      des_address: null,
+      src_city: null,
+      des_city: null,
       min_rate: null,
       k0_k1: null,
       k1_k2: null,
@@ -286,7 +286,8 @@ export default {
     desStates: [],
     srcCities: [],
     desCities: [],
-    carrierId: null,
+    srcStateId: null,
+    desStateId: null,
     countryId: null,
   }),
   watch: {
@@ -309,15 +310,15 @@ export default {
     }),
   },
   methods: {
-    getSrcStates(keywords) {
+    getSrcStates() {
       axios
         .get("search-state/" + this.countries[0].id, {
           params: {
-            keywords: keywords,
+            keywords: this.ssk,
           },
         })
         .then((res) => {
-          console.log("state search res: ", res.data);
+          console.log("state res: ", res.data.data);
           this.srcStates = res.data.data;
         })
         .catch((err) => {
@@ -325,13 +326,15 @@ export default {
         });
     },
     selectSrcState(selected) {
-      this.ssk = selected.state;
+      console.log("slected ", selected);
+      this.ssk = selected.name;
+      this.srcStateId = selected.id;
     },
-    getDesStates(keywords) {
+    getDesStates() {
       axios
         .get("search-state/" + this.countries[0].id, {
           params: {
-            keywords: keywords,
+            keywords: this.dsk,
           },
         })
         .then((res) => {
@@ -342,16 +345,18 @@ export default {
         });
     },
     selectDesState(selected) {
-      this.dsk = selected.state;
+      this.dsk = selected.name;
+      this.desStateId = selected.id;
     },
-    getSrcCities(keywords) {
+    getSrcCities() {
       axios
-        .get("search-city/" + this.ssk, {
+        .get("search-city/" + this.srcStateId, {
           params: {
-            keywords: keywords,
+            keywords: this.sck,
           },
         })
         .then((res) => {
+          console.log("src city ", res.data);
           this.srcCities = res.data.data;
         })
         .catch((err) => {
@@ -359,14 +364,14 @@ export default {
         });
     },
     selectSrcCity(selected) {
-      this.form.src_address = selected.id;
-      this.sck = selected.city;
+      this.form.src_city = selected.id;
+      this.sck = selected.name;
     },
-    getDesCities(keywords) {
+    getDesCities() {
       axios
-        .get("search-city/" + this.dsk, {
+        .get("search-city/" + this.desStateId, {
           params: {
-            keywords: keywords,
+            keywords: this.dck,
           },
         })
         .then((res) => {
@@ -377,8 +382,8 @@ export default {
         });
     },
     selectDesCity(selected) {
-      this.form.des_address = selected.id;
-      this.dck = selected.city;
+      this.form.des_city = selected.id;
+      this.dck = selected.name;
     },
     onSrcStateChange() {
       this.sck = null;

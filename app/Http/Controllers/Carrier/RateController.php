@@ -57,8 +57,8 @@ class RateController extends Controller
 
         $rate->save();
 
-        $rate->addresses()->attach($request->src_address);
-        $rate->addresses()->attach($request->des_address);
+        $rate->cities()->attach($request->src_city);
+        $rate->cities()->attach($request->des_city);
         return response()->json(['message' => 'Saved successfully!'], 200);
     }
 
@@ -70,7 +70,7 @@ class RateController extends Controller
      */
     public function show($id)
     {
-        $rate = Rate::with('addresses')->find($id);
+        $rate = Rate::with('srcdes')->find($id);
         return response()->json($rate);
     }
 
@@ -109,10 +109,10 @@ class RateController extends Controller
 
         $rate->update();
 
-        $rate->addresses()->detach();
+        $rate->cities()->detach();
 
-        $rate->addresses()->attach($request->src_address);
-        $rate->addresses()->attach($request->des_address);
+        $rate->cities()->attach($request->src_city);
+        $rate->cities()->attach($request->des_city);
         return response()->json(['message' => 'Updated successfully!'], 200);
     }
 
@@ -125,7 +125,7 @@ class RateController extends Controller
     public function destroy($rateId)
     {
         $rate = Rate::find($rateId);
-        $rate->addresses()->detach();
+        $rate->cities()->detach();
         $rate->delete();
         return response()->json(["message"=>"Deleted successfully!"],200);
     }

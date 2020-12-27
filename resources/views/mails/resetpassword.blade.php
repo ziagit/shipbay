@@ -63,8 +63,8 @@
            <p>You requested a link to change your password. You can do this through the button below.</p>
        </div><br><br>
         <div class="action">
-            <a class="reset-button" href="http://localhost:8000/#/reset-password/{{$token}}">Change my password</a>
-           <!--<a class="reset-button" href="http://104.154.95.189/#/reset-password/{{$token}}">Change my password</a>--> 
+            <!--<a class="reset-button" href="http://localhost:8000/#/reset-password/{{$token}}">Change my password</a>-->
+           <a class="reset-button" href="http://104.154.95.189/#/reset-password/{{$token}}">Change my password</a>
         </div>
 
         <br><br>

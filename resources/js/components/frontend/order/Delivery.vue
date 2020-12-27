@@ -73,7 +73,12 @@ export default {
 
   methods: {
     nextStep() {
-      if (this.des.country === "" || this.des.state === "" || this.des.city === "") {
+      if (
+        this.des.country === "" ||
+        this.des.state === "" ||
+        this.des.city === "" ||
+        this.des.zip === ""
+      ) {
         this.snackbar.show = true;
         this.snackbar.message = "Please provide a valid address!";
         this.snackbar.statusCode = 404;

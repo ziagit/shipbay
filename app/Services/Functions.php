@@ -29,10 +29,9 @@ class Functions
             $carriers = json_decode($carriers);
         } */
         foreach ($carriers as $carrier) {
-        
             foreach ($carrier->rateaddress as $rate) {
-                $rate_src = $rate->addresses[0]->city;
-                $rate_des = $rate->addresses[1]->city;
+                $rate_src = $rate->cities[0]->name;
+                $rate_des = $rate->cities[1]->name;
                 $carrier_accessories = $carrier->accessories;
                 $cost = 0;
                 if (($rate_src === $order_src) && ($rate_des === $order_des)) {

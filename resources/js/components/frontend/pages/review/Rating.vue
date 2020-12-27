@@ -25,7 +25,12 @@
               </md-menu>
             </p>
             <div class="rating">
-              <star-rating v-model="carrier.rates" :star-size="15" />
+              <star-rating
+                v-model="carrier.rates"
+                :star-size="15"
+                :read-only="true"
+                :show-rating="false"
+              />
             </div>
           </div>
           <div class="list-action">

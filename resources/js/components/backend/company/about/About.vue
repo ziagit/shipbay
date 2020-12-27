@@ -45,7 +45,7 @@
       </md-table-row>
       <md-table-row v-for="about in abouts" :key="about.id">
         <md-table-cell md-numeric>{{ about.id }}</md-table-cell>
-        <md-table-cell >{{ about.description }}</md-table-cell>
+        <md-table-cell>{{ about.description }}</md-table-cell>
 
         <md-table-cell md-label="Actions">
           <md-button class="md-icon-button md-primary" @click="edit(about)">
@@ -56,7 +56,6 @@
           </md-button>
         </md-table-cell>
       </md-table-row>
-      
     </md-table>
     <md-button class="md-fab md-primary add-btn" @click="add()">
       <md-icon>add</md-icon>
@@ -70,7 +69,6 @@ import AddAbout from "./AddAbout";
 import EditAbout from "./EditAbout";
 import axios from "axios";
 
-
 export default {
   name: "about",
   data: () => ({
@@ -83,7 +81,6 @@ export default {
   }),
 
   methods: {
-
     get() {
       axios
         .get("admin/about")
@@ -145,5 +142,4 @@ export default {
     right: 20px;
   }
 }
-
 </style>

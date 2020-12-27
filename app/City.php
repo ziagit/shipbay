@@ -11,16 +11,8 @@ class City extends Model
         return $this->belongsTo(State::class);
     }
 
-    public function citycodes(){
-        return $this->belongsToMany(Citycode::class);
-    }
- 
-    public function cityZip(){
-        return $this->citycodes()->with('rates');
-    }
-
-    public function address(){
-        return $this->hasMany(Address::class);
+    public function rates(){
+        return $this->belongsToMany(Rate::class);
     }
 
 }
