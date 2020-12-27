@@ -83,7 +83,8 @@ export default {
       if (
         this.order.src.country === "" ||
         this.order.src.state === "" ||
-        this.order.src.city === ""
+        this.order.src.city === "" ||
+        this.order.src.zip === ""
       ) {
         this.snackbar.show = true;
         this.snackbar.message = "Please provide a valid address!";

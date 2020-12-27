@@ -9,8 +9,11 @@ class Rate extends Model
     public function carriers(){
         return $this->belongsTo(Carrier::class);
     }
-    public function addresses(){
-        return $this->belongsToMany(Address::class);
+    public function cities(){
+        return $this->belongsToMany(City::class);
+    }
+    public function srcdes(){
+        return $this->cities()->with('state');
     }
 
 

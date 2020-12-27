@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="rows">
       <div class="row social-media">
-        <div class="md-headline"><span class="logo">Shipping</span> Tap</div>
+        <div class="md-headline"><span class="logo">ShipBay</span></div>
         <div class="md-body-1">Stay in touch & get update from social media</div>
         <div class="icons">
           <a href="https://facebook.com"

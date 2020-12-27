@@ -89,18 +89,15 @@ class AddressController extends Controller
 
     public function searchState(Request $request, $country)
     {
-        return $request;
-
         $keywords = $request->keywords;
-        $results = State::where('country_id', $country)
-        ->where('name', 'like', '%' . $keywords . '%')
+        $results = State::where('name', 'like', '%' . $keywords . '%')
         ->paginate(5);
         return $results;
     }
     public function searchCity(Request $request, $state)
     {
         $keywords = $request->keywords;
-        $results = City::where('state', $state)
+        $results = City::where('state_id', $state)
         ->where('name', 'like', '%' . $keywords . '%')
         ->paginate(5);
         return $results;

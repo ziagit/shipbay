@@ -87,7 +87,7 @@ import {
 var elements = stripe.elements(); */
 =======
 import { mapGetters, mapActions } from "vuex";
-var stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
+var stripe = Stripe(process.env.MIX_STRIPE_KEY);
 var elements = stripe.elements();
 
 >>>>>>> 465fb9f7772a2d2eb9eecc2aca915e236db8ea8e
@@ -224,6 +224,7 @@ export default {
     },
   },
   created() {
+    console.log(".env ", process.env.MIX_STRIPE_KEY);
     this.order = JSON.parse(localStorage.getItem("order"));
   },
   components: {

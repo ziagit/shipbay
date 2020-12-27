@@ -48,9 +48,9 @@ class RateSeeder extends Seeder
         Rate::insert($rates);
 
         $rate = Rate::find(1);
-        $rate->addresses()->attach([1,2]);
+        $rate->cities()->attach([1,2]);
         $rate = Rate::find(2);
-        $rate->addresses()->attach([1,1]);
+        $rate->cities()->attach([1,1]);
 
     }
 }

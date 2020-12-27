@@ -12,6 +12,7 @@ use App\Job;
 use App\Notifications\JobCreated;
 use App\Address;
 use App\Contact;
+use App\Country;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,7 +67,7 @@ class ShipmentController extends Controller
     public function storeOrder($request, $shipperId)
     {
         $contactIds = $this->storeContact($request);
-        $addressIds = $this->findAddress($request);
+        $addressIds = $this->storeAddress($request);
     
         $order = Order::where('uniqid', $request->id)->first();
         $order->pickup_date = $request->pickDate;
@@ -145,14 +146,33 @@ class ShipmentController extends Controller
         array_push($contactIds, $desId);
         return $contactIds;
     }
-    public function findAddress($request){
+    public function storeAddress($request){
         $addressIds = array();
-        
-        $srcAddress = Address::where('city', $request->src['city'])->first();
-        array_push($addressIds, $srcAddress->id);
+        $srcCountry = Country::where('name', $request->src['country'])->first();
+        $srcAddress = [
+            'street_name' => $request->src['street'],
+            'street_number' => $request->src['street_number'],
+            'address' => $request->src['street'],
+            'zip' => $request->src['zip'],
+            'city' => $request->src['city'],
+            'state' => $request->src['state'],
+            'country_id' => $srcCountry->id
+        ];
+        $srcId = Address::insertGetId($srcAddress);
+        array_push($addressIds, $srcId);
 
-        $desAddress = Address::where('city', $request->src['city'])->first();
-        array_push($addressIds, $desAddress->id);
+        $desCountry = Country::where('name', $request->des['country'])->first();
+        $desAddress = [
+            'street_name' => $request->des['street'],
+            'street_number' => $request->des['street_number'],
+            'address' => $request->des['street'],
+            'zip' => $request->des['zip'],
+            'city' => $request->des['city'],
+            'state' => $request->des['state'],
+            'country_id' => $desCountry->id
+        ];
+        $desId = Address::insertGetId($desAddress);
+        array_push($addressIds, $desId);
         return $addressIds;
     }
 

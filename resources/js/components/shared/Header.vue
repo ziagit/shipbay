@@ -8,7 +8,7 @@
       >
         <md-icon>menu</md-icon>
       </md-button>
-      <h3 @click="$router.push('/')"><span>Shipping </span> TAP</h3>
+      <h3 @click="$router.push('/')"><span>ShipBay</span></h3>
     </div>
     <div class="right">
       <md-button class="md-icon-button" @click="track()">
@@ -77,6 +77,7 @@ export default {
       span {
         font-family: "Segoe Script", Helvetica, Arial;
         font-size: 20px;
+        cursor: pointer;
       }
     }
   }

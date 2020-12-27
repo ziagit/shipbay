@@ -101,7 +101,6 @@ Route::group(['namespace' => 'Order'], function () {
   Route::post('charge', 'CheckoutController@store');
   Route::get('payment-status/{orderId}', 'CheckoutController@checkPayment');
   Route::get("check-payment/{id}", 'CheckoutController@checkPayment');
-  Route::get('searching', 'OrderController@queryBuilder');
 
   Route::get('location-type', 'OrderController@locationType');
   Route::get('pick-services', 'OrderController@pickServices');
@@ -121,13 +120,11 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('addresses', 'AddressController@index');
   Route::get('search-state/{country}','AddressController@searchState');
   Route::get('search-city/{state}','AddressController@searchCity');
-  Route::get('search-zip/{city}','AddressController@searchZip');
-  Route::get('search-address/{zip}','AddressController@searchAddress');
-  Route::get('search-state-city/{country}','AddressController@searchStateCity');
-  Route::get('search-zip-address/{city}','AddressController@searchZipAddress');
 });
 Route::resource('rating', 'Carrier\RatingController');
-
+Route::get("stripe-key", function(){
+  return env("STRIPE_KEY");
+});
 Route::get("unauthorized", function () {
   return response()->json(['message' => 'You are unauthorized!'], 401);
 })->name('unauthorized');
