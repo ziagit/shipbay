@@ -22,7 +22,11 @@
                 City: {{ shipment.src.city }} -
                 {{ shipment.src.zip }}
               </div>
-              <div class="md-body-1">Full address: {{ shipment.src.address }}</div>
+              <div class="md-body-1">
+                Full address: {{ shipment.src.street }} {{ shipment.src.street_number }},
+                {{ shipment.src.city }}, {{ shipment.src.state }} {{ shipment.src.zip }},
+                {{ shipment.src.country }}
+              </div>
               <div class="md-body-1">Contact name: {{ shipment.shipper.pickupName }}</div>
               <div class="md-body-1">Phone: {{ shipment.shipper.pickupPhone }}</div>
               <div class="md-body-1">Email: {{ shipment.shipper.pickupEmail }}</div>
@@ -38,7 +42,13 @@
                 City: {{ shipment.des.city }} -
                 {{ shipment.des.zip }}
               </div>
-              <div class="md-body-1">Full address: {{ shipment.des.address }}</div>
+              <div class="md-body-1">
+                Full address:
+                {{ shipment.des.street }}
+                {{ shipment.des.street_number }}, {{ shipment.des.city }},
+                {{ shipment.des.state }} {{ shipment.des.zip }},
+                {{ shipment.des.country }}
+              </div>
               <div class="md-body-1">
                 Contact name: {{ shipment.shipper.deliveryName }}
               </div>
