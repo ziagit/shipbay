@@ -19,6 +19,7 @@ import Terms from './components/frontend/pages/Terms'
 import OurCarriers from './components/frontend/pages/OurCarriers'
 import OurShippers from './components/frontend/pages/OurShippers'
 import Rating from './components/frontend/pages/review/Rating'
+import CarrierReviews from './components/frontend/pages/review/CarrierReviews'
 
 import CarrierProfile from './components/frontend/carrier/CarrierProfile';
 import CarrierDetails from './components/frontend/carrier/general-details/CarrierDetails';
@@ -180,6 +181,8 @@ export default new VueRouter({
                 },
                 { name: 'confirmation', path: 'confirmation', component: Confirmation },
                 { name: 'completion', path: 'completion', component: Completion },
+                { name: 'reviews', path: 'reviews/:id', component: CarrierReviews},
+
 
                 {
                     name: 'carrier',

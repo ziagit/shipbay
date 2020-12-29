@@ -150,9 +150,8 @@ class ShipmentController extends Controller
         $addressIds = array();
         $srcCountry = Country::where('name', $request->src['country'])->first();
         $srcAddress = [
-            'street_name' => $request->src['street'],
+            'street' => $request->src['street'],
             'street_number' => $request->src['street_number'],
-            'address' => $request->src['street'],
             'zip' => $request->src['zip'],
             'city' => $request->src['city'],
             'state' => $request->src['state'],
@@ -163,9 +162,8 @@ class ShipmentController extends Controller
 
         $desCountry = Country::where('name', $request->des['country'])->first();
         $desAddress = [
-            'street_name' => $request->des['street'],
+            'street' => $request->des['street'],
             'street_number' => $request->des['street_number'],
-            'address' => $request->des['street'],
             'zip' => $request->des['zip'],
             'city' => $request->des['city'],
             'state' => $request->des['state'],

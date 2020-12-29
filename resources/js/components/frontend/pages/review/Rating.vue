@@ -2,6 +2,8 @@
   <div class="container">
     <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue" />
     <div class="content">
+      <span class="md-display-1">Rate our carriers</span>
+
       <md-list class="md-triple-line carriers">
         <md-list-item v-for="carrier in carriers" :key="carrier.id">
           <md-avatar>
@@ -34,14 +36,10 @@
             </div>
           </div>
           <div class="list-action">
-            <md-menu
-              md-direction="top-start"
-              :md-active.sync="carrier.togal"
-              :mdCloseOnClick="closeOnClick"
-            >
+            <md-menu md-direction="top-start" :md-active.sync="carrier.togal">
               <md-button md-menu-trigger class="md-primary">Rate</md-button>
               <md-menu-content>
-                <Rate :carrier="carrier.id" :rated="rated" />
+                <Rate :carrier="carrier.id" v-on:rated="rated" />
               </md-menu-content>
             </md-menu>
           </div>
@@ -49,6 +47,7 @@
       </md-list>
     </div>
     <Footer />
+    <Snackbar :data="snackbar" />
   </div>
 </template>
 <script>
@@ -65,6 +64,11 @@ export default {
     rating: 0,
     carriers: "",
     closeOnClick: true,
+    snackbar: {
+      show: false,
+      message: null,
+      statusCode: null,
+    },
   }),
   watch: {
     carriers(data) {
@@ -89,11 +93,16 @@ export default {
         });
     },
     rated(data) {
-      this.closeOnClick = true;
-      this.getCarriers();
+      this.snackbar.show = true;
+      this.snackbar.message = data.message;
+      this.snackbar.statusCode = 200;
+      if (!JSON.parse(localStorage.getItem("vtd")).includes(data.id)) {
+        this.getCarriers();
+      }
     },
   },
   components: {
+    Snackbar,
     StarRating,
     CarrierInfo,
     Rate,
@@ -105,6 +114,7 @@ export default {
 <style scoped lang="scss">
 .container {
   .content {
+    text-align: center;
     height: calc(100vh - 55px);
     padding: 30px;
     max-width: 600px;

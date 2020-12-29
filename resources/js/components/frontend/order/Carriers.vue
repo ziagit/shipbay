@@ -61,17 +61,8 @@
                 :read-only="true"
                 :show-rating="false"
               />
-              <div class="rate">
-                <md-menu
-                  md-direction="top-start"
-                  :md-active.sync="carrier.togal"
-                  :mdCloseOnClick="closeOnClick"
-                >
-                  <span md-menu-trigger class="carrier-info">Rate</span>
-                  <md-menu-content>
-                    <Rate :carrier="carrier.id" :rated="rated" />
-                  </md-menu-content>
-                </md-menu>
+              <div class="reviews">
+                <routerLink :to="{ path: '/reviews/' + carrier.id }">reviews</routerLink>
               </div>
             </div>
           </div>
@@ -117,7 +108,6 @@ export default {
   data: () => ({
     carriers: null,
     rating: 0,
-    closeOnClick: true,
     order: null,
     dataLoading: true,
     carriersExist: true,
@@ -188,7 +178,13 @@ export default {
       return functions.totalWeight(this.order.myItem.items);
     },
     rated(data) {
-      this.getCarriers();
+      console.log("ratedddd: ", data);
+      this.snackbar.show = true;
+      this.snackbar.message = data.message;
+      this.snackbar.statusCode = 200;
+      if (!JSON.parse(localStorage.getItem("vtd")).includes(data.id)) {
+        this.getCarriers();
+      }
     },
   },
 
@@ -247,8 +243,8 @@ export default {
       .rating {
         display: flex;
         justify-content: space-between;
-        max-width: 100px;
-        .rate {
+        max-width: 132px;
+        .reviews {
           text-align: right;
         }
       }
