@@ -32,4 +32,7 @@ class Carrier extends Model
     public function jobs(){
         return $this->hasMany(Job::class);
     }
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
 }

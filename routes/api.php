@@ -116,12 +116,13 @@ Route::group(['namespace' => 'Order'], function () {
   Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
 });
 Route::group(['namespace' => 'Location'], function () {
-  Route::get('countries', 'CountryController@index');
+  Route::resource('countries', 'CountryController');
   Route::get('addresses', 'AddressController@index');
   Route::get('search-state/{country}','AddressController@searchState');
   Route::get('search-city/{state}','AddressController@searchCity');
 });
 Route::resource('rating', 'Carrier\RatingController');
+Route::resource('review', 'Carrier\ReviewController');
 Route::get("stripe-key", function(){
   return env("STRIPE_KEY");
 });

@@ -1,22 +1,16 @@
 <template>
   <div class="rating">
     <star-rating v-model="rating" :star-size="30" @rating-selected="setRating" />
-    <Snackbar :data="snackbar" />
   </div>
 </template>
 <script>
 import StarRating from "vue-star-rating";
-import Snackbar from "../../../shared/Snackbar";
 import axios from "axios";
 export default {
   props: ["carrier"],
   data: () => ({
     rating: 0,
-    snackbar: {
-      show: false,
-      message: null,
-      statusCode: null,
-    },
+    vtd: [],
   }),
   methods: {
     setRating(e) {
@@ -24,24 +18,31 @@ export default {
       this.submit();
     },
     submit() {
-      if (this.rating > 0) {
+      if (this.rating > 0 && !this.vtd.includes(this.carrier)) {
         axios
           .put("rating/" + this.carrier, { rate: this.rating })
           .then((res) => {
-            this.$emit("rated", this.rating);
-            this.snackbar.show = true;
-            this.snackbar.message = res.data;
-            this.snackbar.statusCode = 200;
-            console.log("respons", res.data);
+            this.vtd.push(this.carrier);
+            localStorage.setItem("vtd", JSON.stringify(this.vtd));
+            this.$emit("rated", { message: res.data, id: 0 });
+            console.log("voted", sessionStorage.getItem("vtd"));
           })
           .catch((err) => console.log(err));
+      } else {
+        this.$emit("rated", {
+          message: "You already rated!",
+          id: this.carrier,
+        });
       }
     },
   },
-
+  created() {
+    if (localStorage.getItem("vtd")) {
+      this.vtd = JSON.parse(localStorage.getItem("vtd"));
+    }
+  },
   components: {
     StarRating,
-    Snackbar,
   },
 };
 </script>

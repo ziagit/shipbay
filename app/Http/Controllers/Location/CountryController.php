@@ -13,7 +13,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return Country::all();
+        $countries = Country::all();
+        return response()->json($countries);
     }
 
     /**
@@ -45,7 +46,8 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        //
+        $country = Country::find($id);
+        return response()->json($country);
     }
 
     /**
