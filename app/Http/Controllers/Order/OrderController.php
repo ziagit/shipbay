@@ -52,7 +52,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::with('items')->find($id);
-        return $order;
+        return response()->json($order);
     }
 
     /**
@@ -92,31 +92,31 @@ class OrderController extends Controller
     public function locationType()
     {
         $services = Accessory::where('code', 'bs')->orWhere('code', 'rs')->orWhere('code', 'sp')->get();
-        return compact('services');
+        return response()->json($services);
     }
     public function pickServices()
     {
         $services = Accessory::where('code', 'tl')->orWhere('code', 'in')->get();
-        return $services;
+        return response()->json($services);
     }
     public function deliveryServices()
     {
         $services = Accessory::where('code', 'tl')->orWhere('code', 'in')->orWhere('code', 'ap')->get();
-        return $services;
+        return response()->json($services);
     }
     public function pickDate()
     {
         $appointment = Accessory::where('code', 'ap')->get();
-        return $appointment;
+        return response()->json($appointment);
     }
     public function itemCondition()
     {
         $appointment = Accessory::where('code', 'tm')->orWhere('code', 'dg')->orWhere('code', 'st')->get();
-        return $appointment;
+        return response()->json($appointment);
     }
     public function itemType()
     {
         $types = Itemtype::all();
-        return $types;
+        return response()->json($types);
     }
 }
