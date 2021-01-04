@@ -138,7 +138,7 @@ export default {
       axios
         .get("location-type")
         .then((res) => {
-          this.accessoryList = res.data.services;
+          this.accessoryList = res.data;
         })
         .catch((err) => {
           console.log("Error: ", err);

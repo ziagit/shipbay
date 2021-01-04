@@ -141,7 +141,7 @@ export default {
         .get("location-type")
         .then((res) => {
           this.cityList = res.data.cities;
-          this.accessoryList = res.data.services;
+          this.accessoryList = res.data;
         })
         .catch((err) => {
           console.log("Error: ", err);
