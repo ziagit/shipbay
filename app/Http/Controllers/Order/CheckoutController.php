@@ -41,8 +41,14 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(CheckoutRequest $request)
+    public function store(Request $request)
     {
+        return $request;
+        if(Auth::check()){
+            return response()->json("you are logedin");
+        }else{
+            return response()->json("you are not logedin");
+        }
         if (Auth::check() && Auth::user()->roles[0]->name === 'shipper') {
             if ($this->checkCustomer() === null) {
                 try {
@@ -50,7 +56,7 @@ class CheckoutController extends Controller
                         'source' => $request->stripeToken,
                         'email' => $request->email,
                         'name' => $request->name,
-                        'description' => "Shipment customer",
+                        'description' => "Paied for shipment",
                     ]);
                     $this->updateUser($customer['id']);
                     return [
@@ -68,7 +74,7 @@ class CheckoutController extends Controller
                     'source' => $request->stripeToken,
                     'email' => $request->email,
                     'name' => $request->name,
-                    'description' => "Shipment customer",
+                    'description' => "Paied for shipment",
                 ]);
                 return [
                     'message' => 'Thank you! your card updated successfully.', 

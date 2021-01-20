@@ -64,7 +64,7 @@
        </div><br><br>
         <div class="action">
             <!--<a class="reset-button" href="http://localhost:8000/#/reset-password/{{$token}}">Change my password</a>-->
-           <a class="reset-button" href="http://104.154.95.189/#/reset-password/{{$token}}">Change my password</a>
+           <a class="reset-button" href="http://35.184.16.20/#/reset-password/{{$token}}">Change my password</a>
         </div>
 
         <br><br>
