@@ -43,12 +43,6 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-        return $request;
-        if(Auth::check()){
-            return response()->json("you are logedin");
-        }else{
-            return response()->json("you are not logedin");
-        }
         if (Auth::check() && Auth::user()->roles[0]->name === 'shipper') {
             if ($this->checkCustomer() === null) {
                 try {
