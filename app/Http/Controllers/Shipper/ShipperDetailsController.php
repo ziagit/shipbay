@@ -78,7 +78,7 @@ class ShipperDetailsController extends Controller
         $address->state = $request->state;
         $address->city = $request->city;
         $address->zip = $request->zip;
-        $address->address = $request->address;
+        $address->formated_address = $request->address;
         $address->save();
         return $address->id;
     }
