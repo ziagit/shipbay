@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Order;
 use App\Http\Controllers\Controller;
 use App\order;
-use App\City;
-use App\Citycode;
 use App\Accessory;
-use App\Item;
 use App\Itemtype;
 use Illuminate\Http\Request;
-use OrderSeeder;
 
 class OrderController extends Controller
 {

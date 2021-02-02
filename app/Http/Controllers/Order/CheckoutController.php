@@ -43,6 +43,7 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
+        //return response()->json($request);
         if (Auth::check() && Auth::user()->roles[0]->name === 'shipper') {
             if ($this->checkCustomer() === null) {
                 try {
