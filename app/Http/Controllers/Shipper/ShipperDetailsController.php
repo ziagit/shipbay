@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Shipper;
 
 use App\Address;
 use App\Contact;
-use App\Customeraddress;
 use App\Http\Controllers\Controller;
 use App\Shipper;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Validator;
 
 class ShipperDetailsController extends Controller
 {
@@ -42,7 +42,7 @@ class ShipperDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required|unique:contacts',
@@ -52,6 +52,10 @@ class ShipperDetailsController extends Controller
             'zip' => 'required',
             'address' => 'required',
         ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
         $contactId = $this->storeContact($request);
         $addressId = $this->storeAddress($request);
         $shipper = new Shipper();
