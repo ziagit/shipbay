@@ -11,7 +11,7 @@ class SignInController extends Controller
     public function __invoke(Request $request)
     {
         if(!$token = Auth::attempt($request->only('email', 'password'))){
-            return response(['message'=>'The username or password is incorrect!'],401);
+            return response()->json(['message'=>'The username or password is incorrect!'],401);
         }
         return response()->json($token);
     }
