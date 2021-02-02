@@ -20,7 +20,7 @@ class CardController extends Controller
         $customerId = Auth::user()->customer_id;
         if ($customerId) {
             $customer = Stripe::customers()->find($customerId);
-            return $customer;
+            return response()->json($customer);
         } else {
             return null;
         }

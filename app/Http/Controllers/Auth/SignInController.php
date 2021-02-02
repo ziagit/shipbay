@@ -13,6 +13,6 @@ class SignInController extends Controller
         if(!$token = Auth::attempt($request->only('email', 'password'))){
             return response(['message'=>'The username or password is incorrect!'],401);
         }
-        return response()->json(compact('token'));
+        return response()->json($token);
     }
 }
