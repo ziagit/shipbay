@@ -11,7 +11,7 @@
           startColor="#f97d4a"
           stopColor="#ffa500"
         >
-          <p>%{{ percentage }}</p>
+          <p style="font-weight: bold">{{ percentage }}%</p>
         </radial-progress-bar>
       </div>
       <div class="break"></div>
