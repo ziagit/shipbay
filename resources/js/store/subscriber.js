@@ -12,15 +12,5 @@ store.subscribe((mutation) => {
                 axios.defaults.headers.common['Authorization'] = null
             }
             break;
-/*         case 'shared/SET_CARD':
-            if(mutation.payload){
-                localStorage.setItem('card',JSON.stringify(mutation.payload))
-            }
-            break;
-        case 'shared/SET_TEMP':
-            if(mutation.payload){
-                localStorage.setItem('temp', JSON.stringify(mutation.payload))
-            }
-            break; */
     }
 })
