@@ -1,13 +1,7 @@
 <?php
-
 use App\Accessory;
-use App\Address;
-use App\Citycode;
 use Illuminate\Database\Seeder;
 use App\Order;
-use App\Item;
-use App\City;
-use App\Customeraddress;
 
 class OrderSeeder extends Seeder
 {

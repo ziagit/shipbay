@@ -45,8 +45,9 @@ import Admin from './components/backend/Admin';
 import Home from './components/frontend/Home';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8000/api/';
-//axios.defaults.baseURL = 'http://104.154.95.189/api/';
+//axios.defaults.baseURL = 'http://localhost:8000/api/';
+axios.defaults.baseURL = 'http://35.184.16.20/api/';
+//some time when I push to server api still points to localhost
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

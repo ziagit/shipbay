@@ -43,9 +43,9 @@ class SignUpController extends Controller
             $user->roles()->attach($role);
 
             if (!$token = Auth::attempt($data->only('email', 'password'))) {
-                return response(null, 401);
+                return response()->json(null, 401);
             }
-            return response()->json(compact('token'));
+            return response()->json($token);
         } catch (Exception $e) {
             return $e->getCode();
         }

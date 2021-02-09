@@ -49,6 +49,7 @@ class ShipmentController extends Controller
      */
     public function store(Request $request)
     {
+        //return response()->json($request);
         $shipperId = $this->storeShipper($request->shipper);
         if ($shipperId) {
             $orderId = $this->storeOrder($request, $shipperId);
@@ -57,10 +58,11 @@ class ShipmentController extends Controller
 
             $user  = Carrier::with('user')->find($request->carrier['id'])->user;
             $admin = User::find(1);
-            $user->notify(new JobCreated($job));
-            $admin->notify(new JobCreated($job));
 
-            return $user->notifications;
+            $user->notify(new JobCreated($job));
+
+            $admin->notify(new JobCreated($job));
+            return response()->json($user->notifications);
         }
         return response()->json(['message' => 'Shipper not found!'], 404);
     }

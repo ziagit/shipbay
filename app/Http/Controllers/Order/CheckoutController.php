@@ -41,8 +41,9 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(CheckoutRequest $request)
+    public function store(Request $request)
     {
+        //return response()->json($request);
         if (Auth::check() && Auth::user()->roles[0]->name === 'shipper') {
             if ($this->checkCustomer() === null) {
                 try {
@@ -50,7 +51,7 @@ class CheckoutController extends Controller
                         'source' => $request->stripeToken,
                         'email' => $request->email,
                         'name' => $request->name,
-                        'description' => "Shipment customer",
+                        'description' => "Paied for shipment",
                     ]);
                     $this->updateUser($customer['id']);
                     return [
@@ -68,14 +69,16 @@ class CheckoutController extends Controller
                     'source' => $request->stripeToken,
                     'email' => $request->email,
                     'name' => $request->name,
-                    'description' => "Shipment customer",
+                    'description' => "Paied for shipment",
                 ]);
-                return [
-                    'message' => 'Thank you! your card updated successfully.', 
-                    'id' => null,
-                    'status' => 'unpaid',
-                    'email'=> $request->email
-                ];
+                return response()->json(
+                    [
+                        'message' => 'Thank you! your card updated successfully.', 
+                        'id' => null,
+                        'status' => 'unpaid',
+                        'email'=> $request->email
+                    ]
+                    );
             }
         } else {
             return $this->charge($request);
@@ -94,24 +97,28 @@ class CheckoutController extends Controller
                     'customer' => $customer->customer_id
                 ]);
                 $orderId = $this->createEmptyOrder($charge['id']);
-                return [
-                    'message' => 'Thank you! your payment was successful.', 
-                    'id' => $orderId,
-                    'status' => 'paid',
-                    'email' => $request->email
-                ];
+                return response()->json(
+                    [
+                        'message' => 'Thank you! your payment was successful.', 
+                        'id' => $orderId,
+                        'status' => 'paid',
+                        'email' => $request->email
+                    ]
+                );
             } catch (CardErrorException $e) {
                 return $e;
             }
         } else {
             $order = Order::where('uniqid',$request->id)->first();
             if (Stripe::charges()->find($order->charge_id)) {
-                return [
-                    'message' => 'You already paid for this order!', 
-                    'id' => $request->id,
-                    'status' => 'paid',
-                    'email' => $request->email
-                ];
+                return response()->json(
+                    [
+                        'message' => 'You already paid for this order!', 
+                        'id' => $request->id,
+                        'status' => 'paid',
+                        'email' => $request->email
+                    ]
+                ); 
             }
         }
     }
@@ -127,24 +134,28 @@ class CheckoutController extends Controller
                     'receipt_email' => $request->email,
                 ]);
                 $orderId = $this->createEmptyOrder($charge['id']);
-                return [
-                    'message' => 'Thank you! your payment was successful.', 
-                    'id' => $orderId,
-                    'status' => 'paid',
-                    'email' => $request->email
-                ];
+                return response()->json(
+                    [
+                        'message' => 'Thank you! your payment was successful.', 
+                        'id' => $orderId,
+                        'status' => 'paid',
+                        'email' => $request->email
+                    ]
+                    );
             } catch (CardErrorException $e) {
                 return $e;
             }
         } else {
             $order = Order::where('uniqid',$request->orderId)->first();
             if (Stripe::charges()->find($order->charge_id)) {
-                return [
-                    'message' => 'You already paid for this order!', 
-                    'id' => $request->orderId,
-                    'status' => 'paid',
-                    'email' => $request->email
-                ];
+                return response()->json(
+                    [
+                        'message' => 'You already paid for this order!', 
+                        'id' => $request->orderId,
+                        'status' => 'paid',
+                        'email' => $request->email
+                    ]
+                );
             }
         }
     }
@@ -180,11 +191,17 @@ class CheckoutController extends Controller
         $order = Order::where('uniqid',$id)->first();
         if ($order) {
             if (Stripe::charges()->find($order->charge_id)) {
-                return ['message'=>'Thanks! you paid.', 'status'=>true];
+                return response()->json(
+                    ['message'=>'Thanks! your payment was successfull.', 'status'=>true]
+                );
             }
-            return ['message'=>'Charge id not muching','status'=>false];
+            return response()->json(
+                ['message'=>'Charge id not muching','status'=>false]
+            );
         }
-        return ['message'=>'Order not found','status'=>false];
+        return response()->json(
+            ['message'=>'Order not found','status'=>false]
+        );
     }
 
     /**

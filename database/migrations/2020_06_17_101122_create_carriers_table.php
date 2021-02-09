@@ -21,7 +21,7 @@ class CreateCarriersTable extends Migration
             $table->string('website')->nullable();
             $table->text('detail')->nullable();
             $table->string('logo')->nullable();
-            $table->float('rates')->default(2);
+            $table->double('rates')->default(2.0);
             $table->unsignedInteger('contact_id');
             $table->unsignedInteger('address_id');
             $table->unsignedInteger('user_id');

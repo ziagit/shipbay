@@ -116,7 +116,6 @@ export default {
           this.form.website = res.data.website;
           this.form.company = res.data.company;
           this.form.detail = res.data.detail;
-          this.form.addressId = res.data.full_address.id;
           this.form.contactId = res.data.contact.id;
           this.form.addressId = res.data.full_address.id;
           this.form.country = res.data.full_address.country.id;
