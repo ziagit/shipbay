@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import axio from "axios";
 import { mapActions, mapGetters } from "vuex";
 import Spinner from "../../shared/Spinner";
 import Snackbar from "../../shared/Snackbar";
@@ -57,6 +56,9 @@ export default {
     orderExist: false,
   }),
   methods: {
+    test() {
+      console.log("hi");
+    },
     ...mapActions({
       signIn: "auth/signIn",
     }),
@@ -65,6 +67,7 @@ export default {
         this.dataLoading = true;
         this.signIn(this.form)
           .then((res) => {
+            console.log("xxxxxxxxxxxx", res);
             switch (this.user.role[0].name) {
               case "carrier":
                 axios.get("carrier/details").then((res) => {

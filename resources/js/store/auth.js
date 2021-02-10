@@ -24,13 +24,14 @@ export default {
     },
     actions: {
         async signIn({ dispatch }, credentials) {
+           
             let response = await axios.post("auth/signin", credentials)
-            return dispatch('attempt', response.data.token)
+            return dispatch('attempt', response.data)
         },
 
         async signUp({ dispatch }, credentials) {
             let response = await axios.post("auth/signup", credentials)
-            return dispatch('attempt', response.data.token)
+            return dispatch('attempt', response.data)
         },
 
         async attempt({ commit, state }, token) {

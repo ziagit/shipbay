@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('shipper-address', "ShipperAccountController@shipperAddress");
   });
   Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'role'], function () {
+    Route::resource('terms', 'AdminTermsController');
     Route::resource('countries', 'AdminCountryController');
     Route::get('search-country', 'AdminCountryController@search');
     Route::resource('states', 'AdminStateController');

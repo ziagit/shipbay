@@ -73,8 +73,8 @@
           <md-list-item class="md-inset" to="/admin/contact" @click="hideMenu()"
             >Contact</md-list-item
           >
-          <md-list-item class="md-inset" to="/admin/services" @click="hideMenu()"
-            >Services</md-list-item
+          <md-list-item class="md-inset" to="/admin/terms" @click="hideMenu()"
+            >Terms</md-list-item
           >
         </md-list>
       </md-list-item>

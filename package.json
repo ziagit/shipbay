@@ -33,7 +33,7 @@
         "vue-radial-progress": "^0.3.2",
         "vue-router": "^3.3.4",
         "vue-star-rating": "^1.7.0",
-        "vue2-touch-events": "^2.3.2",
+        "vue-tinymce-editor": "^1.6.2",
         "vuex": "^3.5.1",
         "vuex-persistedstate": "^3.0.1"
     }
