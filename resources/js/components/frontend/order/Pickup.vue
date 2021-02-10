@@ -40,9 +40,6 @@
     </form>
 
     <Snackbar :data="snackbar" />
-
-    <br /><br />
-    <md-button class="custom-button" @click="test()"> Test </md-button>
   </div>
 </template>
 
@@ -83,15 +80,6 @@ export default {
   }),
 
   methods: {
-    test() {
-      //
-      axios
-        .get("test-route")
-        .then((res) => {
-          console.log("response is: ", res.data);
-        })
-        .catch((err) => console.log("error: ", err));
-    },
     nextStep() {
       if (
         this.order.src.country === "" ||

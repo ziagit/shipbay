@@ -138,10 +138,5 @@ Route::get('pages/privacy', function(){
 });
 
 Route::get("test", function () {
-  $user = Auth::user();
   return auth()->user()->roles[0]->name;
-});
-
-Route::get("test-route", function(){
-  return response()->json(["message"=>"Hi from api"]);
 });
