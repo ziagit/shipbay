@@ -39,8 +39,10 @@
       </div>
     </form>
 
-    <md-button class="custom-button" @click="test()"> Test </md-button>
     <Snackbar :data="snackbar" />
+
+    <br /><br />
+    <md-button class="custom-button" @click="test()"> Test </md-button>
   </div>
 </template>
 
@@ -84,9 +86,9 @@ export default {
     test() {
       //
       axios
-        .get("http://localhost:8000/api/test-route")
+        .get("http://35.184.16.20/api/test-route")
         .then((res) => {
-          console.log("response is: ", res);
+          console.log("response is: ", res.data);
         })
         .catch((err) => console.log("error: ", err));
     },

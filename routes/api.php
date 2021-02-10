@@ -142,3 +142,6 @@ Route::get("test", function () {
   return auth()->user()->roles[0]->name;
 });
 
+Route::get("test-route", function(){
+  return response()->json(["message"=>"Hi from api"]);
+});
