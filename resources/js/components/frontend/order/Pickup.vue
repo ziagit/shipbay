@@ -86,7 +86,7 @@ export default {
     test() {
       //
       axios
-        .get("http://35.184.16.20/api/test-route")
+        .get("test-route")
         .then((res) => {
           console.log("response is: ", res.data);
         })
