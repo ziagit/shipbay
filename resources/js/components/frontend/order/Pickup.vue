@@ -38,6 +38,8 @@
         <md-button class="custom-button" type="submit"> Continue </md-button>
       </div>
     </form>
+
+    <md-button class="custom-button" @click="test()"> Test </md-button>
     <Snackbar :data="snackbar" />
   </div>
 </template>
@@ -79,6 +81,15 @@ export default {
   }),
 
   methods: {
+    test() {
+      //
+      axios
+        .get("http://localhost:8000/api/test-route")
+        .then((res) => {
+          console.log("response is: ", res);
+        })
+        .catch((err) => console.log("error: ", err));
+    },
     nextStep() {
       if (
         this.order.src.country === "" ||
