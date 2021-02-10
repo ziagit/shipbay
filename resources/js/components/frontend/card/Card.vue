@@ -77,13 +77,10 @@
 import axios from "axios";
 import Snackbar from "../../shared/Snackbar";
 import Spinner from "../../shared/Spinner";
+import { mapGetters } from "vuex";
 
-/*var  stripe = Stripe("pk_test_0G9HHVR4XmO3EFy80yElsydL0011AX8fxz");
-var elements = stripe.elements(); */
-
-import { mapGetters, mapActions } from "vuex";
-//var stripe = Stripe(process.env.MIX_STRIPE_KEY);
-//var elements = stripe.elements();
+var stripe = Stripe(process.env.MIX_STRIPE_KEY);
+var elements = stripe.elements();
 
 var style = {
   base: {
