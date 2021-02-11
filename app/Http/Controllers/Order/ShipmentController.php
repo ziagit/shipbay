@@ -50,10 +50,10 @@ class ShipmentController extends Controller
     public function store(Request $request)
     {
         $shipperId = $this->storeShipper($request->shipper);
-        return response()->json($shipperId);
 
         if ($shipperId) {
             $orderId = $this->storeOrder($request, $shipperId);
+        return response()->json($orderId);
             
             $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
 
