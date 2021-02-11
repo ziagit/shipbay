@@ -112,7 +112,7 @@ Route::group(['namespace' => 'Order'], function () {
 
   Route::post('carriers-rate', 'CalculatorController@calculator');
 
-  Route::post('confirm', 'ShipmentController@store');
+  Route::post('confirm', 'ShipmentController@store')->name('confirm');
   Route::get('shipment-details/{id}', 'ShipmentController@show');
   Route::get('carrier-contacts/{id}', 'ShipmentController@carrierContacts');
 });
