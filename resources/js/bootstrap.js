@@ -40,6 +40,9 @@ window.Echo = new Echo({
     forceTLS: false,
     wsHost: window.location.hostname,
     wsPort: 6001,
+    wssHost: window.location.hostname,
+    wssPort: 6001,
+    enabledTransports: ['ws', 'wss'],
     disableStats: true,
     auth: {
         headers: {
