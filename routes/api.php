@@ -110,7 +110,7 @@ Route::group(['namespace' => 'Order'], function () {
   Route::get('item-type', 'OrderController@itemType');
   Route::get('item-condition', 'OrderController@itemCondition');
 
-  Route::post('carriers-rate', 'CalculatorController@calculator');
+  Route::post('carriers-rate', 'CalculatorController@calculator')->name('carriers-rate');
 
   Route::post('confirm', 'ShipmentController@store')->name('confirm');
   Route::get('shipment-details/{id}', 'ShipmentController@show');
