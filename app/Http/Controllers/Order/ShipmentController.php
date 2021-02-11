@@ -14,6 +14,7 @@ use App\Address;
 use App\Contact;
 use App\Country;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,6 +50,7 @@ class ShipmentController extends Controller
      */
     public function store(Request $request)
     {
+      try{
         $shipperId = $this->storeShipper($request->shipper);
 
         if ($shipperId) {
@@ -57,17 +59,16 @@ class ShipmentController extends Controller
             $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
 
             $user  = Carrier::with('user')->find($request->carrier['id'])->user;
-
             $admin = User::find(1);
 
-            //$notificatied = $user->notify(new JobCreated($job));
+            $user->notify(new JobCreated($job));
 
-            //$notificatied=$admin->notify(new JobCreated($job));
-            //return response()->json($notificatied);
-
-            return response()->json("successfull");
+            $admin->notify(new JobCreated($job));
+            return response()->json($user->notifications);
         }
-        return response()->json(['message' => 'Shipper not found!'], 404);
+      }catch(Exception $e){
+          return response()->json($e->getMessage());
+      }
     }
     public function storeOrder($request, $shipperId)
     {
