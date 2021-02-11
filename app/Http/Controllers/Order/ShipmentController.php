@@ -62,10 +62,10 @@ class ShipmentController extends Controller
 
             //$notificatied = $user->notify(new JobCreated($job));
 
-            $notificatied=$admin->notify(new JobCreated($job));
-            return response()->json($notificatied);
+            //$notificatied=$admin->notify(new JobCreated($job));
+            //return response()->json($notificatied);
 
-            return response()->json($user->notifications);
+            return response()->json("successfull");
         }
         return response()->json(['message' => 'Shipper not found!'], 404);
     }
