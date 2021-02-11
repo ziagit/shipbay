@@ -53,9 +53,9 @@ class ShipmentController extends Controller
 
         if ($shipperId) {
             $orderId = $this->storeOrder($request, $shipperId);
-        return response()->json($orderId);
             
             $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
+            return response()->json($job);
 
             $user  = Carrier::with('user')->find($request->carrier['id'])->user;
             $admin = User::find(1);
