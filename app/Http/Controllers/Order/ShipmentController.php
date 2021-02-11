@@ -55,9 +55,10 @@ class ShipmentController extends Controller
             $orderId = $this->storeOrder($request, $shipperId);
             
             $job = $this->createNewJob($orderId, $shipperId, $request->carrier);
-            return response()->json($job);
 
             $user  = Carrier::with('user')->find($request->carrier['id'])->user;
+            return response()->json($user);
+
             $admin = User::find(1);
 
             $user->notify(new JobCreated($job));
