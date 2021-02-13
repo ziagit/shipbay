@@ -14,14 +14,14 @@
     <md-dialog :md-active.sync="addTogal">
       <md-dialog-title>Add New Rate</md-dialog-title>
       <md-dialog-content>
-        <AddRate v-on:close-dialog="refresh" />
+        <Add v-on:close-dialog="refresh" />
       </md-dialog-content>
     </md-dialog>
     <!--edit -->
     <md-dialog :md-active.sync="editTogal">
       <md-dialog-title>Update Rate</md-dialog-title>
       <md-dialog-content>
-        <EditRate v-on:close-dialog="refresh" :rate="rate" />
+        <Edit v-on:close-dialog="refresh" :rate="rate" />
       </md-dialog-content>
     </md-dialog>
 
@@ -94,8 +94,8 @@
 
 <script>
 import axios from "axios";
-import AddRate from "./AddRate";
-import EditRate from "./EditRate";
+import Add from "./Add";
+import Edit from "./Edit";
 export default {
   name: "rate",
   data: () => ({
@@ -172,8 +172,8 @@ export default {
     this.get();
   },
   components: {
-    AddRate,
-    EditRate,
+    Add,
+    Edit,
   },
 };
 </script>

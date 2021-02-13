@@ -14,14 +14,14 @@
     <md-dialog :md-active.sync="editTogal">
       <md-dialog-title>Update terms</md-dialog-title>
       <md-dialog-content>
-        <EditTerm v-on:close-dialog="refresh" :term="term" />
+        <Edit v-on:close-dialog="refresh" :term="term" />
       </md-dialog-content>
     </md-dialog>
     <!-- add dialog -->
     <md-dialog :md-active.sync="addTogal">
       <md-dialog-title>Add terms</md-dialog-title>
       <md-dialog-content>
-        <AddTerm v-on:close-dialog="refresh" />
+        <Add v-on:close-dialog="refresh" />
       </md-dialog-content>
     </md-dialog>
 
@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import AddTerm from "./AddTerm";
-import EditTerm from "./EditTerm";
+import Add from "./Add";
+import Edit from "./Edit";
 import axios from "axios";
 
 export default {
@@ -136,8 +136,8 @@ export default {
   },
 
   components: {
-    AddTerm,
-    EditTerm,
+    Add,
+    Edit,
   },
 };
 </script>

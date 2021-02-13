@@ -51,7 +51,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('shipper-address', "ShipperAccountController@shipperAddress");
   });
   Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'role'], function () {
-    Route::resource('terms', 'AdminTermsController');
+    Route::resource('about', 'company\AdminAboutController');
+    Route::resource('terms', 'company\AdminTermsController');
+    Route::resource('privacy', 'company\AdminPrivacyController');
+    Route::resource('carrier-faq', 'company\AdminCarrierFAQController');
+    Route::resource('shipper-faq', 'company\AdminShipperFAQController');
     Route::resource('countries', 'AdminCountryController');
     Route::get('search-country', 'AdminCountryController@search');
     Route::resource('states', 'AdminStateController');
@@ -75,7 +79,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('search-shipper', 'AdminShipperController@search');
     Route::resource('orders', 'AdminOrderController');
     Route::get('search-order', 'AdminOrderController@search');
-    Route::resource('about', 'Company\AdminAboutController');
     Route::resource('contact', 'Company\AdminContactController');
     Route::resource('services', 'Company\AdminServiceController');
     Route::get('search-service', 'AdminServiceController@search');

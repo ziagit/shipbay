@@ -92,7 +92,6 @@ import Users from './components/backend/users/Users'
 
 import About from './components/backend/company/about/About'
 import Contact from './components/backend/company/contact/Contact'
-import Services from './components/backend/company/services/Services'
 import TermsAdmin from './components/backend/company/terms/Terms'
 
 import store from './store'
