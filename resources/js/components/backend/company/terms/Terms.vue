@@ -53,7 +53,7 @@
       <md-table-row v-for="term in terms" :key="term.id">
         <md-table-cell md-numeric>{{ term.id }}</md-table-cell>
         <md-table-cell>{{ term.title }}</md-table-cell>
-        <md-table-cell>{{ term.body }}</md-table-cell>
+        <md-table-cell v-html="term.body"></md-table-cell>
 
         <md-table-cell md-label="Actions">
           <md-button class="md-icon-button md-primary" @click="edit(term)">
@@ -93,6 +93,7 @@ export default {
       axios
         .get("admin/terms")
         .then((res) => {
+          console.log(res.data);
           this.terms = res.data;
         })
         .catch((err) => {
@@ -120,7 +121,7 @@ export default {
 
     confirm() {
       axios
-        .delete("admin/term/" + this.selectedId)
+        .delete("admin/terms/" + this.selectedId)
         .then((res) => {
           console.log("deleted", res.data);
           this.get();

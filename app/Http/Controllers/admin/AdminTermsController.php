@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Term;
 use Illuminate\Http\Request;
 
 class AdminTermsController extends Controller
@@ -14,7 +15,7 @@ class AdminTermsController extends Controller
      */
     public function index()
     {
-        return "hi";
+        return response()->json(Term::all());
     }
 
     /**
@@ -35,7 +36,11 @@ class AdminTermsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $term = new Term();
+        $term->title = $request->title;
+        $term->body = $request->body;
+        $term->save();
+        return response()->json(["message"=> "Saved successfully!"]);
     }
 
     /**
@@ -80,6 +85,8 @@ class AdminTermsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $term = Term::find($id);
+        $term->delete();
+        return response()->json(["message"=>"Deleted successfully!"]);
     }
 }

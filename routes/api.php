@@ -1,5 +1,6 @@
 <?php
 use App\PrivacyPage;
+use App\Term;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -121,6 +122,9 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('addresses', 'AddressController@index');
   Route::get('search-state/{country}','AddressController@searchState');
   Route::get('search-city/{state}','AddressController@searchCity');
+});
+Route::get("get-terms", function(){
+return response()->json(Term::first());
 });
 Route::resource('rating', 'Carrier\RatingController');
 Route::resource('review', 'Carrier\ReviewController');

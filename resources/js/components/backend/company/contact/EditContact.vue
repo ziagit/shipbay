@@ -4,11 +4,15 @@
       <md-card>
         <md-card-content>
           <md-content class="md-layout">
-              <md-field class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100">
+            <md-field
+              class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100"
+            >
               <label>Phone</label>
               <md-input v-model="form.phone"></md-input>
             </md-field>
-            <md-field class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100">
+            <md-field
+              class="md-layout-item md-large-size-100 md-small-size-100 md-xsmall-size-100"
+            >
               <label>Email</label>
               <md-input v-model="form.email"></md-input>
             </md-field>
@@ -46,7 +50,6 @@ export default {
           console.log("Error: ", err);
         });
     },
-
   },
   created() {
     this.form.phone = this.contact.phone;

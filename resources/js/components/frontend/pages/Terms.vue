@@ -1,10 +1,7 @@
 <template>
   <div class="services">
     <div class="section0">
-      <Header
-        v-on:togal-menu="$emit('togal-menu')"
-        :scrollValue="scrollValue"
-      />
+      <Header v-on:togal-menu="$emit('togal-menu')" :scrollValue="scrollValue" />
       <div class="content">
         <div class="md-display-1">Terms of Use</div>
         <div class="md-body-1">Read our terms and conditions</div>
@@ -16,7 +13,7 @@
     <div class="section1">
       <div class="wrapper">
         <div class="left">
-          <div class="md-body-1">
+          <!-- <div class="md-body-1">
             These Terms and Conditions (“Terms”) constitute a legal Agreement
             between you and, Shipping Tap and its parent company EG Logistics
             Inc. (collectively, “The Company”), (“We”, “Us”, or “Our”). The
@@ -570,8 +567,10 @@
           <div class="md-body-1">
             If you have any questions or comments about these Terms, pl ease
             contact us at legal@shippingtap.com
-          </div>
+          </div> -->
+          <div v-html="terms"></div>
         </div>
+
         <div class="right">
           <div class="qoute">
             <div class="md-title">Get a Free Shipping Qoute</div>
@@ -604,9 +603,7 @@
           </div>
           <div class="privacy">
             <div class="md-title">Privacy Policies</div>
-            <div class="md-body-1">
-              Do you want to know about our privacies?
-            </div>
+            <div class="md-body-1">Do you want to know about our privacies?</div>
             <div>
               <router-link to="/privacy-policies">More</router-link>
               <md-icon>keyboard_arrow_right</md-icon>
@@ -648,6 +645,7 @@ export default {
   name: "services",
   props: ["scrollValue"],
   data: () => ({
+    terms: null,
     form: {
       city: null,
       option: false,
@@ -655,7 +653,17 @@ export default {
     business: "business",
     residential: "residential",
   }),
-  methods: {},
+  methods: {
+    get() {
+      axio.get("get-terms").then((res) => {
+        console.log(res.data.body);
+        this.terms = res.data.body;
+      });
+    },
+  },
+  created() {
+    this.get();
+  },
   components: {
     Header,
     Footer,
