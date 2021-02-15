@@ -79,8 +79,8 @@ import Snackbar from "../../shared/Snackbar";
 import Spinner from "../../shared/Spinner";
 import { mapGetters } from "vuex";
 
-//var stripe = Stripe(process.env.MIX_STRIPE_KEY);
-//var elements = stripe.elements();
+var stripe = Stripe(process.env.MIX_STRIPE_KEY);
+var elements = stripe.elements();
 
 var style = {
   base: {
