@@ -16,7 +16,7 @@ class CarrierFaqSeeder extends Seeder
 
         $cities =  [
             [
-                'title' => '',
+                'title' => 'Equipment types',
                 'body' => '
                 <div class="md-body-1">
                 Currently, you must have at least one of the equipment types from this list:

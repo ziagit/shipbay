@@ -9,6 +9,12 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
+
+        //if you get error; NameSeeder does not exist
+        // run this
+        //composer dump-autoload
+        //php artisan optimize
+        //php artisan db:seed
     public function run()
     {
         $this->call(RoleSeeder::class);
