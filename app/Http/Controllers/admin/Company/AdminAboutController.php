@@ -37,12 +37,11 @@ class AdminAboutController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'description' => 'required',
-        ]);
+   
         $about = new About();
 
-        $about->description = $request->description;
+        $about->title = $request->title;
+        $about->body = $request->body;
 
         $about->save();
         return response()->json(["message" => "Saved Successfully."], 200);
@@ -79,15 +78,11 @@ class AdminAboutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'description' => 'required',
-        ]);
         $about = about::find($id);
-
-        $about->description = $request->description;
-
-        $about->save();
-        return response()->json(["message" => "Saved Successfully."], 200);
+        $about->title = $request->title;
+        $about->body = $request->body;
+        $about->update();
+        return response()->json(["message" => "Updated Successfully."], 200);
     }
 
     /**

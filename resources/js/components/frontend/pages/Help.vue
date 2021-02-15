@@ -33,7 +33,8 @@
             )
           "
         >
-          <HowItWorks />
+          <!--  <FAQ /> -->
+          <Test />
         </md-tab>
         <md-tab
           id="tab-carrier"
@@ -46,7 +47,7 @@
             )
           "
         >
-          <CarrierHelp />
+          <CarrierFaq />
         </md-tab>
         <md-tab
           id="tab-shipper"
@@ -59,7 +60,7 @@
             )
           "
         >
-          <ShipperHelp />
+          <ShipperFaq />
         </md-tab>
       </md-tabs>
     </div>
@@ -69,13 +70,12 @@
 </template>
 
 <script>
-import axio from "axios";
 import Footer from "../../shared/Footer";
 import Header from "../../shared/Header";
-import CarrierHelp from "./CarrierHelp";
-import ShipperHelp from "./ShipperHelp";
-import HowItWorks from "./HowItWorks";
+import CarrierFaq from "./CarrierFaq";
+import ShipperFaq from "./ShipperFaq";
 import FAQ from "./FAQ";
+import Test from "./Test";
 export default {
   name: "ContactUs",
   data: () => ({
@@ -100,10 +100,10 @@ export default {
   components: {
     Footer,
     Header,
-    CarrierHelp,
-    ShipperHelp,
-    HowItWorks,
+    CarrierFaq,
+    ShipperFaq,
     FAQ,
+    Test,
   },
 };
 </script>

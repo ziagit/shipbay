@@ -76,6 +76,24 @@
           <md-list-item class="md-inset" to="/admin/terms" @click="hideMenu()"
             >Terms</md-list-item
           >
+          <md-list-item class="md-inset" to="/admin/privacy" @click="hideMenu()"
+            >Privacy</md-list-item
+          >
+          <md-list-item class="md-inset" to="/admin/shipper-help" @click="hideMenu()"
+            >Shipper</md-list-item
+          >
+          <md-list-item class="md-inset" to="/admin/carrier-help" @click="hideMenu()"
+            >Carrier</md-list-item
+          >
+          <md-list-item class="md-inset" to="/admin/help" @click="hideMenu()"
+            >Help</md-list-item
+          >
+          <md-list-item class="md-inset" to="/admin/carrier-faq" @click="hideMenu()"
+            >Carrier FAQ</md-list-item
+          >
+          <md-list-item class="md-inset" to="/admin/shipper-faq" @click="hideMenu()"
+            >Shipper FAQ</md-list-item
+          >
         </md-list>
       </md-list-item>
 

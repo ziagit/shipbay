@@ -14,14 +14,14 @@
     <md-dialog :md-active.sync="editTogal">
       <md-dialog-title>Update about</md-dialog-title>
       <md-dialog-content>
-        <EditAbout v-on:close-dialog="refresh" :about="about" />
+        <Edit v-on:close-dialog="refresh" :about="about" />
       </md-dialog-content>
     </md-dialog>
     <!-- add dialog -->
     <md-dialog :md-active.sync="addTogal">
       <md-dialog-title>Add new </md-dialog-title>
       <md-dialog-content>
-        <AddAbout v-on:close-dialog="refresh" />
+        <Add v-on:close-dialog="refresh" />
       </md-dialog-content>
     </md-dialog>
 
@@ -40,12 +40,14 @@
       </md-table-empty-state>
       <md-table-row>
         <md-table-head md-numeric>ID</md-table-head>
-        <md-table-head>Description</md-table-head>
+        <md-table-head>Titel</md-table-head>
+        <md-table-head>Body</md-table-head>
         <md-table-head>Actions</md-table-head>
       </md-table-row>
       <md-table-row v-for="about in abouts" :key="about.id">
         <md-table-cell md-numeric>{{ about.id }}</md-table-cell>
-        <md-table-cell>{{ about.description }}</md-table-cell>
+        <md-table-cell>{{ about.title }}</md-table-cell>
+        <md-table-cell>{{ about.body }}</md-table-cell>
 
         <md-table-cell md-label="Actions">
           <md-button class="md-icon-button md-primary" @click="edit(about)">
@@ -65,8 +67,8 @@
 </template>
 
 <script>
-import AddAbout from "./AddAbout";
-import EditAbout from "./EditAbout";
+import Add from "./Add";
+import Edit from "./Edit";
 import axios from "axios";
 
 export default {
@@ -128,8 +130,8 @@ export default {
   },
 
   components: {
-    AddAbout,
-    EditAbout,
+    Add,
+    Edit,
   },
 };
 </script>

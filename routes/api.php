@@ -1,4 +1,6 @@
 <?php
+
+use App\Privacy;
 use App\PrivacyPage;
 use App\Term;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +54,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('shipper-address', "ShipperAccountController@shipperAddress");
   });
   Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'role'], function () {
-    Route::resource('terms', 'AdminTermsController');
+    Route::resource('about', 'company\AdminAboutController');
+    Route::resource('terms', 'company\AdminTermsController');
+    Route::resource('privacy', 'company\AdminPrivacyController');
+    Route::resource('carrier-faq', 'company\AdminCarrierFAQController');
+    Route::resource('shipper-faq', 'company\AdminShipperFAQController');
     Route::resource('countries', 'AdminCountryController');
     Route::get('search-country', 'AdminCountryController@search');
     Route::resource('states', 'AdminStateController');
@@ -76,7 +82,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('search-shipper', 'AdminShipperController@search');
     Route::resource('orders', 'AdminOrderController');
     Route::get('search-order', 'AdminOrderController@search');
-    Route::resource('about', 'Company\AdminAboutController');
     Route::resource('contact', 'Company\AdminContactController');
     Route::resource('services', 'Company\AdminServiceController');
     Route::get('search-service', 'AdminServiceController@search');
@@ -123,9 +128,13 @@ Route::group(['namespace' => 'Location'], function () {
   Route::get('search-state/{country}','AddressController@searchState');
   Route::get('search-city/{state}','AddressController@searchCity');
 });
-Route::get("get-terms", function(){
-return response()->json(Term::first());
-});
+Route::get("get-terms", "PageController@terms");
+Route::get("get-privacy", "PageController@privacy");
+Route::get("get-faq", "PageController@faq");
+Route::get("get-carrier-faq", "PageController@carrierFaq");
+Route::get("get-shipper-faq", "PageController@shipperFaq");
+Route::get("get-about", "PageController@about");
+
 Route::resource('rating', 'Carrier\RatingController');
 Route::resource('review', 'Carrier\ReviewController');
 Route::get("stripe-key", function(){

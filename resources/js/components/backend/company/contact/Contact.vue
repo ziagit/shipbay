@@ -14,14 +14,14 @@
     <md-dialog :md-active.sync="editTogal">
       <md-dialog-title>Update contact data</md-dialog-title>
       <md-dialog-content>
-        <EditContact v-on:close-dialog="refresh" :contact="contact" />
+        <Edit v-on:close-dialog="refresh" :contact="contact" />
       </md-dialog-content>
     </md-dialog>
     <!-- add dialog -->
     <md-dialog :md-active.sync="addTogal">
       <md-dialog-title>Add new contact</md-dialog-title>
       <md-dialog-content>
-        <AddContact v-on:close-dialog="refresh" />
+        <Add v-on:close-dialog="refresh" />
       </md-dialog-content>
     </md-dialog>
 
@@ -40,7 +40,9 @@
         md-label="No state found"
         :md-description="`No state found for this query. Try a different search term or create a new state.`"
       >
-        <md-button class="md-primary md-raised" @click="add()">Create new contact</md-button>
+        <md-button class="md-primary md-raised" @click="add()"
+          >Create new contact</md-button
+        >
       </md-table-empty-state>
       <md-table-row>
         <md-table-head md-numeric>ID</md-table-head>
@@ -50,7 +52,7 @@
       </md-table-row>
       <md-table-row v-for="contact in contacts" :key="contact.id">
         <md-table-cell md-numeric>{{ contact.id }}</md-table-cell>
-        <md-table-cell >{{ contact.phone }}</md-table-cell>
+        <md-table-cell>{{ contact.phone }}</md-table-cell>
         <md-table-cell>{{ contact.email }}</md-table-cell>
 
         <md-table-cell md-label="Actions">
@@ -62,7 +64,6 @@
           </md-button>
         </md-table-cell>
       </md-table-row>
-      
     </md-table>
     <md-button class="md-fab md-primary add-btn" @click="add()">
       <md-icon>add</md-icon>
@@ -72,10 +73,9 @@
 </template>
 
 <script>
-import AddContact from "./AddContact";
-import EditContact from "./EditContact";
+import Add from "./Add";
+import Edit from "./Edit";
 import axios from "axios";
-
 
 export default {
   name: "Contact",
@@ -136,8 +136,8 @@ export default {
   },
 
   components: {
-    AddContact,
-    EditContact,
+    Add,
+    Edit,
   },
 };
 </script>
@@ -150,5 +150,4 @@ export default {
     right: 20px;
   }
 }
-
 </style>

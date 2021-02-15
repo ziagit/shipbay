@@ -92,8 +92,13 @@ import Users from './components/backend/users/Users'
 
 import About from './components/backend/company/about/About'
 import Contact from './components/backend/company/contact/Contact'
-import Services from './components/backend/company/services/Services'
 import TermsAdmin from './components/backend/company/terms/Terms'
+import PrivacyAdmin from './components/backend/company/privacy/Privacy'
+import HelpCenterAdmin from './components/backend/company/help/Help'
+import CarrierInfoAdmin from './components/backend/company/carrier/Carrier'
+import ShipperInfoAdmin from './components/backend/company/shipper/Shipper'
+import CarrierFaqAdmin from './components/backend/company/carrier-faq/FAQ'
+import ShipperFaqAdmin from './components/backend/company/shipper-faq/FAQ'
 
 import store from './store'
 
@@ -303,8 +308,13 @@ export default new VueRouter({
 
                         { name: 'about', path: 'about', component: About },
                         { name: 'contact', path: 'contact', component: Contact },
-                        { name: 'services', path: 'services', component: Services },
                         { name: 'terms', path: 'terms', component: TermsAdmin },
+                        { name: 'privacy', path: 'privacy', component: PrivacyAdmin },
+                        { name: 'carrier-help', path: 'carrier-help', component: CarrierInfoAdmin },
+                        { name: 'shipper-help', path: 'shipper-help', component: ShipperInfoAdmin },
+                        { name: 'carrier-faq', path: 'carrier-faq', component: CarrierFaqAdmin },
+                        { name: 'shipper-faq', path: 'shipper-faq', component: ShipperFaqAdmin },
+                        { name: 'help', path: 'help', component: HelpCenterAdmin },
                     ],
                     beforeEnter: webGuard
                 }

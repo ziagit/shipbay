@@ -28,5 +28,12 @@ class DatabaseSeeder extends Seeder
         $this->call(AccessorySeeder::class);
         $this->call(RateSeeder::class);
         $this->call(ItemSeeder::class);
+
+        $this->call(AboutSeeder::class);
+        $this->call(FaqSeeder::class);
+        $this->call(CarrierFaqSeeder::class);
+        $this->call(ShipperFaqSeeder::class);
+        $this->call(TermsSeeder::class);
+        $this->call(PrivacySeeder::class);
     }
 }
