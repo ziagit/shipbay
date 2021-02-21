@@ -44,13 +44,13 @@ class AccessorySeeder extends Seeder
                 'code' => 'st'
             ],
             [
+                'name' => 'Dangerous Goods',
+                'code' => 'dg'
+            ],
+            [
                 'name' => 'Temperature sensitive',
                 'code' => 'tm'
             ],
-            [
-                'name' => 'Dangerous Goods',
-                'code' => 'dg'
-            ]
         ];
         Accessory::insert($accessories);
         $accessory = Accessory::find(1);
